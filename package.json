@@ -41,5 +41,25 @@
   },
   "engines": {
     "node": ">=0.10.0"
-  }
+  },
+  "description": "User-centred direct delivery management system",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eHealthAfrica/direct-delivery.git"
+  },
+  "keywords": [
+    "delivery",
+    "logistics",
+    "ehealth"
+  ],
+  "author": "eHealth Africa",
+  "license": "All rights reserved",
+  "bugs": {
+    "url": "https://github.com/eHealthAfrica/direct-delivery/issues"
+  },
+  "homepage": "https://github.com/eHealthAfrica/direct-delivery"
 }

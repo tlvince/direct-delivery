@@ -7,7 +7,8 @@ angular.module('directDelivery')
       abstract: true,
       views: {
         root: {
-          templateUrl: 'app/index.html'
+          templateUrl: 'app/index.html',
+          controller: 'IndexCtrl'
         }
       }
     })

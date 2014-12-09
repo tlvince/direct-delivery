@@ -9,6 +9,7 @@
     <!-- build:css({.tmp,src}) styles/vendor.css -->
     <link rel="stylesheet" href="app/vendor.css">
     <!-- bower:css -->
+    <link rel="stylesheet" href="../bower_components/angular-toastr/dist/angular-toastr.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -27,20 +28,28 @@
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="../bower_components/angular-toastr/dist/angular-toastr.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,src}) scripts/app.js -->
     <!-- inject:js -->
+    <script src="components/log/log.module.js"></script>
+    <script src="components/log/messages/warning.constants.js"></script>
+    <script src="components/log/messages/success.constants.js"></script>
+    <script src="components/log/messages/info.constants.js"></script>
+    <script src="components/log/messages/error.constants.js"></script>
     <script src="components/navbar/navbar.module.js"></script>
     <script src="components/navbar/navbar.service.js"></script>
     <script src="components/navbar/navbar.controller.js"></script>
+    <script src="components/log/log.service.js"></script>
     <script src="components/footer/footer.module.js"></script>
     <script src="components/footer/footer.controller.js"></script>
     <script src="app/home/home.module.js"></script>
     <script src="app/home/home.states.js"></script>
     <script src="app/index.module.js"></script>
     <script src="app/index.states.js"></script>
+    <script src="app/index.controller.js"></script>
     <script src="app/config.js"></script>
     <!-- endinject -->
 

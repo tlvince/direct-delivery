@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var favicons = require('favicons');
 var bowerJSON = require('../bower.json');
 
 var $ = require('gulp-load-plugins')({
@@ -131,9 +132,13 @@ gulp.task('fonts', function () {
     .pipe(gulp.dest('dist/fonts/'));
 });
 
-gulp.task('misc', function () {
-  return gulp.src('src/**/*.ico')
-    .pipe(gulp.dest('dist/'));
+gulp.task('favicons', function () {
+  return favicons({
+    source: 'src/assets/images/icon.png',
+    dest: 'dist',
+    background: '#FFF',
+    url: ''
+  });
 });
 
 gulp.task('clean', function (done) {
@@ -156,4 +161,4 @@ gulp.task('config', function() {
     .pipe(gulp.dest('src/app'));
 });
 
-gulp.task('build', ['config', 'html', 'images', 'fonts', 'misc']);
+gulp.task('build', ['config', 'html', 'images', 'fonts', 'favicons']);

@@ -1,8 +1,11 @@
 'use strict';
 
+var fs = require('fs');
 var gulp = require('gulp');
+var ngConfig = require('ng-config');
 var favicons = require('favicons');
-var bowerJSON = require('../bower.json');
+
+var config = require('../config');
 
 var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
@@ -95,7 +98,7 @@ gulp.task('html', ['wiredep', 'injector:css', 'injector:js', 'partials'], functi
     .pipe($.uglify({preserveComments: $.uglifySaveLicense}))
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
-    .pipe($.replace('bower_components/bootstrap-sass-official/assets/fonts/bootstrap','fonts'))
+    .pipe($.replace('bower_components/bootstrap-sass-official/assets/fonts/bootstrap', 'fonts'))
     .pipe($.csso())
     .pipe(cssFilter.restore())
     .pipe(assets.restore())
@@ -146,19 +149,11 @@ gulp.task('clean', function (done) {
 });
 
 gulp.task('config', function() {
-  return gulp.src('config/config.json')
-    .pipe($.ngConstant({
-      name: 'config',
-      constants: {
-        config: {
-          name: bowerJSON.name,
-          version: bowerJSON.version,
-          author: bowerJSON.authors[0]
-        }
-      },
-      space: ' '
-    }))
-    .pipe(gulp.dest('src/app'));
+  var options = {
+    constants: config
+  };
+  var ngconf = ngConfig(options);
+  return fs.writeFileSync('src/app/config.js', ngconf);
 });
 
 gulp.task('build', ['config', 'html', 'images', 'fonts', 'favicons']);

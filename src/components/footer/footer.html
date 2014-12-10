@@ -1,9 +1,12 @@
 <footer id="footer">
   <div class="container">
     <small class="text-muted">
-      <span ng-bind="'© ' + footerCtrl.year"></span>
-      <span>eHealth Africa</span>
-      <span class="pull-right" ng-bind="'v' + footerCtrl.version"></span>
+      <span>©</span>
+      <span ng-bind="::footerCtrl.year"></span>
+      <span ng-bind="::footerCtrl.author"></span>
+      <span class="pull-right">
+        <span>v</span><span ng-bind="::footerCtrl.version"></span>
+      </span>
       <nav role="navigation">
         <ul class="list-inline">
           <li>

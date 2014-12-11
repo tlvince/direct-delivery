@@ -7,5 +7,5 @@ angular.module('directDelivery', [
   'navbar',
   'footer',
   'home',
-  'log'
+  'log',
 ]);

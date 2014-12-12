@@ -5,5 +5,6 @@ angular.module('directDelivery')
     function stateChangeError(event) {
       log.error('stateChangeError', event);
     }
+
     $rootScope.$on('$stateChangeError', stateChangeError);
   });

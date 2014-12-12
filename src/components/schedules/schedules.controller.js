@@ -5,5 +5,5 @@
 
 angular.module('scheduler')
   .controller('schedulesCtrl', function(){
-    console.log('schedules controller');
+
   });

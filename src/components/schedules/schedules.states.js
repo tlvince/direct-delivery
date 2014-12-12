@@ -20,4 +20,7 @@ angular.module('scheduler')
         controller: 'schedulesCtrl',
         //parent: 'home'
      })
+      .state('schedule-day', {
+        
+      })
   });

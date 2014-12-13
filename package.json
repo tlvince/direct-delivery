@@ -5,6 +5,7 @@
   "devDependencies": {
     "browser-sync": "~1.7.1",
     "chalk": "~0.5.1",
+    "couch-compile": "^1.2.0",
     "data_model": "git+ssh://git@github.com:eHealthAfrica/data_model.git",
     "del": "~0.1.3",
     "eslint": "^0.10.1",

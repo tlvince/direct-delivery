@@ -1,0 +1,130 @@
+{
+  "docs": [
+    {
+      "doc_type": "product",
+      "_id": "ADS-0.05ml",
+      "code": "ADS-0.05ml",
+      "name": "Auto-Disable Syringes 0.05ml",
+      "description": "auto disable 0.05ml syringe for injection",
+      "baseUOM": "6240f4fb-1416-4d16-b124-f1641d541dcb",
+      "active": true
+    },
+    {
+      "doc_type": "product",
+      "_id": "SB-2.5L",
+      "code": "SB-2.5L",
+      "name": "Safety Boxes 2.5 Litres",
+      "baseUOM": "6240f4fb-1416-4d16-b124-f1641d541dcb",
+      "description": "",
+      "active": true
+    },
+    {
+      "doc_type": "product",
+      "_id": "Syr-Dil-2ml",
+      "code": "Syr-Dil-2ml",
+      "name": "Dilution Syringe 2ml",
+      "baseUOM": "6240f4fb-1416-4d16-b124-f1641d541dcb",
+      "description": "2ml syringe for dilution",
+      "active": true
+    },
+    {
+      "doc_type": "product",
+      "_id": "OPV",
+      "code": "OPV",
+      "name": "Oral Polio Vaccine",
+      "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
+      "description": "",
+      "active": true
+    },
+    {
+      "doc_type": "product",
+      "_id": "Measles",
+      "code": "Measles",
+      "name": "Measles Vaccine",
+      "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
+      "description": "",
+      "active": true
+    },
+    {
+      "doc_type": "product",
+      "_id": "HepB",
+      "code": "HepB",
+      "name": "Hepatitis B Vaccine",
+      "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
+      "description": "it is a protection against cervical cancer.",
+      "active": true
+    },
+    {
+      "doc_type": "product",
+      "_id": "Penta",
+      "code": "Penta",
+      "name": "Penta Vaccine",
+      "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
+      "description": "Five in one combination vaccine against diseases. ",
+      "active": true
+    },
+    {
+      "doc_type": "product",
+      "_id": "YF",
+      "code": "YF",
+      "name": "Yellow Fever Vaccine",
+      "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
+      "description": "Yellow fever vaccine is a vaccine used against yellow fever.",
+      "active": true
+    },
+    {
+      "doc_type": "product",
+      "_id": "TT",
+      "code": "TT",
+      "name": "Tetanus Toxoid Vaccine",
+      "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
+      "description": "",
+      "active": true
+    },
+    {
+      "doc_type": "product",
+      "_id": "BCG",
+      "code": "BCG",
+      "name": "Bacille Calmette-Gu\u00e9rin Vaccine",
+      "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
+      "description": "A vaccine against tuberculosis, prepared from a strain of the attenuated live Mycobacterium bovis",
+      "active": true
+    },
+    {
+      "doc_type": "product",
+      "_id": "Men-A",
+      "code": "Men-A",
+      "name": "Meningitis A Vaccine",
+      "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
+      "description": "",
+      "active": true
+    },
+    {
+      "doc_type": "product",
+      "_id": "HPV",
+      "code": "HPV",
+      "name": "Human Papilloma Virus Vaccine",
+      "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
+      "description": "HPV prevents infections such cervical cancer, genital warts, and some less common cancers",
+      "active": true
+    },
+    {
+      "doc_type": "product",
+      "_id": "HepA",
+      "code": "HepA",
+      "name": "Hepatitis A",
+      "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
+      "description": "vaccine against hepatitis A virus.",
+      "active": true
+    },
+    {
+      "doc_type": "product",
+      "_id": "DT",
+      "code": "DT",
+      "name": "Diphtheria-Tetanus Pediatrics Vaccine",
+      "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
+      "description": "Diphtheria-Tetanus vaccine for children",
+      "active": true
+    }
+  ]
+}

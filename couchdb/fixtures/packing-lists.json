@@ -1,0 +1,60 @@
+{
+  "docs": [
+    {
+      "doc_type": "packingList",
+      "_id": "packing-list/bcg/10",
+      "version": "1.0.0",
+      "productID": "BCG",
+      "expectedQty": 10
+    },
+    {
+      "doc_type": "packingList",
+      "_id": "packing-list/bcg/200",
+      "version": "1.0.0",
+      "productID": "BCG",
+      "expectedQty": 200
+    },
+    {
+      "doc_type": "packingList",
+      "_id": "packing-list/bcg/260",
+      "version": "1.0.0",
+      "productID": "BCG",
+      "expectedQty": 260
+    },
+    {
+      "doc_type": "packingList",
+      "_id": "packing-list/bcg/260",
+      "version": "1.0.0",
+      "productID": "BCG",
+      "expectedQty": 260
+    },
+    {
+      "doc_type": "packingList",
+      "_id": "packing-list/men-a/150",
+      "version": "1.0.0",
+      "productID": "Men-A",
+      "expectedQty": 150
+    },
+    {
+      "doc_type": "packingList",
+      "_id": "packing-list/men-a/290",
+      "version": "1.0.0",
+      "productID": "Men-A",
+      "expectedQty": 290
+    },
+    {
+      "doc_type": "packingList",
+      "_id": "packing-list/opv/498",
+      "version": "1.0.0",
+      "productID": "OPV",
+      "expectedQty": 498
+    },
+    {
+      "doc_type": "packingList",
+      "_id": "packing-list/opv/630",
+      "version": "1.0.0",
+      "productID": "OPV",
+      "expectedQty": 630
+    }
+  ]
+}

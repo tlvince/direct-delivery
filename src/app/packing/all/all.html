@@ -1,0 +1,8 @@
+<ul>
+  <li ng-repeat="packingID in packingAllCtrl.packings">
+    <a
+      ui-sref="packing.item({id: packingID})"
+      ng-bind="packingID"
+    ></a>
+  </li>
+</ul>

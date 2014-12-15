@@ -1,0 +1,11 @@
+<h2 ng-bind="packingItemCtrl.name"></h2>
+<table class="table table-striped">
+  <tr>
+    <th>Product</th>
+    <th>Expected Quantity</th>
+  </tr>
+  <tr ng-repeat="(id, qty) in packingItemCtrl.packingLists">
+    <td ng-bind="id"></td>
+    <td ng-bind="qty"></td>
+  </tr>
+</table>

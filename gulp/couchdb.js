@@ -1,6 +1,7 @@
 'use strict';
 
 var got = require('got');
+var glob = require('glob');
 var gulp = require('gulp');
 var compile = require('couch-compile');
 var dataModel = require('data-model');
@@ -71,12 +72,22 @@ gulp.task('fixtures-validate', function() {
 });
 
 gulp.task('views', function() {
-  compile('couchdb/app', function(err, docs) {
+  function couchCompile(dir) {
+    compile(dir, function(err, docs) {
+      if (err) {
+        throw err;
+      }
+      console.log(docs);
+      docs = [docs];
+      return push(docs);
+    });
+  }
+
+  glob('couchdb/app/*', function(err, matches) {
     if (err) {
       throw err;
     }
-    docs = [docs];
-    return push(docs);
+    matches.forEach(couchCompile);
   });
 });
 

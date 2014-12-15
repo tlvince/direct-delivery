@@ -5,7 +5,7 @@ angular.module('couchdb')
     return $resource(config.db, {}, {
       view: {
         method: 'GET',
-        url: config.db + '/_design/frontend/_view/:view'
+        url: config.db + '/_design/:ddoc/_view/:view'
       }
     });
   });

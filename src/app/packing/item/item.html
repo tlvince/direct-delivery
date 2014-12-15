@@ -4,7 +4,7 @@
     <th>Product</th>
     <th>Expected Quantity</th>
   </tr>
-  <tr ng-repeat="(id, qty) in packingItemCtrl.packingLists">
+  <tr ng-repeat="(id, qty) in packingItemCtrl.packingLists track by id">
     <td ng-bind="id"></td>
     <td ng-bind="qty"></td>
   </tr>

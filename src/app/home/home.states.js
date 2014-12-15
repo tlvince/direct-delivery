@@ -9,5 +9,8 @@ angular.module('home')
       data: {
         label: 'Home'
       }
+    })
+    .state('facilities', {
+      url: '/facilities'
     });
   });

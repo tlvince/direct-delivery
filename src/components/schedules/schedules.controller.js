@@ -4,6 +4,7 @@
 'use strict';
 
 angular.module('scheduler')
-  .controller('schedulesCtrl', function(){
+  .controller('schedulesCtrl', function($scope, scheduleService){
+    $scope.currentSchedule = scheduleService.scheduleDB['16'];
 
   });

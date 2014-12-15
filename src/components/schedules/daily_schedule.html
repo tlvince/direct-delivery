@@ -1,0 +1,26 @@
+<div class="alert alert-warning">
+   <div class="row">
+     <div class="col-sm-3">
+         <h5>{{day.date}}</h5>
+         <div align="left">
+            <div class="btn-group btn-group-xs">
+                <button value="View Map" class="btn btn-warning">
+                    <i class="glyphicon glyphicon-map-marker"></i> View Map
+                </button>
+                <button value="View Map" class="btn btn-default">
+                    <i class="fa fa-truck"></i> View Packages
+                </button>
+            </div>
+         </div>
+     </div>
+     <div class="col-sm-9 col-xs-12">
+        <ul class="list-inline">
+            <li ng-repeat="facility in day.facilities">
+                <a href="#/facilities/{{facility.id}}">
+                    <i class="glyphicon glyphicon-map-marker"></i> {{facility.name}}
+                </a>
+            </li>
+        </ul>
+     </div>
+   </div>
+</div>

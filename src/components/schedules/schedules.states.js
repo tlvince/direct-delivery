@@ -17,10 +17,10 @@ angular.module('scheduler')
     })
     .state('schedule-info', {
         templateUrl: 'components/schedules/schedule-info.html',
-        controller: 'schedulesCtrl',
+        controller: 'schedulesCtrl'
         //parent: 'home'
      })
-      .state('schedule-day', {
-        
+      .state('schedule-info.schedule-day', {
+
       })
   });

@@ -2,9 +2,9 @@
 
 angular.module('packing.item')
   .service('packingItemService', function(couchdb, couchUtil) {
-    function unpack(response) {
-      var tally = {};
+    var packingList = {};
 
+    function unpack(response) {
       // View key is a complex key composed of: ['id', 'sortIndex'[, 'productID']]]
       // We're only interested in products, so filter out the parent
       // DailyDelivery object
@@ -12,17 +12,19 @@ angular.module('packing.item')
         return row.key.length === 3;
       }
 
-      // Build up a simple productID -> sum(expectedQty) representation
       function transpose(row) {
         var productID = row.key[2];
-        tally[productID] = row.value;
+        packingList[productID] = {
+          productID: productID,
+          expectedQty: row.value
+        };
       }
 
       response.rows
         .filter(children)
         .forEach(transpose);
 
-      return tally;
+      return packingList;
     }
 
     this.get = function(itemID) {
@@ -37,5 +39,9 @@ angular.module('packing.item')
       angular.extend(params, join);
       return couchdb.view(params).$promise
         .then(unpack);
+    };
+
+    this.complete = function(productID) {
+      packingList[productID].complete = !packingList[productID].complete;
     };
   });

@@ -3,9 +3,32 @@
   <tr>
     <th>Product</th>
     <th>Expected Quantity</th>
+    <th>Complete?</th>
+    <th>Packed Quantity</th>
   </tr>
-  <tr ng-repeat="(id, qty) in packingItemCtrl.packingLists track by id">
-    <td ng-bind="id"></td>
-    <td ng-bind="qty"></td>
+  <tr ng-repeat="item in packingItemCtrl.packingLists track by item.productID">
+    <td ng-bind="item.productID"></td>
+    <td ng-bind="item.expectedQty"></td>
+    <td>
+      <a
+        ng-click="packingItemCtrl.complete(item.productID)"
+        class="btn btn-primary"
+        ng-class="{
+          'btn-success': item.complete,
+          'btn-default': !item.complete
+        }"
+      >
+        <span
+          class="glyphicon"
+          ng-class="{
+            'glyphicon-ok': item.complete,
+            'glyphicon-remove': !item.complete
+          }"
+        ></span> Complete
+      </a>
+    </td>
+    <td>
+      <input type="number" min="0" step="1">
+    </td>
   </tr>
 </table>

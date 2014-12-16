@@ -41,7 +41,11 @@ angular.module('packing.item')
         .then(unpack);
     };
 
-    this.complete = function(productID) {
-      packingList[productID].complete = !packingList[productID].complete;
+    this.isComplete = function(item) {
+      var complete = false;
+      if (item.packedQty >= item.expectedQty) {
+        complete = true;
+      }
+      packingList[item.productID].complete = complete;
     };
   });

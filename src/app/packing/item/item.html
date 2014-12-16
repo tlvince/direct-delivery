@@ -10,25 +10,24 @@
     <td ng-bind="item.productID"></td>
     <td ng-bind="item.expectedQty"></td>
     <td>
-      <a
-        ng-click="packingItemCtrl.complete(item.productID)"
-        class="btn btn-primary"
+      <span
+        class="glyphicon"
         ng-class="{
-          'btn-success': item.complete,
-          'btn-default': !item.complete
+          'glyphicon-ok text-success': item.complete,
+          'glyphicon-remove text-danger': !item.complete
         }"
-      >
-        <span
-          class="glyphicon"
-          ng-class="{
-            'glyphicon-ok': item.complete,
-            'glyphicon-remove': !item.complete
-          }"
-        ></span> Complete
-      </a>
+      ></span>
     </td>
     <td>
-      <input type="number" min="0" step="1">
+      <input
+        type="number"
+        class="form-control"
+        min="0"
+        step="1"
+        ng-model="item.packedQty"
+        ng-model-options="{updateOn: 'blur'}"
+        ng-change="packingItemCtrl.isComplete(item)"
+      >
     </td>
   </tr>
 </table>

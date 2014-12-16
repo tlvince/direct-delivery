@@ -48,4 +48,9 @@ angular.module('packing.item')
       }
       packingList[item.productID].complete = complete;
     };
+
+    this.max = function(item) {
+      item.packedQty = item.expectedQty;
+      packingList[item.productID].complete = true;
+    };
   });

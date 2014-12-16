@@ -5,4 +5,5 @@ angular.module('packing.item')
     this.name = $stateParams.id;
     this.packingLists = packingLists;
     this.isComplete = packingItemService.isComplete;
+    this.max = packingItemService.max;
   });

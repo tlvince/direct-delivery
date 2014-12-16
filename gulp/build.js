@@ -11,7 +11,7 @@ var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
 });
 
-gulp.task('styles', ['wiredep', 'injector:css:preprocessor'], function () {
+gulp.task('styles', ['wiredep', 'injector:css:preprocessor'], function() {
   return gulp.src(['src/app/index.scss', 'src/app/vendor.scss'])
     .pipe($.sass({style: 'expanded'}))
     .on('error', function handleError(err) {
@@ -22,7 +22,7 @@ gulp.task('styles', ['wiredep', 'injector:css:preprocessor'], function () {
     .pipe(gulp.dest('.tmp/app/'));
 });
 
-gulp.task('injector:css:preprocessor', function () {
+gulp.task('injector:css:preprocessor', function() {
   return gulp.src('src/app/index.scss')
     .pipe($.inject(gulp.src([
         'src/{app,components}/**/*.scss',
@@ -41,7 +41,7 @@ gulp.task('injector:css:preprocessor', function () {
     .pipe(gulp.dest('src/app/'));
 });
 
-gulp.task('injector:css', ['styles'], function () {
+gulp.task('injector:css', ['styles'], function() {
   return gulp.src('src/index.html')
     .pipe($.inject(gulp.src([
         '.tmp/{app,components}/**/*.css',
@@ -53,7 +53,7 @@ gulp.task('injector:css', ['styles'], function () {
     .pipe(gulp.dest('src/'));
 });
 
-gulp.task('injector:js', ['injector:css'], function () {
+gulp.task('injector:js', ['injector:css'], function() {
   return gulp.src('src/index.html')
     .pipe($.inject(gulp.src([
         'src/{app,components}/**/*.js',
@@ -66,7 +66,7 @@ gulp.task('injector:js', ['injector:css'], function () {
     .pipe(gulp.dest('src/'));
 });
 
-gulp.task('partials', function () {
+gulp.task('partials', function() {
   return gulp.src('src/{app,components}/**/*.html')
     .pipe($.minifyHtml({
       empty: true,
@@ -79,7 +79,7 @@ gulp.task('partials', function () {
     .pipe(gulp.dest('.tmp/inject/'));
 });
 
-gulp.task('html', ['wiredep', 'injector:css', 'injector:js', 'partials'], function () {
+gulp.task('html', ['wiredep', 'injector:css', 'injector:js', 'partials'], function() {
   var htmlFilter = $.filter('*.html');
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
@@ -118,7 +118,7 @@ gulp.task('html', ['wiredep', 'injector:css', 'injector:js', 'partials'], functi
     }));
 });
 
-gulp.task('images', function () {
+gulp.task('images', function() {
   return gulp.src('src/assets/images/**/*')
     .pipe($.imagemin({
       optimizationLevel: 3,
@@ -128,14 +128,14 @@ gulp.task('images', function () {
     .pipe(gulp.dest('dist/assets/images/'));
 });
 
-gulp.task('fonts', function () {
+gulp.task('fonts', function() {
   return gulp.src($.mainBowerFiles())
     .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
     .pipe($.flatten())
     .pipe(gulp.dest('dist/fonts/'));
 });
 
-gulp.task('favicons', function () {
+gulp.task('favicons', function() {
   return favicons({
     source: 'src/assets/images/icon.png',
     dest: 'dist',
@@ -144,7 +144,7 @@ gulp.task('favicons', function () {
   });
 });
 
-gulp.task('clean', function (done) {
+gulp.task('clean', function(done) {
   $.del(['dist/', '.tmp/'], done);
 });
 

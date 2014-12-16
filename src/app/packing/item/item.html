@@ -1,10 +1,10 @@
 <h2 ng-bind="packingItemCtrl.name"></h2>
 <table class="table table-striped">
   <tr>
-    <th>Product</th>
-    <th>Expected Quantity</th>
-    <th>Complete?</th>
-    <th>Packed Quantity</th>
+    <th class="col-sm-1">Product</th>
+    <th class="col-sm-1">Expected Quantity</th>
+    <th class="col-sm-1">Complete?</th>
+    <th class="col-sm-2">Packed Quantity</th>
   </tr>
   <tr ng-repeat="item in packingItemCtrl.packingLists track by item.productID">
     <td ng-bind="item.productID"></td>
@@ -14,20 +14,34 @@
         class="glyphicon"
         ng-class="{
           'glyphicon-ok text-success': item.complete,
-          'glyphicon-remove text-danger': !item.complete
+          'glyphicon-minus text-warning': !item.hasOwnProperty('complete'),
+          'glyphicon-remove text-danger': item.complete === false
         }"
       ></span>
     </td>
     <td>
-      <input
-        type="number"
-        class="form-control"
-        min="0"
-        step="1"
-        ng-model="item.packedQty"
-        ng-model-options="{updateOn: 'blur'}"
-        ng-change="packingItemCtrl.isComplete(item)"
-      >
+      <div class="form-inline">
+        <button
+          type="button"
+          class="btn btn-default"
+          ng-click="packingItemCtrl.max(item)"
+        >Max</button>
+        <button
+          type="button"
+          class="btn btn-default"
+          ng-click="item._partial = !item._partial"
+        >Partial</button>
+        <input
+          type="number"
+          class="form-control input-sm"
+          min="0"
+          step="1"
+          ng-model="item.packedQty"
+          ng-model-options="{updateOn: 'blur'}"
+          ng-change="packingItemCtrl.isComplete(item)"
+          ng-show="item._partial"
+        >
+      </div>
     </td>
   </tr>
 </table>

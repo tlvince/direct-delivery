@@ -8,7 +8,8 @@ angular.module('home')
       templateUrl: 'app/home/home.html',
       data: {
         label: 'Home'
-      }
+      },
+      controller: 'homeCtrl'
     })
     .state('facilities', {
       url: '/facilities'

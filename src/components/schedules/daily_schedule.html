@@ -1,7 +1,7 @@
 <div class="alert alert-warning">
    <div class="row">
      <div class="col-sm-3">
-         <h5>{{day.date}}</h5>
+         <h5>{{ day.date | date: 'fullDate'}}</h5>
          <div align="left">
             <div class="btn-group btn-group-xs">
                 <button value="View Map" class="btn btn-warning">
@@ -14,13 +14,25 @@
          </div>
      </div>
      <div class="col-sm-9 col-xs-12">
-        <ul class="list-inline">
-            <li ng-repeat="facility in day.facilities">
-                <a href="#/facilities/{{facility.id}}">
-                    <i class="glyphicon glyphicon-map-marker"></i> {{facility.name}}
+        <table class="table">
+            <thead>
+                <th>Facility Name</th><th>Drop</th><th>Window</th><th>Zone</th><th>LGA</th><th>Ward</th><th>Contact</th><th>Number</th>
+            </thead>
+            <tr ng-repeat="facility in day.facilities">
+              <td>
+                  <a href="#/facilities/{{facility.id}}">
+                    <!--<i class="glyphicon glyphicon-map-marker"></i>--> {{facility.name}}
                 </a>
-            </li>
-        </ul>
+              </td>
+              <td>{{facility.drop}}</td>
+              <td>{{facility.window}}</td>
+              <td>{{facility.zone}}</td>
+              <td>{{facility.lga}}</td>
+              <td>{{facility.ward}}</td>
+              <td>{{facility.contact}}</td>
+              <td>{{facility.number}}</td>
+            </tr>
+        </table>
      </div>
    </div>
 </div>

@@ -5,6 +5,6 @@
 
 angular.module('scheduler')
   .controller('schedulesCtrl', function($scope, scheduleService){
-    $scope.currentSchedule = scheduleService.scheduleDB['16'];
+    $scope.currentSchedule = scheduleService.scheduleDB[0];
 
-  });
+  })

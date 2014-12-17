@@ -7,7 +7,12 @@ var $ = require('gulp-load-plugins')();
 var wiredep = require('wiredep');
 var merge = require('merge-stream');
 
-gulp.task('test', function() {
+function test(action) {
+  var karmaOpts = {
+    action: action || 'run',
+    configFile: 'karma.conf.js'
+  };
+
   var bowerDeps = wiredep({
     directory: 'bower_components',
     exclude: ['bootstrap-sass-official'],
@@ -20,12 +25,14 @@ gulp.task('test', function() {
     .pipe($.angularFilesort());
 
   return merge(testFiles, src)
-    .pipe($.karma({
-      configFile: 'karma.conf.js',
-      action: 'run'
-    }))
+    .pipe($.karma(karmaOpts))
     .on('error', function(err) {
       // Make sure failed tests cause gulp to exit non-zero
       throw err;
     });
+}
+
+gulp.task('test', test);
+gulp.task('test-watch', function() {
+  return test('watch');
 });

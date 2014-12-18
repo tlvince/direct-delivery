@@ -15,4 +15,11 @@ describe('couchUtil', function() {
     var expected = {startkey: '"driver1"', endkey: '"driver1\ufff0"'};
     expect(actual).toEqual(expected);
   });
+
+  it('should provide join query params sugar', function() {
+    var key = 'driver1';
+    var actual = couchUtil.join(key);
+    var expected = {startkey: '["driver1"]', endkey: '["driver1",2]'};
+    expect(actual).toEqual(expected);
+  });
 });

@@ -4,8 +4,10 @@
 
 describe('packingService', function() {
   beforeEach(module('packing', 'packingServiceMock'));
+
   var $rootScope;
   var packingService;
+
   beforeEach(inject(function(_$rootScope_, _packingService_) {
     $rootScope = _$rootScope_;
     packingService = _packingService_;

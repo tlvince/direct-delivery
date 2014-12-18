@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('directDelivery', [
-  'ui.router',
-  'ui.bootstrap',
-  'config',
+  'core',
   'navbar',
   'footer',
   'home',
   'log',
-  'packing'
+  'packing',
+  'packing.all',
+  'packing.item'
 ]);

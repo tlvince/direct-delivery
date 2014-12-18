@@ -1,3 +1,5 @@
 'use strict';
 
-angular.module('packing.all', []);
+angular.module('packing.all', [
+  'core'
+]);

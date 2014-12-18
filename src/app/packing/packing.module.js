@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('packing', [
+  'core',
   'user',
-  'couchdb',
-  'packing.all',
-  'packing.item'
+  'couchdb'
 ]);

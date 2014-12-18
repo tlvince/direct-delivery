@@ -32,7 +32,10 @@ function test(action) {
     });
 }
 
-gulp.task('test', test);
+gulp.task('test', function() {
+  return test();
+});
+
 gulp.task('test-watch', function() {
   return test('watch');
 });

@@ -3,7 +3,7 @@
 /*global module: false, inject: false */
 
 describe('couchdb', function() {
-  beforeEach(module('couchdb', 'couchdbMock'));
+  beforeEach(module('couchdb'));
   var couchdb;
   beforeEach(inject(function(_couchdb_) {
     couchdb = _couchdb_;

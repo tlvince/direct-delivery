@@ -4,15 +4,16 @@ var gulp = require('gulp');
 
 var $ = require('gulp-load-plugins')();
 
-var wiredep = require('wiredep');
 var merge = require('merge-stream');
+var extend = require('extend');
+var wiredep = require('wiredep');
 
-function test(action) {
-  var karmaOpts = {
-    action: action || 'run',
-    configFile: 'karma.conf.js'
+function test(options) {
+  var defaults = {
+    action: 'run',
+    configFile: 'karma/karma-unit.conf.js'
   };
-
+  var karmaOpts = extend({}, defaults, options);
   var bowerDeps = wiredep({
     directory: 'bower_components',
     exclude: ['bootstrap-sass-official'],
@@ -32,7 +33,14 @@ function test(action) {
     });
 }
 
-gulp.task('test', test);
+gulp.task('test', function() {
+  return test();
+});
+
 gulp.task('test-watch', function() {
-  return test('watch');
+  return test({action: 'watch'});
+});
+
+gulp.task('test-coverage', function() {
+  return test({configFile: 'karma/karma-coverage.conf.js'});
 });

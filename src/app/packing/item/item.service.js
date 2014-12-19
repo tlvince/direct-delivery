@@ -2,9 +2,9 @@
 
 angular.module('packing.item')
   .service('packingItemService', function(couchdb, couchUtil) {
-    var packingList = {};
-
     function unpack(response) {
+      var packingList = {};
+
       // View key is a complex key composed of: ['id', 'sortIndex'[, 'productID']]]
       // We're only interested in products, so filter out the parent
       // DailyDelivery object
@@ -39,18 +39,5 @@ angular.module('packing.item')
       angular.extend(params, join);
       return couchdb.view(params).$promise
         .then(unpack);
-    };
-
-    this.isComplete = function(item) {
-      var complete = false;
-      if (item.packedQty >= item.expectedQty) {
-        complete = true;
-      }
-      packingList[item.productID].complete = complete;
-    };
-
-    this.max = function(item) {
-      item.packedQty = item.expectedQty;
-      packingList[item.productID].complete = true;
     };
   });

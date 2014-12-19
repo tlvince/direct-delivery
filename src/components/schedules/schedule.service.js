@@ -32,8 +32,8 @@ angular.module('scheduler')
        {
          round : '16',
          status: 'active',
-         startDate: new Date('12-15-2014'),
-         endDate: new Date('12-17-2014'),
+         startDate: new Date('12-16-2014'),
+         endDate: new Date('12-19-2014'),
          driver: {
            email: 'driverA@ehealth.org.ng',
            name: 'Driver A'
@@ -78,7 +78,7 @@ angular.module('scheduler')
              ]
            },
            {
-             date: new Date('12-17-2014'),
+             date: new Date('12-18-2014'),
              facilities: [
                {
                  id: '8',
@@ -142,12 +142,14 @@ angular.module('scheduler')
 
     }
     this.getDaySchedule = function(round){
-      var roundData = this.getCurrentRound();
-
-      for(var i = 0; i < roundData.deliveries.length; i++){
-        if(compareDates.sameDate(roundData.deliveries[i].date, now)){
-          return roundData.deliveries[i];
+      var roundData = this.getCurrentRound() || {};
+      if(angular.isObject(roundData)) {
+        for (var i = 0; i < roundData.deliveries.length; i++) {
+          if (compareDates.sameDate(roundData.deliveries[i].date, now)) {
+            return roundData.deliveries[i];
+          }
         }
       }
+      return [];
     }
   })

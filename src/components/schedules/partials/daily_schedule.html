@@ -1,4 +1,4 @@
-<div class="alert alert-warning">
+<div class="alert alert-warning" ng-if="day.facilities">
    <div class="row">
      <div class="col-sm-3">
          <h5>{{ day.date | date: 'fullDate'}}</h5>
@@ -22,7 +22,7 @@
               <td>
                   <a href="#/facilities/{{facility.id}}">
                     <!--<i class="glyphicon glyphicon-map-marker"></i>--> {{facility.name}}
-                </a>
+                  </a>
               </td>
               <td>{{facility.drop}}</td>
               <td>{{facility.window}}</td>
@@ -35,4 +35,7 @@
         </table>
      </div>
    </div>
+</div>
+<div class="alert alert-info" ng-if="!day.facilities">
+    <i class="fa fa-info-circle"></i> There are no scheduled deliveries today.
 </div>

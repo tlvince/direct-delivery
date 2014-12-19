@@ -34,7 +34,8 @@
       "name": "Oral Polio Vaccine",
       "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
       "description": "",
-      "active": true
+      "active": true,
+      "storage": "frozen"
     },
     {
       "doc_type": "product",
@@ -88,7 +89,8 @@
       "name": "Bacille Calmette-Gu\u00e9rin Vaccine",
       "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
       "description": "A vaccine against tuberculosis, prepared from a strain of the attenuated live Mycobacterium bovis",
-      "active": true
+      "active": true,
+      "storage": "frozen"
     },
     {
       "doc_type": "product",
@@ -97,7 +99,8 @@
       "name": "Meningitis A Vaccine",
       "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
       "description": "",
-      "active": true
+      "active": true,
+      "storage": "dry"
     },
     {
       "doc_type": "product",

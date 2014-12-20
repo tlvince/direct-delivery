@@ -4,10 +4,11 @@
 
 
 describe('unit: scheduleCtrl', function(){
-  beforeEach(module('schedules'));
+
+  beforeEach(module('ui.router'));
+  beforeEach(module('scheduler'));
 
   var ctrl, scope;
-  console.log('100 miles and running');
   beforeEach(inject(function($controller, $rootScope){
     scope = $rootScope.$new();
     ctrl = $controller('schedulesCtrl', {
@@ -16,6 +17,8 @@ describe('unit: scheduleCtrl', function(){
   }));
 
   it('should not be undefined', function(){
-    expect(scope).toBeUndefined();
-  })
+    expect(scope).toBeDefined();
+    expect(scope.currentSchedule).toBeDefined();
+  });
+
 });

@@ -6,7 +6,7 @@
     <th class="col-sm-2">Packed Quantity</th>
   </tr>
   <tr
-    ng-repeat="item in packingItemCtrl.packingLists track by item.productID"
+    ng-repeat="item in packingItemCtrl.packingList track by item.productID"
     ng-class="item.storage.bsClass"
   >
     <td ng-bind="item.productID"></td>
@@ -46,5 +46,5 @@
 
 <a
   class="btn btn-default pull-right"
-  ui-sref="packing.all"
+  ng-click="packingItemCtrl.save()"
 >Save</a>

@@ -35,7 +35,7 @@
       "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
       "description": "",
       "active": true,
-      "storage": "frozen"
+      "storageID": "product-storage/frozen"
     },
     {
       "doc_type": "product",
@@ -90,7 +90,7 @@
       "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
       "description": "A vaccine against tuberculosis, prepared from a strain of the attenuated live Mycobacterium bovis",
       "active": true,
-      "storage": "frozen"
+      "storageID": "product-storage/frozen"
     },
     {
       "doc_type": "product",
@@ -100,7 +100,7 @@
       "baseUOM": "e5def927-b173-44b6-9112-3103a473a65c",
       "description": "",
       "active": true,
-      "storage": "dry"
+      "storageID": "product-storage/dry"
     },
     {
       "doc_type": "product",

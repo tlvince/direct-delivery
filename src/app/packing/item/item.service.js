@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('packing.item')
-  .service('packingItemService', function(couchdb, couchUtil) {
+  .service('packingItemService', function(couchdb, couchUtil, STORAGE_ATTRIBUTES) {
     function unpack(response) {
       var packingList = {};
 
@@ -39,5 +39,28 @@ angular.module('packing.item')
       angular.extend(params, join);
       return couchdb.view(params).$promise
         .then(unpack);
+    };
+
+    this.attachStorage = function(packingList) {
+      function mapStorageAttributes(response) {
+        function attachAttributes(row) {
+          var productID = row.key;
+          var productStorageID = row.value;
+          if (!packingList[productID] || !STORAGE_ATTRIBUTES[productStorageID]) {
+            return;
+          }
+          packingList[productID].storage = STORAGE_ATTRIBUTES[productStorageID];
+        }
+        response.rows.forEach(attachAttributes);
+      }
+
+      var productIDs = Object.keys(packingList);
+      var params = {
+        ddoc: 'products',
+        view: 'product-storage',
+        keys: JSON.stringify(productIDs)
+      };
+      return couchdb.view(params).$promise
+        .then(mapStorageAttributes);
     };
   });

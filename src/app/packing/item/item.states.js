@@ -8,7 +8,7 @@ angular.module('packing.item')
       controller: 'PackingItemCtrl',
       controllerAs: 'packingItemCtrl',
       resolve: {
-        packingLists: function($stateParams, packingItemService) {
+        dailyDelivery: function($stateParams, packingItemService) {
           return packingItemService.get($stateParams.id);
         }
       }

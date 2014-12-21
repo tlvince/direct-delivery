@@ -1,11 +1,14 @@
 <h2 ng-bind="packingItemCtrl.name"></h2>
-<table class="table table-striped">
+<table class="table">
   <tr>
     <th class="col-sm-1">Product</th>
     <th class="col-sm-1">Expected Quantity</th>
     <th class="col-sm-2">Packed Quantity</th>
   </tr>
-  <tr ng-repeat="item in packingItemCtrl.packingLists track by item.productID">
+  <tr
+    ng-repeat="item in packingItemCtrl.packingLists track by item.productID"
+    ng-class="item.storage.bsClass"
+  >
     <td ng-bind="item.productID"></td>
     <td ng-bind="item.expectedQty"></td>
     <td>

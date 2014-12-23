@@ -33,14 +33,14 @@ function test(options) {
     });
 }
 
-gulp.task('test', function() {
+gulp.task('test', ['config'],  function() {
   return test();
 });
 
-gulp.task('test-watch', function() {
+gulp.task('test-watch', ['config'], function() {
   return test({action: 'watch'});
 });
 
-gulp.task('test-coverage', function() {
+gulp.task('test-coverage', ['config'], function() {
   return test({configFile: 'karma/karma-coverage.conf.js'});
 });

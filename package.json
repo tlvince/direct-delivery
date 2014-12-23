@@ -12,6 +12,7 @@
     "eslint": "^0.10.1",
     "extend": "^2.0.0",
     "favicons": "^1.5.3",
+    "glob": "^4.3.2",
     "got": "^2.2.0",
     "gulp": "^3.8.10",
     "gulp-angular-filesort": "^1.0.4",

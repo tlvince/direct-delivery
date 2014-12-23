@@ -5,7 +5,7 @@
 ## Usage
 
 0. Install [Node.js][], [Git][] and [CouchDB][]
-1. `npm install -g karma gulp bower`
+1. `npm install -g gulp bower`
 2. `git clone https://github.com/eHealthAfrica/direct-delivery.git`
 3. `cd direct-delivery && npm install; bower install`
 4. `gulp fixtures views`

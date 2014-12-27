@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('auth')
-  .factory('AuthService', function($window, $q, $localStorage, config) {
+  .factory('AuthService', function($rootScope, $window, $q, $localStorage, $sessionStorage, config) {
+    var currentUser = null;
+
     // cleanup and prepare auth storage
     if ($localStorage.auth) {
       var d = day();
@@ -13,7 +15,19 @@ angular.module('auth')
     else
       $localStorage.auth = {};
 
+    // set current user from session
+    currentUser = $sessionStorage.user || null;
+
     // helpers
+    function set(user) {
+      if (user !== currentUser) {
+        currentUser = user;
+        $sessionStorage.user = user;
+
+        $rootScope.$emit('currentUserChanged', user);
+      }
+    }
+
     function day() {
       return moment().format('YYYYMMDD');
     }
@@ -29,13 +43,19 @@ angular.module('auth')
     // service
     var service = {};
 
+    service.currentUser = function() {
+      return currentUser;
+    };
+
     service.login = function(username, password) {
       var deferred = $q.defer();
 
       var local = $localStorage.auth[storageKey(username)];
       if (local) {
-        if (hash(password, local.salt, local.iterations) === local.derived)
+        if (hash(password, local.salt, local.iterations) === local.derived) {
+          set(local.user);
           deferred.resolve(local.user);
+        }
         else
           deferred.reject(new Error('Invalid username or password'));
       }
@@ -78,6 +98,7 @@ angular.module('auth')
             user: response
           };
 
+          set(response);
           deferred.resolve(response);
         }
       });

@@ -106,5 +106,23 @@ angular.module('auth')
       return deferred.promise;
     };
 
+    service.logout = function() {
+      var db = new PouchDB(config.db);
+      var deferred = $q.defer();
+
+      //TODO do we really need to logout from server??
+      db.logout(function(err) {
+        if (err) {
+          console.warn('Failed to logout from server.');
+          console.warn(err);
+        }
+
+        set(null);
+        deferred.resolve();
+      });
+
+      return deferred.promise;
+    };
+
     return service;
   });

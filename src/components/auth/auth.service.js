@@ -48,33 +48,38 @@ angular.module('auth')
     };
 
     service.login = function(username, password) {
+      var deferred = $q.defer();
       var local = $localStorage.auth[storageKey(username)];
 
       if (local) {
-        var deferred = $q.defer();
-
         if (username && password && hash(password, local.salt, local.iterations) === local.derived) {
           set(local.user);
           deferred.resolve(local.user);
         }
         else
           deferred.reject('authInvalid');
-
-        return deferred.promise;
       }
       else {
-        return service.loginToServer(username, password);
+        service.loginToServer(username, password)
+          .then(function(user) {
+            deferred.resolve(user);
+          })
+          .catch(function(err) {
+            deferred.reject(err);
+          });
       }
 
+      return deferred.promise;
     };
 
     service.loginToServer = function(username, password) {
       if (!username || !password)
         return $q.reject('authInvalid');
 
+      var deferred = $q.defer();
       var db = new PouchDB(config.db);
 
-      return db.login(username, password)
+      db.login(username, password)
         .then(function() {
           return db.getUser(username);
         })
@@ -93,25 +98,32 @@ angular.module('auth')
           };
 
           set(user);
-          return user;
+
+          deferred.resolve(user);
         })
         .catch(function(err) {
-          throw (err.name === 'unauthorized' ? 'authInvalid' : 'networkError');
+          deferred.reject(err.name === 'unauthorized' ? 'authInvalid' : 'networkError');
         });
+
+      return deferred.promise;
     };
 
     service.logout = function() {
+      var deferred = $q.defer();
       var db = new PouchDB(config.db);
 
       //TODO do we really need to logout from server??
-      return db.logout()
+      db.logout()
         .catch(function(err) {
           console.warn('Failed to logout from server.');
           console.warn(err);
         })
         .then(function() {
           set(null);
+          deferred.resolve();
         });
+
+      return deferred.promise;
     };
 
     return service;

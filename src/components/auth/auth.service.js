@@ -53,7 +53,7 @@ angular.module('auth')
       if (local) {
         var deferred = $q.defer();
 
-        if (hash(password, local.salt, local.iterations) === local.derived) {
+        if (username && password && hash(password, local.salt, local.iterations) === local.derived) {
           set(local.user);
           deferred.resolve(local.user);
         }
@@ -69,6 +69,9 @@ angular.module('auth')
     };
 
     service.loginToServer = function(username, password) {
+      if (!username || !password)
+        return $q.reject('authInvalid');
+
       var db = new PouchDB(config.db);
 
       return db.login(username, password)

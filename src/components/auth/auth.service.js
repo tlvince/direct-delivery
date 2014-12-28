@@ -48,11 +48,14 @@ angular.module('auth')
     };
 
     service.login = function(username, password) {
+      if (!username || !password)
+        return $q.reject('authInvalid');
+
       var deferred = $q.defer();
       var local = $localStorage.auth[storageKey(username)];
 
       if (local) {
-        if (username && password && hash(password, local.salt, local.iterations) === local.derived) {
+        if (hash(password, local.salt, local.iterations) === local.derived) {
           set(local.user);
           deferred.resolve(local.user);
         }

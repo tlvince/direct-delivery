@@ -82,19 +82,18 @@ angular.module('auth')
           var salt = asmCrypto.bytes_to_hex($window.crypto.getRandomValues(new Uint8Array(16)));
           var iterations = 10;
           var derived = hash(password, salt, iterations);
-
-          response.name = username;
+          var user = _.pick(response, ['_id', '_rev', 'name', 'roles']);
 
           $localStorage.auth[storageKey(username)] = {
             day: day(),
             salt: salt,
             iterations: iterations,
             derived: derived,
-            user: _.pick(response, ['_id', '_rev', 'name', 'roles'])
+            user: user
           };
 
-          set(response);
-          return response;
+          set(user);
+          return user;
         })
         .catch(function(err) {
           throw (err.name === 'unauthorized' ? 'authInvalid' : 'networkError');

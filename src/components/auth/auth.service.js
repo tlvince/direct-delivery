@@ -57,7 +57,7 @@ angular.module('auth')
           deferred.resolve(local.user);
         }
         else
-          deferred.reject(new Error('Invalid username or password'));
+          deferred.reject('authInvalid');
       }
       else {
         service.loginToServer(username, password)
@@ -78,10 +78,7 @@ angular.module('auth')
 
       db.login(username, password, function(err, response) {
         if (err) {
-          if (err.name === 'unauthorized')
-            err = new Error('Invalid username or password');
-
-          deferred.reject(err);
+          deferred.reject(err.name === 'unauthorized' ? 'authInvalid' : 'networkError');
         }
         else {
           var salt = asmCrypto.bytes_to_hex($window.crypto.getRandomValues(new Uint8Array(16)));

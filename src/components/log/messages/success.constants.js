@@ -5,5 +5,9 @@ angular.module('log')
     packingSaved: {
       title: 'Packing saved',
       message: 'Packing list saved successfully'
+    },
+    authSuccess: {
+      title: 'Authentication',
+      message: 'Login success'
     }
   });

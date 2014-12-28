@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('auth')
-  .factory('AuthService', function($rootScope, $window, $q, $localStorage, $sessionStorage, config) {
+  .factory('AuthService', function($rootScope, $window, $q, $log, $localStorage, $sessionStorage, config) {
     var currentUser = null;
 
     // cleanup and prepare auth storage
@@ -48,39 +48,31 @@ angular.module('auth')
     };
 
     service.login = function(username, password) {
-      var deferred = $q.defer();
-
       var local = $localStorage.auth[storageKey(username)];
+
       if (local) {
+        var deferred = $q.defer();
+
         if (hash(password, local.salt, local.iterations) === local.derived) {
           set(local.user);
           deferred.resolve(local.user);
         }
         else
           deferred.reject('authInvalid');
+
+        return deferred.promise;
       }
       else {
-        service.loginToServer(username, password)
-          .then(function(user) {
-            deferred.resolve(user);
-          })
-          .catch(function(err) {
-            deferred.reject(err);
-          });
+        return service.loginToServer(username, password);
       }
 
-      return deferred.promise;
     };
 
     service.loginToServer = function(username, password) {
       var db = new PouchDB(config.db);
-      var deferred = $q.defer();
 
-      db.login(username, password, function(err, response) {
-        if (err) {
-          deferred.reject(err.name === 'unauthorized' ? 'authInvalid' : 'networkError');
-        }
-        else {
+      return db.login(username, password)
+        .then(function(response) {
           var salt = asmCrypto.bytes_to_hex($window.crypto.getRandomValues(new Uint8Array(16)));
           var iterations = 10;
           var derived = hash(password, salt, iterations);
@@ -96,29 +88,25 @@ angular.module('auth')
           };
 
           set(response);
-          deferred.resolve(response);
-        }
-      });
-
-      return deferred.promise;
+          return response;
+        })
+        .catch(function(err) {
+          throw (err.name === 'unauthorized' ? 'authInvalid' : 'networkError');
+        });
     };
 
     service.logout = function() {
       var db = new PouchDB(config.db);
-      var deferred = $q.defer();
 
       //TODO do we really need to logout from server??
-      db.logout(function(err) {
-        if (err) {
+      return db.logout()
+        .catch(function(err) {
           console.warn('Failed to logout from server.');
           console.warn(err);
-        }
-
-        set(null);
-        deferred.resolve();
-      });
-
-      return deferred.promise;
+        })
+        .then(function() {
+          set(null);
+        });
     };
 
     return service;

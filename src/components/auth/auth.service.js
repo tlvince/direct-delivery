@@ -72,6 +72,9 @@ angular.module('auth')
       var db = new PouchDB(config.db);
 
       return db.login(username, password)
+        .then(function() {
+          return db.getUser(username);
+        })
         .then(function(response) {
           var salt = asmCrypto.bytes_to_hex($window.crypto.getRandomValues(new Uint8Array(16)));
           var iterations = 10;
@@ -84,7 +87,7 @@ angular.module('auth')
             salt: salt,
             iterations: iterations,
             derived: derived,
-            user: response
+            user: _.pick(response, ['_id', '_rev', 'name', 'roles'])
           };
 
           set(response);

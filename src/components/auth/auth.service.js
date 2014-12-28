@@ -78,7 +78,7 @@ angular.module('auth')
 
       db.login(username, password, function(err, response) {
         if (err) {
-          if (err.name === 'conflict')
+          if (err.name === 'unauthorized')
             err = new Error('Invalid username or password');
 
           deferred.reject(err);

@@ -25,6 +25,9 @@
   "overrides": {
     "bootstrap-sass-official": {
       "dependencies": []
+    },
+    "lodash": {
+      "main": "dist/lodash.js"
     }
   },
   "authors": [

@@ -3,7 +3,7 @@
 (function() {
   angular.module('auth').service('AuthService', AuthService);
 
-  function AuthService($rootScope, $window, $q, $localStorage, $sessionStorage, config) {
+  function AuthService($rootScope, $window, $q, $localStorage, $sessionStorage, pouchDB, config) {
     // cleanup and prepare auth storage
     if ($localStorage.auth) {
       var d = day();
@@ -45,38 +45,31 @@
       if (!username || !password)
         return $q.reject('authInvalid');
 
-      var deferred = $q.defer();
       var local = $localStorage.auth[storageKey(username)];
 
       if (local) {
+        var deferred = $q.defer();
+
         if (hash(password, local.salt, local.iterations) === local.derived) {
           this.setCurrentUser(local.user);
           deferred.resolve(local.user);
         }
         else
           deferred.reject('authInvalid');
-      }
-      else {
-        this.loginToServer(username, password)
-          .then(function(user) {
-            deferred.resolve(user);
-          })
-          .catch(function(err) {
-            deferred.reject(err);
-          });
+
+        return deferred.promise;
       }
 
-      return deferred.promise;
+      return this.loginToServer(username, password);
     };
 
     this.loginToServer = function(username, password) {
       if (!username || !password)
         return $q.reject('authInvalid');
 
-      var deferred = $q.defer();
-      var db = new PouchDB(config.db);
+      var db = new pouchDB(config.db);
 
-      db.login(username, password)
+      return db.login(username, password)
         .then(function() {
           return db.getUser(username);
         })
@@ -95,31 +88,25 @@
           };
 
           this.setCurrentUser(user);
-          deferred.resolve(user);
+          return user;
         }.bind(this))
         .catch(function(err) {
-          deferred.reject(err.name === 'unauthorized' ? 'authInvalid' : 'networkError');
+          throw (err.name === 'unauthorized' ? 'authInvalid' : 'networkError');
         });
-
-      return deferred.promise;
     };
 
     this.logout = function() {
-      var deferred = $q.defer();
-      var db = new PouchDB(config.db);
+      var db = new pouchDB(config.db);
 
       //TODO do we really need to logout from server??
-      db.logout()
+      return db.logout()
         .catch(function(err) {
           console.warn('Failed to logout from server.');
           console.warn(err);
         })
         .then(function() {
           this.setCurrentUser(null);
-          deferred.resolve();
         }.bind(this));
-
-      return deferred.promise;
     };
   }
 

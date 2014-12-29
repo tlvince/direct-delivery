@@ -2,5 +2,6 @@
 
 angular.module('auth', [
   'ngStorage',
+  'pouchdb',
   'config'
 ]);

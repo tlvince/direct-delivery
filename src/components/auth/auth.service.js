@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('auth')
-  .factory('AuthService', function($rootScope, $window, $q, $log, $localStorage, $sessionStorage, config) {
-    var currentUser = null;
+(function() {
+  angular.module('auth').service('AuthService', AuthService);
 
+  function AuthService($rootScope, $window, $q, $localStorage, $sessionStorage, config) {
     // cleanup and prepare auth storage
     if ($localStorage.auth) {
       var d = day();
@@ -15,39 +15,33 @@ angular.module('auth')
     else
       $localStorage.auth = {};
 
-    // set current user from session
-    currentUser = $sessionStorage.user || null;
+    // init current user from session
+    var currentUser = $sessionStorage.user || null;
 
-    // helpers
-    function set(user) {
+    // properties
+    Object.defineProperty(this, 'currentUser', {
+      get: function() {
+        return currentUser;
+      }
+    });
+
+    Object.defineProperty(this, 'isLoggedIn', {
+      get: function() {
+        return !!currentUser;
+      }
+    });
+
+    // methods
+    this.setCurrentUser = function(user) {
       if (user !== currentUser) {
         currentUser = user;
         $sessionStorage.user = user;
 
         $rootScope.$emit('currentUserChanged', user);
       }
-    }
-
-    function day() {
-      return moment().format('YYYYMMDD');
-    }
-
-    function storageKey(username) {
-      return username + day();
-    }
-
-    function hash(password, salt, iterations) {
-      return asmCrypto.PBKDF2_HMAC_SHA256.hex(password, salt, iterations);
-    }
-
-    // service
-    var service = {};
-
-    service.currentUser = function() {
-      return currentUser;
     };
 
-    service.login = function(username, password) {
+    this.login = function(username, password) {
       if (!username || !password)
         return $q.reject('authInvalid');
 
@@ -56,14 +50,14 @@ angular.module('auth')
 
       if (local) {
         if (hash(password, local.salt, local.iterations) === local.derived) {
-          set(local.user);
+          this.setCurrentUser(local.user);
           deferred.resolve(local.user);
         }
         else
           deferred.reject('authInvalid');
       }
       else {
-        service.loginToServer(username, password)
+        this.loginToServer(username, password)
           .then(function(user) {
             deferred.resolve(user);
           })
@@ -75,7 +69,7 @@ angular.module('auth')
       return deferred.promise;
     };
 
-    service.loginToServer = function(username, password) {
+    this.loginToServer = function(username, password) {
       if (!username || !password)
         return $q.reject('authInvalid');
 
@@ -100,10 +94,9 @@ angular.module('auth')
             user: user
           };
 
-          set(user);
-
+          this.setCurrentUser(user);
           deferred.resolve(user);
-        })
+        }.bind(this))
         .catch(function(err) {
           deferred.reject(err.name === 'unauthorized' ? 'authInvalid' : 'networkError');
         });
@@ -111,7 +104,7 @@ angular.module('auth')
       return deferred.promise;
     };
 
-    service.logout = function() {
+    this.logout = function() {
       var deferred = $q.defer();
       var db = new PouchDB(config.db);
 
@@ -122,12 +115,23 @@ angular.module('auth')
           console.warn(err);
         })
         .then(function() {
-          set(null);
+          this.setCurrentUser(null);
           deferred.resolve();
-        });
+        }.bind(this));
 
       return deferred.promise;
     };
+  }
 
-    return service;
-  });
+  function day() {
+    return moment().format('YYYYMMDD');
+  }
+
+  function storageKey(username) {
+    return username + day();
+  }
+
+  function hash(password, salt, iterations) {
+    return asmCrypto.PBKDF2_HMAC_SHA256.hex(password, salt, iterations);
+  }
+})();

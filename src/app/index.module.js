@@ -15,7 +15,7 @@ angular.module('directDelivery', [
   ])
   .run(function($rootScope, $state, AuthService) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-      if (!AuthService.currentUser() && toState.name !== 'login') {
+      if (!AuthService.isLoggedIn && toState.name !== 'login') {
         $state.transitionTo('login');
         event.preventDefault();
       }

@@ -3,7 +3,7 @@
     <h1>Welcome to Direct Delivery</h1>
   </div>
   <div class="alert alert-warning">
-     <h2 ng-bind="homeCtrl.day.date | date: 'fullDate'">{{homeCtrl.day}}</h2>
+     <h2 ng-bind="homeCtrl.day.date | date: 'fullDate'"></h2>
      <div class="alert alert-warning">
        <tabset>
          <tab>
@@ -12,7 +12,7 @@
                     <i class="fa fa-calendar"></i> View Schedule
                 </span>
             </tab-heading>
-            <div ui-view="day_schedule"></div>
+            <div ui-view="daySchedule"></div>
          </tab>
          <tab select="">
             <tab-heading>

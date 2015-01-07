@@ -1,19 +1,33 @@
 'use strict';
 
 (function() {
-  angular.module('auth').service('AuthService', AuthService);
+  function AuthService($rootScope, $window, $log, $q, $localStorage, $sessionStorage, pouchDB, config) {
+    // seed asmCrypto PRNG for better security when creating random password salts
+    $window.asmCrypto.random.seed($window.crypto.getRandomValues(new Uint8Array(128)));
 
-  function AuthService($rootScope, $window, $q, $localStorage, $sessionStorage, pouchDB, config) {
+    function day() {
+      return $window.moment().format('YYYYMMDD');
+    }
+
+    function storageKey(username) {
+      return username + day();
+    }
+
+    function hash(password, salt, iterations) {
+      return $window.asmCrypto.PBKDF2_HMAC_SHA256.hex(password, salt, iterations);
+    }
+
     // cleanup and prepare auth storage
     if ($localStorage.auth) {
       var d = day();
       angular.forEach($localStorage.auth, function(value, key) {
-        if (value.day != d)
+        if (value.day !== d) {
           delete $localStorage.auth[key];
+        }
       });
-    }
-    else
+    } else {
       $localStorage.auth = {};
+    }
 
     // init current user from session
     var currentUser = $sessionStorage.user || null;
@@ -42,8 +56,9 @@
     };
 
     this.login = function(username, password) {
-      if (!username || !password)
+      if (!username || !password) {
         return $q.reject('authInvalid');
+      }
 
       var local = $localStorage.auth[storageKey(username)];
 
@@ -53,9 +68,9 @@
         if (hash(password, local.salt, local.iterations) === local.derived) {
           this.setCurrentUser(local.user);
           deferred.resolve(local.user);
-        }
-        else
+        } else {
           deferred.reject('authInvalid');
+        }
 
         return deferred.promise;
       }
@@ -64,8 +79,9 @@
     };
 
     this.loginToServer = function(username, password) {
-      if (!username || !password)
+      if (!username || !password) {
         return $q.reject('authInvalid');
+      }
 
       var db = new pouchDB(config.db);
 
@@ -74,10 +90,10 @@
           return db.getUser(username);
         })
         .then(function(response) {
-          var salt = asmCrypto.bytes_to_hex($window.crypto.getRandomValues(new Uint8Array(16)));
+          var salt = $window.asmCrypto.bytes_to_hex($window.crypto.getRandomValues(new Uint8Array(16)));
           var iterations = 10;
           var derived = hash(password, salt, iterations);
-          var user = _.pick(response, ['_id', '_rev', 'name', 'roles']);
+          var user = $window._.pick(response, ['_id', '_rev', 'name', 'roles']);
 
           $localStorage.auth[storageKey(username)] = {
             day: day(),
@@ -91,7 +107,7 @@
           return user;
         }.bind(this))
         .catch(function(err) {
-          throw (err.name === 'unauthorized' ? 'authInvalid' : 'networkError');
+          throw err.name === 'unauthorized' ? 'authInvalid' : 'networkError';
         });
     };
 
@@ -101,8 +117,8 @@
       //TODO do we really need to logout from server??
       return db.logout()
         .catch(function(err) {
-          console.warn('Failed to logout from server.');
-          console.warn(err);
+          $log.warn('Failed to logout from server.');
+          $log.warn(err);
         })
         .then(function() {
           this.setCurrentUser(null);
@@ -110,15 +126,5 @@
     };
   }
 
-  function day() {
-    return moment().format('YYYYMMDD');
-  }
-
-  function storageKey(username) {
-    return username + day();
-  }
-
-  function hash(password, salt, iterations) {
-    return asmCrypto.PBKDF2_HMAC_SHA256.hex(password, salt, iterations);
-  }
-})();
+  angular.module('auth').service('AuthService', AuthService);
+}());

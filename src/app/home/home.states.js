@@ -5,13 +5,18 @@ angular.module('home')
     $stateProvider.state('home', {
       url: '/',
       parent: 'index',
-      templateUrl: 'app/home/home.html',
-      data: {
-        label: 'Home'
-      },
-      controller: 'homeCtrl'
+      views :{
+        '' : {
+          templateUrl: 'app/home/home.html',
+          controller: 'homeCtrl',
+          data: {
+            label: 'Home'
+          }
+        },
+        'day_schedule@home': {
+          templateUrl: '/components/schedules/partials/daily_schedule.html',
+          controller: 'homeCtrl'
+        }
+      }
     })
-    .state('facilities', {
-      url: '/facilities'
-    });
   });

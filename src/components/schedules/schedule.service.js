@@ -5,16 +5,15 @@
 
 angular.module('scheduler')
   .service('scheduleService', function(){
-     var now = new Date();
-     function sameDate(d1, d2){
-       if(
-            d1.getFullYear() == d2.getFullYear() &
-            d1.getMonth()  == d2.getMonth() &
-            d1.getDate()   == d2.getDate()
-         ){
-          return true;
+    var now = new Date();
+    function sameDay(d1, d2){
+    if(
+        d1.getFullYear() == d2.getFullYear() &
+        d1.getMonth()  == d2.getMonth() &
+        d1.getDate()   == d2.getDate()
+      ){
+        return true;
        }
-       return false;
      }
     function dateRange (day, minDate, maxDate){
         var ms_in_day = 1000 * 60 * 60 * 24;
@@ -25,7 +24,7 @@ angular.module('scheduler')
         return (dayms >= minDatems) && (dayms <= maxDatems)
     }
     var compareDates = {
-      sameDate : sameDate,
+      sameDate : sameDay,
       dateRange : dateRange
     }
      this.scheduleDB = [
@@ -33,7 +32,7 @@ angular.module('scheduler')
          round : '16',
          status: 'active',
          startDate: new Date('12-16-2014'),
-         endDate: new Date('12-19-2014'),
+         endDate: new Date('12-29-2014'),
          driver: {
            email: 'driverA@ehealth.org.ng',
            name: 'Driver A'
@@ -78,7 +77,7 @@ angular.module('scheduler')
              ]
            },
            {
-             date: new Date('12-19-2014'),
+             date: new Date('12-22-2014'),
              facilities: [
                {
                  id: '8',
@@ -95,7 +94,7 @@ angular.module('scheduler')
                  id: '9',
                  name: 'Tiga General Hospital',
                  drop: 2,
-                 window: "9am - 11am",
+                 window: "11am - 1pm",
                  zone: 'Rano',
                  lga: 'Bebeji',
                  ward: 'Garmai',
@@ -105,8 +104,8 @@ angular.module('scheduler')
                {
                  id: '10',
                  name: 'Tiga General Hospital',
-                 drop: 2,
-                 window: "9am - 11am",
+                 drop: 3,
+                 window: "1pm - 3pm",
                  zone: 'Rano',
                  lga: 'Bebeji',
                  ward: 'Garmai',
@@ -142,7 +141,7 @@ angular.module('scheduler')
 
     }
     this.getDaySchedule = function(round){
-      var roundData = this.getCurrentRound() || {};
+      var roundData = this.getCurrentRound();
       if(angular.isObject(roundData)) {
         for (var i = 0; i < roundData.deliveries.length; i++) {
           if (compareDates.sameDate(roundData.deliveries[i].date, now)) {
@@ -150,6 +149,6 @@ angular.module('scheduler')
           }
         }
       }
-      return [];
+      return {};
     }
   })

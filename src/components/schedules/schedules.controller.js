@@ -4,6 +4,7 @@
 'use strict';
 
 angular.module('scheduler')
-  .controller('schedulesCtrl', function($scope, scheduleService){
-    $scope.currentSchedule = scheduleService.scheduleDB[0];
+  .controller('SchedulesCtrl', function(scheduleService){
+   this.currentSchedule = scheduleService.scheduleDB[0];
+   this.day = scheduleService.getDaySchedule();
   });

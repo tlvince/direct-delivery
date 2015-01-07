@@ -7,20 +7,13 @@
 angular.module('scheduler')
   .config(function($stateProvider){
     $stateProvider.state('schedules', {
-        url: 'schedules',
-        controller: 'schedulesCtrl',
-        templateUrl:'components/schedules/schedule.html',
-        parent: 'index',
-        data:{
-          label: 'schedules'
-        }
+      url: 'schedules',
+      controller: 'SchedulesCtrl',
+      controllerAs: 'schedulesCtrl',
+      templateUrl:'components/schedules/schedule.html',
+      parent: 'index',
+      data:{
+        label: 'schedules'
+      }
     })
-    .state('schedule-info', {
-        templateUrl: 'components/schedules/schedule-info.html',
-        controller: 'schedulesCtrl'
-        //parent: 'home'
-     })
-      .state('schedule-info.schedule-day', {
-
-      })
   });

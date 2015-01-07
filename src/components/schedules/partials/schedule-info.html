@@ -6,10 +6,10 @@
     <div>
        <div class="alert alert-warning">
            <div>
-               <h3><i class="fa-truck fa"></i> Vaccine Direct Delivery Round 16 Schedule <!-- {{deliveryRound.name}}--></h3>
+               <h3><i class="fa-truck fa"></i> Vaccine Direct Delivery Round {{schedulesCtrl.currentSchedule.round}} Schedule </h3>
            </div>
            <p><br/></p>
-           <div ng-repeat="day in currentSchedule.deliveries" ng-include="'components/schedules/partials/daily_schedule.html'"></div>
+           <div ng-repeat="day in schedulesCtrl.currentSchedule.deliveries" ng-include="'components/schedules/partials/daily_schedule.html'"></div>
        </div>
     </div>
 </div>

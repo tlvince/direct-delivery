@@ -4,7 +4,6 @@
 
 
 angular.module('home')
-  .controller('homeCtrl', function($scope, scheduleService){
-    $scope.day = scheduleService.getDaySchedule();
+  .controller('homeCtrl', function(){
 
   });

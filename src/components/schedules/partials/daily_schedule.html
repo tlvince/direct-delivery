@@ -1,40 +1,34 @@
-<div class="alert alert-warning" ng-if="day.facilities">
-   <div class="row">
-     <div class="col-sm-3">
-         <h5>{{ day.date | date: 'fullDate'}}</h5>
-         <div align="left">
-            <div class="btn-group btn-group-xs">
-                <button value="View Map" class="btn btn-warning">
-                    <i class="glyphicon glyphicon-map-marker"></i> View Map
-                </button>
-                <button value="View Map" class="btn btn-default">
-                    <i class="fa fa-truck"></i> View Packages
-                </button>
-            </div>
-         </div>
-     </div>
-     <div class="col-sm-9 col-xs-12">
+<div class="" ng-if="day.facilities">
+  <div class="alert alert-warning">
+    <div class="row">
+      <div class="col-sm-12 col-xs-12">
         <table class="table">
             <thead>
-                <th>Facility Name</th><th>Drop</th><th>Window</th><th>Zone</th><th>LGA</th><th>Ward</th><th>Contact</th><th>Number</th>
+              <th>Facility Name</th>
+              <th>Drop</th>
+              <th>Window</th>
+              <th>Zone</th>
+              <th>LGA</th>
+              <th>Ward</th>
+              <th>Contact</th>
+              <th>Number</th>
             </thead>
-            <tr ng-repeat="facility in day.facilities">
+            <tr ng-repeat="facility in day.facilities track by facility.id">
               <td>
-                  <a href="#/facilities/{{facility.id}}">
-                    <!--<i class="glyphicon glyphicon-map-marker"></i>--> {{facility.name}}
-                  </a>
+                <a href="#/facilities/{{facility.id}}" ng-bind="facility.name"></a>
               </td>
-              <td>{{facility.drop}}</td>
-              <td>{{facility.window}}</td>
-              <td>{{facility.zone}}</td>
-              <td>{{facility.lga}}</td>
-              <td>{{facility.ward}}</td>
-              <td>{{facility.contact}}</td>
-              <td>{{facility.number}}</td>
+              <td ng-bind="facility.drop"></td>
+              <td ng-bind="facility.window"></td>
+              <td ng-bind="facility.zone"></td>
+              <td ng-bind="facility.lga"></td>
+              <td ng-bind="facility.ward"></td>
+              <td ng-bind="facility.contact"></td>
+              <td ng-bind="facility.number"></td>
             </tr>
         </table>
-     </div>
-   </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="alert alert-info" ng-if="!day.facilities">
     <i class="fa fa-info-circle"></i> There are no scheduled deliveries today.

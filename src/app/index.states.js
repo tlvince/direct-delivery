@@ -28,5 +28,6 @@ angular.module('directDelivery')
           controllerAs: 'footerCtrl'
         }
       }
-    });
+    })
+
   });

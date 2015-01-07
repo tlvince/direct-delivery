@@ -8,14 +8,14 @@ angular.module('home')
       views :{
         '' : {
           templateUrl: 'app/home/home.html',
-          controller: 'homeCtrl',
           data: {
             label: 'Home'
           }
         },
         'daySchedule@home': {
           templateUrl: '/components/schedules/partials/daily_schedule.html',
-          controller: 'homeCtrl'
+          controller: 'SchedulesCtrl',
+          controllerAs: 'schedulesCtrl'
         }
       }
     })

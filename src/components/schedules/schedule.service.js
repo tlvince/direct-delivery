@@ -29,7 +29,7 @@ angular.module('scheduler')
        {
          round : '16',
          status: 'active',
-         startDate: new Date('12-16-2014'),
+         startDate: new Date('1-1-2014'),
          endDate: new Date('1-29-2015'),
          driver: {
            email: 'driverA@ehealth.org.ng',

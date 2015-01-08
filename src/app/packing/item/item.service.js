@@ -92,6 +92,7 @@ angular.module('packing.item')
       function savePackedList(deliveryDoc) {
         deliveryDoc.packedList = Object.keys(dailyDelivery.packingList)
           .map(formatPackingList);
+        deliveryDoc.packed = true;
         deliveryDoc.packedDate = new Date().toJSON();
         return deliveryDoc.$update(params).$promise;
       }

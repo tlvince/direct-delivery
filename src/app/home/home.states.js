@@ -13,7 +13,7 @@ angular.module('home')
           }
         },
         'daySchedule@home': {
-          templateUrl: '/components/schedules/partials/daily_schedule.html',
+          templateUrl: '/components/schedules/partials/daily-schedule.html',
           controller: 'SchedulesCtrl',
           controllerAs: 'schedulesCtrl'
         }

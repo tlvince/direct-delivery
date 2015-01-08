@@ -16,7 +16,11 @@
               <th>Action</th>
             </thead>
             <tr ng-repeat="facility in schedulesCtrl.day.facilities track by facility.id">
-              <td><a ng-bind="facility.name" ui-sref="facilityDelivery"></a></td>
+              <td>
+                <a ng-bind="facility.name"
+                     ui-sref="facilityDelivery({ facilityName : facility.name, facilityId : facility.id })">
+                </a>
+              </td>
               <td ng-bind="facility.drop"></td>
               <td>Pending</td>
               <td ng-bind="facility.window"></td>
@@ -27,7 +31,7 @@
               <td ng-bind="facility.number"></td>
               <td>
                 <button type="submit" class="btn btn-warning btn-block">
-                  <span>Cancel Delivery</span>
+                  <span>Skip Delivery</span>
                 </button>
               </td>
             </tr>

@@ -5,11 +5,6 @@ angular.module('packing.all')
     $stateProvider.state('packing.all', {
       templateUrl: 'app/packing/all/all.html',
       controller: 'PackingAllCtrl',
-      controllerAs: 'packingAllCtrl',
-      resolve: {
-        packings: function(packingAllService) {
-          return packingAllService.all();
-        }
-      }
+      controllerAs: 'packingAllCtrl'
     });
   });

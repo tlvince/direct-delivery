@@ -38,3 +38,4 @@ rules:
   space-in-brackets:
     - 2
     - never
+  no-underscore-dangle: 0

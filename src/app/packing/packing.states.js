@@ -7,6 +7,11 @@ angular.module('packing')
       url: '/packing',
       parent: 'index',
       templateUrl: 'app/packing/packing.html',
+      resolve: {
+        packings: function(packingService) {
+          return packingService.all();
+        }
+      },
       data: {
         label: 'Packing'
       }

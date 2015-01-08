@@ -10,12 +10,6 @@ angular.module('packing.item')
     };
 
     this.save = function(dailyDelivery) {
-      var params = {
-        /*eslint-disable no-underscore-dangle */
-        docID: dailyDelivery._id
-        /*eslint-enable no-underscore-dangle */
-      };
-
       function formatPackingList(packingList) {
         return {
           productID: packingList.productID,
@@ -30,10 +24,10 @@ angular.module('packing.item')
           .map(formatPackingList);
         deliveryDoc.packed = true;
         deliveryDoc.packedDate = new Date().toJSON();
-        return deliveryDoc.$update(params).$promise;
+        return deliveryDoc.$update();
       }
 
-      return couchdb.get(params).$promise
+      return this.get(dailyDelivery._id)
         .then(savePackedList);
     };
 
@@ -44,5 +38,16 @@ angular.module('packing.item')
 
     this.saveFailed = function(reason) {
       log.error('saveFailed', reason);
+    };
+
+    this.updatePackingsTally = function(packings, saveResponse) {
+      var dailyDeliveryID = saveResponse.id;
+      function reject(packingID) {
+        return packingID !== dailyDeliveryID;
+      }
+      packings.unpacked = packings.unpacked.filter(reject);
+      if (packings.packed.indexOf(dailyDeliveryID) === -1) {
+        packings.packed.push(dailyDeliveryID);
+      }
     };
   });

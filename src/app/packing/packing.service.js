@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('packing.all')
-  .service('packingAllService', function(user, couchdb, couchUtil) {
+angular.module('packing')
+  .service('packingService', function(user, couchdb, couchUtil) {
     function tallyByPackedState(response) {
       var packings = {
         packed: [],

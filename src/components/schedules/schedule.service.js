@@ -6,13 +6,12 @@
 angular.module('scheduler')
   .service('scheduleService', function(){
     var now = new Date();
-   // console.log(now);
     function sameDay(d1, d2){
       return (
         d1.getFullYear() == d2.getFullYear() &
         d1.getMonth()  == d2.getMonth() &
         d1.getDate()   == d2.getDate()
-      )
+      );
      }
     function dateRange (day, minDate, maxDate){
         var ms_in_day = 1000 * 60 * 60 * 24;
@@ -20,12 +19,12 @@ angular.module('scheduler')
         var minDatems = minDate.getTime();
         var maxDatems = maxDate.getTime() + ms_in_day;
 
-        return (dayms >= minDatems) && (dayms <= maxDatems)
+        return (dayms >= minDatems) && (dayms <= maxDatems);
     }
     var compareDates = {
       sameDate : sameDay,
       dateRange : dateRange
-    }
+    };
      this.scheduleDB = [
        {
          round : '16',
@@ -127,18 +126,18 @@ angular.module('scheduler')
            }
          ]
       }
-    ]
+    ];
     this.getCurrentRound = function(){
       for(var i = 0; i < this.scheduleDB.length; i++ ){
         if( compareDates.dateRange(now, this.scheduleDB[i].startDate, this.scheduleDB[i].endDate) ){
           return this.scheduleDB[i];
         }
       }
-    }
+    };
 
     this.getAll = function(){
 
-    }
+    };
     this.getDaySchedule = function(round){
       var roundData = this.getCurrentRound();
       if(angular.isObject(roundData)) {
@@ -150,4 +149,4 @@ angular.module('scheduler')
       }
       return {};
     }
-  })
+  });

@@ -7,7 +7,7 @@
   </tr>
   <tr
     ng-repeat="item in packingItemCtrl.packingList track by item.productID"
-    ng-class="item.storage.bsClass"
+    ng-class="packingItemCtrl.storageAttributes[item.storageID].bsClass"
   >
     <td ng-bind="item.productID"></td>
     <td ng-bind="item.expectedQty"></td>

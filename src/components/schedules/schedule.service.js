@@ -6,14 +6,13 @@
 angular.module('scheduler')
   .service('scheduleService', function(){
     var now = new Date();
+   // console.log(now);
     function sameDay(d1, d2){
-    if(
+      return (
         d1.getFullYear() == d2.getFullYear() &
         d1.getMonth()  == d2.getMonth() &
         d1.getDate()   == d2.getDate()
-      ){
-        return true;
-       }
+      )
      }
     function dateRange (day, minDate, maxDate){
         var ms_in_day = 1000 * 60 * 60 * 24;
@@ -32,7 +31,7 @@ angular.module('scheduler')
          round : '16',
          status: 'active',
          startDate: new Date('12-16-2014'),
-         endDate: new Date('12-29-2014'),
+         endDate: new Date('1-29-2015'),
          driver: {
            email: 'driverA@ehealth.org.ng',
            name: 'Driver A'
@@ -77,7 +76,7 @@ angular.module('scheduler')
              ]
            },
            {
-             date: new Date('12-22-2014'),
+             date: new Date('1-8-2015'),
              facilities: [
                {
                  id: '8',

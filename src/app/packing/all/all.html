@@ -1,8 +1,16 @@
-<ul>
-  <li ng-repeat="packingID in packingAllCtrl.packings">
-    <a
-      ui-sref="packing.item({id: packingID})"
-      ng-bind="packingID"
-    ></a>
-  </li>
-</ul>
+<div class="row">
+  <div
+    class="col-md-6"
+    ng-repeat="state in packingAllCtrl.packingListStates track by state.key"
+  >
+    <h2 ng-bind="state.label"></h2>
+    <ul>
+      <li ng-repeat="packingID in packingAllCtrl.packings[state.key] track by packingID">
+        <a
+          ui-sref="packing.item({id: packingID})"
+          ng-bind="packingID"
+        ></a>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -11,7 +11,7 @@ describe('navbarService', function() {
     navbarService = _navbarService_;
   }));
 
-  it('should not include child states', function() {
+  it('should only include one state of a given hierarchy', function() {
     var items = navbarService.get();
     expect(items.length).toEqual(1);
   });

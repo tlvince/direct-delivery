@@ -1,5 +1,7 @@
 function(doc) {
   if (doc.doc_type === 'dailyDelivery') {
-    emit(doc.driverID);
+    emit(doc.driverID, {
+      packed: doc.packed
+    });
   }
 }

@@ -8,5 +8,6 @@ angular.module('directDelivery', [
   'footer',
   'home',
   'log',
-  'scheduler'
+  'scheduler',
+  'delivery'
 ]);

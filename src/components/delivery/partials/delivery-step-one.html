@@ -1,0 +1,47 @@
+<h3 ng-bind="facDevCtrl.facilityName"></h3>
+<div class="panel">
+  <p>
+    <button type="button" class="btn btn-success btn-lg" ng-click="facDevCtrl.showDeliveryProducts()">
+      <i class="fa fa-arrow-circle-right"></i>
+      <span>Start Delivery</span>
+    </button>
+  </p>
+  <br/>
+  <h4> Or cancel delivery, select reason and submit report.</h4>
+  <br/>
+  <form name="skipForm" ng-submit="facDevCtrl.skipAndSubmitReport()">
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="facDevCtrl.discontinueForm.notAvailable"> Arrived at health facility but not available.
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="facDevCtrl.discontinueForm.brokenCCE"> Non functional / working CCE.
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"
+                 ng-model="facDevCtrl.discontinueForm.others"> Others
+        </label>
+      </div>
+      <textarea ng-model="vm.discontinueForm.note"
+                ng-disabled="!facDevCtrl.discontinueForm.others"
+                class="form-control" rows="3"
+                placeholder="add comment for others">
+      </textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg">
+      <span>Submit</span>
+    </button>
+  </form>
+</div>

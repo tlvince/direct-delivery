@@ -4,4 +4,3 @@ bower_components/
 .tmp/
 dist/
 src/app/config.js
-coverage/

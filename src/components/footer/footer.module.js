@@ -1,3 +1,6 @@
 'use strict';
 
-angular.module('footer', []);
+angular.module('footer', [
+  'core',
+  'config'
+]);

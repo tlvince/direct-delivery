@@ -1,19 +1,30 @@
-<h3 ng-bind="facDevCtrl.facilityName"></h3>
+<h2>
+  <span ng-bind="facDevCtrl.facilityName"></span> - Delivery Round
+</h2>
 <div class="panel">
-  <p>
-    <button type="button" class="btn btn-success btn-lg" ng-click="facDevCtrl.showDeliveryProducts()">
-      <i class="fa fa-arrow-circle-right"></i>
-      <span>Start Delivery</span>
-    </button>
-  </p>
+  <div class="btn-group btn-group-justified">
+    <div class="btn-group">
+      <a ui-sref="home" class="btn btn-warning btn-lg btn-left">
+        <i class="fa fa-arrow-circle-left"></i>
+        <span>Back</span>
+      </a>
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-success btn-lg btn-right"
+              ng-click="facDevCtrl.goTo(facDevCtrl.STEPS.DELIVER_ITEM)">
+        <span>Deliver Items</span>
+        <i class="fa fa-arrow-circle-right"></i>
+      </button>
+    </div>
+  </div>
   <br/>
   <h4> Or cancel delivery, select reason and submit report.</h4>
   <br/>
-  <form name="skipForm" ng-submit="facDevCtrl.skipAndSubmitReport()">
+  <form name="skipForm" ng-submit="facDevCtrl.cancelAndSubmitReport()">
     <div class="form-group">
       <div class="checkbox">
         <label>
-          <input type="checkbox" ng-model="facDevCtrl.discontinueForm.notAvailable"> Arrived at health facility but not available.
+          <input type="checkbox" ng-model="facDevCtrl.reason.notAvailable"> Health facility not available
         </label>
       </div>
     </div>
@@ -21,7 +32,15 @@
     <div class="form-group">
       <div class="checkbox">
         <label>
-          <input type="checkbox" ng-model="facDevCtrl.discontinueForm.brokenCCE"> Non functional / working CCE.
+          <input type="checkbox" ng-model="facDevCtrl.reason.brokenCCE"> Broken CCE.
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="facDevCtrl.reason.noCCE"> No CCE.
         </label>
       </div>
     </div>
@@ -30,17 +49,16 @@
       <div class="checkbox">
         <label>
           <input type="checkbox"
-                 ng-model="facDevCtrl.discontinueForm.others"> Others
+                 ng-model="facDevCtrl.reason.others"> Others
         </label>
       </div>
       <textarea ng-model="vm.discontinueForm.note"
-                ng-disabled="!facDevCtrl.discontinueForm.others"
                 class="form-control" rows="3"
-                placeholder="add comment for others">
+                placeholder="add reason for unavailable health facility and others.">
       </textarea>
     </div>
 
-    <button type="submit" class="btn btn-primary btn-lg">
+    <button type="submit" class="btn btn-primary btn-lg btn-block">
       <span>Submit</span>
     </button>
   </form>

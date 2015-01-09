@@ -7,19 +7,10 @@ angular.module('scheduler')
   .service('scheduleService', function(){
     var now = new Date();
     function sameDay(d1, d2){
-      return (
-        d1.getFullYear() == d2.getFullYear() &
-        d1.getMonth()  == d2.getMonth() &
-        d1.getDate()   == d2.getDate()
-      );
+      return (d1.format("DD-MM-YYYY") == d2.format('DD-MM-YYYY'));
      }
-    function dateRange (day, minDate, maxDate){
-        var ms_in_day = 1000 * 60 * 60 * 24;
-        var dayms = day.getTime();
-        var minDatems = minDate.getTime();
-        var maxDatems = maxDate.getTime() + ms_in_day;
-
-        return (dayms >= minDatems) && (dayms <= maxDatems);
+    function dateRange (minDate, maxDate){
+      return (moment().isBetween(minDate, maxDate));
     }
     var compareDates = {
       sameDate : sameDay,
@@ -29,15 +20,15 @@ angular.module('scheduler')
        {
          round : '16',
          status: 'active',
-         startDate: new Date('1-1-2014'),
-         endDate: new Date('1-29-2015'),
+         startDate: moment('1-1-2015', 'DD-MM-YYYY'),
+         endDate: moment('29-1-2015', 'DD-MM-YYYY'),
          driver: {
            email: 'driverA@ehealth.org.ng',
            name: 'Driver A'
          },
          deliveries: [
            {
-             date: new Date('12-15-2014'),
+             date: moment('14-1-2015', 'DD-MM-YYYY'),
              facilities: [
                {
                  id: '2572gs-26gyus',
@@ -54,7 +45,7 @@ angular.module('scheduler')
              ]
            },
            {
-             date: new Date('12-16-2014'),
+             date: moment('7-1-2015', 'DD-MM-YYYY'),
              facilities: [
                {
                  id: '4',
@@ -75,7 +66,7 @@ angular.module('scheduler')
              ]
            },
            {
-             date: new Date('1-8-2015'),
+             date: moment('9-1-2015', 'DD-MM-YYYY'),
              facilities: [
                {
                  id: '8',
@@ -129,7 +120,7 @@ angular.module('scheduler')
     ];
     this.getCurrentRound = function(){
       for(var i = 0; i < this.scheduleDB.length; i++ ){
-        if( compareDates.dateRange(now, this.scheduleDB[i].startDate, this.scheduleDB[i].endDate) ){
+        if( compareDates.dateRange(this.scheduleDB[i].startDate, this.scheduleDB[i].endDate) ){
           return this.scheduleDB[i];
         }
       }
@@ -142,7 +133,7 @@ angular.module('scheduler')
       var roundData = this.getCurrentRound();
       if(angular.isObject(roundData)) {
         for (var i = 0; i < roundData.deliveries.length; i++) {
-          if (compareDates.sameDate(roundData.deliveries[i].date, now)) {
+          if (compareDates.sameDate(roundData.deliveries[i].date, moment())) {
             return roundData.deliveries[i];
           }
         }

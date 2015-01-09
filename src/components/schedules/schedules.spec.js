@@ -3,7 +3,7 @@
  */
 
 
-describe('unit: scheduleCtrl', function(){
+xdescribe('unit: scheduleCtrl', function(){
 
   beforeEach(module('ui.router'));
   beforeEach(module('scheduler'));

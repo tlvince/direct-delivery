@@ -44,7 +44,13 @@
   </tr>
 </table>
 
-<a
-  class="btn btn-default pull-right"
-  ng-click="packingItemCtrl.save()"
->Save</a>
+<div class="pull-right">
+  <a
+    class="btn btn-default"
+    ui-sref="packing.all"
+  >Cancel</a>
+  <a
+    class="btn btn-primary"
+    ng-click="packingItemCtrl.save()"
+  >Save</a>
+</div>

@@ -1,8 +1,9 @@
 'use strict';
 
-function FacilityDeliveryCtrl($state){
+function FacilityDeliveryCtrl($state, DELIVERY_STEPS){
   var vm = this; //view model
-  vm.currentStep = 1;//TODO: use constants, makes it more readable
+  vm.STEPS = DELIVERY_STEPS;
+  vm.currentStep = vm.STEPS.START;
   vm.facilityName = $state.params.facilityName;
   vm.facilityId = $state.params.facilityId;
 
@@ -10,22 +11,22 @@ function FacilityDeliveryCtrl($state){
     //TODO: go back to previous page and show error alert.
   }
 
-
-  vm.discontinueForm = {
+  vm.reason = {
     others: false,
     notAvailable: false,
     brokenCCE: false,
+    noCCE: false,
     notes: ''
   };
 
-  vm.skipAndSubmitReport = function(){
-    //TODO: submit discontinue delivery report and
+  vm.cancelAndSubmitReport = function(){
+    //TODO: validate, submit report and discontinue delivery.
     //navigate to home page with alert.
     console.log(vm);
   };
 
-  vm.showDeliveryProducts = function(){
-    vm.currentStep = 2;
+  vm.goTo = function(pos){
+    vm.currentStep = pos;
   };
 
 }

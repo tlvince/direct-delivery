@@ -1,6 +1,8 @@
 <div class="col-md-15">
-    <div ng-show="facDevCtrl.currentStep === 1"
+    <div ng-show="facDevCtrl.currentStep === facDevCtrl.STEPS.START"
          ng-include="'components/delivery/partials/delivery-step-one.html'"></div>
-    <div ng-show="facDevCtrl.currentStep === 2"
+    <div ng-show="facDevCtrl.currentStep === facDevCtrl.STEPS.DELIVER_ITEM"
          ng-include="'components/delivery/partials/delivery-step-two.html'"></div>
+  <div ng-show="facDevCtrl.currentStep === facDevCtrl.STEPS.COLLECT_KPI"
+       ng-include="'components/delivery/partials/delivery-step-three.html'"></div>
 </div>

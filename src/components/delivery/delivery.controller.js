@@ -22,7 +22,10 @@ function FacilityDeliveryCtrl($state, DELIVERY_STEPS){
   vm.cancelAndSubmitReport = function(){
     //TODO: validate, submit report and discontinue delivery.
     //navigate to home page with alert.
-    console.log(vm);
+  };
+
+  vm.signOffAndSubmit = function(){
+    //TODO: capture signature, attach, validate and submit complete delivery report.
   };
 
   vm.goTo = function(pos){

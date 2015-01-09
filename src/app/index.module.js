@@ -7,7 +7,7 @@ angular.module('directDelivery', [
   'home',
   'log',
   'scheduler',
-  'delivery'
+  'delivery',
   'packing',
   'packing.all',
   'packing.item'

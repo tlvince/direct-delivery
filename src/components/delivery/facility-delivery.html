@@ -5,6 +5,10 @@
          ng-include="'components/delivery/partials/delivery-step-two.html'"></div>
   <div ng-show="facDevCtrl.currentStep === facDevCtrl.STEPS.COLLECT_KPI"
        ng-include="'components/delivery/partials/delivery-step-three.html'"></div>
+  <div ng-show="facDevCtrl.currentStep === facDevCtrl.STEPS.POST_ITEM_DELIVERY"
+       ng-include="'components/delivery/partials/confirm-delivery.html'"></div>
+  <div ng-show="facDevCtrl.currentStep === facDevCtrl.STEPS.CHILD_FACILITY"
+       ng-include="'components/delivery/partials/child-facility/child-facility-form.html'"></div>
   <div ng-show="facDevCtrl.currentStep === facDevCtrl.STEPS.SIGN_OFF"
        ng-include="'components/delivery/partials/delivery-sign-off.html'"></div>
 </div>

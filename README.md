@@ -1,9 +1,12 @@
 # direct-delivery
 
 [![Build Status][travis-image]][travis-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
 
 [travis-url]: https://travis-ci.org/eHealthAfrica/direct-delivery
-[travis-image]: https://travis-ci.org/eHealthAfrica/direct-delivery.svg?branch=master
+[travis-image]: https://img.shields.io/travis/eHealthAfrica/direct-delivery/develop.svg
+[coveralls-url]: https://coveralls.io/r/eHealthAfrica/direct-delivery
+[coveralls-image]: https://img.shields.io/coveralls/eHealthAfrica/direct-delivery/develop.svg
 
 > User-centred direct delivery management system
 

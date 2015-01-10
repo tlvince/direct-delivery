@@ -1,17 +1,19 @@
 'use strict';
-
-var extend = require('extend');
-var shared = require('./karma-shared.conf');
+/*eslint-env node */
 
 module.exports = function(config) {
-  var coverage = {
+  config.set({
+    autoWatch: false,
+    frameworks: [
+      'jasmine'
+    ],
+    browsers: [
+      'PhantomJS'
+    ],
     reporters: [
       'progress',
       'coverage'
     ],
-    plugins: shared.plugins.concat([
-      'karma-coverage'
-    ]),
     preprocessors: {
       'src/{app,components}/**/!(*.spec|*.mock).js': [
         'coverage'
@@ -21,7 +23,5 @@ module.exports = function(config) {
       type: 'lcov',
       dir: 'coverage'
     }
-  };
-  var conf = extend({}, shared, coverage);
-  config.set(conf);
+  });
 };

@@ -1,0 +1,25 @@
+{
+  "docs": [
+    {
+      "doc_type": "productStorage",
+      "version": "1.0.0",
+      "_id": "product-storage/frozen",
+      "label": "Frozen",
+      "description": "Goods can be frozen"
+    },
+    {
+      "doc_type": "productStorage",
+      "version": "1.0.0",
+      "_id": "product-storage/refrigerator",
+      "label": "Refrigerator",
+      "description": "Needs refrigeration"
+    },
+    {
+      "doc_type": "productStorage",
+      "version": "1.0.0",
+      "_id": "product-storage/dry",
+      "label": "Dry",
+      "description": "Dry goods"
+    }
+  ]
+}

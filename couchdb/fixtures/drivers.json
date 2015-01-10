@@ -1,0 +1,13 @@
+{
+  "docs": [
+    {
+      "_id": "abdullahi.ahmed@example.com",
+      "doc_type": "driver",
+      "version": "1.0.0",
+      "forename": "Adbullahi",
+      "surname": "Ahmed",
+      "email": "adbullahi.ahmed@example.com",
+      "phone": "08176675140"
+    }
+  ]
+}

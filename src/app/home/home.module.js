@@ -1,5 +1,6 @@
 'use strict';
 
 angular.module('home', [
-  'core'
+  'core',
+  'ui.bootstrap'
 ]);

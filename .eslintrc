@@ -9,7 +9,9 @@ rules:
   eqeqeq: 2
   wrap-iife: 2
   no-use-before-define: 2
-  new-cap: 2
+  new-cap:
+    - 2
+    - {newIsCapExceptions: ['pouchDB']}
   no-undef: 2
   no-unused-vars: 2
   global-strict:

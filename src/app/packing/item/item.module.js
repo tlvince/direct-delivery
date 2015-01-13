@@ -2,5 +2,6 @@
 
 angular.module('packing.item', [
   'core',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'couchdb'
 ]);

@@ -3,19 +3,9 @@
 /*global module: false, inject: false */
 
 describe('packingItemLegendService', function() {
-  describe('expected response', function() {
-    beforeEach(module(
-      'packing.item',
-      'productStorageMockExpected',
-      'packingItemLegendServiceMock'
-    ));
-
-    var packingItemLegendService;
-    beforeEach(inject(function(_packingItemLegendService_) {
-      packingItemLegendService = _packingItemLegendService_;
-    }));
-
-    it('should return a formatted list of storage legends', function() {
+  beforeEach(module('packing.item'));
+  it('should return a formatted list of storage legends', function() {
+    function test(packingItemLegendService) {
       var actual = packingItemLegendService.get();
       var expected = [
         {
@@ -26,22 +16,14 @@ describe('packingItemLegendService', function() {
         }
       ];
       expect(actual).toEqual(expected);
-    });
+    }
+
+    module('productStorageMockExpected', 'packingItemLegendServiceMock');
+    inject(test);
   });
 
-  describe('unexpected response', function() {
-    beforeEach(module(
-      'packing.item',
-      'productStorageMockUnexpected',
-      'packingItemLegendServiceMock'
-    ));
-
-    var packingItemLegendService;
-    beforeEach(inject(function(_packingItemLegendService_) {
-      packingItemLegendService = _packingItemLegendService_;
-    }));
-
-    it('should return an empty bsClass', function() {
+  it('should handle malformed product storage responses', function() {
+    function test(packingItemLegendService) {
       var actual = packingItemLegendService.get();
       var expected = [
         {
@@ -52,6 +34,9 @@ describe('packingItemLegendService', function() {
         }
       ];
       expect(actual).toEqual(expected);
-    });
+    }
+
+    module('productStorageMockUnexpected', 'packingItemLegendServiceMock');
+    inject(test);
   });
 });

@@ -2,30 +2,12 @@
 
 angular.module('packing.item')
   .service('packingItemLegendService', function(couchdb, couchUtil, STORAGE_ATTRIBUTES) {
-    function getBSClass(productStorageID) {
-      var rowToLabelMap = {
-        active: 'default'
-      };
-
-      var attr = STORAGE_ATTRIBUTES[productStorageID];
-      if (!attr) {
-        return '';
-      }
-
-      var bsClass = attr.bsClass;
-      if (bsClass in rowToLabelMap) {
-        bsClass = rowToLabelMap[bsClass];
-      }
-
-      return 'label-' + bsClass;
-    }
-
     function format(productStorages) {
       function transpose(productStorage) {
         return {
           id: productStorage._id,
           label: productStorage.label,
-          bsClass: getBSClass(productStorage._id),
+          bsClass: 'label-' + STORAGE_ATTRIBUTES[productStorage._id].bsClass,
           description: productStorage.description
         };
       }

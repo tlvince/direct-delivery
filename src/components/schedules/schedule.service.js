@@ -75,7 +75,7 @@ angular.module('scheduler')
              ]
            },
            {
-             date: new Date(),
+             date: new Date('01-13-2015'),
              facilities: [
                {
                  id: '8',

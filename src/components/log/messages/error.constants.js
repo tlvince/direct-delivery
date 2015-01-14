@@ -11,5 +11,15 @@ angular.module('log')
       title: 'Save failed',
       message: 'Could not save that item',
       remedy: 'Please ensure the form is valid and try again'
+    },
+    authInvalid: {
+      title: 'Authentication',
+      message: 'Invalid username or password',
+      remedy: 'Please try again'
+    },
+    networkError: {
+      title: 'Network',
+      message: 'Network error',
+      remedy: 'Please check your internet connection and try again'
     }
   });

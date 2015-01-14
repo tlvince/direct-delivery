@@ -1,14 +1,24 @@
 'use strict';
 
 angular.module('directDelivery', [
-  'core',
-  'navbar',
-  'footer',
-  'home',
-  'log',
-  'scheduler',
-  'delivery',
-  'packing',
-  'packing.all',
-  'packing.item'
-]);
+    'core',
+    'navbar',
+    'footer',
+    'home',
+    'auth',
+    'log',
+    'login',
+    'scheduler',
+    'packing',
+    'packing.all',
+    'packing.item',
+    'delivery'
+  ])
+  .run(function($rootScope, $state, AuthService) {
+    $rootScope.$on('$stateChangeStart', function(event, toState) {
+      if (!AuthService.isLoggedIn && toState.name !== 'login') {
+        $state.transitionTo('login');
+        event.preventDefault();
+      }
+    });
+  });

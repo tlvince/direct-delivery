@@ -2,5 +2,6 @@
 
 angular.module('navbar', [
   'core',
-  'config'
+  'config',
+  'auth'
 ]);

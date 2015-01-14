@@ -16,6 +16,7 @@ angular.module('delivery')
     }
 
     vm.reason = {
+      cancelledAhead: false,
       others: false,
       notAvailable: false,
       brokenCCE: false,

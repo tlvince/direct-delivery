@@ -1,25 +1,38 @@
-<h2>Delivery Sign off</h2>
-<p>Sign your signature inside the box below and submit.</p>
-<button type="button" class="btn btn-default btn-lg">
-  <i class="fa fa-refresh"></i>
-  <span>Clear Signature</span>
-</button>
-<br/><br/>
-<div class="table table-bordered">
-  <canvas></canvas>
-</div>
-<div class="btn-group btn-group-justified">
-  <div class="btn-group">
-    <a class="btn btn-warning btn-lg btn-left">
-      <i class="fa fa-arrow-circle-left"></i>
-      <span>Back</span>
-    </a>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2>
+      <h2><span ng-bind="facDevCtrl.facilityName"></span> - Delivery Sign off</h2>
+    </h2>
   </div>
-  <div class="btn-group">
-    <button type="button" class="btn btn-success btn-lg btn-right"
-            ng-click="facDevCtrl.signOffAndComplete()">
-      <span>Submit</span>
-      <i class="fa fa-arrow-circle-right"></i>
+  <div class="panel-body">
+    <h4>Sign your signature inside the box below and submit.</h4>
+    <button type="button" class="btn btn-default btn-lg" ng-click="facDevCtrl.clearSignature()">
+      <i class="fa fa-refresh"></i>
+      <span>Clear Signature</span>
     </button>
+    <br/>
+
+    <div class="col-sm-15">
+      <canvas class="table-bordered" width="700" height="400"></canvas>
+    </div>
+    <div class="btn-group btn-group-justified">
+      <div class="btn-group">
+        <button type="button" class="btn btn-warning btn-lg btn-left"
+                ng-click="facDevCtrl.goTo(facDevCtrl.STEPS.PREVIEW_KPI)">
+          <i class="fa fa-arrow-circle-left"></i>
+          <span>Back</span>
+        </button>
+      </div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-success btn-lg btn-right"
+                ng-click="facDevCtrl.signOffAndComplete()">
+          <span>Submit</span>
+          <i class="fa fa-arrow-circle-right"></i>
+        </button>
+      </div>
+    </div>
   </div>
 </div>
+
+
+

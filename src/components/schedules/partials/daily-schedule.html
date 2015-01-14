@@ -30,9 +30,10 @@
               <td ng-bind="facility.contact"></td>
               <td ng-bind="facility.number"></td>
               <td>
-                <button type="submit" class="btn btn-warning btn-block">
-                  <span>Skip Delivery</span>
-                </button>
+                <a class="btn btn-primary btn-lg btn-block"
+                   ui-sref="facilityDelivery({ facilityName : facility.name, facilityId : facility.id })">
+                  <span>Deliver</span>
+                </a>
               </td>
             </tr>
         </table>

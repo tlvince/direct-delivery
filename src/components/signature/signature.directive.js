@@ -57,8 +57,8 @@ angular
         }
 
         $element.on('$destroy', function(){
-          $window.off('orientationchange');
-          $window.off('resize');
+          $window.removeEventListener('orientationchange');
+          $window.removeEventListener('resize');
         });
       }
     };

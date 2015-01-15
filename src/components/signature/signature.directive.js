@@ -1,3 +1,9 @@
+'use strict';
+
+/**
+ * angular directive for signature pad
+ * Ported from https://github.com/marcorinck/ngSignaturePad
+ */
 angular
   .module('signature')
   .directive('signPad', ['$window', function ($window) {
@@ -16,7 +22,6 @@ angular
         signaturePad.fromDataURL(img);
       });
     }, false);
-
 
     return {
       restrict: 'AE',
@@ -43,11 +48,10 @@ angular
         };
       },
       link: function($scope, $element){
-        canvas = $window.document.querySelector("canvas");
+        canvas = $element.find('canvas')[0];
         scope = $scope;
         element = $element;
         signaturePad = new $window.SignaturePad(canvas);
-
         if ($scope.signature && !$scope.signature.$isEmpty && $scope.signature.dataUrl) {
           signaturePad.fromDataURL($scope.signature.dataUrl);
         }

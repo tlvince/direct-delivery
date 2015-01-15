@@ -3,12 +3,12 @@
     <h2><span ng-bind="facDevCtrl.facilityName"></span> - Child Facility KPI</h2>
   </div>
   <div class="panel-body">
-    <button type="button" class="btn btn-warning btn-lg btn-block"
-            ng-click="facDevCtrl.goTo(facDevCtrl.STEPS.PREVIEW_KPI)">
+    <a ui-sref="facilityDelivery.collectKPI" class="btn btn-warning btn-lg btn-block">
       <i class="fa fa-arrow-circle-left"></i>
       <span>Back</span>
-    </button>
+    </a>
     <br/>
+
     <form>
       <div class="form-group">
         <label class="control-label">Child Facility</label>
@@ -92,15 +92,19 @@
           </td>
         </tr>
       </table>
-
     </form>
-    <button type="button" class="btn btn-success btn-lg btn-block"
-            ng-click="facDevCtrl.goTo(facDevCtrl.STEPS.FINISH_CHILD_FACILITY)">
-      <i class="fa fa-save"></i>
-      <span>Finish</span>
+
+    <button type="button" class="btn btn-primary btn-lg btn-block">
+      <i class="fa fa-plus"></i>
+      <span>Another Facility</span>
     </button>
-    </div>
+    <br/>
+    <a ui-sref="facilityDelivery.previewChildFacilityKPI" class="btn btn-success btn-lg btn-block">
+      <i class="fa fa-arrow-circle-right"></i>
+      <span>Finish</span>
+    </a>
   </div>
+</div>
 </div>
 
 

@@ -1,16 +1,3 @@
 <div class="col-md-15">
-  <div ng-show="facDevCtrl.currentStep === facDevCtrl.STEPS.DELIVER_ITEM
-                  || facDevCtrl.currentStep === facDevCtrl.STEPS.PREVIEW_DELIVERY"
-       ng-include="'components/delivery/partials/deliver-items.html'"></div>
-  <div ng-show="facDevCtrl.currentStep === facDevCtrl.STEPS.COLLECT_KPI
-                || facDevCtrl.currentStep === facDevCtrl.STEPS.PREVIEW_KPI"
-       ng-include="'components/delivery/partials/collect-kpi.html'"></div>
-  <div ng-show="facDevCtrl.currentStep === facDevCtrl.STEPS.CHILD_FACILITY"
-       ng-include="'components/delivery/partials/child-facility/child-facility-form.html'"></div>
-  <div ng-show="facDevCtrl.currentStep === facDevCtrl.STEPS.FINISH_CHILD_FACILITY"
-       ng-include="'components/delivery/partials/child-facility/preview.html'"></div>
-  <div ng-show="facDevCtrl.currentStep === facDevCtrl.STEPS.SIGN_OFF"
-       ng-include="'components/delivery/partials/delivery-sign-off.html'"></div>
-  <div ng-show="facDevCtrl.currentStep === facDevCtrl.STEPS.CANCEL_DELIVERY"
-       ng-include="'components/delivery/partials/cancel-delivery.html'"></div>
+  <div id="form-views" ui-view></div>
 </div>

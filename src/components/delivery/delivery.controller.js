@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('delivery')
-  .controller('FacilityDeliveryCtrl', function FacilityDeliveryCtrl($state, $window, DELIVERY_STEPS) {
+  .controller('FacilityDeliveryCtrl', function FacilityDeliveryCtrl($state, $window, DELIVERY_STEPS, $scope) {
     var vm = this; //view model
     vm.STEPS = DELIVERY_STEPS;
     vm.currentStep = vm.STEPS.DELIVER_ITEM;
@@ -9,7 +9,7 @@ angular.module('delivery')
     vm.facilityId = $state.params.facilityId;
     vm.previewDelivery = false;
     vm.previewKPI = false;
-    var signaturePad;
+    vm.signature = {};
 
     if (!(angular.isString(vm.facilityName) && angular.isString(vm.facilityId))) {
       //TODO: go back to previous page and show error alert.
@@ -30,6 +30,7 @@ angular.module('delivery')
     };
 
     vm.signOffAndSubmit = function () {
+      console.log(vm.signature);
       //TODO: capture signature, attach, validate and submit complete delivery report.
     };
 
@@ -38,22 +39,8 @@ angular.module('delivery')
       //add to list, clear form
     };
 
-    var initSignaturePad = function(){
-      var canvas = $window.document.querySelector("canvas");
-      signaturePad = new SignaturePad(canvas);
-    };
-
-    vm.clearSignature = function(){
-      if(signaturePad){
-        signaturePad.clear();
-      }
-    };
-
     vm.goTo = function (pos) {
       vm.currentStep = pos;
-      if(vm.currentStep === vm.STEPS.SIGN_OFF){
-        initSignaturePad();
-      }
       if(vm.currentStep === vm.STEPS.PREVIEW_DELIVERY){
         vm.previewDelivery = true;
       }else{

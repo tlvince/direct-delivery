@@ -46,7 +46,7 @@ angular
         canvas = $window.document.querySelector("canvas");
         scope = $scope;
         element = $element;
-        signaturePad = new SignaturePad(canvas);
+        signaturePad = new $window.SignaturePad(canvas);
 
         if ($scope.signature && !$scope.signature.$isEmpty && $scope.signature.dataUrl) {
           signaturePad.fromDataURL($scope.signature.dataUrl);

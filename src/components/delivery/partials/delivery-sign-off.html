@@ -10,20 +10,14 @@
       <i class="fa fa-arrow-circle-left"></i>
       <span>Back</span>
     </button>
-    <br/>
+
     <h3>Sign your signature inside the box below and submit.</h3>
-    <button type="button" class="btn btn-default btn-lg" ng-click="facDevCtrl.clearSignature()">
-      <i class="fa fa-refresh"></i>
-      <span>Clear Signature</span>
-    </button>
+
+    <sign-pad signature="facDevCtrl.signature"></sign-pad>
     <br/>
 
-    <div class="col-sm-15">
-      <canvas class="table-bordered" width="700" height="400"></canvas>
-    </div>
-    <br/>
     <button type="button" class="btn btn-success btn-lg btn-block"
-            ng-click="facDevCtrl.signOffAndComplete()">
+            ng-click="facDevCtrl.signOffAndSubmit()">
       <span>Submit</span>
       <i class="fa fa-arrow-circle-right"></i>
     </button>

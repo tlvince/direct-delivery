@@ -5,8 +5,11 @@
  * @desc synchronization service between local and remote database.
  */
 angular.module('sync')
-  .service('syncService', ['$rootScope', 'pouchdbService', 'SYNC_DELIVERY_RND', 'SYNC_DAILY_DELIVERY',
-    function ($rootScope, pouchdbService, SYNC_DELIVERY_RND, SYNC_DAILY_DELIVERY) {
+  .service('syncService', ['$rootScope', 'pouchdbService', 'SYNC_DELIVERY_RND',
+    'SYNC_DAILY_DELIVERY', 'CORE_SYNC_DOWN',
+    function ($rootScope, pouchdbService, SYNC_DELIVERY_RND, SYNC_DAILY_DELIVERY, CORE_SYNC_DOWN) {
+
+      //TODO check if sync is in progress for each and broadcast appropriate message.
 
       var dailyByDriver = function (local, dbUrl, driverId, date) {
         date = new Date(date);
@@ -55,21 +58,49 @@ angular.module('sync')
       };
 
       this.dailySyncDown = function (local, dbUrl, driverId, date) {
+        var drListeners = {};
         date = new Date(date);
         date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-        var handleCompleteSync = function () {
-          dailyByDriver(local, dbUrl, driverId, date);
-          drListeners[SYNC_DELIVERY_RND.COMPLETE]();
+
+        var removeListeners = function () {
+          for (var unbind in drListeners) {
+            drListeners[unbind]();
+          }
         };
 
-        //attach listeners
-        var drListeners = {};
+        var handleCompleteSync = function () {
+          dailyByDriver(local, dbUrl, driverId, date);
+          removeListeners();
+        };
+
+        //attach and remove  listeners accordingly
         drListeners[SYNC_DELIVERY_RND.COMPLETE] = $rootScope.$on(SYNC_DELIVERY_RND.COMPLETE, handleCompleteSync);
-        drListeners[SYNC_DELIVERY_RND.ERROR] = $rootScope.$on(SYNC_DELIVERY_RND.ERROR, drListeners[SYNC_DELIVERY_RND.ERROR]);
-        drListeners[SYNC_DELIVERY_RND.DENIED] = $rootScope.$on(SYNC_DELIVERY_RND.DENIED, drListeners[SYNC_DELIVERY_RND.DENIED]);
+        drListeners[SYNC_DELIVERY_RND.ERROR] = $rootScope.$on(SYNC_DELIVERY_RND.ERROR, removeListeners);
+        drListeners[SYNC_DELIVERY_RND.DENIED] = $rootScope.$on(SYNC_DELIVERY_RND.DENIED, removeListeners);
 
         //start daily sync down
         deliveryRndWithinDate(local, dbUrl, date);
+      };
+
+      this.coreSyncDown = function (local, dbUrl, docTypes) {
+        var options = {
+          filter: 'app-setup/by_doc_types',
+          query_params: {
+            docTypes: JSON.stringify(docTypes)
+          }
+        };
+        var db = pouchdbService.create(local);
+        return db
+          .replicate.from(dbUrl, options)
+          .on('complete', function (res) {
+            $rootScope.$emit(CORE_SYNC_DOWN.COMPLETE, { msg: res });
+          })
+          .on('error', function (err) {
+            $rootScope.$emit(CORE_SYNC_DOWN.ERROR, { msg: err });
+          })
+          .on('denied', function (err) {
+            $rootScope.$emit(CORE_SYNC_DOWN.DENIED, { msg: err });
+          });
       };
 
     }]);

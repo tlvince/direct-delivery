@@ -7,18 +7,13 @@
 angular.module('db')
   .service('pouchdbService', ['$window', 'pouchDB', function($window, pouchDB){
 
-    var hasWebSQL = function(){
-      return $window.openDatabase;
-    };
-
-    this.create = function(dbName, opt){
-      var options = opt || {};
-      if(hasWebSQL()){
-        options.adapter = 'websql';
-      }else{
-        options.adapter = 'idb';
+    this.create = function(dbName){
+      var db = pouchDB(dbName, { adapter: 'websql'});
+      if (!db.adapter) {
+        // Fallback to default
+        db = pouchDB(dbName);
       }
-      return new pouchDB(dbName, options);
+      return db;
     };
 
     this.remote = function(dbUrl, options){

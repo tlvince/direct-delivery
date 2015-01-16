@@ -1,0 +1,1 @@
+"function(doc, req) {\n var reqDate = new Date(req.query.date); if((doc.doc_type && doc.doc_type == 'deliveryRound' ) && (new Date(doc.startDate) <= reqDate && reqDate <= new Date(doc.endDate) ) ){\n    return true;\n  }\n  return false;\n}"

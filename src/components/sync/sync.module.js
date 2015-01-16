@@ -3,4 +3,4 @@
 /**
  * ngDoc - Synchronization module
  */
-angular.module('sync', ['db']);
+angular.module('sync', ['db', 'auth', 'pouchdb']);

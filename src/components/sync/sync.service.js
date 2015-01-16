@@ -84,7 +84,7 @@ angular.module('sync')
 
       this.coreSyncDown = function (local, dbUrl, docTypes) {
         var options = {
-          filter: 'app-setup/by_doc_types',
+          filter: 'docs/by_doc_types',
           query_params: {
             docTypes: JSON.stringify(docTypes)
           }

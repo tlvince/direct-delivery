@@ -7,10 +7,20 @@
 angular.module('db')
   .service('dbService', ['pouchdbService', 'config', function (pouchdbService, config) {
 
-    var obj = this;
+    var _this = this;
     var LOCAL_DB = config.localDB;
     var local = pouchdbService.create(LOCAL_DB);
-    obj.local = local;
+    _this.local = local;
+
+    _this.addTimeInfo = function(doc){
+      var now = new Date().toJSON();
+      if(!doc.createdOn){
+        doc.createdOn = now;
+      }
+      doc.modifiedOn = now;
+      return doc;
+
+    };
 
     /**
      * This does the following:
@@ -21,22 +31,24 @@ angular.module('db')
      * @param {Object} doc - document to be saved.
      * @returns {$promise}
      */
-    obj.save = function (doc) {
-      if ('_id' in doc) {
+    _this.save = function (doc) {
+      doc = _this.addTimeInfo(doc);
+      if (doc._id) {
         return local.get(doc._id)
           .then(function (res) {
+            console.info(res);
             doc._rev = res._rev;
-            return local.put(doc, doc._id);
+            return local.put(doc, doc._id, doc._rev);
           })
           .catch(function () {
             return local.put(doc, doc._id);
           });
       } else {
-        return obj.insert(doc);
+        return _this.insert(doc);
       }
     };
 
-    obj.get = function (id) {
+    _this.get = function (id) {
       return local.get(id);
     };
 
@@ -45,7 +57,7 @@ angular.module('db')
      * @param doc - document to be removed requires at least _id and _rev property.
      * @returns {$promise}
      */
-    this.delete = function (doc) {
+    _this.delete = function (doc) {
       return local.remove(doc);
     };
 
@@ -57,7 +69,8 @@ angular.module('db')
      * @returns {$promise}
      * @see http://pouchdb.com/api.html#create_document
      */
-    obj.insert = function (doc) {
+    _this.insert = function (doc) {
+      doc = _this.addTimeInfo(doc);
       return local.post(doc);
     };
 
@@ -67,7 +80,8 @@ angular.module('db')
      * @param doc - existing document with _id property.
      * @returns {$promise}
      */
-    obj.update = function (doc) {
+    _this.update = function (doc) {
+      doc = _this.addTimeInfo(doc);
       return local.get(doc._id)
         .then(function (res) {
           doc._rev = res._rev;

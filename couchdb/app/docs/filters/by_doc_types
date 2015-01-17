@@ -1,1 +1,0 @@
-"function(doc, req) {\n  var docTypes = JSON.parse(req.query.docTypes);\n  return (doc.doc_type && (docTypes.indexOf(doc.doc_type) != -1));\n}"

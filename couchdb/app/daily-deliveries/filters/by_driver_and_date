@@ -1,1 +1,0 @@
-"function(doc, req) {\n var reqDate = new Date(req.query.date); if((doc.doc_type && doc.doc_type === 'dailyDelivery' ) && (req.query.driverId === doc.driverID) && (reqDate.getTime() === new Date(doc.deliveryDate).getTime())){\n    return true;\n  }\n  return false;\n}"

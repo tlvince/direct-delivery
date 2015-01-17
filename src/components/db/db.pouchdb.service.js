@@ -8,10 +8,14 @@ angular.module('db')
   .service('pouchdbService', ['$window', 'pouchDB', function($window, pouchDB){
 
     this.create = function(dbName){
-      var db = pouchDB(dbName, { adapter: 'websql'});
+      var options = {
+        adapter: 'websql',
+        auto_compaction: true
+      };
+      var db = pouchDB(dbName, options);
       if (!db.adapter) {
         // Fallback to default
-        db = pouchDB(dbName);
+        db = pouchDB(dbName, { auto_compaction: true });
       }
       return db;
     };

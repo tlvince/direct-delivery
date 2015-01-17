@@ -18,7 +18,7 @@
             <tr ng-repeat="facility in schedulesCtrl.day.facilities track by facility.id">
               <td>
                 <a ng-bind="facility.name"
-                     ui-sref="facilityDelivery({ facilityName : facility.name, facilityId : facility.id })">
+                   ui-sref="facilityDelivery.deliverItems({ facilityName : facility.name, facilityId : facility.id })">
                 </a>
               </td>
               <td ng-bind="facility.drop"></td>

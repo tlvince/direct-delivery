@@ -19,7 +19,6 @@ angular.module('db')
       }
       doc.modifiedOn = now;
       return doc;
-
     };
 
     /**
@@ -36,7 +35,6 @@ angular.module('db')
       if (doc._id) {
         return local.get(doc._id)
           .then(function (res) {
-            console.info(res);
             doc._rev = res._rev;
             return local.put(doc, doc._id, doc._rev);
           })

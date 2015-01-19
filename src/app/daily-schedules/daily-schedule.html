@@ -1,0 +1,34 @@
+<br/>
+<div class="" ng-if="schedulesDailyCtrl.day.facilityRounds">
+
+  <h3 class="" ng-bind="schedulesDailyCtrl.day.date.format('MMM Do, YYYY') || day.date.format('MMM Do, YYYY')"></h3>
+    <div class="row">
+      <div class="col-sm-12 col-xs-12">
+        <table class="table table-striped table-bordered">
+            <thead>
+              <th>Facility Name</th>
+              <th>Drop</th>
+              <th>Window</th>
+              <th>Zone</th>
+              <th>LGA</th>
+              <th>Ward</th>
+              <th>Contact</th>
+              <th>Number</th>
+            </thead>
+            <tr ng-repeat="facilityRound in schedulesDailyCtrl.day.facilityRounds track by $index">
+              <td><a ng-bind="facilityRound.facility.name"></a></td>
+              <td ng-bind="facilityRound.drop"></td>
+              <td ng-bind="facilityRound.window"></td>
+              <td ng-bind="facilityRound.facility.zone"></td>
+              <td ng-bind="facilityRound.facility.lga"></td>
+              <td ng-bind="facilityRound.facility.ward"></td>
+              <td ng-bind="facilityRound.facility.contact"></td>
+              <td ng-bind="facilityRound.facility.phoneNo"></td>
+            </tr>
+        </table>
+      </div>
+    </div>
+</div>
+<div class="alert alert-info" ng-if="!schedulesDailyCtrl.day.facilityRounds">
+    <i class="fa fa-info-circle"></i> There are no scheduled deliveries today.
+</div>

@@ -1,8 +1,10 @@
 <br/>
-<div class="" ng-if="schedulesCtrl.day.facilities">
+<div class="" ng-if="day.facilities">
+
+  <h3 class="" ng-bind="day.date.format('MMM Do, YYYY') || day.date.format('MMM Do, YYYY')"></h3>
     <div class="row">
       <div class="col-sm-12 col-xs-12">
-        <table class="table table-striped">
+        <table class="table table-striped table-bordered">
             <thead>
               <th>Facility Name</th>
               <th>Drop</th>
@@ -13,7 +15,7 @@
               <th>Contact</th>
               <th>Number</th>
             </thead>
-            <tr ng-repeat="facility in schedulesCtrl.day.facilities track by facility.id">
+            <tr ng-repeat="facility in day.facilities track by facility.id">
               <td><a ng-bind="facility.name"></a></td>
               <td ng-bind="facility.drop"></td>
               <td ng-bind="facility.window"></td>
@@ -27,6 +29,6 @@
       </div>
     </div>
 </div>
-<div class="alert alert-info" ng-if="!schedulesCtrl.day.facilities">
+<div class="alert alert-info" ng-if="!day.facilities">
     <i class="fa fa-info-circle"></i> There are no scheduled deliveries today.
 </div>

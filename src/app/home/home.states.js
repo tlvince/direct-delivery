@@ -13,9 +13,21 @@ angular.module('home')
           }
         },
         'daySchedule@home': {
-          templateUrl: '/components/schedules/partials/daily_schedule.html',
-          controller: 'SchedulesCtrl',
-          controllerAs: 'schedulesCtrl'
+          templateUrl: '/app/daily-schedules/daily-schedule.html',
+          controller: 'SchedulesDailyCtrl',
+          controllerAs: 'schedulesDailyCtrl',
+          resolve: {
+            dailySchedule: function(scheduleService){
+              return scheduleService.getDaySchedule()
+                .then(function(response){
+                  return response;
+                })
+                .catch(function(err){
+                  console.error(err);
+                  return [];
+                });
+            }
+          }
         }
       }
     })

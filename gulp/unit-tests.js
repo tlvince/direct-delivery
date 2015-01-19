@@ -37,5 +37,5 @@ gulp.task('test', ['config'], function() {
 });
 
 gulp.task('test-watch', ['config'], function() {
-  return test({action: 'watch'});
+  return test('watch');
 });

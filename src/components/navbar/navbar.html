@@ -7,17 +7,14 @@
       </a>
     </div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
+    <div ng-if="navbarCtrl.auth.isLoggedIn" class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
       <ul class="nav navbar-nav">
-        <li
-          ng-repeat="item in navbarCtrl.items track by item.name"
-          ui-sref-active="active"
-        >
-          <a
-            ui-sref="{{item.name}}"
-            ng-bind="::item.label"
-          ></a>
+        <li ng-repeat="item in navbarCtrl.items track by item.name" ui-sref-active="active">
+          <a ui-sref="{{item.name}}" ng-bind="::item.label"></a>
         </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a ng-click="navbarCtrl.logout()">Logout</a></li>
       </ul>
     </div>
   </div>

@@ -13,7 +13,8 @@ angular.module('directDelivery', [
     'schedules.daily',
     'packing',
     'packing.all',
-    'packing.item'
+    'packing.item',
+    'delivery'
   ])
   .run(function($rootScope, $state, AuthService) {
     $rootScope.$on('$stateChangeStart', function(event, toState) {

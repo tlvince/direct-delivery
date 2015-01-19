@@ -18,6 +18,7 @@ angular.module('schedules')
       return couchdb.view(params).$promise;
 
     };
+     
     this.getCurrentRound = function(){
       return this.all()
         .then(function(response){

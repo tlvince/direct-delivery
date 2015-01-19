@@ -1,0 +1,110 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2><span ng-bind="facDevCtrl.facilityName"></span> - Child Facility KPI</h2>
+  </div>
+  <div class="panel-body">
+    <a ui-sref="facilityDelivery.collectKPI" class="btn btn-warning btn-lg btn-block">
+      <i class="fa fa-arrow-circle-left"></i>
+      <span>Back</span>
+    </a>
+    <br/>
+
+    <form>
+      <div class="form-group">
+        <label class="control-label">Child Facility</label>
+        <select class="form-control input-lg">
+          <option>Child Facility 1</option>
+          <option>Child Facility 2</option>
+          <option>Add New Facility</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">Distribution System: </label>
+        <label class="radio-inline">
+          <input type="radio" value="push">
+          Push system
+        </label>
+        <label class="radio-inline">
+          <input type="radio" value="pull">
+          Pull system
+        </label>
+      </div>
+
+      <table class="table table-striped table-condensed table-bordered">
+        <tr>
+          <th class="col-sm-2">Product</th>
+          <th class="col-sm-2">Supplied Qty</th>
+          <th class="col-sm-2">Returned Qty</th>
+        </tr>
+        <tr>
+          <td><span>BCG</span></td>
+          <td>
+            <div class="input-group">
+              <input type="number"
+                     class="form-control"
+                     min="0"
+                     step="1"
+                     ng-disabled="facDevCtrl.previewDelivery"
+                     ng-model-options="{updateOn: 'blur'}"/>
+
+              <div class="input-group-addon">Vials</div>
+            </div>
+          </td>
+          <td>
+            <div class="input-group">
+              <input type="number"
+                     class="form-control"
+                     min="0"
+                     step="1"
+                     ng-disabled="facDevCtrl.previewDelivery"
+                     ng-model-options="{updateOn: 'blur'}"/>
+
+              <div class="input-group-addon">Vials</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>OPV</td>
+          <td>
+            <div class="input-group">
+              <input type="number"
+                     class="form-control"
+                     min="0"
+                     step="1"
+                     ng-disabled="facDevCtrl.previewDelivery"
+                     ng-model-options="{updateOn: 'blur'}"/>
+
+              <div class="input-group-addon">Vials</div>
+            </div>
+          </td>
+          <td>
+            <div class="input-group">
+              <input type="number"
+                     class="form-control"
+                     min="0"
+                     step="1"
+                     ng-disabled="facDevCtrl.previewDelivery"
+                     ng-model-options="{updateOn: 'blur'}"/>
+
+              <div class="input-group-addon">Vials</div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+
+    <button type="button" class="btn btn-primary btn-lg btn-block">
+      <i class="fa fa-plus"></i>
+      <span>Another Facility</span>
+    </button>
+    <br/>
+    <a ui-sref="facilityDelivery.previewChildFacilityKPI" class="btn btn-success btn-lg btn-block">
+      <i class="fa fa-arrow-circle-right"></i>
+      <span>Finish</span>
+    </a>
+  </div>
+</div>
+</div>
+
+

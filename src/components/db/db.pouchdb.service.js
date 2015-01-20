@@ -5,7 +5,7 @@
  *
  */
 angular.module('db')
-  .service('pouchdbService', ['$window', 'pouchDB', function($window, pouchDB){
+  .service('pouchdbService', function($window, pouchDB){
 
     /**
      * we set default adapter to 'websql' because of the following:
@@ -32,4 +32,4 @@ angular.module('db')
       return new pouchDB(dbUrl, options)
     };
 
-  }]);
+  });

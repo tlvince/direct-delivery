@@ -1,5 +1,5 @@
 'use strict';
-angular.module('packingServiceMock', [])
+angular.module('packingAllServiceMock', [])
   .constant('user', {
     email: ''
   })
@@ -10,13 +10,18 @@ angular.module('packingServiceMock', [])
           id: 'packeduuid',
           key: 'driver@example.com',
           value: {
-            packed: true
+            id: 'packeduuid',
+            packed: true,
+            date: '2015-01-20'
           }
         },
         {
           id: 'unpackeduuid',
           key: 'driver@example.com',
-          value: {}
+          value: {
+            id: 'unpackeduuid',
+            date: '2015-01-20'
+          }
         }
       ]
     };

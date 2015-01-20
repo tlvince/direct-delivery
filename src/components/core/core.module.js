@@ -2,4 +2,5 @@
 
 angular.module('core', [
   'ui.router',
+  'ui.bootstrap'
 ]);

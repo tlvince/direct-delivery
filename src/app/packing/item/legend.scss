@@ -1,0 +1,30 @@
+@import '../../../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_variables.scss';
+@import '../../../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/mixins/_labels.scss';
+
+.packing-legend {
+  .label {
+    color: $gray-dark;
+    font-weight: 500;
+  }
+
+  // Match table row variants
+  .label-active {
+    @include label-variant($table-bg-active);
+  }
+
+  .label-success {
+    @include label-variant($state-success-bg);
+  }
+
+  .label-info {
+    @include label-variant($state-info-bg);
+  }
+
+  .label-warning {
+    @include label-variant($state-warning-bg);
+  }
+
+  .label-danger {
+    @include label-variant($state-danger-bg);
+  }
+}

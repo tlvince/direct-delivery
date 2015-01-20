@@ -1,0 +1,10 @@
+<div>
+   <h3><i class="fa-truck fa"></i> Vaccine Direct Delivery Round <span ng-bind="schedulesCtrl.currentSchedule.round"></span> Schedule </h3>
+</div>
+<p><br/></p>
+  <div ng-if="schedulesRoundCtrl.currentSchedule.deliveries.length > 0">
+    <div
+        ng-repeat="day in schedulesRoundCtrl.currentSchedule.deliveries"
+        ng-include="'components/schedules/round-schedules/daily.html'"></div>
+  </div>
+  <div ng-if="schedulesRoundCtrl.currentSchedule.deliveries.length < 0" class="alert alert-info">No Scheduled deliveries</div>

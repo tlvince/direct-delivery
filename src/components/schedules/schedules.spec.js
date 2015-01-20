@@ -3,13 +3,13 @@
  */
 
 
-xdescribe('unit: scheduleCtrl', function(){
+xdescribe('unit: scheduleService', function(){
 
-  beforeEach(module('ui.router'));
+  //beforeEach(module('ui.router'));
   beforeEach(module('scheduler'));
 
   var ctrl, scope;
-  beforeEach(inject(function($controller, $rootScope){
+  beforeEach(inject(function($rootScope, _scheduleService_){
     scope = $rootScope.$new();
     ctrl = $controller('schedulesCtrl', {
       $scope : scope

@@ -4,16 +4,16 @@
 
 'use strict';
 
-angular.module('scheduler')
-  .config(function($stateProvider){
-    $stateProvider.state('schedules', {
-      url: 'schedules',
-      controller: 'SchedulesCtrl',
-      controllerAs: 'schedulesCtrl',
-      templateUrl:'components/schedules/schedule.html',
-      parent: 'index',
-      data:{
-        label: 'schedules'
-      }
-    })
+angular.module('schedules')
+  .config(function ($stateProvider) {
+    $stateProvider
+      .state('schedules', {
+        abstract: true,
+        url: '/schedules',
+        parent: 'index',
+        templateUrl: 'components/schedules/schedule.html',
+        data: {
+          label: 'Schedule'
+        }
+      })
   });

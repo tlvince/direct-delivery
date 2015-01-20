@@ -1,5 +1,7 @@
 'use strict';
 
 angular.module('packing.item', [
-  'core'
+  'core',
+  'ui.bootstrap',
+  'couchdb'
 ]);

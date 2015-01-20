@@ -3,150 +3,37 @@
  */
 'use strict';
 
-angular.module('scheduler')
-  .service('scheduleService', function(){
-    var now = new Date();
-    function sameDay(d1, d2){
-      return (
-        d1.getFullYear() == d2.getFullYear() &
-        d1.getMonth()  == d2.getMonth() &
-        d1.getDate()   == d2.getDate()
-      );
-     }
-    function dateRange (day, minDate, maxDate){
-        var ms_in_day = 1000 * 60 * 60 * 24;
-        var dayms = day.getTime();
-        var minDatems = minDate.getTime();
-        var maxDatems = maxDate.getTime() + ms_in_day;
+angular.module('schedules')
+  .service('scheduleService', function(user, couchdb, couchUtil){
 
-        return (dayms >= minDatems) && (dayms <= maxDatems);
-    }
-    var compareDates = {
-      sameDate : sameDay,
-      dateRange : dateRange
+    this.all = function() {
+      var params = {
+        ddoc: 'daily-deliveries',
+        view: 'by-driver-date',
+        reduce: false,
+        include_docs: true
+      };
+      var key = couchUtil.key(user.email +"-"+ moment().format("D-M-YYYY"));
+      angular.extend(params, key);
+      return couchdb.view(params).$promise;
+
     };
-     this.scheduleDB = [
-       {
-         round : '16',
-         status: 'active',
-         startDate: new Date('1-1-2014'),
-         endDate: new Date('1-29-2015'),
-         driver: {
-           email: 'driverA@ehealth.org.ng',
-           name: 'Driver A'
-         },
-         deliveries: [
-           {
-             date: new Date('12-15-2014'),
-             facilities: [
-               {
-                 id: '2572gs-26gyus',
-                 name: 'Dala primary Health Facility'
-               },
-               {
-                 id: '2',
-                 name: 'Wudil Primary Health Facility'
-               },
-               {
-                 id: '3',
-                 name: 'Nassarawa Primary Health Facility'
-               }
-             ]
-           },
-           {
-             date: new Date('12-16-2014'),
-             facilities: [
-               {
-                 id: '4',
-                 name: 'Gurawa'
-               },
-               {
-                 id: '5',
-                 name: 'Kibiya Primary Health Center',
-               },
-               {
-                 id: '6',
-                 name: 'Chasko Health Post'
-               },
-               {
-                 id: '7',
-                 name: 'Rurum Tsohon Gari Health Post'
-               }
-             ]
-           },
-           {
-             date: new Date('01-13-2015'),
-             facilities: [
-               {
-                 id: '8',
-                 name: 'Ana Dariya Health Post',
-                 drop: 1,
-                 window: "9am - 11am",
-                 zone: 'Rano',
-                 lga: 'Bebeji',
-                 ward: 'Ana Dariya',
-                 contact: 'Ado Isiyaku',
-                 number: '08032119746'
-               },
-               {
-                 id: '9',
-                 name: 'Tiga General Hospital',
-                 drop: 2,
-                 window: "11am - 1pm",
-                 zone: 'Rano',
-                 lga: 'Bebeji',
-                 ward: 'Garmai',
-                 contact: "HAJARA MOH'D",
-                 number: '07067335948'
-               },
-               {
-                 id: '10',
-                 name: 'Tiga General Hospital',
-                 drop: 3,
-                 window: "1pm - 3pm",
-                 zone: 'Rano',
-                 lga: 'Bebeji',
-                 ward: 'Garmai',
-                 contact: "HAJARA MOH'D",
-                 number: '07067335948'
-               },
-               {
-                 id: '11',
-                 name: 'Marika Mahuta Health Center'
-               },
-               {
-                 id: '12',
-                 name: 'Kan Iyaka Health Post'
-               },
-               {
-                 id: '13',
-                 name: 'Yarzabaina Town Clinic'
-               }
-             ]
-           }
-         ]
-      }
-    ];
+     
     this.getCurrentRound = function(){
-      for(var i = 0; i < this.scheduleDB.length; i++ ){
-        if( compareDates.dateRange(now, this.scheduleDB[i].startDate, this.scheduleDB[i].endDate) ){
-          return this.scheduleDB[i];
-        }
-      }
+      return this.all()
+        .then(function(response){
+          return response;
+        })
+        .catch(function(){
+          console.error('server failed to return data');
+        });
     };
-
-    this.getAll = function(){
-
-    };
-    this.getDaySchedule = function(round){
-      var roundData = this.getCurrentRound();
-      if(angular.isObject(roundData)) {
-        for (var i = 0; i < roundData.deliveries.length; i++) {
-          if (compareDates.sameDate(roundData.deliveries[i].date, now)) {
-            return roundData.deliveries[i];
-          }
-        }
-      }
-      return {};
+    this.getDaySchedule = function(){
+      return this.getCurrentRound()
+        .then(function(response){
+          return response.rows.map(function(row){
+            return row.doc;
+          })
+        });
     }
   });

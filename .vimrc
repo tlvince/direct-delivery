@@ -17,5 +17,13 @@ let g:syntastic_html_tidy_ignore_errors = [
   \ '<input> proprietary attribute "step"',
   \ '<select> proprietary attribute "required"',
   \ 'unescaped & which should be written as &amp;',
-  \ '<div> proprietary attribute "growl"'
+  \ '<tab> is not recognized!',
+  \ 'discarding unexpected <tab>',
+  \ 'discarding unexpected </tab>',
+  \ '<tabset> is not recognized!',
+  \ 'discarding unexpected <tabset>',
+  \ 'discarding unexpected </tabset>',
+  \ '<tab-heading> is not recognized!',
+  \ 'discarding unexpected <tab-heading>',
+  \ 'discarding unexpected </tab-heading>'
   \ ]

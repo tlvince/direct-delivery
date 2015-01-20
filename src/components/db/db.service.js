@@ -36,10 +36,20 @@ angular.module('db')
         return local.get(doc._id)
           .then(function (res) {
             doc._rev = res._rev;
-            return local.put(doc, doc._id, doc._rev);
+            return local.put(doc, doc._id, doc._rev)
+              .then(function(res){
+                doc._id = res.id;
+                doc._rev = res.rev;
+                return doc;
+              });
           })
           .catch(function () {
-            return local.put(doc, doc._id);
+            return local.put(doc, doc._id)
+              .then(function(res){
+                doc._id = res.id;
+                doc._rev = res.rev;
+                return doc;
+              });
           });
       } else {
         return _this.insert(doc);
@@ -56,7 +66,10 @@ angular.module('db')
      * @returns {$promise}
      */
     _this.delete = function (doc) {
-      return local.remove(doc);
+      return local.remove(doc)
+        .then(function(res){
+          return res.id;
+        });
     };
 
     /**
@@ -69,7 +82,12 @@ angular.module('db')
      */
     _this.insert = function (doc) {
       doc = _this.addTimeInfo(doc);
-      return local.post(doc);
+      return local.post(doc)
+        .then(function(res){
+          doc._id = res.id;
+          doc._rev = res.rev;
+          return doc;
+        });
     };
 
     /**
@@ -83,7 +101,12 @@ angular.module('db')
       return local.get(doc._id)
         .then(function (res) {
           doc._rev = res._rev;
-          return local.put(doc, doc._id);
+          return local.put(doc, doc._id)
+            .then(function(res){
+              doc._id = res.id;
+              doc._rev = res.rev;
+              return doc;
+            });
         });
     };
 

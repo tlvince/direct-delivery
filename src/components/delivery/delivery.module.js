@@ -1,3 +1,6 @@
 'use strict';
 
-angular.module('delivery', ['signature']);
+angular.module('delivery', [
+  'signature',
+  'core'
+]);

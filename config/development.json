@@ -1,3 +1,5 @@
 {
-  "db": "http://localhost:5984/deliveries"
+  "db": "http://localhost:5984/deliveries",
+  "localDB": "deliveries",
+  "dateFormat": "yyyy-MM-dd"
 }

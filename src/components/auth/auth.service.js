@@ -1,12 +1,12 @@
 'use strict';
 
 (function() {
-  function AuthService($rootScope, $window, $log, $q, $localStorage, $sessionStorage, pouchDB, config) {
+  function AuthService($rootScope, $window, $log, $q, $localStorage, $sessionStorage, pouchDB, config, utility) {
     // seed asmCrypto PRNG for better security when creating random password salts
     $window.asmCrypto.random.seed($window.crypto.getRandomValues(new Uint8Array(128)));
 
     function day() {
-      return $window.moment().format('YYYYMMDD');
+      return utility.formatDate(new Date());
     }
 
     function storageKey(username) {

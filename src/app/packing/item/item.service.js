@@ -39,15 +39,4 @@ angular.module('packing.item')
     this.saveFailed = function(reason) {
       log.error('saveFailed', reason);
     };
-
-    this.updatePackingsTally = function(packings, saveResponse) {
-      var dailyDeliveryID = saveResponse.id;
-      function reject(packingID) {
-        return packingID !== dailyDeliveryID;
-      }
-      packings.unpacked = packings.unpacked.filter(reject);
-      if (packings.packed.indexOf(dailyDeliveryID) === -1) {
-        packings.packed.push(dailyDeliveryID);
-      }
-    };
   });

@@ -1,4 +1,4 @@
-<h2 ng-bind="packingItemCtrl.name"></h2>
+<h2 ng-bind="::packingItemCtrl.date"></h2>
 <table class="table">
   <tr>
     <th class="col-sm-1">Product</th>
@@ -9,8 +9,8 @@
     ng-repeat="item in packingItemCtrl.packingList track by item.productID"
     ng-class="packingItemCtrl.storageAttributes[item.storageID].bsClass"
   >
-    <td ng-bind="item.productID"></td>
-    <td ng-bind="item.expectedQty"></td>
+    <td ng-bind="::item.productID"></td>
+    <td ng-bind="::item.expectedQty"></td>
     <td>
       <div class="form-inline">
         <button

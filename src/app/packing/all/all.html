@@ -1,16 +1,15 @@
-<div class="row">
-  <div
-    class="col-md-6"
-    ng-repeat="state in packingAllCtrl.packingListStates track by state.key"
-  >
-    <h2 ng-bind="state.label"></h2>
-    <ul>
-      <li ng-repeat="packingID in packingAllCtrl.packings[state.key] track by packingID">
-        <a
-          ui-sref="packing.item.table({id: packingID})"
-          ng-bind="packingID"
-        ></a>
-      </li>
-    </ul>
-  </div>
-</div>
+<ul class="fa-ul">
+  <li ng-repeat="packing in packingAllCtrl.packings track by packing.id">
+    <i
+      class="fa-li fa"
+      ng-class="{
+        'fa-circle-o': !packing.packed,
+        'fa-check-circle-o text-success': packing.packed
+      }"
+    ></i>
+    <a
+      ui-sref="packing.item.table({id: packing.id})"
+      ng-bind="::packing.date"
+    ></a>
+  </li>
+</ul>

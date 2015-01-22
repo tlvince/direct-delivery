@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('delivery')
-  .controller('FacilityDeliveryCtrl', function FacilityDeliveryCtrl($state, $window, DELIVERY_STEPS, $scope) {
+  .controller('FacilityDeliveryCtrl', function FacilityDeliveryCtrl($state, DELIVERY_STEPS) {
     var vm = this; //view model
-    vm.STEPS = DELIVERY_STEPS;
+    this.STEPS = DELIVERY_STEPS;
     vm.currentStep = vm.STEPS.DELIVER_ITEM;
     vm.facilityName = $state.params.facilityName;
     vm.facilityId = $state.params.facilityId;

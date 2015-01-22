@@ -6,5 +6,5 @@
 angular.module('sync', [
   'db',
   'config',
-  'pouchdb'
+  'utility'
 ]);

@@ -5,18 +5,16 @@
  * @desc synchronization service between local and remote database.
  */
 angular.module('sync')
-  .service('syncService', ['$rootScope', 'pouchdbService', 'SYNC_DELIVERY_RND',
-    'SYNC_DAILY_DELIVERY', 'CORE_SYNC_DOWN',
-    function ($rootScope, pouchdbService, SYNC_DELIVERY_RND, SYNC_DAILY_DELIVERY, CORE_SYNC_DOWN) {
+  .service('syncService',
+    function ($rootScope, pouchdbService, SYNC_DELIVERY_RND, SYNC_DAILY_DELIVERY, CORE_SYNC_DOWN, utility) {
 
       //TODO check if sync is in progress for each and broadcast appropriate message.
-
       var dailyByDriver = function (local, dbUrl, driverId, date) {
-        date = new Date(date);
+        date = utility.formatDate(date);
         var options = {
           filter: 'daily-deliveries/by_driver_and_date',
           query_params: {
-            date: date.toJSON(),
+            date: date,
             driverId: driverId
           }
         };
@@ -35,33 +33,33 @@ angular.module('sync')
       };
 
       var deliveryRndWithinDate = function (local, dbUrl, date) {
-        date = new Date(date);
-        var dlRndRepOptions = {
+        date =  utility.formatDate(date);
+        var options = {
           filter: 'delivery-rounds/within_date',
           query_params: {
-            date: date.toJSON()
+            date: date
           }
         };
-
         var db = pouchdbService.create(local);
         return db
-          .replicate.from(dbUrl, dlRndRepOptions)
+          .replicate.from(dbUrl, options)
           .on('complete', function (res) {
+            console.info(res);
             $rootScope.$emit(SYNC_DELIVERY_RND.COMPLETE, {msg: res});
           })
           .on('error', function (err) {
+            console.error(JSON.stringify(err));
             $rootScope.$emit(SYNC_DELIVERY_RND.ERROR, {msg: err});
           })
           .on('denied', function (err) {
+            console.warn(err);
             $rootScope.$emit(SYNC_DELIVERY_RND.DENIED, {msg: err});
           });
       };
 
       this.dailySyncDown = function (local, dbUrl, driverId, date) {
         var drListeners = {};
-        date = new Date(date);
-        date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-
+        date = utility.formatDate(date);
         var removeListeners = function () {
           for (var unbind in drListeners) {
             drListeners[unbind]();
@@ -103,4 +101,4 @@ angular.module('sync')
           });
       };
 
-    }]);
+    });

@@ -44,15 +44,12 @@ angular.module('sync')
         return db
           .replicate.from(dbUrl, options)
           .on('complete', function (res) {
-            console.info(res);
             $rootScope.$emit(SYNC_DELIVERY_RND.COMPLETE, {msg: res});
           })
           .on('error', function (err) {
-            console.error(JSON.stringify(err));
             $rootScope.$emit(SYNC_DELIVERY_RND.ERROR, {msg: err});
           })
           .on('denied', function (err) {
-            console.warn(err);
             $rootScope.$emit(SYNC_DELIVERY_RND.DENIED, {msg: err});
           });
       };

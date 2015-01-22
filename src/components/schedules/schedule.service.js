@@ -14,19 +14,14 @@ angular.module('schedules')
         include_docs: true
       };
       var key = couchUtil.key(user.email +"-"+ utility.formatDate(new Date()));
-      console.log(key);
       angular.extend(params, key);
       return couchdb.view(params).$promise;
-
     };
 
     this.getCurrentRound = function(){
       return this.all()
         .then(function(response){
           return response;
-        })
-        .catch(function(){
-          console.error('server failed to return data');
         });
     };
     this.getDaySchedule = function(){

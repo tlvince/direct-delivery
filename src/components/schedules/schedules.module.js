@@ -5,4 +5,6 @@
 angular.module('schedules', [
   'core',
   'couchdb',
+  'sync',
+  'utility'
 ]);

@@ -4,4 +4,5 @@
 
 angular.module('schedules.round')
   .controller('SchedulesRoundCtrl', function(scheduleService){
-  })
+
+  });

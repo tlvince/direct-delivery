@@ -7,8 +7,11 @@ describe('FacilityDeliveryCtrl', function() {
 
   var FacilityDeliveryCtrl;
 
-  beforeEach(inject(function($controller) {
-    FacilityDeliveryCtrl = $controller('FacilityDeliveryCtrl');
+  beforeEach(inject(function($controller, _$state_, DELIVERY_STEPS) {
+    FacilityDeliveryCtrl = $controller('FacilityDeliveryCtrl', {
+      state: _$state_,
+      DELIVERY_STEPS: DELIVERY_STEPS
+    });
   }));
 
   it('should expose delivery steps', function() {

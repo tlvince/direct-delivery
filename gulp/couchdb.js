@@ -1,29 +1,25 @@
 'use strict';
 
+var url = require('url');
 var got = require('got');
 var glob = require('glob');
 var gulp = require('gulp');
 var compile = require('couch-compile');
-var dataModel = require('data-model');
+var argv = require('optimist').argv;
 
 var config = require('../config');
 var fixtures = require('../couchdb/fixtures');
 
-var models = [
-  'driver'
-];
-
-function instances(factory) {
-  var all = [];
-  for (var model in factory) {
-    all = all.concat(factory[model]);
-  }
-  return all;
+// prepare db url and add auth to it if specified as arguments
+// arguments: -u <user name> -p <password>
+//
+var dbUrl = url.parse(config.config.db + '/_bulk_docs');
+if (argv.u && argv.p) {
+  dbUrl.auth = argv.u + ':' + argv.p;
 }
+dbUrl = url.format(dbUrl);
 
 function push(docs) {
-  var url = config.config.db + '/_bulk_docs';
-
   docs = JSON.stringify({
     docs: docs
   });
@@ -35,7 +31,7 @@ function push(docs) {
     }
   };
 
-  return got.post(url, options, function(err, data) {
+  return got.post(dbUrl, options, function(err, data) {
     if (err) {
       console.error(data);
       throw err;
@@ -44,30 +40,10 @@ function push(docs) {
   });
 }
 
-gulp.task('fixtures-generated', function() {
-  var count = process.argv[4] || 10;
-  var factory = dataModel.generate(models, count);
-  var docs = instances(factory);
-  return push(docs);
-});
-
-gulp.task('fixtures-local', function() {
+gulp.task('fixtures', function() {
   for (var model in fixtures) {
     var docs = fixtures[model].docs;
     push(docs);
-  }
-});
-
-gulp.task('fixtures-validate', function() {
-  for (var model in fixtures) {
-    var docs = fixtures[model].docs;
-    docs.forEach(function(instance) {
-      var errors = dataModel.validate(instance);
-      if (errors) {
-        errors = JSON.stringify(errors, null, 2);
-        throw new Error('"' + model + '" fixtures are invalid:\n' + errors);
-      }
-    });
   }
 });
 
@@ -90,9 +66,3 @@ gulp.task('views', function() {
     matches.forEach(couchCompile);
   });
 });
-
-gulp.task('fixtures', [
-  'fixtures-generated',
-  'fixtures-validate',
-  'fixtures-local'
-]);

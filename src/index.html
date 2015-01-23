@@ -26,7 +26,6 @@
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="../bower_components/jquery/dist/jquery.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="../bower_components/angular-toastr/dist/angular-toastr.js"></script>
@@ -37,9 +36,7 @@
     <script src="../bower_components/lodash/dist/lodash.js"></script>
     <script src="../bower_components/angular-pouchdb/dist/angular-pouchdb.js"></script>
     <script src="../bower_components/signature_pad/signature_pad.js"></script>
-    <script src="../bower_components/moment/moment.js"></script>
     <script src="../bower_components/angular-resource/angular-resource.js"></script>
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
@@ -58,15 +55,22 @@
     <script src="components/delivery/cancel-delivery/cancel-delivery.controller.js"></script>
     <script src="app/packing/item/item.module.js"></script>
     <script src="app/packing/item/storage-attributes.constant.js"></script>
+    <script src="app/packing/item/legend.service.js"></script>
+    <script src="app/packing/item/legend.controller.js"></script>
     <script src="app/packing/item/item.states.js"></script>
     <script src="app/packing/item/item.service.js"></script>
     <script src="app/packing/item/item.controller.js"></script>
     <script src="app/packing/all/all.module.js"></script>
-    <script src="app/packing/all/packing-list-states.constant.js"></script>
     <script src="app/packing/all/all.states.js"></script>
+    <script src="app/packing/all/all.service.js"></script>
     <script src="app/packing/all/all.controller.js"></script>
+    <script src="components/utility/utility.module.js"></script>
+    <script src="components/utility/utility.service.js"></script>
     <script src="components/user/user.module.js"></script>
     <script src="components/user/user.constant.js"></script>
+    <script src="components/sync/sync.module.js"></script>
+    <script src="components/sync/sync.service.js"></script>
+    <script src="components/sync/sync.constant.js"></script>
     <script src="components/signature/signature.module.js"></script>
     <script src="components/signature/signature.directive.js"></script>
     <script src="components/schedules/schedules.module.js"></script>
@@ -81,6 +85,9 @@
     <script src="components/delivery/delivery.states.js"></script>
     <script src="components/delivery/delivery.controller.js"></script>
     <script src="components/delivery/delivery-steps.constant.js"></script>
+    <script src="components/db/db.module.js"></script>
+    <script src="components/db/db.service.js"></script>
+    <script src="components/db/db.pouchdb.service.js"></script>
     <script src="components/couchdb/couchdb.module.js"></script>
     <script src="components/couchdb/util.service.js"></script>
     <script src="components/couchdb/couchdb.service.js"></script>
@@ -90,7 +97,6 @@
     <script src="components/auth/auth.config.js"></script>
     <script src="app/packing/packing.module.js"></script>
     <script src="app/packing/packing.states.js"></script>
-    <script src="app/packing/packing.service.js"></script>
     <script src="app/login/login.module.js"></script>
     <script src="app/login/login.states.js"></script>
     <script src="app/login/login.controller.js"></script>

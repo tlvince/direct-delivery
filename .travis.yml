@@ -6,8 +6,6 @@ cache:
   directories:
     - node_modules
     - bower_components
-before_install:
-  - ./travis/before-install.sh
 after_script:
   - npm run coveralls
 notifications:

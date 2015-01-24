@@ -8,20 +8,34 @@ angular.module('delivery')
         controller: 'FacilityDeliveryCtrl',
         controllerAs: 'facDevCtrl',
         templateUrl: 'components/delivery/facility-delivery.html',
-        parent: 'index'
+        parent: 'index',
+        resolve: {
+          dailyDelivery: function($stateParams, scheduleService){
+            return scheduleService.getDaySchedule()
+              .then(function(res){
+                console.log(res);
+                return res[0];
+              })
+              .catch(function(){
+                return;
+              });
+          }
+        }
       })
       .state('facilityDelivery.deliverItems', {
-        url: '/deliver-items?facilityName&facilityId',
-        templateUrl: 'components/delivery/partials/deliver-items.html',
-        parent: 'facilityDelivery'
+        url: '/deliver-items/:ddId/:facilityId/:preview',
+        templateUrl: 'components/delivery/deliver-items/deliver-items.html',
+        parent: 'facilityDelivery',
+        controllerAs: 'diCtrl',
+        controller: 'DeliverItemsCtrl'
       })
-      .state('facilityDelivery.collectKPI', {
-        url: '/collect-kpi',
-        templateUrl: 'components/delivery/partials/collect-kpi.html',
+      .state('facilityDelivery.facilityKPI', {
+        url: '/collect-kpi/:ddId/:facilityId',
+        templateUrl: 'components/delivery/partials/facility-kpi.html',
         parent: 'facilityDelivery'
       })
       .state('facilityDelivery.signOff', {
-        url: '/sign-off',
+        url: '/sign-off/:ddId/:facilityId',
         templateUrl: 'components/delivery/partials/delivery-sign-off.html',
         parent: 'facilityDelivery'
       })
@@ -35,9 +49,11 @@ angular.module('delivery')
         templateUrl: 'components/delivery/partials/child-facility/preview.html',
         parent: 'facilityDelivery'
       })
-      .state('facilityDelivery.cancel', {
-        url: '/cancel',
-        templateUrl: 'components/delivery/partials/cancel-delivery.html',
-        parent: 'facilityDelivery'
+      .state('cancelDelivery', {
+        url: '/cancel-delivery/:ddId/:facilityId',
+        templateUrl: 'components/delivery/cancel-delivery/cancel-delivery.html',
+        parent: 'facilityDelivery',
+        controllerAs: 'cancelDevCtrl',
+        controller: 'CancelDeliveryCtrl'
       });
   });

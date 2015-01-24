@@ -8,4 +8,10 @@ angular.module('delivery')
     FINISH_CHILD_FACILITY: 6,
     SIGN_OFF: 7,
     CANCEL_DELIVERY: 8
+  })
+  .constant('STATUS', {
+    PENDING: 1,
+    CANCELLED_AHEAD: 2,
+    CANCELLED: 3,
+    COMPLETE: 4
   });

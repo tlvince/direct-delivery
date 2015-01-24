@@ -6,7 +6,7 @@
       "version": "1.0.0",
       "deliveryRoundID": "d8006b0524473a0a4a60b7749766a11e",
       "driverID": "abdullahi.ahmed@example.com",
-      "date": "2015-01-22",
+      "date": "2015-01-24",
       "facilityRounds": [
         {
           "drop": 1,
@@ -21,7 +21,8 @@
           },
           "status": "pending",
           "window": "",
-          "cancelReport": {},
+          "cancelReport": {
+          },
           "arrivedAt": "",
           "departedAt": "",
           "packedProduct": [
@@ -41,7 +42,24 @@
               "storageID": "product-storage/frozen"
             }
           ],
-          "survey": []
+          "facilityKPI": {
+            "outreachSessions": 0,
+            "notes": "",
+            "antigensKPI": [
+              {
+                "productID": "BCG",
+                "noImmuized": 0
+              },
+              {
+                "productID": "Men-A",
+                "noImmuized": 0
+              },
+              {
+                "productID": "OPV",
+                "noImmuized": 0
+              }
+            ]
+          }
         },
         {
           "drop": 2,
@@ -55,7 +73,8 @@
             "phoneNo": "08052808146"
           },
           "status": "pending",
-          "cancelReport": {},
+          "cancelReport": {
+          },
           "arrivedAt": "",
           "departedAt": "",
           "packedProduct": [
@@ -75,7 +94,24 @@
               "storageID": "product-storage/frozen"
             }
           ],
-          "survey": []
+          "facilityKPI": {
+            "outreachSessions": 0,
+            "notes": "",
+            "antigensKPI": [
+              {
+                "productID": "BCG",
+                "noImmuized": 0
+              },
+              {
+                "productID": "Men-A",
+                "noImmuized": 0
+              },
+              {
+                "productID": "OPV",
+                "noImmuized": 0
+              }
+            ]
+          }
         },
         {
           "drop": 3,
@@ -89,7 +125,8 @@
             "ward": "Gwammaja"
           },
           "status": "pending",
-          "cancelReport": {},
+          "cancelReport": {
+          },
           "arrivedAt": "",
           "departedAt": "",
           "packedProduct": [
@@ -109,7 +146,24 @@
               "storageID": "product-storage/frozen"
             }
           ],
-          "survey": []
+          "facilityKPI": {
+            "outreachSessions": 0,
+            "notes": "",
+            "antigensKPI": [
+              {
+                "productID": "BCG",
+                "noImmuized": 0
+              },
+              {
+                "productID": "Men-A",
+                "noImmuized": 0
+              },
+              {
+                "productID": "OPV",
+                "noImmuized": 0
+              }
+            ]
+          }
         }
       ],
       "packingList": [

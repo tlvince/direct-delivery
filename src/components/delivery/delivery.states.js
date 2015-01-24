@@ -13,7 +13,6 @@ angular.module('delivery')
           dailyDelivery: function($stateParams, scheduleService){
             return scheduleService.getDaySchedule()
               .then(function(res){
-                console.log(res);
                 return res[0];
               })
               .catch(function(){
@@ -30,9 +29,11 @@ angular.module('delivery')
         controller: 'DeliverItemsCtrl'
       })
       .state('facilityDelivery.facilityKPI', {
-        url: '/collect-kpi/:ddId/:facilityId',
-        templateUrl: 'components/delivery/partials/facility-kpi.html',
-        parent: 'facilityDelivery'
+        url: '/collect-kpi/:ddId/:facilityId/:preview',
+        templateUrl: 'components/delivery/facility-kpi/facility-kpi.html',
+        parent: 'facilityDelivery',
+        controllerAs: 'facKPICtrl',
+        controller: 'FacilityKPICtrl'
       })
       .state('facilityDelivery.signOff', {
         url: '/sign-off/:ddId/:facilityId',

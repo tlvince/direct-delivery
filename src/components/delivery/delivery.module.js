@@ -2,5 +2,7 @@
 
 angular.module('delivery', [
   'signature',
-  'core'
+  'log',
+  'schedules',
+  'db'
 ]);

@@ -1,37 +1,42 @@
 'use strict';
 
 angular.module('delivery')
-  .controller('FacilityDeliveryCtrl', function FacilityDeliveryCtrl($state, DELIVERY_STEPS) {
-    var vm = this; //view model
-    this.STEPS = DELIVERY_STEPS;
-    vm.currentStep = vm.STEPS.DELIVER_ITEM;
-    vm.facilityName = $state.params.facilityName;
-    vm.facilityId = $state.params.facilityId;
-    vm.previewDelivery = false;
-    vm.previewKPI = false;
-    vm.signature = {};
+  .controller('FacilityDeliveryCtrl', function FacilityDeliveryCtrl($state, DELIVERY_STEPS, deliveryService, dailyDelivery) {
 
-    if (!(angular.isString(vm.facilityName) && angular.isString(vm.facilityId))) {
-      //TODO: go back to previous page and show error alert.
+    var vm = this; //view model
+
+    function init(){
+      vm.dailyDelivery = dailyDelivery;
+      var facilityId = $state.params.facilityId;
+      vm.facRnd = {};
+      vm.signature = {};
+      vm.STEPS = DELIVERY_STEPS;
+      vm.currentStep = vm.STEPS.DELIVER_ITEM;
+      vm.previewKPI = false;
+      var res = deliveryService.filterByFacility(vm.dailyDelivery, facilityId);
+      if(res.length > 0){
+        vm.facRnd = res[0];
+      }else{
+       //TODO: do something here.
+        //probably go back to home and log.error();
+        console.log('Facility Round does not exist.');
+        return;
+      }
+      vm.ddId = vm.dailyDelivery._id;
+      vm.facility = vm.facRnd.facility;
+      vm.facilityKPI = vm.facRnd.facilityKPI;
+      vm.facRnd = deliveryService.initReturnedQty(vm.facRnd);
     }
 
-    vm.reason = {
-      cancelledAhead: false,
-      others: false,
-      notAvailable: false,
-      brokenCCE: false,
-      noCCE: false,
-      notes: ''
-    };
-
-    vm.cancelDelivery = function () {
-      //TODO: validate, submit report and discontinue delivery.
-      //navigate to home page with alert.
-    };
+    init();
 
     vm.signOffAndSubmit = function () {
-      console.log(vm.signature);
-      //TODO: capture signature, attach, validate and submit complete delivery report.
+      if(deliveryService.isValidSignature(vm.signature)){
+        console.log('everything is ok, delivery completed');
+        //TODO: update facility round status and save daily delivery object.
+      }else{
+        log.error('invalidSignature');
+      }
     };
 
     vm.anotherChildFacility = function(){
@@ -41,16 +46,6 @@ angular.module('delivery')
 
     vm.goTo = function (pos) {
       vm.currentStep = pos;
-      if(vm.currentStep === vm.STEPS.PREVIEW_DELIVERY){
-        vm.previewDelivery = true;
-      }else{
-        vm.previewDelivery = false;
-      }
-      if(vm.currentStep === vm.STEPS.PREVIEW_KPI){
-        vm.previewKPI = true;
-      }else{
-        vm.previewKPI = false;
-      }
     };
 
   });

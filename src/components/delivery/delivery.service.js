@@ -1,50 +1,19 @@
 'use strict';
 
 angular.module('delivery')
-  .service('deliveryService', function ($q, scheduleService) {
+  .service('deliveryService', function (dbService) {
 
     var _this = this;
 
-    _this.getDefaultCancelReport = function () {
-      var defaultCR = {
-        cancelledAhead: false,
-        others: false,
-        hfNotAvailable: false,
-        brokenCCE: false,
-        noCCE: false,
-        note: ''
-      };
-      return defaultCR;
-    };
-
-    _this.validateCancelReport = function (facRnd) {
-      if (!facRnd.cancelReport) {
-        return false;
-      }
-      var cr = facRnd.cancelReport;
-      var noCRSelected = !(cr.cancelledAhead || cr.hfNotAvailable || cr.brokenCCE || cr.noCCE || cr.others);
-      if (noCRSelected) {
-        return false;
-      }
-      var otherOptions = (cr.hfNotAvailable === true || cr.brokenCCE === true || cr.noCCE === true || cr.others === true);
-      var cancelledAhead = ((cr.cancelledAhead === true) && !otherOptions);
-      if (cancelledAhead) {
-        return true;
-      }
-      return otherOptions;
-    };
-
     _this.save = function (ddDoc) {
-      //TODO: replace mock with direct call.
-      return $q.when({msg: true});
-      //return dbService.save(ddDoc);
+      return dbService.save(ddDoc);
     };
 
-    _this.updateFacilityRound = function(dailyDelivery, facRnd){
+    _this.updateFacilityRound = function (dailyDelivery, facRnd) {
       var fr;
-      for(var i in dailyDelivery.facilityRounds){
+      for (var i in dailyDelivery.facilityRounds) {
         fr = dailyDelivery.facilityRounds[i];
-        if(fr.facility.id === facRnd.facility.id){
+        if (fr.facility.id === facRnd.facility.id) {
           dailyDelivery.facilityRounds[i] = facRnd;
           return dailyDelivery;
         }
@@ -60,26 +29,61 @@ angular.module('delivery')
         });
     };
 
-    _this.calcQty = function(packedProduct){
+    _this.calcQty = function (packedProduct) {
       var res = {};
       var deliveredQty = (packedProduct.expectedQty - packedProduct.onHandQty);
       var returnedQty = (packedProduct.onHandQty - packedProduct.expectedQty);
       res.deliveredQty = deliveredQty;
       res.returnedQty = 0;
-      if(deliveredQty <= 0){
+      if (deliveredQty <= 0) {
         res.deliveredQty = 0;
         res.returnedQty = returnedQty;
       }
       return res;
     };
 
-    _this.initReturnedQty= function (facilityRnd){
-      for(var i in facilityRnd.packedProduct){
-        if(isNaN(facilityRnd.packedProduct[i].returnedQty)){
+    _this.initReturnedQty = function (facilityRnd) {
+      for (var i in facilityRnd.packedProduct) {
+        if (!angular.isNumber(facilityRnd.packedProduct[i].returnedQty)) {
           facilityRnd.packedProduct[i].returnedQty = 0;
         }
       }
       return facilityRnd;
+    };
+
+    _this.isValidSignature  = function(signature){
+      //FIXME: find better signature verification technique e.g base64 the image data uri
+      return ((signature.$isEmpty === false) && (signature.dataUrl.length > 0));
+    };
+
+    _this.validateItemQty = function (item) {
+      var validation = {
+        onHandQty: !angular.isNumber(item.onHandQty),
+        expectedQty: !angular.isNumber(item.expectedQty),
+        deliveredQty: !angular.isNumber(item.deliveredQty),
+        returnedQty: !angular.isNumber(item.returnedQty)
+      };
+      return validation;
+    };
+
+    _this.validateDeliverItems = function(deliverItems){
+      var invalid = {};
+      function validate(item){
+        var res =  _this.validateItemQty(item);
+        for(var type in res){
+          var invalidQty = res[type];
+          if(invalidQty === true){
+            invalid[item.productID] = res;
+            break;
+          }
+        }
+      }
+      deliverItems.forEach(validate)
+      var isValid = Object.keys(invalid).length === 0;
+      if(isValid){
+        return isValid;
+      }
+      return invalid;
     };
 
   });

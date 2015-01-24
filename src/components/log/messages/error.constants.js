@@ -21,5 +21,20 @@ angular.module('log')
       title: 'Network',
       message: 'Network error',
       remedy: 'Please check your internet connection and try again'
+    },
+    invalidCancelReport: {
+      title: 'Invalid cancel report',
+      message: 'Reason not selected',
+      remedy: 'Please, select reason for cancelling delivery'
+    },
+    'invalidSignature': {
+      title: 'Invalid signature',
+      message: 'Signature not signed',
+      remedy: 'Please, sign and click ok'
+    },
+    'facilityRoundNotSet': {
+      title: 'Cancel delivery',
+      message: 'Invalid facility round',
+      remedy: 'Please, select valid facility round'
     }
   });

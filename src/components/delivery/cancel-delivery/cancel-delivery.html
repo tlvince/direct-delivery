@@ -1,11 +1,12 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h2>
-      <span ng-bind="cancelDevCtrl.facilityName"></span> - Cancel Delivery
+      <span ng-bind="cancelDevCtrl.facRnd.facility.name"></span> - Cancel Delivery
     </h2>
   </div>
   <div class="panel-body">
-    <a ui-sref="facilityDelivery.deliverItems" class="btn btn-warning btn-lg btn-block">
+    <a ui-sref="facilityDelivery.deliverItems({ ddId: cancelDevCtrl.dailyDelivery._id , facilityId: cancelDevCtrl.facilityId })"
+       class="btn btn-warning btn-lg btn-block">
       <i class="fa fa-arrow-circle-left"></i>
       <span>Back</span>
     </a>

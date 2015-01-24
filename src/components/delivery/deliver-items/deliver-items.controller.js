@@ -36,7 +36,7 @@ angular.module('delivery')
     vm.preview = function(dItem){
       var res = deliveryService.validateDeliverItems(dItem);
       if(res === true){
-        vm.validationErr = {};//clear validationErr
+        clearValidationError();
         vm.togglePreview();
       }else{
         vm.validationErr = res;

@@ -1,0 +1,117 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2>
+      <h2><span ng-bind="facDevCtrl.facility.name"></span> - Item Delivery</h2>
+    </h2>
+  </div>
+  <div class="panel-body">
+    <div class="btn-group btn-group-justified">
+      <div class="btn-group">
+        <a ui-sref="home" class="btn btn-warning btn-lg btn-left"
+           ng-show="!diCtrl.previewDelivery">
+          <i class="fa fa-arrow-circle-left"></i>
+          <span>Back</span>
+        </a>
+        <button type="button" class="btn btn-warning btn-lg btn-left"
+                ng-show="diCtrl.previewDelivery"
+                ng-click="diCtrl.togglePreview()">
+          <i class="fa fa-arrow-circle-left"></i>
+          <span>Back</span>
+        </button>
+      </div>
+      <div class="btn-group">
+        <a ui-sref="cancelDelivery({ ddId : facDevCtrl.ddId, facilityId : facDevCtrl.facility.id })" class="btn btn-danger btn-lg btn-left">
+          <i class="fa fa-undo"></i>
+          <span>Cancel Delivery</span>
+        </a>
+      </div>
+    </div>
+    <br/>
+    <table class="table table-striped table-condensed table-bordered">
+      <tr>
+        <th class="col-sm-1">Product</th>
+        <th class="col-sm-1">On-hand Qty</th>
+        <th class="col-sm-1">Delivered Qty</th>
+        <th class="col-sm-1">Returned Qty</th>
+      </tr>
+      <tr ng-repeat="item in facDevCtrl.facRnd.packedProduct track by $index">
+        <td><span ng-bind="item.productID"></span></td>
+        <td>
+          <div class="input-group">
+            <input type="number"
+                   class="form-control"
+                   min="0"
+                   step="1"
+                   ng-change="diCtrl.calcDeliverQty(facDevCtrl.facRnd.packedProduct[$index])"
+                   ng-model="facDevCtrl.facRnd.packedProduct[$index].onHandQty"
+                   ng-disabled="diCtrl.previewDelivery"
+                   ng-model-options="{updateOn: 'blur'}"/>
+            <div class="input-group-addon">Vials</div>
+          </div>
+          <span class="text-danger"
+                ng-show="diCtrl.validationErr[item.productID].onHandQty === true">
+            <em>
+              <i class="fa fa-exclamation-circle"></i>
+              Please, enter onHand quantity.
+            </em>
+          </span>
+        </td>
+        <td>
+          <div class="input-group">
+            <input type="number"
+                   class="form-control"
+                   min="0"
+                   step="1"
+                   ng-change="diCtrl.validateOnChange(facDevCtrl.facRnd.packedProduct[$index])"
+                   ng-model="facDevCtrl.facRnd.packedProduct[$index].deliveredQty"
+                   ng-disabled="diCtrl.previewDelivery"
+                   ng-model-options="{updateOn: 'blur'}"/>
+            <div class="input-group-addon">Vials</div>
+          </div>
+          <span class="text-danger"
+                ng-show="diCtrl.validationErr[item.productID].deliveredQty === true">
+            <em>
+              <i class="fa fa-exclamation-circle"></i>
+              Please, enter delivered quantity.
+            </em>
+          </span>
+        </td>
+        <td>
+          <div class="input-group">
+            <input type="number"
+                   class="form-control"
+                   min="0"
+                   step="1"
+                   value="0"
+                   ng-change="diCtrl.validateOnChange(facDevCtrl.facRnd.packedProduct[$index])"
+                   ng-model="facDevCtrl.facRnd.packedProduct[$index].returnedQty"
+                   ng-disabled="diCtrl.previewDelivery"
+                   ng-model-options="{updateOn: 'blur'}"/>
+
+            <div class="input-group-addon">Vials</div>
+          </div>
+          <span class="text-danger"
+                ng-show="diCtrl.validationErr[item.productID].returnedQty === true">
+            <em>
+              <i class="fa fa-exclamation-circle"></i>
+              Please, enter returned quantity.
+            </em>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <br/>
+    <button type="button" class="btn btn-success btn-lg btn-block"
+            ng-show="!diCtrl.previewDelivery"
+            ng-click="diCtrl.preview(facDevCtrl.facRnd.packedProduct)">
+      <span>Preview</span>
+      <i class="fa fa-arrow-circle-right"></i>
+    </button>
+    <a ui-sref="facilityDelivery.collectKPI({ ddId: facDevCtrl.ddId, facilityId: facDevCtrl.facility.id })"
+       class="btn btn-success btn-lg btn-block"
+       ng-show="diCtrl.previewDelivery">
+      <span>Continue</span>
+      <i class="fa fa-arrow-circle-right"></i>
+    </a>
+  </div>
+</div>

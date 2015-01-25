@@ -5,7 +5,7 @@
  *
  */
 angular.module('db')
-  .service('pouchdbService', function($window, pouchDB){
+  .service('pouchdbService', function(pouchDB) {
 
     /**
      * we set default adapter to 'websql' because of the following:
@@ -18,18 +18,27 @@ angular.module('db')
     this.create = function(dbName){
       var options = {
         adapter: 'websql',
+        /*eslint-disable camelcase */
         auto_compaction: true
+        /*eslint-enable camelcase */
       };
+
       var db = pouchDB(dbName, options);
+
       if (!db.adapter) {
         // Fallback to default
-        db = pouchDB(dbName, { auto_compaction: true });
+        db = pouchDB(dbName, {
+          /*eslint-disable camelcase */
+          auto_compaction: true
+          /*eslint-enable camelcase */
+        });
       }
+
       return db;
     };
 
     this.remote = function(dbUrl, options){
-      return new pouchDB(dbUrl, options)
+      return pouchDB(dbUrl, options);
     };
 
   });

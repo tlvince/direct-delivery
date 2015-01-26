@@ -35,6 +35,7 @@ angular
 
         vm.clear = function(){
           signaturePad.clear();
+          vm.accept();
         };
 
         vm.accept = function(){
@@ -46,6 +47,7 @@ angular
             scope.signature.$isEmpty = true;
           }
         };
+
       },
       link: function($scope, $element){
         canvas = $element.find('canvas')[0];

@@ -38,8 +38,13 @@ angular.module('log')
       remedy: 'Please, select valid facility round'
     },
     'dailyDeliveryFailed': {
-      title: 'Daily Delivery',
+      title: 'Daily delivery',
       message: 'Saving delivery report failed',
       remedy: 'Please, try again. if it continues, contact support'
+    },
+    'invalidDailyDelivery': {
+      title: 'Daily delivery',
+      message: 'Daily delivery is not correct.',
+      remedy: 'Try again, if it persists, contact support.'
     }
   });

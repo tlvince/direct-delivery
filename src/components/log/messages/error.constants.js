@@ -36,5 +36,10 @@ angular.module('log')
       title: 'Cancel delivery',
       message: 'Invalid facility round',
       remedy: 'Please, select valid facility round'
+    },
+    'dailyDeliveryFailed': {
+      title: 'Daily Delivery',
+      message: 'Saving delivery report failed',
+      remedy: 'Please, try again. if it continues, contact support'
     }
   });

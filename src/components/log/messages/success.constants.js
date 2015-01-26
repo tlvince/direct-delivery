@@ -13,5 +13,9 @@ angular.module('log')
     'deliveryCancelled': {
       title: 'Delivery cancelled',
       message: 'Delivery cancelled successfully'
+    },
+    'facilityDeliverySaved': {
+      title: 'Delivery report saved',
+      message: 'Facility delivery report completed successfully'
     }
   });

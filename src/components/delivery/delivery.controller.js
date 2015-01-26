@@ -20,10 +20,11 @@ angular.module('delivery')
       if(dailyFacRndForGivenId.length === 0){
         log.error('facilityRoundNotSet');
         $state.go('home');
+      }else{
+        vm.facRnd = dailyFacRndForGivenId[0];
+        vm.facility = vm.facRnd.facility;
+        vm.facilityKPI = vm.facRnd.facilityKPI;
       }
-      vm.facRnd = dailyFacRndForGivenId[0];
-      vm.facility = vm.facRnd.facility;
-      vm.facilityKPI = vm.facRnd.facilityKPI;
     }
 
     init();

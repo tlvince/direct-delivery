@@ -10,8 +10,8 @@ angular.module('delivery')
     CANCEL_DELIVERY: 8
   })
   .constant('STATUS', {
-    PENDING: 1,
-    CANCELLED_AHEAD: 2,
-    CANCELLED: 3,
-    COMPLETE: 4
+    PENDING: 'pending',
+    CANCELLED_AHEAD: 'cancelled-ahead',
+    CANCELLED: 'cancelled',
+    COMPLETE: 'completed'
   });

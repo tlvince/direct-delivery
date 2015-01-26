@@ -1,15 +1,18 @@
 'use strict';
 
 angular.module('delivery')
-  .controller('DeliverItemsCtrl', function DeliverItemsCtrl($state, deliveryService) {
+  .controller('DeliverItemsCtrl', function DeliverItemsCtrl($state, deliveryService, $scope) {
 
     var vm = this;
+    var parent = $scope.facDevCtrl;
+    vm.facRnd = parent.facRnd;
 
     function init(){
       if($state.params.preview === 'true'){
         vm.previewDelivery = true;
       }
       clearValidationError();
+      vm.facRnd.packedProduct = deliveryService.initReturnedQty(vm.facRnd.packedProduct);
     }
 
     function clearValidationError(){

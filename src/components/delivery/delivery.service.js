@@ -42,13 +42,13 @@ angular.module('delivery')
       return res;
     };
 
-    _this.initReturnedQty = function (facilityRnd) {
-      for (var i in facilityRnd.packedProduct) {
-        if (!angular.isNumber(facilityRnd.packedProduct[i].returnedQty)) {
-          facilityRnd.packedProduct[i].returnedQty = 0;
+    _this.initReturnedQty = function (packedProduct) {
+      for (var i in packedProduct) {
+        if (!angular.isNumber(packedProduct[i].returnedQty)) {
+          packedProduct[i].returnedQty = 0;
         }
       }
-      return facilityRnd;
+      return packedProduct;
     };
 
     _this.validateItemQty = function (item) {

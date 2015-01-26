@@ -1,28 +1,20 @@
 'use strict';
 
 angular.module('delivery')
-  .controller('CancelDeliveryCtrl', function CancelDeliveryCtrl($state, deliveryService, cancelDeliveryService,
+  .controller('CancelDeliveryCtrl', function CancelDeliveryCtrl($state, $scope, deliveryService, cancelDeliveryService,
                                                                 log, dailyDelivery) {
 
     var vm = this; //view model
 
     function initCancelReport() {
       vm.dailyDelivery = dailyDelivery;
-      vm.facilityId = $state.params.facilityId;
-      var isValidFacilityId = (angular.isString(vm.facilityId) && vm.facilityId !== '');
-      if (!(angular.isObject(vm.dailyDelivery) && isValidFacilityId)) {
-        goBack();
-        return;
-      }
-      var res = deliveryService.filterByFacility(vm.dailyDelivery, vm.facilityId);
-      if (res.length > 0) {
-        vm.facRnd = res[0];
-      } else {
+      var parent = $scope.facDevCtrl;
+      vm.facRnd = parent.facRnd;
+      if(!angular.isObject(vm.facRnd)){
         goBack();
         return;
       }
       if (!vm.facRnd.cancelReport) {
-        //set with default
         vm.facRnd.cancelReport = cancelDeliveryService.getDefaultCancelReport();
       }
     }

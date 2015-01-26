@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('delivery')
-  .controller('FacilityDeliveryCtrl', function FacilityDeliveryCtrl($state, DELIVERY_STEPS, deliveryService, dailyDelivery) {
+  .controller('FacilityDeliveryCtrl', function FacilityDeliveryCtrl($state, log, DELIVERY_STEPS, deliveryService, dailyDelivery) {
 
     var vm = this; //view model
 
@@ -9,30 +9,23 @@ angular.module('delivery')
       vm.dailyDelivery = dailyDelivery;
       var facilityId = $state.params.facilityId;
       vm.facRnd = {};
-      vm.signature = {};
       vm.STEPS = DELIVERY_STEPS;
-      vm.currentStep = vm.STEPS.DELIVER_ITEM;
-      vm.previewKPI = false;
-      var res = deliveryService.filterByFacility(vm.dailyDelivery, facilityId);
-      if(res.length > 0){
-        vm.facRnd = res[0];
-      }else{
-       //TODO: do something here.
-        //probably go back to home and log.error();
-        console.log('Facility Round does not exist.');
+      if(!angular.isObject(vm.dailyDelivery)){
+        $state.go('home');
+        log.error('invalidDailyDelivery');
         return;
       }
       vm.ddId = vm.dailyDelivery._id;
+      var dailyFacRndForGivenId = deliveryService.filterByFacility(vm.dailyDelivery, facilityId);
+      if(dailyFacRndForGivenId.length === 0){
+        log.error('facilityRoundNotSet');
+        $state.go('home');
+      }
+      vm.facRnd = dailyFacRndForGivenId[0];
       vm.facility = vm.facRnd.facility;
       vm.facilityKPI = vm.facRnd.facilityKPI;
-      vm.facRnd = deliveryService.initReturnedQty(vm.facRnd);
     }
 
     init();
-
-
-    vm.goTo = function (pos) {
-      vm.currentStep = pos;
-    };
 
   });

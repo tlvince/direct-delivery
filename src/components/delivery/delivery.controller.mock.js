@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('deliveryMock', [])
+  .constant('FACILITY_ID', '00adca90da3e44c4fff1166a2b146662')
   .constant('dailyDeliveryMock', {
     "_id": "d8006b0524473a0a4a60b7749766a11d",
     "_rev": "5-fda8a9891698cfb1beff7a06c78470cb",

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('delivery')
-  .controller('FacilityDeliveryCtrl', function FacilityDeliveryCtrl($state, log, DELIVERY_STEPS, deliveryService, dailyDelivery) {
+  .controller('FacilityDeliveryCtrl', function FacilityDeliveryCtrl($state, log, deliveryService, dailyDelivery) {
 
     var vm = this; //view model
 
@@ -9,7 +9,6 @@ angular.module('delivery')
       vm.dailyDelivery = dailyDelivery;
       var facilityId = $state.params.facilityId;
       vm.facRnd = {};
-      vm.STEPS = DELIVERY_STEPS;
       if(!angular.isObject(vm.dailyDelivery)){
         log.error('invalidDailyDelivery');
         $state.go('home');

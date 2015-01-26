@@ -10,6 +10,21 @@ angular.module('delivery')
       return ((signature.$isEmpty === false) && (signature.dataUrl.length > 0));
     };
 
+    _this.getDefaultSignature = function(){
+      return {
+        dataUrl: '',
+        signedOn: ''
+      };
+    };
+
+    /**
+     * This updates facility round status to 'complete'
+     *
+     * @param {Object} dd
+     * @param {Object} facRnd
+     * @param {Data-URI} signature - image string of the signature in data uri format.
+     * @returns {$promise}
+     */
     _this.signOff = function(dd, facRnd, signature){
       facRnd.status = STATUS.COMPLETE;
       facRnd.signature = signature;

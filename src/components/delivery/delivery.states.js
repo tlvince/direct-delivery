@@ -37,8 +37,10 @@ angular.module('delivery')
       })
       .state('facilityDelivery.signOff', {
         url: '/sign-off/:ddId/:facilityId',
-        templateUrl: 'components/delivery/partials/delivery-sign-off.html',
-        parent: 'facilityDelivery'
+        templateUrl: 'components/delivery/sign-off/sign-off.html',
+        parent: 'facilityDelivery',
+        controllerAs: 'signOffCtrl',
+        controller: 'SignOffCtrl'
       })
       .state('facilityDelivery.childFacilityKPI', {
         url: '/child-facility-kpi',

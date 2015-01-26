@@ -30,19 +30,6 @@ angular.module('delivery')
 
     init();
 
-    vm.signOffAndSubmit = function () {
-      if(deliveryService.isValidSignature(vm.signature)){
-        console.log('everything is ok, delivery completed');
-        //TODO: update facility round status and save daily delivery object.
-      }else{
-        log.error('invalidSignature');
-      }
-    };
-
-    vm.anotherChildFacility = function(){
-      //TODO: validate child facility
-      //add to list, clear form
-    };
 
     vm.goTo = function (pos) {
       vm.currentStep = pos;

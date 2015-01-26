@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('delivery')
-  .service('deliveryService', function (dbService) {
+  .service('deliveryService', function (dbService, log, $state) {
 
     var _this = this;
 
@@ -51,11 +51,6 @@ angular.module('delivery')
       return facilityRnd;
     };
 
-    _this.isValidSignature  = function(signature){
-      //FIXME: find better signature verification technique e.g base64 the image data uri
-      return ((signature.$isEmpty === false) && (signature.dataUrl.length > 0));
-    };
-
     _this.validateItemQty = function (item) {
       var validation = {
         onHandQty: !angular.isNumber(item.onHandQty),
@@ -84,6 +79,15 @@ angular.module('delivery')
         return isValid;
       }
       return invalid;
+    };
+
+    _this.saved  = function(res){
+      log.success('facilityDeliverySaved', res);
+      $state.go('home');
+    };
+
+    _this.failed = function(err){
+      log.error('dailyDeliveryFailed', err);
     };
 
   });

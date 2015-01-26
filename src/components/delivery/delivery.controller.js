@@ -11,8 +11,8 @@ angular.module('delivery')
       vm.facRnd = {};
       vm.STEPS = DELIVERY_STEPS;
       if(!angular.isObject(vm.dailyDelivery)){
-        $state.go('home');
         log.error('invalidDailyDelivery');
+        $state.go('home');
         return;
       }
       vm.ddId = vm.dailyDelivery._id;

@@ -2,27 +2,41 @@
 /*eslint-env jasmine */
 /*global module: false, inject: false */
 
-describe('DeliverItemsCtrl', function() {
-  beforeEach(module('delivery'));
+describe('FacilityKPICtrl', function() {
+  beforeEach(module('delivery', 'deliveryMock', 'log'));
 
-  var DeliverItemsCtrl;
+  var FacilityKPICtrl;
 
-  beforeEach(inject(function($controller, _$state_, _deliveryService_) {
-    DeliverItemsCtrl = $controller('DeliverItemsCtrl', {
-      state: _$state_,
-      deliveryService: _deliveryService_
+  beforeEach(inject(function($controller, _$state_, _deliveryService_, _facilityKPIService_, _dailyDeliveryMock_, _log_, FACILITY_ID) {
+    _$state_.params = { facilityId: FACILITY_ID };
+
+    var scope = {
+      facDevCtrl: $controller('FacilityDeliveryCtrl', {
+        $state: _$state_,
+        deliveryService: _deliveryService_,
+        dailyDelivery: _dailyDeliveryMock_,
+        log: _log_
+      })
+    };
+
+    FacilityKPICtrl = $controller('FacilityKPICtrl', {
+      $state: _$state_,
+      deliveryService: _deliveryService_,
+      facilityKPIService: _facilityKPIService_,
+      $scope: scope
     });
+
   }));
 
-  it('should expose calcDeliverQty()', function() {
-    expect(DeliverItemsCtrl.calcDeliverQty).toBeDefined();
+  it('should expose isValidOutreach()', function() {
+    expect(FacilityKPICtrl.isValidOutreach).toBeDefined();
   });
 
   describe('togglePreview()', function(){
-    it('should toggle DeliverItemsCtrl.previewDelivery', function(){
-      var before = DeliverItemsCtrl.previewDelivery;
-      DeliverItemsCtrl.togglePreview();
-      var after = DeliverItemsCtrl.previewDelivery;
+    it('should toggle FacilityKPICtrl.previewKPI', function(){
+      var before = FacilityKPICtrl.previewKPI;
+      FacilityKPICtrl.togglePreview();
+      var after = FacilityKPICtrl.previewKPI;
       expect(before).not.toBe(after)
     });
   });

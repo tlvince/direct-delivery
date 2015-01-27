@@ -32,6 +32,11 @@ angular
       },
       controller: function () {
         var vm = this;
+        vm.isPreview = false;
+        vm.toggle = function(){
+          vm.isPreview = !vm.isPreview;
+        };
+
 
         vm.clear = function(){
           signaturePad.clear();
@@ -42,9 +47,11 @@ angular
           if (!signaturePad.isEmpty()) {
             scope.signature.dataUrl = signaturePad.toDataURL();
             scope.signature.$isEmpty = false;
+            vm.toggle();
           } else {
             scope.signature.dataUrl = EMPTY_IMAGE;
             scope.signature.$isEmpty = true;
+            vm.toggle();
           }
         };
 

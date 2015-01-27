@@ -6,12 +6,12 @@
   </div>
   <div class="panel-body">
     <a ui-sref="facilityDelivery.deliverItems({ ddId : facDevCtrl.ddId, facilityId : facDevCtrl.facility.id, preview: true })"
-       class="btn btn-warning btn-lg btn-block"
+       class="btn btn-default btn-lg btn-block"
        ng-show="!facKPICtrl.previewKPI">
       <i class="fa fa-arrow-circle-left"></i>
       <span>Back</span>
     </a>
-    <button type="button" class="btn btn-warning btn-lg btn-block"
+    <button type="button" class="btn btn-default btn-lg btn-block"
             ng-show="facKPICtrl.previewKPI"
             ng-click="facKPICtrl.togglePreview()">
       <i class="fa fa-arrow-circle-left"></i>
@@ -83,18 +83,12 @@
         </button>
       </div>
     </div>
-    <a ui-sref="facilityDelivery.childFacilityKPI"
-       class="btn btn-primary btn-lg btn-block"
-       ng-show="facKPICtrl.previewKPI">
-      <i class="fa fa-pencil-square-o"></i>
-      <span>Record Child Facility KPI</span>
-    </a>
     <br/>
     <a ui-sref="facilityDelivery.signOff({ ddId : facDevCtrl.ddId, facilityId : facDevCtrl.facility.id })"
        class="btn btn-success btn-lg btn-block"
        ng-show="facKPICtrl.previewKPI">
       <i class="fa fa-thumbs-up"></i>
-      <span>eSign</span>
+      <span>Confirm and Sign off</span>
     </a>
   </div>
 </div>

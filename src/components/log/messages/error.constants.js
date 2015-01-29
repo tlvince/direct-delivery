@@ -21,5 +21,10 @@ angular.module('log')
       title: 'Network',
       message: 'Network error',
       remedy: 'Please check your internet connection and try again'
+    },
+    'requiredDocsFailed': {
+      title: 'Incomplete Data',
+      message: 'Incomplete required data, app may not function properly',
+      remedy: 'Please, try again or contact support'
     }
   });

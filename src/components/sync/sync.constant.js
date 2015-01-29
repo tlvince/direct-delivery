@@ -20,4 +20,8 @@ angular.module('sync')
     COMPLETE: 'SYNC_DESIGN_COMPLETE',
     ERROR: 'SYNC_DESIGN_ERROR',
     DENIED: 'SYNC_DESIGN_DENIED'
+  })
+  .constant('SYNC_STATUS', {
+    IN_PROGRESS: 'inProgress',
+    COMPLETE: 'complete'
   });

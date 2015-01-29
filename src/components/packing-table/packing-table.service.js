@@ -56,7 +56,7 @@ angular.module('packingTable')
 
     this.saved = function() {
       log.success('packingSaved');
-      $state.go('packing.all');
+      $state.go($state.current.data.nextState);
     };
 
     this.saveFailed = function(reason) {

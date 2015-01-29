@@ -1,5 +1,7 @@
 'use strict';
 
 angular.module('home', [
-  'core'
+  'core',
+  'ui.bootstrap',
+  'ui.router.tabs'
 ]);

@@ -15,6 +15,9 @@ angular.module('packing.item')
         productStorages: function(packingTableLegendService) {
           return packingTableLegendService.get();
         }
+      },
+      data: {
+        nextState: 'packing.all'
       }
     })
     .state('packing.item.table', {

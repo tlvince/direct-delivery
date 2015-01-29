@@ -4,7 +4,8 @@ angular.module('packing.item')
   .config(function($stateProvider) {
     $stateProvider.state('packing.item', {
       url: '/:id',
-      templateUrl: 'components/packing-table/packing-table.html',
+      abstract: true,
+      templateUrl: 'app/packing/item/item.html',
       controller: 'PackingTableCtrl',
       controllerAs: 'packingTableCtrl',
       resolve: {
@@ -15,5 +16,9 @@ angular.module('packing.item')
           return packingTableLegendService.get();
         }
       }
+    })
+    .state('packing.item.table', {
+      url: '',
+      templateUrl: 'components/packing-table/packing-table.html'
     });
   });

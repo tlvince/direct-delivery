@@ -28,6 +28,19 @@ angular.module('home')
                 });
             }
           }
+        },
+        dailyPacking: {
+          templateUrl: 'components/packing-table/packing-table.html',
+          controller: 'PackingTableCtrl',
+          controllerAs: 'packingTableCtrl',
+          resolve: {
+            dailyDelivery: function($stateParams, packingTableService) {
+              return packingTableService.getToday();
+            },
+            productStorages: function(packingTableLegendService) {
+              return packingTableLegendService.get();
+            }
+          }
         }
       }
     });

@@ -5,7 +5,7 @@
  * @desc
  */
 angular.module('db')
-  .service('dbService', function (pouchdbService, config) {
+  .service('dbService', function ($q, pouchdbService, config) {
 
     var _this = this;
     var LOCAL_DB = config.localDB;
@@ -99,6 +99,14 @@ angular.module('db')
               return doc;
             });
         });
+    };
+
+    _this.getView = function(view, options){
+      return local.query(view, options);
+    };
+
+    _this.clear = function(){
+      return local.destroy();
     };
 
   });

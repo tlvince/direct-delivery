@@ -14,9 +14,12 @@ angular.module('directDelivery', [
     'packing',
     'packing.all',
     'packing.item',
-    'delivery'
+    'delivery',
+    'loadingScreen',
+     'db'
   ])
   .run(function($rootScope, $state, AuthService) {
+
     $rootScope.$on('$stateChangeStart', function(event, toState) {
       if (!AuthService.isLoggedIn && toState.name !== 'login') {
         $state.transitionTo('login');

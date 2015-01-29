@@ -13,7 +13,6 @@ rules:
     - 2
     - {newIsCapExceptions: ['pouchDB']}
   no-undef: 2
-  no-unused-vars: 2
   global-strict:
     - 2
     - always
@@ -34,9 +33,6 @@ rules:
   no-eq-null: 2
   no-floating-decimal: 2
   radix: 2
-  no-unused-vars:
-    - 2
-    - {vars: all, args: all}
   space-in-brackets:
     - 2
     - never

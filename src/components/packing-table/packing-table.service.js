@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('packing.item')
-  .service('packingItemService', function($state, log, couchdb) {
+angular.module('packingTable')
+  .service('packingTableService', function($state, log, couchdb) {
     this.get = function(dailyDeliveryID) {
       var params = {
         docID: dailyDeliveryID

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('packing.item')
+angular.module('packingTable')
   .constant('STORAGE_ATTRIBUTES', {
     'product-storage/dry': {
       bsClass: 'active'

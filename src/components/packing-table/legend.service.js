@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('packing.item')
-  .service('packingItemLegendService', function(couchdb, couchUtil, STORAGE_ATTRIBUTES) {
+angular.module('packingTable')
+  .service('packingTableLegendService', function(couchdb, couchUtil, STORAGE_ATTRIBUTES) {
     function getBSClass(productStorage) {
       var storageAttribute = STORAGE_ATTRIBUTES[productStorage._id];
       if (!storageAttribute || !storageAttribute.bsClass) {

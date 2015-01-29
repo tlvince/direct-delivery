@@ -1,4 +1,4 @@
-<h2 ng-bind="::packingItemCtrl.date"></h2>
+<h2 ng-bind="::packingTableCtrl.date"></h2>
 <table class="table">
   <tr>
     <th class="col-sm-1">Product</th>
@@ -6,8 +6,8 @@
     <th class="col-sm-2">Packed Quantity</th>
   </tr>
   <tr
-    ng-repeat="item in packingItemCtrl.packingList track by item.productID"
-    ng-class="packingItemCtrl.storageAttributes[item.storageID].bsClass"
+    ng-repeat="item in packingTableCtrl.packingList track by item.productID"
+    ng-class="packingTableCtrl.storageAttributes[item.storageID].bsClass"
   >
     <td ng-bind="::item.productID"></td>
     <td ng-bind="::item.expectedQty"></td>
@@ -44,6 +44,21 @@
   </tr>
 </table>
 
+<div class="packing-legend">
+  <strong>Legend</strong>
+  <ul class="list-unstyled list-inline">
+    <li ng-repeat="legend in packingTableCtrl.legends track by legend.id">
+      <span
+        class="label"
+        ng-class="legend.bsClass"
+        ng-bind="::legend.label"
+        popover="{{::legend.description}}"
+        popover-trigger="mouseenter"
+      ></span>
+    </li>
+  </ul>
+</div>
+
 <div class="pull-right">
   <a
     class="btn btn-default"
@@ -51,6 +66,6 @@
   >Cancel</a>
   <a
     class="btn btn-primary"
-    ng-click="packingItemCtrl.save()"
+    ng-click="packingTableCtrl.save()"
   >Save</a>
 </div>

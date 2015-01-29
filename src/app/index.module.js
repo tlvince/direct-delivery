@@ -5,6 +5,7 @@ angular.module('directDelivery', [
     'navbar',
     'footer',
     'home',
+    'home.packing',
     'auth',
     'log',
     'login',

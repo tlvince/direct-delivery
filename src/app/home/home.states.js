@@ -2,33 +2,33 @@
 
 angular.module('home')
   .config(function($stateProvider) {
-    $stateProvider.state('home', {
+    $stateProvider.state('homeLayout', {
+      abstract: true,
       url: '/',
       parent: 'index',
-      views :{
-        '' : {
-          templateUrl: 'app/home/home.html',
-          data: {
-            label: 'Home'
-          }
-        },
-        'daySchedule@home': {
+      templateUrl: 'app/home/home.html'
+    })
+    .state('home', {
+      url: '',
+      parent: 'homeLayout',
+      views: {
+        dailySchedule: {
           templateUrl: '/app/daily-schedules/daily-schedule.html',
           controller: 'SchedulesDailyCtrl',
           controllerAs: 'schedulesDailyCtrl',
           resolve: {
-            dailySchedule: function(scheduleService){
+            dailySchedule: function(log, scheduleService) {
               return scheduleService.getDaySchedule()
-                .then(function(response){
+                .then(function(response) {
                   return response;
                 })
-                .catch(function(err){
-                  console.error(err);
+                .catch(function(err) {
+                  log.error('dailyScheduleRetrival', err);
                   return [];
                 });
             }
           }
         }
       }
-    })
+    });
   });

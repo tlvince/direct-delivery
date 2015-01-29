@@ -2,4 +2,7 @@
 
 angular.module('core', [
   'ui.router',
+  'sync',
+  'config',
+  'db'
 ]);

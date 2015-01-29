@@ -6,7 +6,8 @@
  */
 angular.module('core')
   .service('coreService', function ($rootScope, syncService, config, pouchdbService, CORE_SYNC_DOWN,
-                                    SYNC_DAILY_DELIVERY, SYNC_DESIGN_DOC, $state, log, SYNC_STATUS) {
+                                    SYNC_DAILY_DELIVERY, SYNC_DESIGN_DOC, $state, log, SYNC_STATUS,
+                                    utility) {
 
     var _this = this;
     var syncInProgress = false;
@@ -89,7 +90,7 @@ angular.module('core')
     };
 
     _this.startSyncAfterLogin = function (driverEmail) {
-      var today = new Date();
+      var today = utility.formatDate(new Date());
       _this.addCompleteSyncListeners();
       _this.completeSync(driverEmail, today);
     };

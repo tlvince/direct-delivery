@@ -16,6 +16,8 @@ let g:syntastic_html_tidy_ignore_errors = [
   \ '<input> proprietary attribute "min"',
   \ '<input> proprietary attribute "step"',
   \ '<select> proprietary attribute "required"',
+  \ 'proprietary attribute "popover"',
+  \ 'proprietary attribute "popover-trigger"',
   \ 'unescaped & which should be written as &amp;',
   \ '<tab> is not recognized!',
   \ 'discarding unexpected <tab>',

@@ -16,7 +16,8 @@ angular.module('directDelivery', [
     'packing.item',
     'delivery',
     'loadingScreen',
-     'db'
+     'db',
+     'sync'
   ])
   .run(function($rootScope, $state, AuthService) {
 
@@ -26,4 +27,5 @@ angular.module('directDelivery', [
         event.preventDefault();
       }
     });
+
   });

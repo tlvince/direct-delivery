@@ -12,7 +12,7 @@ angular.module('login')
           }else{
             $state.go('home');
           }
-          coreService.startSyncAfterLogin('abdullahi.ahmed@example.com');
+          coreService.startSyncAfterLogin(username);
         })
         .catch(function(err) {
           log.error(err);

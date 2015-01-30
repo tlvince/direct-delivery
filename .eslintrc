@@ -1,3 +1,6 @@
+plugins:
+  - angular
+  - jasmine
 rules:
   quotes:
     - 2
@@ -9,14 +12,13 @@ rules:
   eqeqeq: 2
   wrap-iife: 2
   no-use-before-define: 2
-  new-cap:
-    - 2
-    - {newIsCapExceptions: ['pouchDB']}
+  new-cap: 2
   no-undef: 2
   no-unused-vars: 2
-  global-strict:
+  strict:
     - 2
-    - always
+    - global
+  global-strict: 0
   no-extra-parens: 2
   brace-style:
     - 2
@@ -34,9 +36,6 @@ rules:
   no-eq-null: 2
   no-floating-decimal: 2
   radix: 2
-  no-unused-vars:
-    - 2
-    - {vars: all, args: all}
   space-in-brackets:
     - 2
     - never

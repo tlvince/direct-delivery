@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('packingItemLegendServiceMock', [])
+angular.module('packingTableLegendServiceMock', [])
   .service('couchdb', function(PRODUCT_STORAGE_MOCK) {
     this.view = function() {
       return {

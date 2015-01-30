@@ -17,7 +17,8 @@
             "zone": "Nassarawa",
             "ward": "Nassarawa",
             "contact": "Anantu Bayati",
-            "phoneNo": "08035272613"
+            "phoneNo": "08035272613",
+            "hthfaCode": "KNS KKU GDW 101"
           },
           "status": "pending",
           "window": "",
@@ -52,7 +53,8 @@
             "ward": "Ketawa",
             "lga": "Gezawa",
             "contact": "Tijjani Rabiu",
-            "phoneNo": "08052808146"
+            "phoneNo": "08052808146",
+            "hthfaCode": "KNS KNC BMI 103"
           },
           "status": "pending",
           "cancelReport": {},
@@ -86,7 +88,8 @@
             "zone": "Nassarawa",
             "contact": "Rabi Dahiru",
             "phoneNo": "07035243034",
-            "ward": "Gwammaja"
+            "ward": "Gwammaja",
+            "hthfaCode": "KNS DAL GMJ 101"
           },
           "status": "pending",
           "cancelReport": {},

@@ -3,33 +3,25 @@
 angular.module('packing.item')
   .config(function($stateProvider) {
     $stateProvider.state('packing.item', {
-      abstract: true,
       url: '/:id',
-      templateUrl: 'app/packing/item/layout.html'
+      abstract: true,
+      templateUrl: 'app/packing/item/item.html',
+      controller: 'PackingTableCtrl',
+      controllerAs: 'packingTableCtrl',
+      resolve: {
+        dailySchedule: function($stateParams, packingTableService) {
+          return packingTableService.get($stateParams.id);
+        },
+        productStorages: function(packingTableLegendService) {
+          return packingTableLegendService.get();
+        }
+      },
+      data: {
+        nextState: 'packing.all'
+      }
     })
     .state('packing.item.table', {
       url: '',
-      views: {
-        table: {
-          templateUrl: 'app/packing/item/item.html',
-          controller: 'PackingItemCtrl',
-          controllerAs: 'packingItemCtrl',
-          resolve: {
-            dailyDelivery: function($stateParams, packingItemService) {
-              return packingItemService.get($stateParams.id);
-            }
-          }
-        },
-        legend: {
-          templateUrl: 'app/packing/item/legend.html',
-          controller: 'PackingItemLegendCtrl',
-          controllerAs: 'packingItemLegendCtrl',
-          resolve: {
-            productStorages: function(packingItemLegendService) {
-              return packingItemLegendService.get();
-            }
-          }
-        }
-      }
+      templateUrl: 'components/packing-table/packing-table.html'
     });
   });

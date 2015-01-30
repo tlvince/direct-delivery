@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('home')
-  .controller('HomeCtrl', function(dailySchedule, coreService, SYNC_STATUS, $rootScope, $scope){
+  .controller('HomeCtrl', function(dailySchedule, coreService, SYNC_STATUS, $rootScope, $scope, HOME_TABS){
     var vm = this;
     var unbind = {};
     vm.dailyDelivery= [];
+    vm.tabs = HOME_TABS;
     vm.syncInProgress =coreService.getSyncInProgress();
 
     function init(){

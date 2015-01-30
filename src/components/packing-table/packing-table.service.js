@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('packing.item')
-  .service('packingItemService', function($state, log, couchdb) {
+angular.module('packingTable')
+  .service('packingTableService', function($state, log, user, couchdb) {
     this.get = function(dailyDeliveryID) {
       var params = {
         docID: dailyDeliveryID
@@ -33,7 +33,7 @@ angular.module('packing.item')
 
     this.saved = function() {
       log.success('packingSaved');
-      $state.go('packing.all');
+      $state.go($state.current.data.nextState);
     };
 
     this.saveFailed = function(reason) {

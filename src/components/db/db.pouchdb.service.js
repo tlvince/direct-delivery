@@ -9,6 +9,12 @@ angular.module('db')
 
     var _this = this;
 
+    // TODO: PouchDB should be able to detect supported adapters itself.
+    //       See item:1156
+    function hasWebSQL() {
+      return $window.openDatabase;
+    }
+
     /**
      * we set default adapter to 'websql' because of the following:
      * 1. it is fast and
@@ -17,17 +23,19 @@ angular.module('db')
      * @param dbName
      * @returns {*}
      */
-    _this.create = function(dbName){
-      var options = {
-        adapter: 'websql',
-        auto_compaction: true
-      };
-      var db = pouchDB(dbName, options);
-      if (!db.adapter) {
-        // Fallback to default
-        db = pouchDB(dbName, { auto_compaction: true });
+    this.create = function(dbName, opt) {
+      var options = opt || {
+          /*eslint-disable camelcase */
+          /*jshint camelcase:false */
+          auto_compaction: true
+          /*eslint-enable camelcase */
+        };
+      if (hasWebSQL()) {
+        options.adapter = 'websql';
+      } else {
+        options.adapter = 'idb';
       }
-      return db;
+      return pouchDB(dbName, options);
     };
 
     _this.remote = function(dbUrl, options){

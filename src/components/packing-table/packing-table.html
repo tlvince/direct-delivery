@@ -1,9 +1,11 @@
-<table class="table">
-  <tr>
-    <th class="col-sm-1">Product</th>
-    <th class="col-sm-1">Expected Quantity</th>
-    <th class="col-sm-2">Packed Quantity</th>
-  </tr>
+<table class="table table-bordered table-tabbed">
+  <thead>
+    <tr>
+      <th class="col-sm-1">Product</th>
+      <th class="col-sm-1">Expected Quantity</th>
+      <th class="col-sm-2">Packed Quantity</th>
+    </tr>
+  </thead>
   <tr
     ng-repeat="item in packingTableCtrl.packingList track by item.productID"
     ng-class="packingTableCtrl.storageAttributes[item.storageID].bsClass"

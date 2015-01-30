@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('packingTable')
-  .controller('PackingTableCtrl', function($state, dailyDelivery, productStorages, packingTableService, STORAGE_ATTRIBUTES) {
-    this.date = dailyDelivery.date;
+  .controller('PackingTableCtrl', function($state, dailySchedule, productStorages, packingTableService, STORAGE_ATTRIBUTES) {
+    this.date = dailySchedule.date;
     this.legends = productStorages;
     this.nextState = $state.current.data.nextState;
-    this.packingList = dailyDelivery.packingList;
+    this.packingList = dailySchedule.packingList;
     this.storageAttributes = STORAGE_ATTRIBUTES;
     this.save = function() {
-      packingTableService.save(dailyDelivery)
+      packingTableService.save(dailySchedule)
         .then(packingTableService.saved)
         .catch(packingTableService.saveFailed);
     };

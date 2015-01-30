@@ -5,13 +5,8 @@ angular.module('home.packing')
     $stateProvider.state('home.packing', {
       url: 'daily-packing',
       templateUrl: 'app/home/packing/home-packing.html',
-      resolve: {
-        dailyDelivery: function(packingTableService) {
-          return packingTableService.getToday();
-        }
-      },
-      onEnter: function($timeout, $state, dailyDelivery) {
-        if (dailyDelivery) {
+      onEnter: function($timeout, $state, dailySchedule) {
+        if (dailySchedule) {
           // XXX: $timeout required to prevent circular references, see:
           // angular-ui/ui-router#1169
           return $timeout(function() {

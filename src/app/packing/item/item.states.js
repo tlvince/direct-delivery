@@ -9,7 +9,7 @@ angular.module('packing.item')
       controller: 'PackingTableCtrl',
       controllerAs: 'packingTableCtrl',
       resolve: {
-        dailyDelivery: function($stateParams, packingTableService) {
+        dailySchedule: function($stateParams, packingTableService) {
           return packingTableService.get($stateParams.id);
         },
         productStorages: function(packingTableLegendService) {

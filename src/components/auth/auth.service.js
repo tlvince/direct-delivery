@@ -83,7 +83,7 @@
         return $q.reject('authInvalid');
       }
 
-      var db = new pouchDB(config.db);
+      var db = pouchDB(config.db);
 
       return db.login(username, password)
         .then(function() {
@@ -112,7 +112,7 @@
     };
 
     this.logout = function() {
-      var db = new pouchDB(config.db);
+      var db = pouchDB(config.db);
 
       //TODO do we really need to logout from server??
       return db.logout()

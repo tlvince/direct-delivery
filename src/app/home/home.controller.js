@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('home')
-  .controller('HomeCtrl', function(dailySchedule){
-    var vm = this;
-    vm.dailyDelivery= dailySchedule[0];
+  .controller('HomeCtrl', function(HOME_TABS) {
+    this.tabs = HOME_TABS;
   });

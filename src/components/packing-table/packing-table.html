@@ -1,0 +1,75 @@
+<table
+  class="table table-bordered"
+  ng-class="{'table-tabbed': packingTableCtrl.tabbed}"
+>
+  <thead>
+    <tr>
+      <th class="col-sm-1">Product</th>
+      <th class="col-sm-1">Expected Quantity</th>
+      <th class="col-sm-2">Packed Quantity</th>
+    </tr>
+  </thead>
+  <tr
+    ng-repeat="item in packingTableCtrl.packingList track by item.productID"
+    ng-class="packingTableCtrl.storageAttributes[item.storageID].bsClass"
+  >
+    <td ng-bind="::item.productID"></td>
+    <td ng-bind="::item.expectedQty"></td>
+    <td>
+      <div class="form-inline">
+        <button
+          type="button"
+          class="btn btn-default"
+          ng-click="item.packedQty = item.expectedQty; item._partial = false"
+          ng-disabled="item._partial === false"
+        >Max</button>
+        <button
+          type="button"
+          class="btn btn-default"
+          ng-click="item._partial = true"
+          ng-disabled="item._partial"
+        >Partial</button>
+        <span
+          ng-bind="item.packedQty"
+          ng-hide="item._partial"
+        >
+        </span>
+        <input
+          type="number"
+          class="form-control input-sm"
+          min="0"
+          step="1"
+          ng-model="item.packedQty"
+          ng-model-options="{updateOn: 'blur'}"
+          ng-show="item._partial"
+        >
+      </div>
+    </td>
+  </tr>
+</table>
+
+<div class="packing-legend">
+  <strong>Legend</strong>
+  <ul class="list-unstyled list-inline">
+    <li ng-repeat="legend in packingTableCtrl.legends track by legend.id">
+      <span
+        class="label"
+        ng-class="legend.bsClass"
+        ng-bind="::legend.label"
+        popover="{{::legend.description}}"
+        popover-trigger="mouseenter"
+      ></span>
+    </li>
+  </ul>
+</div>
+
+<div class="pull-right">
+  <a
+    class="btn btn-default"
+    ui-sref="{{packingTableCtrl.nextState}}"
+  >Cancel</a>
+  <a
+    class="btn btn-primary"
+    ng-click="packingTableCtrl.save()"
+  >Save</a>
+</div>

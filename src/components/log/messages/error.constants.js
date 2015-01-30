@@ -22,6 +22,11 @@ angular.module('log')
       message: 'Network error',
       remedy: 'Please check your internet connection and try again'
     },
+    dailyScheduleRetrival: {
+      title: 'Daily schedule',
+      message: 'Could not retrieve your daily schedule',
+      remedy: 'Please check your internet connection and try again'
+    },
     invalidCancelReport: {
       title: 'Invalid cancel report',
       message: 'Reason not selected',

@@ -2,11 +2,11 @@
 /*eslint-env jasmine */
 /*global module: false, inject: false */
 
-describe('packingItemLegendService', function() {
-  beforeEach(module('packing.item'));
+describe('packingTableLegendService', function() {
+  beforeEach(module('packingTable'));
   it('should return a formatted list of storage legends', function() {
-    function test(packingItemLegendService) {
-      var actual = packingItemLegendService.get();
+    function test(packingTableLegendService) {
+      var actual = packingTableLegendService.get();
       var expected = [
         {
           id: 'product-storage/dry',
@@ -18,13 +18,13 @@ describe('packingItemLegendService', function() {
       expect(actual).toEqual(expected);
     }
 
-    module('productStorageMockExpected', 'packingItemLegendServiceMock');
+    module('productStorageMockExpected', 'packingTableLegendServiceMock');
     inject(test);
   });
 
   it('should handle malformed product storage responses', function() {
-    function test(packingItemLegendService) {
-      var actual = packingItemLegendService.get();
+    function test(packingTableLegendService) {
+      var actual = packingTableLegendService.get();
       var expected = [
         {
           id: undefined,
@@ -36,7 +36,7 @@ describe('packingItemLegendService', function() {
       expect(actual).toEqual(expected);
     }
 
-    module('productStorageMockUnexpected', 'packingItemLegendServiceMock');
+    module('productStorageMockUnexpected', 'packingTableLegendServiceMock');
     inject(test);
   });
 });

@@ -1,15 +1,19 @@
+
+<canvas style="border: 1px solid #000000;"></canvas>
+<br/>
 <div>
-  <button type="button" class="btn btn-success btn-lg btn-right"
-          ng-click="sp.accept()">
+  <button type="button"
+          class="btn btn-primary btn-lg btn-right"
+          ng-click="sp.accept()"
+          ng-show="sp.isPreview !== true">
     <i class="fa fa-thumbs-up"></i>
     <span>Ok</span>
   </button>
-  <button type="button" class="btn btn-warning btn-lg btn-right"
-          ng-click="sp.clear()">
+  <button type="button"
+          class="btn btn-default btn-lg btn-right"
+          ng-click="sp.clear()"
+          ng-show="sp.isPreview === true">
     <i class="fa fa-refresh"></i>
     <span>Clear</span>
   </button>
 </div>
-<br/>
-<canvas style="border: 1px solid #000000;"></canvas>
-

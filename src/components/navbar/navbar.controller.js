@@ -5,11 +5,4 @@ angular.module('navbar')
     this.auth = AuthService;
     this.name = config.name;
     this.items = navbarService.get();
-
-    this.logout = function() {
-      AuthService.logout()
-        .then(function() {
-          $state.reload();
-        });
-    };
   });

@@ -8,22 +8,39 @@ angular.module('delivery')
         controller: 'FacilityDeliveryCtrl',
         controllerAs: 'facDevCtrl',
         templateUrl: 'components/delivery/facility-delivery.html',
-        parent: 'index'
+        parent: 'index',
+        resolve: {
+          dailyDelivery: function($stateParams, scheduleService){
+            return scheduleService.getDaySchedule()
+              .then(function(res){
+                return res;
+              })
+              .catch(function(){
+                return {};
+              });
+          }
+        }
       })
       .state('facilityDelivery.deliverItems', {
-        url: '/deliver-items?facilityName&facilityId',
-        templateUrl: 'components/delivery/partials/deliver-items.html',
-        parent: 'facilityDelivery'
+        url: '/deliver-items/:ddId/:facilityId/:preview',
+        templateUrl: 'components/delivery/deliver-items/deliver-items.html',
+        parent: 'facilityDelivery',
+        controllerAs: 'diCtrl',
+        controller: 'DeliverItemsCtrl'
       })
-      .state('facilityDelivery.collectKPI', {
-        url: '/collect-kpi',
-        templateUrl: 'components/delivery/partials/collect-kpi.html',
-        parent: 'facilityDelivery'
+      .state('facilityDelivery.facilityKPI', {
+        url: '/collect-kpi/:ddId/:facilityId/:preview',
+        templateUrl: 'components/delivery/facility-kpi/facility-kpi.html',
+        parent: 'facilityDelivery',
+        controllerAs: 'facKPICtrl',
+        controller: 'FacilityKPICtrl'
       })
       .state('facilityDelivery.signOff', {
-        url: '/sign-off',
-        templateUrl: 'components/delivery/partials/delivery-sign-off.html',
-        parent: 'facilityDelivery'
+        url: '/sign-off/:ddId/:facilityId',
+        templateUrl: 'components/delivery/sign-off/sign-off.html',
+        parent: 'facilityDelivery',
+        controllerAs: 'signOffCtrl',
+        controller: 'SignOffCtrl'
       })
       .state('facilityDelivery.childFacilityKPI', {
         url: '/child-facility-kpi',
@@ -35,9 +52,11 @@ angular.module('delivery')
         templateUrl: 'components/delivery/partials/child-facility/preview.html',
         parent: 'facilityDelivery'
       })
-      .state('facilityDelivery.cancel', {
-        url: '/cancel',
-        templateUrl: 'components/delivery/partials/cancel-delivery.html',
-        parent: 'facilityDelivery'
+      .state('cancelDelivery', {
+        url: '/cancel-delivery/:ddId/:facilityId',
+        templateUrl: 'components/delivery/cancel-delivery/cancel-delivery.html',
+        parent: 'facilityDelivery',
+        controllerAs: 'cancelDevCtrl',
+        controller: 'CancelDeliveryCtrl'
       });
   });

@@ -1,0 +1,94 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2>
+      <h2><span ng-bind="facDevCtrl.facility.name"></span> - KPI</h2>
+    </h2>
+  </div>
+  <div class="panel-body">
+    <a ui-sref="facilityDelivery.deliverItems({ ddId : facDevCtrl.ddId, facilityId : facDevCtrl.facility.id, preview: true })"
+       class="btn btn-default btn-lg btn-block"
+       ng-show="!facKPICtrl.previewKPI">
+      <i class="fa fa-arrow-circle-left"></i>
+      <span>Back</span>
+    </a>
+    <button type="button" class="btn btn-default btn-lg btn-block"
+            ng-show="facKPICtrl.previewKPI"
+            ng-click="facKPICtrl.togglePreview()">
+      <i class="fa fa-arrow-circle-left"></i>
+      <span>Back</span>
+    </button>
+
+    <br/>
+    <table class="table table-striped table-condensed table-bordered">
+      <tr>
+        <th class="col-sm-2">Antigen</th>
+        <th class="col-sm-2">No. of people immunized</th>
+      </tr>
+      <tr ng-repeat="antigen in facDevCtrl.facilityKPI.antigensKPI track by $index">
+        <td><span ng-bind="antigen.productID"></span></td>
+        <td>
+          <input type="number"
+                 class="form-control input-sm"
+                 min="0"
+                 ng-change="facKPICtrl.validateNoImmunized($index)"
+                 ng-model="facDevCtrl.facilityKPI.antigensKPI[$index].noImmunized"
+                 ng-disabled="facKPICtrl.previewKPI"
+                 step="1"
+                 ng-model-options="{updateOn: 'blur'}"/>
+          <span class="text-danger" ng-show="facKPICtrl.kpiError.antigensNoImmunized[antigen.productID] === true">
+            <em>
+              <i class="fa fa-exclamation-circle"></i>
+              Please, enter number of people immunized.
+            </em>
+        </span>
+        </td>
+      </tr>
+    </table>
+
+    <form>
+      <div class="form-group">
+        <label>No. of Outreach Sessions
+          <input type="number" class="form-control input-sm-6"
+                 ng-model="facDevCtrl.facilityKPI.outreachSessions"
+                 ng-change="facKPICtrl.isValidOutreach()"
+                 ng-disabled="facKPICtrl.previewKPI"
+                 min="0"
+                 step="1">
+        </label>
+        <br/>
+        <span class="text-danger"
+              ng-show="facKPICtrl.kpiError.outreach === true">
+            <em>
+              <i class="fa fa-exclamation-circle"></i>
+              Please, enter number of outreach sessions.
+            </em>
+        </span>
+      </div>
+      <div class="form-group">
+        <label>Notes (optional) </label>
+        <textarea class="form-control"
+                  ng-model="facDevCtrl.facilityKPI.notes"
+                  ng-disabled="facKPICtrl.previewKPI"
+                  rows="3">
+        </textarea>
+      </div>
+    </form>
+    <div class="btn-group btn-group-justified">
+      <div class="btn-group">
+        <button type="button" class="btn btn-success btn-lg btn-right"
+                ng-show="!facKPICtrl.previewKPI"
+                ng-click="facKPICtrl.preview(facDevCtrl.facilityKPI)">
+          <span>Preview</span>
+          <i class="fa fa-arrow-circle-right"></i>
+        </button>
+      </div>
+    </div>
+    <br/>
+    <a ui-sref="facilityDelivery.signOff({ ddId : facDevCtrl.ddId, facilityId : facDevCtrl.facility.id })"
+       class="btn btn-success btn-lg btn-block"
+       ng-show="facKPICtrl.previewKPI">
+      <i class="fa fa-thumbs-up"></i>
+      <span>Confirm and Sign off</span>
+    </a>
+  </div>
+</div>

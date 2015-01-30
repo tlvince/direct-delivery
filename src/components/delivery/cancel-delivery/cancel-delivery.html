@@ -1,0 +1,78 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2>
+      <span ng-bind="cancelDevCtrl.facRnd.facility.name"></span> - Cancel Delivery
+    </h2>
+  </div>
+  <div class="panel-body">
+    <a ui-sref="facilityDelivery.deliverItems({ ddId: cancelDevCtrl.dailyDelivery._id , facilityId: cancelDevCtrl.facilityId })"
+       class="btn btn-warning btn-lg btn-block">
+      <i class="fa fa-arrow-circle-left"></i>
+      <span>Back</span>
+    </a>
+    <br/>
+    <h3> Select reason and submit report.</h3>
+    <br/>
+
+    <form name="skipForm" ng-submit="cancelDevCtrl.cancel()">
+
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"
+                   ng-model="cancelDevCtrl.facRnd.cancelReport.cancelledAhead"> Cancelled ahead
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"
+                   ng-checked="cancelDevCtrl.facRnd.cancelReport.hfNotAvailable === true"
+                   ng-model="cancelDevCtrl.facRnd.cancelReport.hfNotAvailable"> Health facility not available
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"
+                   ng-checked="cancelDevCtrl.facRnd.cancelReport.brokenCCE"
+                   ng-model="cancelDevCtrl.facRnd.cancelReport.brokenCCE"> Broken CCE.
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"
+                   ng-checked="cancelDevCtrl.facRnd.cancelReport.noCCE"
+                   ng-model="cancelDevCtrl.facRnd.cancelReport.noCCE"> No CCE.
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"
+                   ng-selected="cancelDevCtrl.facRnd.cancelReport.others"
+                   ng-model="cancelDevCtrl.facRnd.cancelReport.others"> Others
+          </label>
+        </div>
+        <textarea ng-model="cancelDevCtrl.facRnd.cancelReport.note"
+                  class="form-control" rows="3"
+                  placeholder="add reason for unavailable health facility and others.">
+        </textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg btn-block">
+        <span>Submit</span>
+      </button>
+    </form>
+  </div>
+</div>
+

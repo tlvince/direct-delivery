@@ -32,20 +32,29 @@ angular
       },
       controller: function () {
         var vm = this;
+        vm.isPreview = false;
+        vm.toggle = function(){
+          vm.isPreview = !vm.isPreview;
+        };
+
 
         vm.clear = function(){
           signaturePad.clear();
+          vm.accept();
         };
 
         vm.accept = function(){
           if (!signaturePad.isEmpty()) {
             scope.signature.dataUrl = signaturePad.toDataURL();
             scope.signature.$isEmpty = false;
+            vm.toggle();
           } else {
             scope.signature.dataUrl = EMPTY_IMAGE;
             scope.signature.$isEmpty = true;
+            vm.toggle();
           }
         };
+
       },
       link: function($scope, $element){
         canvas = $element.find('canvas')[0];
@@ -57,8 +66,8 @@ angular
         }
 
         $element.on('$destroy', function(){
-          $window.removeEventListener('orientationchange');
-          $window.removeEventListener('resize');
+          $window.removeEventListener('orientationchange', null);
+          $window.removeEventListener('resize', null);
         });
       }
     };

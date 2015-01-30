@@ -1,0 +1,98 @@
+<div class="btn-group btn-group-justified">
+  <div class="btn-group">
+    <a ui-sref="home" class="btn btn-default btn-lg btn-left">
+      <i class="fa fa-arrow-circle-left"></i>
+      <span>Back</span>
+    </a>
+  </div>
+  <div class="btn-group">
+    <a ui-sref="cancelDelivery({ ddId : facDevCtrl.ddId, facilityId : facDevCtrl.facility.id })"
+       class="btn btn-primary btn-lg btn-left">
+      <i class="fa fa-undo"></i>
+      <span>Cancel Delivery</span>
+    </a>
+  </div>
+</div>
+<br/>
+<table class="table table-striped table-condensed table-bordered">
+  <tr>
+    <th class="col-sm-1">Product</th>
+    <th class="col-sm-1">On-hand Qty</th>
+    <th class="col-sm-1">Delivered Qty</th>
+    <th class="col-sm-1">Returned Qty</th>
+  </tr>
+  <tr ng-repeat="item in facDevCtrl.facRnd.packedProduct track by $index">
+    <td><span ng-bind="item.productID"></span></td>
+    <td class="highlight-onhand-qty">
+      <div class="input-group">
+        <input type="number"
+               class="form-control"
+               min="0"
+               step="1"
+               ng-change="diCtrl.calcDeliverQty(facDevCtrl.facRnd.packedProduct[$index])"
+               ng-model="facDevCtrl.facRnd.packedProduct[$index].onHandQty"
+               ng-disabled="diCtrl.previewDelivery"
+               ng-model-options="{updateOn: 'blur'}"/>
+
+        <div class="input-group-addon">Vials</div>
+      </div>
+          <span class="text-danger"
+                ng-show="diCtrl.validationErr[item.productID].onHandQty === true">
+            <em>
+              <i class="fa fa-exclamation-circle"></i>
+              Please, enter onHand quantity.
+            </em>
+          </span>
+    </td>
+    <td class="highlight-delivered-qty">
+      <div class="input-group">
+        <input type="number"
+               class="form-control info"
+               min="0"
+               step="1"
+               ng-change="diCtrl.validateOnChange(facDevCtrl.facRnd.packedProduct[$index])"
+               ng-model="facDevCtrl.facRnd.packedProduct[$index].deliveredQty"
+               ng-disabled="diCtrl.previewDelivery"
+               ng-model-options="{updateOn: 'blur'}"/>
+
+        <div class="input-group-addon">Vials</div>
+      </div>
+          <span class="text-danger"
+                ng-show="diCtrl.validationErr[item.productID].deliveredQty === true">
+            <em>
+              <i class="fa fa-exclamation-circle"></i>
+              Please, enter delivered quantity.
+            </em>
+          </span>
+    </td>
+    <td class="highlight-returned-qty">
+      <div class="input-group">
+        <input type="number"
+               class="form-control"
+               min="0"
+               step="1"
+               value="0"
+               ng-change="diCtrl.validateOnChange(facDevCtrl.facRnd.packedProduct[$index])"
+               ng-model="facDevCtrl.facRnd.packedProduct[$index].returnedQty"
+               ng-disabled="diCtrl.previewDelivery"
+               ng-model-options="{updateOn: 'blur'}"/>
+
+        <div class="input-group-addon">Vials</div>
+      </div>
+          <span class="text-danger"
+                ng-show="diCtrl.validationErr[item.productID].returnedQty === true">
+            <em>
+              <i class="fa fa-exclamation-circle"></i>
+              Please, enter returned quantity.
+            </em>
+          </span>
+    </td>
+  </tr>
+</table>
+<br/>
+<button type="button" class="btn btn-success btn-lg btn-block"
+        ng-click="diCtrl.preview(facDevCtrl.facRnd.packedProduct)">
+  <span>Preview</span>
+  <i class="fa fa-arrow-circle-right"></i>
+</button>
+

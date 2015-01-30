@@ -33,7 +33,8 @@ angular.module('home.packing')
         }
       },
       data: {
-        nextState: 'home.schedule'
+        nextState: 'home.schedule',
+        tabbed: true
       }
     });
   });

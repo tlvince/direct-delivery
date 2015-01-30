@@ -3,6 +3,7 @@
 angular.module('packingTable')
   .controller('PackingTableCtrl', function($state, dailySchedule, productStorages, packingTableService, STORAGE_ATTRIBUTES) {
     this.date = dailySchedule.date;
+    this.tabbed = $state.current.data.tabbed;
     this.legends = productStorages;
     this.nextState = $state.current.data.nextState;
     this.packingList = dailySchedule.packingList;

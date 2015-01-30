@@ -1,5 +1,7 @@
 'use strict';
 
 angular.module('home', [
-  'core'
+  'core',
+  'ui.router.tabs',
+  'schedules'
 ]);

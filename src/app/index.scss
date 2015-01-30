@@ -7,6 +7,11 @@
 .nav > li > a:focus {
   cursor: pointer;
 }
+
+.table-tabbed {
+  border: 0;
+}
+
 // injector
-@import 'packing/item/legend.scss';
+@import '../components/packing-table/legend.scss';
 // endinjector

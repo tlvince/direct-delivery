@@ -2,23 +2,6 @@
   <div class="page-header">
     <h1>Welcome to Direct Delivery</h1>
   </div>
-     <h2 ng-bind="homeCtrl.day.date | date: 'fullDate'"></h2>
-     <tabset>
-       <tab>
-         <tab-heading>
-           <span class="text-warning">
-             <i class="fa fa-calendar"></i> View Schedule
-           </span>
-         </tab-heading>
-         <div ui-view="daySchedule"></div>
-       </tab>
-       <tab>
-         <tab-heading>
-           <span class="text-warning">
-             <i class="fa fa-truck"></i> View Packages
-           </span>
-         </tab-heading>
-            I've got an HTML heading, and a select callback. Pretty cool!
-       </tab>
-     </tabset>
+  <tabs data="homeCtrl.tabs" />
 </div>
+<div class="col-md-12" ui-view></div>

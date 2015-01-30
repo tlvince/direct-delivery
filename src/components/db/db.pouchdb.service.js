@@ -7,6 +7,10 @@
 angular.module('db')
   .service('pouchdbService', function($window, pouchDB){
 
+    var hasWebSQL = function(){
+      return $window.openDatabase;
+    };
+
     /**
      * we set default adapter to 'websql' because of the following:
      * 1. it is fast and
@@ -15,17 +19,14 @@ angular.module('db')
      * @param dbName
      * @returns {*}
      */
-    this.create = function(dbName){
-      var options = {
-        adapter: 'websql',
-        auto_compaction: true
-      };
-      var db = pouchDB(dbName, options);
-      if (!db.adapter) {
-        // Fallback to default
-        db = pouchDB(dbName, { auto_compaction: true });
+    this.create = function(dbName, opt){
+      var options = opt || { auto_compaction: true };
+      if(hasWebSQL()){
+        options.adapter = 'websql';
+      }else{
+        options.adapter = 'idb';
       }
-      return db;
+      return new pouchDB(dbName, options);
     };
 
     this.remote = function(dbUrl, options){

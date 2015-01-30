@@ -30,14 +30,8 @@
   background-color: #222222;
   border-color: #222222;
 }
+
 .btn-default > .btn-default:hover
-
-
-// use pointer for all nav links, even those without a href (they generally use ng-click)
-.nav > li > a:hover,
-.nav > li > a:focus {
-  cursor: pointer;
-}
 
 .table-tabbed {
   border: 0;

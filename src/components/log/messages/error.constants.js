@@ -27,6 +27,16 @@ angular.module('log')
       message: 'Could not retrieve your daily schedule',
       remedy: 'Please check your internet connection and try again'
     },
+    loginError: {
+      title: 'Login failed',
+      message: 'Could not login',
+      remedy: 'Please double check your network connectivity and try again'
+    },
+    logoutError: {
+      title: 'Logout failed',
+      message: 'Could not logout due to an application error',
+      remedy: 'Please contact support'
+    },
     invalidCancelReport: {
       title: 'Invalid cancel report',
       message: 'Reason not selected',

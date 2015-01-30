@@ -35,16 +35,6 @@ angular.module('delivery')
 
     initCancelReport();
 
-    vm.onReasonSelection = function () {
-      if (vm.facRnd.cancelReport.cancelledAhead === true) {
-        //unset other reasons.
-        vm.facRnd.cancelReport.others = false;
-        vm.facRnd.cancelReport.hfNotAvailable = false;
-        vm.facRnd.cancelReport.noCCE = false;
-        vm.facRnd.cancelReport.brokenCCE = false;
-      }
-    };
-
     vm.cancel = function () {
       var isValid = cancelDeliveryService.validateCancelReport(vm.facRnd.cancelReport);
       if (isValid === true) {

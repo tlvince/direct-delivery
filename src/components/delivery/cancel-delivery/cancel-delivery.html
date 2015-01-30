@@ -20,7 +20,6 @@
         <div class="checkbox">
           <label>
             <input type="checkbox"
-                   ng-selected="cancelDevCtrl.onReasonSelection()"
                    ng-model="cancelDevCtrl.facRnd.cancelReport.cancelledAhead"> Cancelled ahead
           </label>
         </div>
@@ -31,7 +30,6 @@
           <label>
             <input type="checkbox"
                    ng-checked="cancelDevCtrl.facRnd.cancelReport.hfNotAvailable === true"
-                   ng-disabled="cancelDevCtrl.facRnd.cancelReport.cancelledAhead"
                    ng-model="cancelDevCtrl.facRnd.cancelReport.hfNotAvailable"> Health facility not available
           </label>
         </div>
@@ -42,7 +40,6 @@
           <label>
             <input type="checkbox"
                    ng-checked="cancelDevCtrl.facRnd.cancelReport.brokenCCE"
-                   ng-disabled="cancelDevCtrl.facRnd.cancelReport.cancelledAhead"
                    ng-model="cancelDevCtrl.facRnd.cancelReport.brokenCCE"> Broken CCE.
           </label>
         </div>
@@ -53,7 +50,6 @@
           <label>
             <input type="checkbox"
                    ng-checked="cancelDevCtrl.facRnd.cancelReport.noCCE"
-                   ng-disabled="cancelDevCtrl.facRnd.cancelReport.cancelledAhead"
                    ng-model="cancelDevCtrl.facRnd.cancelReport.noCCE"> No CCE.
           </label>
         </div>
@@ -64,7 +60,6 @@
           <label>
             <input type="checkbox"
                    ng-selected="cancelDevCtrl.facRnd.cancelReport.others"
-                   ng-disabled="cancelDevCtrl.facRnd.cancelReport.cancelledAhead"
                    ng-model="cancelDevCtrl.facRnd.cancelReport.others"> Others
           </label>
         </div>

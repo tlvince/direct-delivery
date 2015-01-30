@@ -19,12 +19,10 @@ angular.module('delivery')
 
     _this.validateCancelReport = function (cr) {
       var noCRSelected = !(cr.cancelledAhead === true ||
-      cr.hfNotAvailable === true || cr.brokenCCE === true || cr.noCCE === true || cr.others === true);
+        cr.hfNotAvailable === true || cr.brokenCCE === true || cr.noCCE === true ||
+        cr.others === true);
+
       if (noCRSelected) {
-        return false;
-      }
-      var otherOptions = (cr.hfNotAvailable === true || cr.brokenCCE === true || cr.noCCE === true || cr.others === true);
-      if(otherOptions === true && cr.cancelledAhead === true){
         return false;
       }
       return true;

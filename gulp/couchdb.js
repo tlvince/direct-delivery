@@ -20,12 +20,15 @@ if (argv.u && argv.p) {
 dbUrl = url.format(dbUrl);
 
 function push(docs) {
-  docs = JSON.stringify({
-    docs: docs
+  var body = JSON.stringify({
+    docs: docs,
+    /*eslint-disable camelcase */
+    all_or_nothing: true
+    /*eslint-enable camelcase */
   });
 
   var options = {
-    body: docs,
+    body: body,
     headers: {
       'Content-Type': 'application/json'
     }

@@ -59,7 +59,7 @@ describe('cancelDeliveryService', function() {
       expect(res).toBeFalsy();
     });
 
-    it('should return FALSE, if cancelledAhead is set to TRUE and another status property is set to TRUE',
+    it('should return TRUE, if cancelledAhead is set to TRUE and another status property is set to TRUE',
       function(){
         var cr = cancelDeliveryService.getDefaultCancelReport();
         var res = cancelDeliveryService.validateCancelReport(cr);
@@ -67,7 +67,7 @@ describe('cancelDeliveryService', function() {
         cr.cancelledAhead = true;
         cr.noCCE = true;
         res = cancelDeliveryService.validateCancelReport(cr);
-        expect(res).not.toBeTruthy();
+        expect(res).toBeTruthy();
       });
 
   });

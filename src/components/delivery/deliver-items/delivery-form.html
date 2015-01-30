@@ -34,7 +34,9 @@
                ng-disabled="diCtrl.previewDelivery"
                ng-model-options="{updateOn: 'blur'}"/>
 
-        <div class="input-group-addon">Vials</div>
+        <div class="input-group-addon">
+          <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].baseUOM"></span>
+        </div>
       </div>
           <span class="text-danger"
                 ng-show="diCtrl.validationErr[item.productID].onHandQty === true">
@@ -55,7 +57,9 @@
                ng-disabled="diCtrl.previewDelivery"
                ng-model-options="{updateOn: 'blur'}"/>
 
-        <div class="input-group-addon">Vials</div>
+        <div class="input-group-addon">
+          <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].baseUOM"></span>
+        </div>
       </div>
           <span class="text-danger"
                 ng-show="diCtrl.validationErr[item.productID].deliveredQty === true">
@@ -77,7 +81,9 @@
                ng-disabled="diCtrl.previewDelivery"
                ng-model-options="{updateOn: 'blur'}"/>
 
-        <div class="input-group-addon">Vials</div>
+        <div class="input-group-addon">
+          <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].baseUOM"></span>
+        </div>
       </div>
           <span class="text-danger"
                 ng-show="diCtrl.validationErr[item.productID].returnedQty === true">

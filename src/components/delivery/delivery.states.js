@@ -13,10 +13,10 @@ angular.module('delivery')
           dailyDelivery: function($stateParams, scheduleService){
             return scheduleService.getDaySchedule()
               .then(function(res){
-                return res[0];
+                return res;
               })
               .catch(function(){
-                return;
+                return {};
               });
           }
         }

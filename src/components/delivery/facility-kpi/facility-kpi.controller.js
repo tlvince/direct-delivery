@@ -5,10 +5,15 @@ angular.module('delivery')
 
     var vm = this;
     var facilityKPI = $scope.facDevCtrl.facilityKPI;
+    vm.skipFacilityKPI = false;
 
     function init(){
       if($state.params.preview === 'true'){
         vm.previewKPI = true;
+      }
+      if(!angular.isObject(facilityKPI)){
+        //TODO: verify if Facility KPI can be optional and also skipped, etc.
+        //#see item:
       }
       clearValidationError();
     }

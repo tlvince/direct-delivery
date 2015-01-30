@@ -36,5 +36,30 @@ angular.module('log')
       title: 'Logout failed',
       message: 'Could not logout due to an application error',
       remedy: 'Please contact support'
+    },
+    invalidCancelReport: {
+      title: 'Invalid cancel report',
+      message: 'Reason not selected',
+      remedy: 'Please, select reason for cancelling delivery'
+    },
+    'invalidSignature': {
+      title: 'Invalid signature',
+      message: 'Signature not signed',
+      remedy: 'Please, sign and click ok'
+    },
+    'facilityRoundNotSet': {
+      title: 'Cancel delivery',
+      message: 'Invalid facility round',
+      remedy: 'Please, select valid facility round'
+    },
+    'dailyDeliveryFailed': {
+      title: 'Daily delivery',
+      message: 'Saving delivery report failed',
+      remedy: 'Please, try again. if it continues, contact support'
+    },
+    'invalidDailyDelivery': {
+      title: 'Daily delivery',
+      message: 'Daily delivery is not correct.',
+      remedy: 'Try again, if it persists, contact support.'
     }
   });

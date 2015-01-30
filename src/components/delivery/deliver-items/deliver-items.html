@@ -1,0 +1,18 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2>
+      <h2><span ng-bind="facDevCtrl.facility.name"></span> - Item Delivery</h2>
+    </h2>
+  </div>
+  <div class="panel-body">
+    <div
+      ng-include="'components/delivery/deliver-items/delivery-form.html'"
+      ng-show="diCtrl.previewDelivery !== true">
+    </div>
+
+    <div
+      ng-include="'components/delivery/deliver-items/preview.html'"
+      ng-show="diCtrl.previewDelivery === true">
+    </div>
+  </div>
+</div>

@@ -2,6 +2,37 @@
   margin-bottom: 20px;
 }
 
+.highlight-onhand-qty {
+  color: #FFFFFF;
+  background-color: #F9CB9C;
+  font-weight: bold;
+}
+
+.highlight-delivered-qty {
+  color: #FFFFFF;
+  background-color: #6D9EEB;
+  font-weight: bold;
+}
+
+.highlight-returned-qty {
+  color: #FFFFFF;
+  background-color: #E06666;
+  font-weight: bold;
+}
+
+.text-danger {
+  background-color: #E06666;
+  color: #FFFFFF;
+}
+
+.btn-default {
+  color: #ffffff;
+  background-color: #222222;
+  border-color: #222222;
+}
+
+.btn-default > .btn-default:hover
+
 .table-tabbed {
   border: 0;
 }

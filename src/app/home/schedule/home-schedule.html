@@ -1,5 +1,5 @@
 <br/>
-<div class="" ng-if="schedulesDailyCtrl.day.facilityRounds">
+<div ng-if="homeScheduleCtrl.day.facilityRounds">
     <div class="row">
       <div class="col-sm-12 col-xs-12">
         <table class="table table-striped table-bordered table-condensed">
@@ -15,7 +15,7 @@
               <th>Number</th>
               <th>Action</th>
             </thead>
-            <tr ng-repeat="facilityRound in schedulesDailyCtrl.day.facilityRounds track by $index">
+            <tr ng-repeat="facilityRound in homeScheduleCtrl.day.facilityRounds track by $index">
               <td>
                 <a ng-bind="facilityRound.facility.name"
                    ui-sref="facilityDelivery.deliverItems({ facilityName : facilityRound.facility.name, facilityId : facilityRound.facility.id })">
@@ -40,6 +40,6 @@
       </div>
     </div>
 </div>
-<div class="alert alert-info" ng-if="!schedulesDailyCtrl.day.facilityRounds">
+<div class="alert alert-info" ng-if="!homeScheduleCtrl.day.facilityRounds">
     <i class="fa fa-info-circle"></i> There are no scheduled deliveries today.
 </div>

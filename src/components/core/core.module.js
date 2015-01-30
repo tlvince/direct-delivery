@@ -2,7 +2,7 @@
 
 angular.module('core', [
   'ui.router',
-  'ui.bootstrap'
+  'ui.bootstrap',
   'sync',
   'config',
   'db',

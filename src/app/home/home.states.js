@@ -12,7 +12,7 @@ angular.module('home')
         dailySchedule: function(log, scheduleService) {
           function errorHandler(error) {
             log.error('dailyScheduleRetrival', error);
-            return [];
+            return {};
           }
           return scheduleService.getDaySchedule()
             .catch(errorHandler);

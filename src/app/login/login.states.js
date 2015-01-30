@@ -8,5 +8,13 @@ angular.module('login')
       templateUrl: 'app/login/login.html',
       controller: 'LoginCtrl',
       controllerAs: 'loginCtrl'
+    })
+    .state('logout', {
+      url: '/logout',
+      resolve: {
+        logout: function(loginService) {
+          loginService.logout();
+        }
+      }
     });
   });

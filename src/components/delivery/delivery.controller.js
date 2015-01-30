@@ -1,56 +1,31 @@
 'use strict';
 
 angular.module('delivery')
-  .controller('FacilityDeliveryCtrl', function FacilityDeliveryCtrl($state, DELIVERY_STEPS) {
-    var vm = this; //view model
-    this.STEPS = DELIVERY_STEPS;
-    vm.currentStep = vm.STEPS.DELIVER_ITEM;
-    vm.facilityName = $state.params.facilityName;
-    vm.facilityId = $state.params.facilityId;
-    vm.previewDelivery = false;
-    vm.previewKPI = false;
-    vm.signature = {};
+  .controller('FacilityDeliveryCtrl', function FacilityDeliveryCtrl($state, log, deliveryService, dailyDelivery) {
 
-    if (!(angular.isString(vm.facilityName) && angular.isString(vm.facilityId))) {
-      //TODO: go back to previous page and show error alert.
+    var vm = this; //view model
+
+    function init(){
+      vm.dailyDelivery = dailyDelivery;
+      var facilityId = $state.params.facilityId;
+      vm.facRnd = {};
+      if(!angular.isObject(vm.dailyDelivery)){
+        log.error('invalidDailyDelivery');
+        $state.go('home');
+        return;
+      }
+      vm.ddId = vm.dailyDelivery._id;
+      var dailyFacRndForGivenId = deliveryService.filterByFacility(vm.dailyDelivery, facilityId);
+      if(dailyFacRndForGivenId.length === 0){
+        log.error('facilityRoundNotSet');
+        $state.go('home');
+      }else{
+        vm.facRnd = dailyFacRndForGivenId[0];
+        vm.facility = vm.facRnd.facility;
+        vm.facilityKPI = vm.facRnd.facilityKPI;
+      }
     }
 
-    vm.reason = {
-      cancelledAhead: false,
-      others: false,
-      notAvailable: false,
-      brokenCCE: false,
-      noCCE: false,
-      notes: ''
-    };
-
-    vm.cancelDelivery = function () {
-      //TODO: validate, submit report and discontinue delivery.
-      //navigate to home page with alert.
-    };
-
-    vm.signOffAndSubmit = function () {
-      console.log(vm.signature);
-      //TODO: capture signature, attach, validate and submit complete delivery report.
-    };
-
-    vm.anotherChildFacility = function(){
-      //TODO: validate child facility
-      //add to list, clear form
-    };
-
-    vm.goTo = function (pos) {
-      vm.currentStep = pos;
-      if(vm.currentStep === vm.STEPS.PREVIEW_DELIVERY){
-        vm.previewDelivery = true;
-      }else{
-        vm.previewDelivery = false;
-      }
-      if(vm.currentStep === vm.STEPS.PREVIEW_KPI){
-        vm.previewKPI = true;
-      }else{
-        vm.previewKPI = false;
-      }
-    };
+    init();
 
   });

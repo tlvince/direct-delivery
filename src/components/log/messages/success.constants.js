@@ -9,5 +9,13 @@ angular.module('log')
     authSuccess: {
       title: 'Authentication',
       message: 'Login success'
+    },
+    'deliveryCancelled': {
+      title: 'Delivery cancelled',
+      message: 'Delivery cancelled successfully'
+    },
+    'facilityDeliverySaved': {
+      title: 'Delivery report saved',
+      message: 'Facility delivery report completed successfully'
     }
   });

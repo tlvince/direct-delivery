@@ -1,0 +1,38 @@
+<button type="button" class="btn btn-default btn-lg btn-block"
+        ng-show="diCtrl.previewDelivery"
+        ng-click="diCtrl.togglePreview()">
+  <i class="fa fa-arrow-circle-left"></i>
+  <span>Back</span>
+</button>
+<br/>
+<table class="table table-striped table-condensed table-bordered">
+  <tr>
+    <th class="col-sm-1">Product</th>
+    <th class="col-sm-1">On-hand Qty</th>
+    <th class="col-sm-1">Delivered Qty</th>
+    <th class="col-sm-1">Returned Qty</th>
+  </tr>
+  <tr ng-repeat="item in facDevCtrl.facRnd.packedProduct track by $index">
+    <td><span ng-bind="item.productID"></span></td>
+    <td class="highlight-onhand-qty">
+      <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].onHandQty"></span>
+      <span>Vials</span>
+    </td>
+    <td class="highlight-delivered-qty">
+      <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].deliveredQty"></span>
+      <span>Vials</span>
+    </td>
+    <td class="highlight-returned-qty">
+      <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].returnedQty"></span>
+      <span>Vials</span>
+    </td>
+  </tr>
+</table>
+<br/>
+<a ui-sref="facilityDelivery.signOff({ ddId : facDevCtrl.ddId, facilityId : facDevCtrl.facility.id })"
+   class="btn btn-success btn-lg btn-block"
+   ng-show="diCtrl.previewDelivery">
+  <span>Continue</span>
+  <i class="fa fa-arrow-circle-right"></i>
+</a>
+

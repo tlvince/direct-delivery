@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2>
+      <h2><span ng-bind="facDevCtrl.facility.name"></span> - Delivery Sign off</h2>
+    </h2>
+  </div>
+  <div class="panel-body">
+    <a ui-sref="facilityDelivery.deliverItems({ ddId : facDevCtrl.ddId, facilityId : facDevCtrl.facility.id, preview: true })"
+       class="btn btn-default btn-lg btn-block">
+      <i class="fa fa-arrow-circle-left"></i>
+      <span>Back</span>
+    </a>
+
+    <h3>Sign inside the box below, click Ok to complete, then submit.</h3>
+
+    <sign-pad signature="signOffCtrl.signature"></sign-pad>
+    <br/>
+    <br/>
+    <button type="button" class="btn btn-success btn-lg btn-block"
+            ng-click="signOffCtrl.submit()">
+      <span>Submit</span>
+      <i class="fa fa-arrow-circle-right"></i>
+    </button>
+  </div>
+</div>
+
+
+

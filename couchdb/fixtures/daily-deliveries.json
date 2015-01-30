@@ -30,17 +30,20 @@
             {
               "productID": "BCG",
               "expectedQty": 70,
-              "storageID": "product-storage/frozen"
+              "storageID": "product-storage/frozen",
+              "baseUOM": "Doses"
             },
             {
               "productID": "Men-A",
               "expectedQty": 150,
-              "storageID": "product-storage/dry"
+              "storageID": "product-storage/dry",
+              "baseUOM": "Doses"
             },
             {
               "productID": "OPV",
               "expectedQty": 34,
-              "storageID": "product-storage/frozen"
+              "storageID": "product-storage/frozen",
+              "baseUOM": "Doses"
             }
           ],
           "facilityKPI": {
@@ -83,17 +86,20 @@
             {
               "productID": "BCG",
               "expectedQty": 70,
-              "storageID": "product-storage/frozen"
+              "storageID": "product-storage/frozen",
+              "baseUOM": "Doses"
             },
             {
               "productID": "Men-A",
               "expectedQty": 150,
-              "storageID": "product-storage/dry"
+              "storageID": "product-storage/dry",
+              "baseUOM": "Doses"
             },
             {
               "productID": "OPV",
               "expectedQty": 34,
-              "storageID": "product-storage/frozen"
+              "storageID": "product-storage/frozen",
+              "baseUOM": "Doses"
             }
           ],
           "facilityKPI": {
@@ -136,17 +142,20 @@
             {
               "productID": "BCG",
               "expectedQty": 70,
-              "storageID": "product-storage/frozen"
+              "storageID": "product-storage/frozen",
+              "baseUOM": "Doses"
             },
             {
               "productID": "Men-A",
               "expectedQty": 150,
-              "storageID": "product-storage/dry"
+              "storageID": "product-storage/dry",
+              "baseUOM": "Doses"
             },
             {
               "productID": "OPV",
               "expectedQty": 34,
-              "storageID": "product-storage/frozen"
+              "storageID": "product-storage/frozen",
+              "baseUOM": "Doses"
             }
           ],
           "facilityKPI": {
@@ -173,17 +182,20 @@
         {
           "productID": "BCG",
           "expectedQty": 210,
-          "storageID": "product-storage/frozen"
+          "storageID": "product-storage/frozen",
+          "baseUOM": "Doses"
         },
         {
           "productID": "Men-A",
           "expectedQty": 450,
-          "storageID": "product-storage/dry"
+          "storageID": "product-storage/dry",
+          "baseUOM": "Doses"
         },
         {
           "productID": "OPV",
           "expectedQty": 102,
-          "storageID": "product-storage/frozen"
+          "storageID": "product-storage/frozen",
+          "baseUOM": "Doses"
         }
       ]
     }

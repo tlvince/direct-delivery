@@ -2,6 +2,5 @@
 
 angular.module('packingTable', [
   'core',
-  'ui.bootstrap',
   'couchdb'
 ]);

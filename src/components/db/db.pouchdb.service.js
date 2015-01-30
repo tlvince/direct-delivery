@@ -24,6 +24,7 @@ angular.module('db')
     this.create = function(dbName, opt) {
       var options = opt || {
         /*eslint-disable camelcase */
+        /*jshint camelcase:false */
         auto_compaction: true
         /*eslint-enable camelcase */
       };

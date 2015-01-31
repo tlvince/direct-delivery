@@ -66,5 +66,10 @@ angular.module('log')
       title: 'Incomplete Data',
       message: 'Incomplete required data, app may not function properly',
       remedy: 'Please, try again or contact support'
+    },
+    'dailyDeliverySyncDown': {
+      title: 'Daily delivery',
+      message: 'Daily delivery sync failed',
+      remedy: 'Please double check your network connectivity and try again'
     }
   });

@@ -17,5 +17,9 @@ angular.module('log')
     'facilityDeliverySaved': {
       title: 'Delivery report saved',
       message: 'Facility delivery report completed successfully'
+    },
+    'dailyDeliverySyncDown': {
+      title: 'Daily delivery sync down',
+      message: 'Daily delivery sync down completed successfully'
     }
   });

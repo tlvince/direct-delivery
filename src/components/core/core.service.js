@@ -97,29 +97,39 @@ angular.module('core')
 
     _this.addCompleteSyncListeners = function () {
       var unbind = {};
+
+      function visitHome(){
+        if($state.current.name === 'loadingScreen'){
+          $state.go('home');
+        }
+      }
+
       unbind[SYNC_DESIGN_DOC.COMPLETE] = $rootScope.$on(SYNC_DESIGN_DOC.COMPLETE, function () {
-        $state.go('home');
+        visitHome();
         unbind[SYNC_DESIGN_DOC.COMPLETE]();
       });
 
       unbind[SYNC_DESIGN_DOC.ERROR] = $rootScope.$on(SYNC_DESIGN_DOC.ERROR, function (err) {
         log.error('requiredDocsFailed', err);
-        $state.go('home');
+        visitHome();
         unbind[SYNC_DESIGN_DOC.ERROR]();
       });
 
       unbind[SYNC_DAILY_DELIVERY.COMPLETE] = $rootScope.$on(SYNC_DAILY_DELIVERY.COMPLETE, function () {
         turnOffSyncInProgress();
+        log.success('dailyDeliverySyncDown')
         unbind[SYNC_DAILY_DELIVERY.COMPLETE]();
       });
 
-      unbind[SYNC_DAILY_DELIVERY.ERROR] = $rootScope.$on(SYNC_DAILY_DELIVERY.ERROR, function () {
+      unbind[SYNC_DAILY_DELIVERY.ERROR] = $rootScope.$on(SYNC_DAILY_DELIVERY.ERROR, function (scope, err) {
         turnOffSyncInProgress();
+        log.error('dailyDeliverySyncDown', err);
         unbind[SYNC_DAILY_DELIVERY.ERROR]();
       });
 
-      unbind[SYNC_DAILY_DELIVERY.DENIED] = $rootScope.$on(SYNC_DAILY_DELIVERY.DENIED, function () {
+      unbind[SYNC_DAILY_DELIVERY.DENIED] = $rootScope.$on(SYNC_DAILY_DELIVERY.DENIED, function (scope, err) {
         turnOffSyncInProgress();
+        log.error('dailyDeliverySyncDown', err);
         unbind[SYNC_DAILY_DELIVERY.DENIED]();
       });
     };

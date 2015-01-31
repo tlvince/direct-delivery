@@ -16,15 +16,15 @@
     <td><span ng-bind="item.productID"></span></td>
     <td class="highlight-onhand-qty">
       <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].onHandQty"></span>
-      <span>Vials</span>
+      <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].baseUOM"></span>
     </td>
     <td class="highlight-delivered-qty">
       <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].deliveredQty"></span>
-      <span>Vials</span>
+      <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].baseUOM"></span>
     </td>
     <td class="highlight-returned-qty">
       <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].returnedQty"></span>
-      <span>Vials</span>
+      <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].baseUOM"></span>
     </td>
   </tr>
 </table>

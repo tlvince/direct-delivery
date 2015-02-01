@@ -5,7 +5,7 @@
  * @desc
  */
 angular.module('db')
-  .service('dbService', function ($q, pouchdbService, config) {
+  .service('dbService', function($q, pouchdbService, config) {
 
     var _this = this;
     var LOCAL_DB = config.localDB;

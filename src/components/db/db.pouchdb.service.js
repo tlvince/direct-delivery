@@ -5,7 +5,7 @@
  *
  */
 angular.module('db')
-  .service('pouchdbService', function($window, pouchDB, $q){
+  .service('pouchdbService', function($window, pouchDB) {
 
     var _this = this;
 
@@ -25,11 +25,12 @@ angular.module('db')
      */
     this.create = function(dbName, opt) {
       var options = opt || {
-          /*eslint-disable camelcase */
-          /*jshint camelcase:false */
-          auto_compaction: true
-          /*eslint-enable camelcase */
-        };
+        /*eslint-disable camelcase */
+        /*jshint camelcase:false */
+        auto_compaction: true
+        /*eslint-enable camelcase */
+      };
+
       if (hasWebSQL()) {
         options.adapter = 'websql';
       } else {
@@ -38,11 +39,11 @@ angular.module('db')
       return pouchDB(dbName, options);
     };
 
-    _this.remote = function(dbUrl, options){
-      return new pouchDB(dbUrl, options)
+    _this.remote = function(dbUrl, options) {
+      return pouchDB(dbUrl, options);
     };
 
-    _this.getDesignDocs = function(db, ddIds){
+    _this.getDesignDocs = function(db, ddIds) {
       var options = {
         keys: ddIds
       };

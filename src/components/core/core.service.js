@@ -72,14 +72,9 @@ angular.module('core')
 
     _this.hasCompleteDesignDocs = function () {
       function validateDesignDoc(res) {
-        var isComplete = true;
-        res.rows
-          .forEach(function (row) {
-            if (row.deleted === true || row.error === 'not_found') {
-              isComplete = false;
-            }
-          });
-        return isComplete;
+        return res.rows.every(function(row) {
+          return !row.error && !row.deleted;
+        });
       }
 
       return pouchdbService.getDesignDocs(config.localDB, config.designDocs)

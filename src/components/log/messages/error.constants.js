@@ -71,5 +71,15 @@ angular.module('log')
       title: 'Daily delivery',
       message: 'Daily delivery sync failed',
       remedy: 'Please double check your network connectivity and try again'
+    },
+    'remoteReplicationDisconnected': {
+      title: 'Remote disconnection',
+      message: 'Connection to remote database was disconnected',
+      remedy: 'Please double check your network connectivity'
+    },
+    'remoteReplicationErr': {
+      title: 'Remote replication',
+      message: 'Replication to remote database failed',
+      remedy: 'Please double check your network connectivity or contact support'
     }
   });

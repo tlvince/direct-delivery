@@ -94,7 +94,6 @@ angular.module('core')
       var today = utility.formatDate(new Date());
       _this.addCompleteSyncListeners();
       _this.replicateFromBy(driverEmail, today);
-      _this.replicateToRemote();
     };
 
     _this.addCompleteSyncListeners = function () {
@@ -108,6 +107,7 @@ angular.module('core')
 
       unbind[SYNC_DESIGN_DOC.COMPLETE] = $rootScope.$on(SYNC_DESIGN_DOC.COMPLETE, function () {
         visitHome();
+        _this.replicateToRemote();
         unbind[SYNC_DESIGN_DOC.COMPLETE]();
       });
 

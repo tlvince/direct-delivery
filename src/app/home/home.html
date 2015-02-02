@@ -4,18 +4,21 @@
   </div>
   <div class="col-md-12 alert alert-info">
     <div class="col-md-6 pull-left">
-      <i class="fa fa-spinner fa-spin"
-         ng-show="homeCtrl.syncInProgress === true"></i>
-      <span ng-show="homeCtrl.syncInProgress === true">Sync in progress…</span>
-      <i class="fa fa-info-circle"
-         ng-show="homeCtrl.syncInProgress !== true"></i>
-      <span ng-show="homeCtrl.syncInProgress !== true">Sync complete</span>
+      <i
+        class="fa"
+        ng-class="homeCtrl.syncInProgress ? 'fa-spinner fa-spin' : 'fa-info-circle'"
+      ></i>
+      <span
+        ng-bind="homeCtrl.syncInProgress ? 'Sync in progress…' : 'Sync complete'"
+      ></span>
     </div>
 
     <div class="col-md-4 pull-right">
-      <button class="btn btn-lg btn-primary pull-right"
+      <button
+        class="btn btn-lg btn-primary pull-right"
         ng-disabled="homeCtrl.syncInProgress === true"
-        ng-click="homeCtrl.startSync()">
+        ng-click="homeCtrl.startSync()"
+      >
         <i class="fa fa-refresh"></i>
         <span>Sync</span>
       </button>

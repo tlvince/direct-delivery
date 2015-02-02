@@ -17,14 +17,15 @@ angular.module('directDelivery', [
     'packing.item',
     'delivery',
     'loadingScreen',
-     'db',
-     'sync'
+    'db',
+    'sync'
   ])
   .run(function($rootScope, $state, AuthService, coreService) {
 
-    function startSyncIfUserIsLoggedIn(){
-      if((AuthService.isLoggedIn === true) && AuthService.currentUser &&
-        angular.isString(AuthService.currentUser.name)){
+    function startSyncIfUserIsLoggedIn() {
+      if (AuthService.isLoggedIn === true
+          && AuthService.currentUser
+          && angular.isString(AuthService.currentUser.name)) {
         coreService.startSyncAfterLogin(AuthService.currentUser.name);
       }
     }

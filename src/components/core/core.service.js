@@ -14,12 +14,16 @@ angular.module('core')
 
     function turnOffSyncInProgress() {
       syncInProgress = false;
-      $rootScope.$emit(SYNC_STATUS.COMPLETE, { msg:  syncInProgress });
+      $rootScope.$emit(SYNC_STATUS.COMPLETE, {msg: syncInProgress});
     }
 
     function turnOnSyncInProgress(){
       syncInProgress = true;
-      $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, { msg:  syncInProgress });
+      $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, {msg: syncInProgress});
+    }
+
+    function replicateDailyDelivery(driverEmail, date) {
+      syncService.dailySyncDown(config.localDB, config.db, driverEmail, date);
     }
 
     function replicateCoreDocTypes(driverEmail, date) {
@@ -38,18 +42,14 @@ angular.module('core')
         });
     }
 
-    function replicateDailyDelivery(driverEmail, date) {
-      syncService.dailySyncDown(config.localDB, config.db, driverEmail, date);
-    }
-
     _this.getSyncInProgress = function(){
       return syncInProgress;
     };
 
     _this.completeSync = function (driverEmail, date) {
 
-      if(_this.getSyncInProgress() === true){
-        $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, { msg:  syncInProgress });
+      if (_this.getSyncInProgress() === true) {
+        $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, {msg: syncInProgress});
         return;
       }
 
@@ -99,7 +99,7 @@ angular.module('core')
       var unbind = {};
 
       function visitHome(){
-        if($state.current.name === 'loadingScreen'){
+        if ($state.current.name === 'loadingScreen') {
           $state.go('home');
         }
       }
@@ -117,7 +117,7 @@ angular.module('core')
 
       unbind[SYNC_DAILY_DELIVERY.COMPLETE] = $rootScope.$on(SYNC_DAILY_DELIVERY.COMPLETE, function () {
         turnOffSyncInProgress();
-        log.success('dailyDeliverySyncDown')
+        log.success('dailyDeliverySyncDown');
         unbind[SYNC_DAILY_DELIVERY.COMPLETE]();
       });
 

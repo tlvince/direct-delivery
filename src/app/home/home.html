@@ -2,6 +2,29 @@
   <div class="page-header">
     <h1>Welcome to Direct Delivery</h1>
   </div>
-  <tabs data="homeCtrl.tabs" />
+  <div class="col-md-12 alert alert-info">
+    <div class="col-md-6 pull-left">
+      <i
+        class="fa"
+        ng-class="homeCtrl.syncInProgress ? 'fa-spinner fa-spin' : 'fa-info-circle'"
+      ></i>
+      <span
+        ng-bind="homeCtrl.syncInProgress ? 'Sync in progress…' : 'Sync complete'"
+      ></span>
+    </div>
+
+    <div class="col-md-4 pull-right">
+      <button
+        class="btn btn-lg btn-primary pull-right"
+        ng-disabled="homeCtrl.syncInProgress === true"
+        ng-click="homeCtrl.startSync()"
+      >
+        <i class="fa fa-refresh"></i>
+        <span>Sync</span>
+      </button>
+    </div>
+
+  </div>
+  <tabs data="homeCtrl.tabs"/>
 </div>
 <div class="col-md-12" ui-view></div>

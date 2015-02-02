@@ -15,4 +15,13 @@ angular.module('sync')
     COMPLETE: 'CORE_SYNC_DOWN_COMPLETE',
     ERROR: 'CORE_SYNC_DOWN_ERROR',
     DENIED: 'CORE_SYNC_DOWN_DENIED'
+  })
+  .constant('SYNC_DESIGN_DOC', {
+    COMPLETE: 'SYNC_DESIGN_COMPLETE',
+    ERROR: 'SYNC_DESIGN_ERROR',
+    DENIED: 'SYNC_DESIGN_DENIED'
+  })
+  .constant('SYNC_STATUS', {
+    IN_PROGRESS: 'inProgress',
+    COMPLETE: 'complete'
   });

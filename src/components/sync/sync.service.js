@@ -8,20 +8,35 @@ angular.module('sync')
   .service('syncService',
     function ($rootScope, pouchdbService, SYNC_DELIVERY_RND, SYNC_DAILY_DELIVERY, CORE_SYNC_DOWN, utility) {
 
-      //TODO check if sync is in progress for each and broadcast appropriate message.
-      var dailyByDriver = function (local, dbUrl, driverId, date) {
-        date = utility.formatDate(date);
+      var _this = this;
+
+      _this.replicateByFilter = function(toDB, fromDB, filterName, params){
+        var db = pouchdbService.create(toDB);
         var options = {
-          filter: 'daily-deliveries/by_driver_and_date',
-          query_params: {
-            date: date,
-            driverId: driverId
-          }
+          filter: filterName,
+          query_params: params
         };
-        var db = pouchdbService.create(local);
-        return db
-          .replicate.from(dbUrl, options)
-          .on('complete', function (res) {
+        return db.replicate.from(fromDB, options);
+      };
+
+      _this.replicateByIds = function(toDB, fromDB, docIds){
+        var db = pouchdbService.create(toDB);
+        var options = {
+          doc_ids: docIds
+        };
+        return db.replicate.from(fromDB, options);
+      };
+
+
+      _this.dailyByDriver = function (local, dbUrl, driverName, date) {
+        date = utility.formatDate(date);
+        var filter = 'daily-deliveries/by_driver_and_date';
+        var params =  {
+          date: date,
+          driverId: driverName
+        };
+        var rep = _this.replicateByFilter(local, dbUrl, filter, params);
+        rep.on('complete', function (res) {
             $rootScope.$emit(SYNC_DAILY_DELIVERY.COMPLETE, {msg: res});
           })
           .on('error', function (err) {
@@ -30,20 +45,17 @@ angular.module('sync')
           .on('denied', function (err) {
             $rootScope.$emit(SYNC_DAILY_DELIVERY.DENIED, {msg: err});
           });
+        return rep;
       };
 
-      var deliveryRndWithinDate = function (local, dbUrl, date) {
+      _this.deliveryRndWithinDate = function (local, dbUrl, date) {
         date =  utility.formatDate(date);
-        var options = {
-          filter: 'delivery-rounds/within_date',
-          query_params: {
-            date: date
-          }
+        var filter = 'delivery-rounds/within_date';
+        var params = {
+          date: date
         };
-        var db = pouchdbService.create(local);
-        return db
-          .replicate.from(dbUrl, options)
-          .on('complete', function (res) {
+        var rep = _this.replicateByFilter(local, dbUrl, filter, params);
+        rep.on('complete', function (res) {
             $rootScope.$emit(SYNC_DELIVERY_RND.COMPLETE, {msg: res});
           })
           .on('error', function (err) {
@@ -52,50 +64,39 @@ angular.module('sync')
           .on('denied', function (err) {
             $rootScope.$emit(SYNC_DELIVERY_RND.DENIED, {msg: err});
           });
+        return rep;
       };
 
-      this.dailySyncDown = function (local, dbUrl, driverId, date) {
+      _this.dailySyncDown = function (local, dbUrl, driverName, date) {
         var drListeners = {};
         date = utility.formatDate(date);
+
         var removeListeners = function () {
           for (var unbind in drListeners) {
             drListeners[unbind]();
           }
         };
 
-        var handleCompleteSync = function () {
-          dailyByDriver(local, dbUrl, driverId, date);
+        var syncDownDailyDelivery = function () {
+          _this.dailyByDriver(local, dbUrl, driverName, date);
           removeListeners();
         };
 
         //attach and remove  listeners accordingly
-        drListeners[SYNC_DELIVERY_RND.COMPLETE] = $rootScope.$on(SYNC_DELIVERY_RND.COMPLETE, handleCompleteSync);
+        drListeners[SYNC_DELIVERY_RND.COMPLETE] = $rootScope.$on(SYNC_DELIVERY_RND.COMPLETE, syncDownDailyDelivery);
         drListeners[SYNC_DELIVERY_RND.ERROR] = $rootScope.$on(SYNC_DELIVERY_RND.ERROR, removeListeners);
         drListeners[SYNC_DELIVERY_RND.DENIED] = $rootScope.$on(SYNC_DELIVERY_RND.DENIED, removeListeners);
 
         //start daily sync down
-        deliveryRndWithinDate(local, dbUrl, date);
+        _this.deliveryRndWithinDate(local, dbUrl, date);
       };
 
-      this.coreSyncDown = function (local, dbUrl, docTypes) {
-        var options = {
-          filter: 'docs/by_doc_types',
-          query_params: {
-            docTypes: JSON.stringify(docTypes)
-          }
+      _this.replicateByDocTypes = function (local, dbUrl, docTypes) {
+        var filter = 'docs/by_doc_types';
+        var params = {
+          docTypes: JSON.stringify(docTypes)
         };
-        var db = pouchdbService.create(local);
-        return db
-          .replicate.from(dbUrl, options)
-          .on('complete', function (res) {
-            $rootScope.$emit(CORE_SYNC_DOWN.COMPLETE, { msg: res });
-          })
-          .on('error', function (err) {
-            $rootScope.$emit(CORE_SYNC_DOWN.ERROR, { msg: err });
-          })
-          .on('denied', function (err) {
-            $rootScope.$emit(CORE_SYNC_DOWN.DENIED, { msg: err });
-          });
+        return _this.replicateByFilter(local, dbUrl, filter, params);
       };
 
     });

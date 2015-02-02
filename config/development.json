@@ -1,5 +1,13 @@
 {
   "db": "http://localhost:5984/deliveries",
   "localDB": "deliveries",
-  "dateFormat": "yyyy-MM-dd"
+  "dateFormat": "yyyy-MM-dd",
+  "designDocs": [
+    "_design/delivery-rounds",
+    "_design/daily-deliveries"
+  ],
+  "coreDocTypes": [
+    "product",
+    "productStorage"
+  ]
 }

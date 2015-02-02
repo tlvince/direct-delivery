@@ -2,19 +2,9 @@
 
 angular.module('login')
   .service('loginService', function($state, log, AuthService) {
+
     this.login = function(username, password) {
-      function loggedIn() {
-        log.success('authSuccess');
-        $state.transitionTo('home');
-      }
-
-      function handleError(err) {
-        log.error('loginError', err);
-      }
-
-      AuthService.login(username, password)
-        .then(loggedIn)
-        .catch(handleError);
+      return AuthService.login(username, password);
     };
 
     this.logout = function() {

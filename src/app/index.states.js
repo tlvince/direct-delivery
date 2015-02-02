@@ -10,6 +10,11 @@ angular.module('directDelivery')
           templateUrl: 'app/index.html',
           controller: 'IndexCtrl'
         }
+      },
+      resolve: {
+        hasCompleteDesignDocs: function(coreService){
+          return coreService.hasCompleteDesignDocs();
+        }
       }
     })
     .state('index', {

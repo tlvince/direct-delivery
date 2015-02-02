@@ -107,7 +107,6 @@ angular.module('core')
 
       unbind[SYNC_DESIGN_DOC.COMPLETE] = $rootScope.$on(SYNC_DESIGN_DOC.COMPLETE, function () {
         visitHome();
-        _this.replicateToRemote();
         unbind[SYNC_DESIGN_DOC.COMPLETE]();
       });
 
@@ -120,18 +119,21 @@ angular.module('core')
       unbind[SYNC_DAILY_DELIVERY.COMPLETE] = $rootScope.$on(SYNC_DAILY_DELIVERY.COMPLETE, function () {
         turnOffReplicateFromInProgress();
         log.success('dailyDeliverySyncDown');
+        _this.replicateToRemote();
         unbind[SYNC_DAILY_DELIVERY.COMPLETE]();
       });
 
       unbind[SYNC_DAILY_DELIVERY.ERROR] = $rootScope.$on(SYNC_DAILY_DELIVERY.ERROR, function (scope, err) {
         turnOffReplicateFromInProgress();
         log.error('dailyDeliverySyncDown', err);
+        _this.replicateToRemote();
         unbind[SYNC_DAILY_DELIVERY.ERROR]();
       });
 
       unbind[SYNC_DAILY_DELIVERY.DENIED] = $rootScope.$on(SYNC_DAILY_DELIVERY.DENIED, function (scope, err) {
         turnOffReplicateFromInProgress();
         log.error('dailyDeliverySyncDown', err);
+        _this.replicateToRemote();
         unbind[SYNC_DAILY_DELIVERY.DENIED]();
       });
     };

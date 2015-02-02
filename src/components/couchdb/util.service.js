@@ -11,8 +11,8 @@ angular.module('couchdb')
 
     this.key = function(key) {
       return {
-        startkey: JSON.stringify(key),
-        endkey: JSON.stringify(key + '\ufff0')
+        startkey: key,
+        endkey: key + '\ufff0'
       };
     };
 

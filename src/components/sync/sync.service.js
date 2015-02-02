@@ -99,4 +99,11 @@ angular.module('sync')
         return _this.replicateByFilter(local, dbUrl, filter, params);
       };
 
+      _this.replicateToRemote = function(local, remoteUrl, options){
+        local = pouchdbService.create(local);
+        var opts = options || {};
+        opts.url = remoteUrl;
+        return local.persist(opts);
+      };
+
     });

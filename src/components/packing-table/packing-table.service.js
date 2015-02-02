@@ -1,12 +1,9 @@
 'use strict';
 
 angular.module('packingTable')
-  .service('packingTableService', function($state, log, user, couchdb) {
+  .service('packingTableService', function($state, log, user, dbService) {
     this.get = function(dailyDeliveryID) {
-      var params = {
-        docID: dailyDeliveryID
-      };
-      return couchdb.get(params).$promise;
+      return dbService.get(dailyDeliveryID);
     };
 
     this.save = function(dailyDelivery) {
@@ -24,7 +21,7 @@ angular.module('packingTable')
           .map(formatPackingList);
         deliveryDoc.packed = true;
         deliveryDoc.packedDate = new Date().toJSON();
-        return deliveryDoc.$update();
+        return dbService.update(deliveryDoc);
       }
 
       return this.get(dailyDelivery._id)

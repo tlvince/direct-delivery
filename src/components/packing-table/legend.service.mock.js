@@ -1,17 +1,15 @@
 'use strict';
 
 angular.module('packingTableLegendServiceMock', [])
-  .service('couchdb', function(PRODUCT_STORAGE_MOCK) {
-    this.view = function() {
+  .service('dbService', function(PRODUCT_STORAGE_MOCK) {
+    this.getView = function() {
       return {
-        $promise: {
-          then: function(pluck) {
-            return {
-              then: function(format) {
-                return format(pluck(PRODUCT_STORAGE_MOCK));
-              }
-            };
-          }
+        then: function(pluck) {
+          return {
+            then: function(format) {
+              return format(pluck(PRODUCT_STORAGE_MOCK));
+            }
+          };
         }
       };
     };

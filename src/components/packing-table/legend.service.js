@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('packingTable')
-  .service('packingTableLegendService', function(couchdb, couchUtil, STORAGE_ATTRIBUTES) {
+  .service('packingTableLegendService', function(dbService, couchUtil, STORAGE_ATTRIBUTES) {
     function getBSClass(productStorage) {
       var storageAttribute = STORAGE_ATTRIBUTES[productStorage._id];
       if (!storageAttribute || !storageAttribute.bsClass) {
@@ -25,14 +25,12 @@ angular.module('packingTable')
 
     this.get = function() {
       var params = {
-        ddoc: 'product-storages',
-        view: 'product-storages',
         reduce: false,
         /*eslint-disable camelcase */
         include_docs: true
         /*eslint-enable camelcase */
       };
-      return couchdb.view(params).$promise
+      return dbService.getView('product-storages/product-storages', params)
         .then(couchUtil.pluckDocs)
         .then(format);
     };

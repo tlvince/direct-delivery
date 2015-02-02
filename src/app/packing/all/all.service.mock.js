@@ -3,7 +3,7 @@ angular.module('packingAllServiceMock', [])
   .constant('user', {
     email: ''
   })
-  .service('couchdb', function($q) {
+  .service('dbService', function($q) {
     var mockPackingList = {
       rows: [
         {
@@ -26,11 +26,9 @@ angular.module('packingAllServiceMock', [])
       ]
     };
 
-    this.view = function() {
+    this.getView = function() {
       var deferred = $q.defer();
       deferred.resolve(mockPackingList);
-      return {
-        $promise: deferred.promise
-      };
+      return deferred.promise;
     };
   });

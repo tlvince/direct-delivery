@@ -16,13 +16,6 @@ angular.module('couchdb')
       };
     };
 
-    this.join = function(key) {
-      return {
-        startkey: JSON.stringify([key]),
-        endkey: JSON.stringify([key, 2])
-      };
-    };
-
     this.pluckIDs = function(response) {
       return pluck(response, 'id');
     };

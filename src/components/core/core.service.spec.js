@@ -36,17 +36,17 @@ describe('coreService', function(){
     });
   });
 
-  describe('completeSync', function(){
+  describe('replicateFromBy', function(){
 
     it('Should turn syncInProgress to True if called.', function(){
       expect(coreService.getSyncInProgress()).toBeFalsy();
-      coreService.completeSync('test@yahoo.com', new Date());
+      coreService.replicateFromBy('test@yahoo.com', new Date());
       expect(coreService.getSyncInProgress()).toBeTruthy();
     });
 
     it('Should call syncService.replicateByIds() with expected parameters', function(){
       expect(syncService.replicateByIds).not.toHaveBeenCalled();
-      coreService.completeSync('test@test.com', new Date());
+      coreService.replicateFromBy('test@test.com', new Date());
       expect(syncService.replicateByIds).toHaveBeenCalledWith(toDB, fromDB, designDocs);
     });
   });
@@ -59,13 +59,13 @@ describe('coreService', function(){
       expect(coreService.addCompleteSyncListeners).toHaveBeenCalled();
     });
 
-    it('Should call completeSync() with correct parameters', function(){
+    it('Should call replicateFromBy() with correct parameters', function(){
       var expectedDate = utility.formatDate(new Date());
       var driverId = 'test@email.com';
-      spyOn(coreService, 'completeSync').and.callThrough();
-      expect(coreService.completeSync).not.toHaveBeenCalled();
+      spyOn(coreService, 'replicateFromBy').and.callThrough();
+      expect(coreService.replicateFromBy).not.toHaveBeenCalled();
       coreService.startSyncAfterLogin(driverId);
-      expect(coreService.completeSync).toHaveBeenCalledWith(driverId, expectedDate);
+      expect(coreService.replicateFromBy).toHaveBeenCalledWith(driverId, expectedDate);
     });
   });
 

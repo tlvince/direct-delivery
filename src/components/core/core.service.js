@@ -10,16 +10,16 @@ angular.module('core')
                                     utility) {
 
     var _this = this;
-    var syncInProgress = false;
+    var isReplicationFromInProgress = false;
 
-    function turnOffSyncInProgress() {
-      syncInProgress = false;
-      $rootScope.$emit(SYNC_STATUS.COMPLETE, {msg: syncInProgress});
+    function turnOffReplicateFromInProgress() {
+      isReplicationFromInProgress = false;
+      $rootScope.$emit(SYNC_STATUS.COMPLETE, { msg: isReplicationFromInProgress });
     }
 
-    function turnOnSyncInProgress(){
-      syncInProgress = true;
-      $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, {msg: syncInProgress});
+    function turnOnReplicateFromInProgress(){
+      isReplicationFromInProgress = true;
+      $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, { msg: isReplicationFromInProgress });
     }
 
     function replicateDailyDelivery(driverEmail, date) {
@@ -43,29 +43,35 @@ angular.module('core')
     }
 
     _this.getSyncInProgress = function(){
-      return syncInProgress;
+      return isReplicationFromInProgress;
     };
 
-    _this.completeSync = function (driverEmail, date) {
+    /**
+     * @desc This replicates documents from, remote db to local db.
+     *
+     * @param driverEmail
+     * @param date
+     */
+    _this.replicateFromBy = function (driverEmail, date) {
 
       if (_this.getSyncInProgress() === true) {
-        $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, {msg: syncInProgress});
+        $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, { msg: isReplicationFromInProgress });
         return;
       }
 
-      turnOnSyncInProgress();
+      turnOnReplicateFromInProgress();
 
       syncService.replicateByIds(config.localDB, config.db, config.designDocs)
         .on('complete', function (res) {
-          $rootScope.$emit(SYNC_DESIGN_DOC.COMPLETE, {msg: res});
+          $rootScope.$emit(SYNC_DESIGN_DOC.COMPLETE, { msg: res });
           replicateCoreDocTypes(driverEmail, date);
         })
         .on('error', function (err) {
-          $rootScope.$emit(SYNC_DESIGN_DOC.ERROR, {msg: err});
+          $rootScope.$emit(SYNC_DESIGN_DOC.ERROR, { msg: err });
           replicateCoreDocTypes(driverEmail, date);
         })
         .on('denied', function (err) {
-          $rootScope.$emit(SYNC_DESIGN_DOC.DENIED, {msg: err});
+          $rootScope.$emit(SYNC_DESIGN_DOC.DENIED, { msg: err });
           replicateCoreDocTypes(driverEmail, date);
         });
     };
@@ -87,7 +93,7 @@ angular.module('core')
     _this.startSyncAfterLogin = function (driverEmail) {
       var today = utility.formatDate(new Date());
       _this.addCompleteSyncListeners();
-      _this.completeSync(driverEmail, today);
+      _this.replicateFromBy(driverEmail, today);
     };
 
     _this.addCompleteSyncListeners = function () {
@@ -111,22 +117,81 @@ angular.module('core')
       });
 
       unbind[SYNC_DAILY_DELIVERY.COMPLETE] = $rootScope.$on(SYNC_DAILY_DELIVERY.COMPLETE, function () {
-        turnOffSyncInProgress();
+        turnOffReplicateFromInProgress();
         log.success('dailyDeliverySyncDown');
+        _this.replicateToRemote();
         unbind[SYNC_DAILY_DELIVERY.COMPLETE]();
       });
 
       unbind[SYNC_DAILY_DELIVERY.ERROR] = $rootScope.$on(SYNC_DAILY_DELIVERY.ERROR, function (scope, err) {
-        turnOffSyncInProgress();
+        turnOffReplicateFromInProgress();
         log.error('dailyDeliverySyncDown', err);
+        _this.replicateToRemote();
         unbind[SYNC_DAILY_DELIVERY.ERROR]();
       });
 
       unbind[SYNC_DAILY_DELIVERY.DENIED] = $rootScope.$on(SYNC_DAILY_DELIVERY.DENIED, function (scope, err) {
-        turnOffSyncInProgress();
+        turnOffReplicateFromInProgress();
         log.error('dailyDeliverySyncDown', err);
+        _this.replicateToRemote();
         unbind[SYNC_DAILY_DELIVERY.DENIED]();
       });
+    };
+
+    var getDefaultOptions = function(){
+      var remoteUrl =config.db;
+      var options = {
+        url: remoteUrl, // remote Couch URL
+        maxTimeout: 60000, // max retry timeout, defaulted to 300000
+        startingTimeout: 1000, // retry timeout, defaulted to 1000
+        backoff: 1.1, // exponential backoff factor, defaulted to 1.1
+        manual: false, // when true, start replication with start()
+        changes: { // options for changes()
+          opts: {
+            live: true
+          }
+        },
+        // options for replicating to remote source
+        to: {
+          // replicate.to() options
+          opts: {
+            live: true
+          },
+          url: remoteUrl,
+          onErr: function (err) {
+            log.error('remoteReplicationErr', err);
+          },
+          listeners: [{
+            method: 'once',
+            event: 'uptodate',
+            listener: function () {
+              log.success('remoteReplicationUpToDate');
+            }
+          }]
+        }
+      };
+      return options;
+    };
+
+    _this.replicateToRemote = function () {
+      var options = getDefaultOptions();
+      var docTypes = ['dailyDelivery'];
+      options.to.opts.filter = 'docs/by_doc_types';
+      options.to.opts.query_params = {
+        docTypes: JSON.stringify(docTypes)
+      };
+
+      var replication = syncService.replicateToRemote(config.localDB, config.db, options);
+
+      replication.on('connect', function(){});
+
+      replication.on('disconnect', function (err) {
+       log.error('remoteReplicationDisconnected', err);
+      });
+
+      replication.start();
+
+      return replication;
     };
 
   });

@@ -21,5 +21,9 @@ angular.module('log')
     'dailyDeliverySyncDown': {
       title: 'Daily delivery sync down',
       message: 'Daily delivery sync down completed successfully'
+    },
+    'remoteReplicationUpToDate': {
+      title: 'Replication up to date',
+      message: 'Replication to remote database completed successfully'
     }
   });

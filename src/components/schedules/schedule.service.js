@@ -4,20 +4,14 @@
 'use strict';
 
 angular.module('schedules')
-  .service('scheduleService', function(user, couchdb, couchUtil, utility) {
+  .service('scheduleService', function(user, dbService, couchUtil, utility) {
 
     this.all = function() {
-      var params = {
-        ddoc: 'daily-deliveries',
-        view: 'by-driver-date',
-        reduce: false,
-        /*eslint-disable camelcase */
-        include_docs: true
-        /*eslint-enable camelcase */
-      };
-      var key = couchUtil.key(user.email + '-' + utility.formatDate(new Date()));
-      angular.extend(params, key);
-      return couchdb.view(params).$promise;
+      var params = couchUtil.key(user.email + '-' + utility.formatDate(new Date()));
+      /*eslint-disable camelcase */
+      params.include_docs = true;
+      /*eslint-enable camelcase */
+      return dbService.getView('daily-deliveries/by-driver-date', params);
     };
 
     this.getDaySchedule = function() {

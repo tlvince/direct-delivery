@@ -1,17 +1,18 @@
 'use strict';
+/*eslint-env jasmine */
+/*global module: false, inject: false */
 
 describe('coreService', function(){
 
-  var coreService, $rootScope, syncService, utility;
-  var toDB = 'test';
+  var coreService, syncService, utility;
+  var toDB = 'deliveries';
   var fromDB = 'http://localhost:5984/deliveries';
-  var designDocs = ["_design/delivery-rounds", "_design/daily-deliveries"];
+  var designDocs = ['_design/delivery-rounds', '_design/daily-deliveries'];
 
   beforeEach(module('core', 'log', 'sync', 'utility'));
 
-  beforeEach(inject(function(_coreService_, _$rootScope_, _syncService_, _utility_){
+  beforeEach(inject(function(_coreService_, _syncService_, _utility_){
     coreService = _coreService_;
-    $rootScope = _$rootScope_;
     syncService = _syncService_;
     utility = _utility_;
     spyOn(syncService, 'replicateByIds').and.callThrough();

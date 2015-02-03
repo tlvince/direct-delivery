@@ -19,4 +19,9 @@ describe('FooterCtrl', function() {
     var actual = FooterCtrl.author;
     expect(actual).toBe('ehealth');
   });
+
+  it('should expose config version', function() {
+    var actual = FooterCtrl.version;
+    expect(actual).toBe('1.0.0');
+  });
 });

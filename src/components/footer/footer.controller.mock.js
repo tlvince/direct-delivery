@@ -2,5 +2,6 @@
 
 angular.module('footerCtrlMock', [])
   .constant('config', {
-    author: 'ehealth'
+    author: 'ehealth',
+    version: '1.0.0'
   });

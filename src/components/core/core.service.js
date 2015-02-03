@@ -11,15 +11,17 @@ angular.module('core')
 
     var _this = this;
     var isReplicationFromInProgress = false;
+    var isSyncingUp = false;
+    var replication;
 
     function turnOffReplicateFromInProgress() {
       isReplicationFromInProgress = false;
-      $rootScope.$emit(SYNC_STATUS.COMPLETE, { msg: isReplicationFromInProgress });
+      $rootScope.$emit(SYNC_STATUS.COMPLETE, {msg: isReplicationFromInProgress});
     }
 
-    function turnOnReplicateFromInProgress(){
+    function turnOnReplicateFromInProgress() {
       isReplicationFromInProgress = true;
-      $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, { msg: isReplicationFromInProgress });
+      $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, {msg: isReplicationFromInProgress});
     }
 
     function replicateDailyDelivery(driverEmail, date) {
@@ -42,7 +44,7 @@ angular.module('core')
         });
     }
 
-    _this.getSyncInProgress = function(){
+    _this.getSyncInProgress = function () {
       return isReplicationFromInProgress;
     };
 
@@ -55,7 +57,7 @@ angular.module('core')
     _this.replicateFromBy = function (driverEmail, date) {
 
       if (_this.getSyncInProgress() === true) {
-        $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, { msg: isReplicationFromInProgress });
+        $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, {msg: isReplicationFromInProgress});
         return;
       }
 
@@ -63,22 +65,22 @@ angular.module('core')
 
       syncService.replicateByIds(config.localDB, config.db, config.designDocs)
         .on('complete', function (res) {
-          $rootScope.$emit(SYNC_DESIGN_DOC.COMPLETE, { msg: res });
+          $rootScope.$emit(SYNC_DESIGN_DOC.COMPLETE, {msg: res});
           replicateCoreDocTypes(driverEmail, date);
         })
         .on('error', function (err) {
-          $rootScope.$emit(SYNC_DESIGN_DOC.ERROR, { msg: err });
+          $rootScope.$emit(SYNC_DESIGN_DOC.ERROR, {msg: err});
           replicateCoreDocTypes(driverEmail, date);
         })
         .on('denied', function (err) {
-          $rootScope.$emit(SYNC_DESIGN_DOC.DENIED, { msg: err });
+          $rootScope.$emit(SYNC_DESIGN_DOC.DENIED, {msg: err});
           replicateCoreDocTypes(driverEmail, date);
         });
     };
 
     _this.hasCompleteDesignDocs = function () {
       function validateDesignDoc(res) {
-        return res.rows.every(function(row) {
+        return res.rows.every(function (row) {
           return !row.error && !row.deleted;
         });
       }
@@ -99,7 +101,7 @@ angular.module('core')
     _this.addCompleteSyncListeners = function () {
       var unbind = {};
 
-      function visitHome(){
+      function visitHome() {
         if ($state.current.name === 'loadingScreen') {
           $state.go('home');
         }
@@ -138,8 +140,8 @@ angular.module('core')
       });
     };
 
-    var getDefaultOptions = function(){
-      var remoteUrl =config.db;
+    var getDefaultOptions = function () {
+      var remoteUrl = config.db;
       var options = {
         url: remoteUrl, // remote Couch URL
         maxTimeout: 60000, // max retry timeout, defaulted to 300000
@@ -181,14 +183,12 @@ angular.module('core')
         docTypes: JSON.stringify(docTypes)
       };
 
-      var replication = syncService.replicateToRemote(config.localDB, config.db, options);
-
-      replication.on('connect', function(){});
-
-      replication.on('disconnect', function (err) {
-       log.error('remoteReplicationDisconnected', err);
-      });
-
+      if (!replication) {
+        replication = syncService.replicateToRemote(config.localDB, config.db, options);
+        replication.on('disconnect', function (err) {
+          log.error('remoteReplicationDisconnected', err);
+        });
+      }
       replication.start();
 
       return replication;

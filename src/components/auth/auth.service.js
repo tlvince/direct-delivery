@@ -93,7 +93,12 @@ angular.module('auth')
           var salt = $window.asmCrypto.bytes_to_hex($window.crypto.getRandomValues(new Uint8Array(16)));
           var iterations = 10;
           var derived = hash(password, salt, iterations);
-          var user = $window._.pick(response, ['_id', '_rev', 'name', 'roles']);
+          var user = {
+            _id: response._id,
+            _rev: response._rev,
+            name: response.name,
+            roles: response.roles
+          };
 
           $localStorage.auth[storageKey(username)] = {
             day: day(),

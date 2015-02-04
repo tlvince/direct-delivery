@@ -7,7 +7,7 @@
 angular.module('core')
   .service('coreService', function ($rootScope, syncService, config, pouchdbService, CORE_SYNC_DOWN,
                                     SYNC_DAILY_DELIVERY, SYNC_DESIGN_DOC, $state, log, SYNC_STATUS,
-                                    utility) {
+                                    utility, scheduleService) {
 
     var _this = this;
     var isReplicationFromInProgress = false;
@@ -15,7 +15,15 @@ angular.module('core')
 
     function turnOffReplicateFromInProgress() {
       isReplicationFromInProgress = false;
-      $rootScope.$emit(SYNC_STATUS.COMPLETE, {msg: isReplicationFromInProgress});
+      var dailySchedule;
+      scheduleService.getDaySchedule()
+        .then(function(res) {
+          dailySchedule = res;
+        })
+        .finally(function() {
+          var data = {msg: isReplicationFromInProgress, dailySchedule: dailySchedule};
+          $rootScope.$emit(SYNC_STATUS.COMPLETE, data);
+        });
     }
 
     function turnOnReplicateFromInProgress() {

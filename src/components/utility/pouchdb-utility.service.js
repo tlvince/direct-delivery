@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('couchdb')
-  .service('couchUtil', function() {
+angular.module('utility.pouchdb')
+  .service('pouchUtil', function() {
     function pluck(response, property) {
       function get(row) {
         return row[property];

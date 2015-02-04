@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('couchUtilMock', [])
+angular.module('pouchUtilMock', [])
   .constant('pluckResponseMock', {
     rows: [
       {

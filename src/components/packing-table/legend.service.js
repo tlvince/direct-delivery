@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('packingTable')
-  .service('packingTableLegendService', function(dbService, couchUtil, STORAGE_ATTRIBUTES) {
+  .service('packingTableLegendService', function(dbService, pouchUtil, STORAGE_ATTRIBUTES) {
     function getBSClass(productStorage) {
       var storageAttribute = STORAGE_ATTRIBUTES[productStorage._id];
       if (!storageAttribute || !storageAttribute.bsClass) {
@@ -31,7 +31,7 @@ angular.module('packingTable')
         /*eslint-enable camelcase */
       };
       return dbService.getView('product-storages/product-storages', params)
-        .then(couchUtil.pluckDocs)
+        .then(pouchUtil.pluckDocs)
         .then(format);
     };
   });

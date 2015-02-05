@@ -6,7 +6,7 @@
   </div>
   <div class="panel-body">
     <a ui-sref="facilityDelivery.deliverItems({ ddId: cancelDevCtrl.dailyDelivery._id , facilityId: cancelDevCtrl.facilityId })"
-       class="btn btn-warning btn-lg btn-block">
+       class="btn btn-default btn-lg btn-block">
       <i class="fa fa-arrow-circle-left"></i>
       <span>Back</span>
     </a>
@@ -17,50 +17,67 @@
     <form name="skipForm" ng-submit="cancelDevCtrl.cancel()">
 
       <div class="form-group">
-        <div class="checkbox">
+        <div class="radio">
           <label>
-            <input type="checkbox"
-                   ng-model="cancelDevCtrl.facRnd.cancelReport.cancelledAhead"> Cancelled ahead
+            <input type="radio"
+                   name="reason"
+                   ng-value="cancelDevCtrl.status.CANCELED_CCE"
+                   ng-model="cancelDevCtrl.facRnd.status"> Canceled CCE
           </label>
         </div>
       </div>
 
       <div class="form-group">
-        <div class="checkbox">
+        <div class="radio">
           <label>
-            <input type="checkbox"
-                   ng-checked="cancelDevCtrl.facRnd.cancelReport.hfNotAvailable === true"
-                   ng-model="cancelDevCtrl.facRnd.cancelReport.hfNotAvailable"> Health facility not available
+            <input type="radio"
+                   name="reason"
+                   ng-value="cancelDevCtrl.status.FAILED_CCE"
+                   ng-model="cancelDevCtrl.facRnd.status"> Failed CCE
           </label>
         </div>
       </div>
 
       <div class="form-group">
-        <div class="checkbox">
+        <div class="radio">
           <label>
-            <input type="checkbox"
-                   ng-checked="cancelDevCtrl.facRnd.cancelReport.brokenCCE"
-                   ng-model="cancelDevCtrl.facRnd.cancelReport.brokenCCE"> Broken CCE.
+            <input type="radio"
+                   name="reason"
+                   ng-value="cancelDevCtrl.status.CANCELED_STAFF"
+                   ng-model="cancelDevCtrl.facRnd.status"> Canceled Staff not available
           </label>
         </div>
       </div>
 
       <div class="form-group">
-        <div class="checkbox">
+        <div class="radio">
           <label>
-            <input type="checkbox"
-                   ng-checked="cancelDevCtrl.facRnd.cancelReport.noCCE"
-                   ng-model="cancelDevCtrl.facRnd.cancelReport.noCCE"> No CCE.
+            <input type="radio"
+                   name="reason"
+                   ng-value="cancelDevCtrl.status.FAILED_STAFF"
+                   ng-model="cancelDevCtrl.facRnd.status"> Failed Staff not available
           </label>
         </div>
       </div>
 
       <div class="form-group">
-        <div class="checkbox">
+        <div class="radio">
           <label>
-            <input type="checkbox"
-                   ng-selected="cancelDevCtrl.facRnd.cancelReport.others"
-                   ng-model="cancelDevCtrl.facRnd.cancelReport.others"> Others
+            <input type="radio"
+                   name="reason"
+                   ng-value="cancelDevCtrl.status.CANCELED_OTHER"
+                   ng-model="cancelDevCtrl.facRnd.status"> Canceled Other
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="radio">
+          <label>
+            <input type="radio"
+                   name="reason"
+                   ng-value="cancelDevCtrl.status.FAILED_OTHER"
+                   ng-model="cancelDevCtrl.facRnd.status"> Failed Other
           </label>
         </div>
         <textarea ng-model="cancelDevCtrl.facRnd.cancelReport.note"

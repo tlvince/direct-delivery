@@ -2,5 +2,5 @@
 
 angular.module('packingTable', [
   'core',
-  'couchdb'
+  'utility.pouchdb'
 ]);

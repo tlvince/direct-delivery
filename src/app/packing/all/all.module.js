@@ -2,6 +2,6 @@
 
 angular.module('packing.all', [
   'core',
-  'couchdb',
+  'utility.pouchdb',
   'user'
 ]);

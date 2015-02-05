@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('delivery')
-  .service('deliveryService', function (dbService, log, $state) {
+  .service('deliveryService', function (dbService, log, $state, DELIVERY_STATUS) {
 
     var _this = this;
 
@@ -88,6 +88,15 @@ angular.module('delivery')
 
     _this.failed = function(err){
       log.error('dailyDeliveryFailed', err);
+    };
+
+    _this.setSuccessStatus = function(facRnd){
+      if(facRnd.status === DELIVERY_STATUS.UPCOMING_SECOND) {
+        facRnd.status = DELIVERY_STATUS.SUCCESS_SECOND;
+      }else{
+        facRnd.status = DELIVERY_STATUS.SUCCESS_FIRST;
+      }
+      return facRnd;
     };
 
   });

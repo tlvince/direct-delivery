@@ -1,10 +1,8 @@
-/**
- * Created by ehealthafrica on 12/11/14.
- */
+'use strict';
 
 angular.module('schedules', [
   'core',
-  'couchdb',
   'sync',
-  'utility'
+  'utility',
+  'utility.pouchdb'
 ]);

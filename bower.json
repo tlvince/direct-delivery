@@ -15,7 +15,6 @@
     "lodash": "~2.4.1",
     "angular-pouchdb": "~2.0.0-rc.1",
     "signature_pad": "~1.3.4",
-    "angular-resource": "~1.3.6",
     "angular-bootstrap": "~0.12.0",
     "pouchdb-persist": "~0.0.6",
     "angular-ui-router-tabs": "https://github.com/tlvince/ui-router-tabs.git#673f408477585ebe333da217bd45d14c32ac3713"

@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('packing.all')
-  .service('packingAllService', function(user, couchUtil, dbService) {
+  .service('packingAllService', function(user, pouchUtil, dbService) {
     this.all = function() {
-      var params = couchUtil.key(user.email);
+      var params = pouchUtil.key(user.email);
       params.reduce = false;
       return dbService.getView('daily-deliveries/by-driver', params)
-        .then(couchUtil.pluckValues);
+        .then(pouchUtil.pluckValues);
     };
   });

@@ -158,7 +158,7 @@ gulp.task('config', function() {
 });
 
 gulp.task('bump', function(){
-  gulp.src('./package.json')
+  gulp.src(['./bower.json', './package.json'])
     .pipe(bump())
     .pipe(gulp.dest('./'));
 });

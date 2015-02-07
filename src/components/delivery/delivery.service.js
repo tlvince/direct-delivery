@@ -29,6 +29,14 @@ angular.module('delivery')
         });
     };
 
+    _this.roundOffBy = function(qty, presentation){
+      var remainder = qty % presentation;
+      if(remainder === 0){
+        return qty;
+      }
+      return ((qty - remainder) + presentation);
+    };
+
     _this.calcQty = function (packedProduct) {
       var res = {};
       var deliveredQty = (packedProduct.expectedQty - packedProduct.onHandQty);
@@ -38,6 +46,8 @@ angular.module('delivery')
       if (deliveredQty <= 0) {
         res.deliveredQty = 0;
         res.returnedQty = returnedQty;
+      }else{
+        res.deliveredQty =  _this.roundOffBy(deliveredQty, packedProduct.presentation);
       }
       return res;
     };

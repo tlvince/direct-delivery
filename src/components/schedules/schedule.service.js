@@ -5,10 +5,18 @@
 
 angular.module('schedules')
   .service('scheduleService', function(user, dbService, pouchUtil, utility) {
+    /**
+     *
+     * @params : key (string || array)
+     * @returns {*}
+     */
+    this.get = function(key) {
 
-    this.all = function() {
+      var params = {};
       //TODO: this should use Auth.currentUser.name see #item:1172
-      var params = pouchUtil.key(user.email + '-' + utility.formatDate(new Date()));
+      if(angular.isString(key) || angular.isArray(key)) {
+        params = pouchUtil.key(user.email + '-' + utility.formatDate(new Date()));
+      }
       /*eslint-disable camelcase */
       params.include_docs = true;
       /*eslint-enable camelcase */
@@ -18,8 +26,19 @@ angular.module('schedules')
     this.getDaySchedule = function() {
       //TODO: this take a driverId(Auth.currentUser.name/email) and date parameter.
       //#see item:1173
-      return this.all()
+
+      return this.get()
         .then(pouchUtil.pluckDocs)
         .then(utility.first);
     };
+    this.getByRound = function(roundId){
+      if(!roundId) return;
+      return this.pluck(this.get(roundId));
+
+    }
+    this.pluck = function(promise){
+       return promise
+         .then(pouchUtil.pluckDocs)
+         .then(utility.first)
+    }
   });

@@ -6,7 +6,7 @@
       "version": "1.0.0",
       "deliveryRoundID": "d8006b0524473a0a4a60b7749766a11e",
       "driverID": "abdullahi.ahmed@example.com",
-      "date": "2015-01-24",
+      "date": "2015-02-07",
       "facilityRounds": [
         {
           "drop": 1,
@@ -31,19 +31,22 @@
               "productID": "BCG",
               "expectedQty": 70,
               "storageID": "product-storage/frozen",
-              "baseUOM": "Doses"
+              "baseUOM": "Doses",
+              "presentation": 20
             },
             {
               "productID": "Men-A",
               "expectedQty": 150,
               "storageID": "product-storage/dry",
-              "baseUOM": "Doses"
+              "baseUOM": "Doses",
+              "presentation": 20
             },
             {
               "productID": "OPV",
-              "expectedQty": 34,
+              "expectedQty": 340,
               "storageID": "product-storage/frozen",
-              "baseUOM": "Doses"
+              "baseUOM": "Doses",
+              "presentation": 20
             }
           ],
           "facilityKPI": {
@@ -87,19 +90,22 @@
               "productID": "BCG",
               "expectedQty": 70,
               "storageID": "product-storage/frozen",
-              "baseUOM": "Doses"
+              "baseUOM": "Doses",
+              "presentation": 20
             },
             {
               "productID": "Men-A",
               "expectedQty": 150,
               "storageID": "product-storage/dry",
-              "baseUOM": "Doses"
+              "baseUOM": "Doses",
+              "presentation": 20
             },
             {
               "productID": "OPV",
-              "expectedQty": 34,
+              "expectedQty": 340,
               "storageID": "product-storage/frozen",
-              "baseUOM": "Doses"
+              "baseUOM": "Doses",
+              "presentation": 20
             }
           ],
           "facilityKPI": {
@@ -143,19 +149,22 @@
               "productID": "BCG",
               "expectedQty": 70,
               "storageID": "product-storage/frozen",
-              "baseUOM": "Doses"
+              "baseUOM": "Doses",
+              "presentation": 20
             },
             {
               "productID": "Men-A",
               "expectedQty": 150,
               "storageID": "product-storage/dry",
-              "baseUOM": "Doses"
+              "baseUOM": "Doses",
+              "presentation": 20
             },
             {
               "productID": "OPV",
-              "expectedQty": 34,
+              "expectedQty": 420,
               "storageID": "product-storage/frozen",
-              "baseUOM": "Doses"
+              "baseUOM": "Doses",
+              "presentation": 20
             }
           ],
           "facilityKPI": {
@@ -183,19 +192,22 @@
           "productID": "BCG",
           "expectedQty": 210,
           "storageID": "product-storage/frozen",
-          "baseUOM": "Doses"
+          "baseUOM": "Doses",
+          "presentation": 20
         },
         {
           "productID": "Men-A",
           "expectedQty": 450,
           "storageID": "product-storage/dry",
-          "baseUOM": "Doses"
+          "baseUOM": "Doses",
+          "presentation": 20
         },
         {
           "productID": "OPV",
           "expectedQty": 102,
           "storageID": "product-storage/frozen",
-          "baseUOM": "Doses"
+          "baseUOM": "Doses",
+          "presentation": 20
         }
       ]
     }

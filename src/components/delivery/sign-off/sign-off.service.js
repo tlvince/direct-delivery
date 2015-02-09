@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('delivery')
-  .service('signOffService', function (deliveryService, STATUS) {
+  .service('signOffService', function (deliveryService) {
 
     var _this = this;
 
@@ -26,8 +26,9 @@ angular.module('delivery')
      * @returns {$promise}
      */
     _this.signOff = function(dd, facRnd, signature){
-      facRnd.status = STATUS.COMPLETE;
+      facRnd = deliveryService.setSuccessStatus(facRnd);
       facRnd.signature = signature;
+      facRnd.signature.signedAt = new Date().toJSON();
       dd = deliveryService.updateFacilityRound(dd, facRnd);
       return deliveryService.save(dd);
     };

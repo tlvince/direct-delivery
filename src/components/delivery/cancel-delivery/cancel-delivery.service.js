@@ -1,35 +1,30 @@
 'use strict';
 
 angular.module('delivery')
-  .service('cancelDeliveryService', function (deliveryService, STATUS) {
+  .service('cancelDeliveryService', function (deliveryService, DELIVERY_STATUS) {
 
     var _this = this;
 
     _this.getDefaultCancelReport = function () {
       var defaultCR = {
-        cancelledAhead: false,
-        others: false,
-        hfNotAvailable: false,
-        brokenCCE: false,
-        noCCE: false,
+        canceledOn: '',
         note: ''
       };
       return defaultCR;
     };
 
-    _this.validateCancelReport = function (cr) {
-      var noCRSelected = !(cr.cancelledAhead === true ||
-        cr.hfNotAvailable === true || cr.brokenCCE === true || cr.noCCE === true ||
-        cr.others === true);
-
-      if (noCRSelected) {
-        return false;
-      }
-      return true;
+    _this.validateCancelReport = function (dd) {
+      return (dd.status &&
+        ((dd.status === DELIVERY_STATUS.CANCELED_CCE) ||
+        (dd.status === DELIVERY_STATUS.FAILED_CCE) ||
+        (dd.status === DELIVERY_STATUS.CANCELED_OTHER) ||
+        (dd.status === DELIVERY_STATUS.FAILED_OTHER) ||
+        (dd.status === DELIVERY_STATUS.CANCELED_STAFF) ||
+        (dd.status === DELIVERY_STATUS.FAILED_STAFF)));
     };
 
     _this.cancelDelivery  = function(dd, facRnd){
-      facRnd.status = (facRnd.cancelReport.cancelledAhead === true)? STATUS.CANCELLED_AHEAD : STATUS.CANCELLED;
+      facRnd.cancelReport.canceledOn = new Date().toJSON();
       var doc = angular.copy(deliveryService.updateFacilityRound(dd, facRnd));
       return deliveryService.save(doc);
     };

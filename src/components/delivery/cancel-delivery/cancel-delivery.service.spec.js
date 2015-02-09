@@ -1,13 +1,14 @@
 'use strict';
 
 describe('cancelDeliveryService', function() {
-  beforeEach(module('delivery'));
+  beforeEach(module('delivery', 'deliveryMock'));
 
-  var cancelDeliveryService;
-  var cancelReport;
-  beforeEach(inject(function(_cancelDeliveryService_) {
+  var cancelDeliveryService, cancelReport, deliveryStatus;
+
+  beforeEach(inject(function(_cancelDeliveryService_, _dailyDeliveryMock_, _DELIVERY_STATUS_) {
     cancelDeliveryService = _cancelDeliveryService_;
     cancelReport = cancelDeliveryService.getDefaultCancelReport();
+    deliveryStatus = _DELIVERY_STATUS_;
   }));
 
   it('should create and return default cancel report', function() {
@@ -16,24 +17,8 @@ describe('cancelDeliveryService', function() {
   });
 
   describe('getDefaultCancelReport()', function(){
-    it('should return object with "hfNotAvailable" set to FALSE.', function(){
-      expect(cancelReport.hfNotAvailable).toBeFalsy();
-    });
-
-    it('should return object with "cancelledAhead" set to FALSE.', function(){
-      expect(cancelReport.cancelledAhead).toBeFalsy();
-    });
-
-    it('should return object with "others" set to FALSE.', function(){
-      expect(cancelReport.others).toBeFalsy();
-    });
-
-    it('should return object with "brokenCCE" set to FALSE.', function(){
-      expect(cancelReport.brokenCCE).toBeFalsy();
-    });
-
-    it('should return object with "noCCE" set to FALSE.', function(){
-      expect(cancelReport.noCCE).toBeFalsy();
+    it('should return object with "canceledOn" defined.', function(){
+      expect(cancelReport.canceledOn).toBeDefined();
     });
 
     it('should return object with "note" set to empty string.', function(){
@@ -43,32 +28,80 @@ describe('cancelDeliveryService', function() {
 
   describe('validateCancelReport()', function(){
 
-    it('should return true if cancelReport is valid i.e either cancelledAhead or ' +
-    '(noCCE, others, hfNotAvailable and/or brokenCCE) is set to true.', function(){
-      var cr = cancelDeliveryService.getDefaultCancelReport();
-      var res = cancelDeliveryService.validateCancelReport(cr);
-      expect(res).not.toBeTruthy();
-      cr.cancelledAhead = true;
-      res = cancelDeliveryService.validateCancelReport(cr);
-      expect(res).toBeTruthy();
+    var facRnd;
+
+    beforeEach(inject(function(_dailyDeliveryMock_) {
+      facRnd = _dailyDeliveryMock_.facilityRounds[0];
+    }));
+
+    afterEach(function(){
+      facRnd.status = deliveryStatus.UPCOMING_FIRST;
     });
 
-    it('should return FALSE if no status is set to true.', function(){
-      var cr = cancelDeliveryService.getDefaultCancelReport();
-      var res = cancelDeliveryService.validateCancelReport(cr);
-      expect(res).toBeFalsy();
+    it('Should return TRUE if status equals DELIVERY_STATUS.FAILED_CCE', function(){
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeFalsy();
+      facRnd.status = deliveryStatus.FAILED_CCE;
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeTruthy();
     });
 
-    it('should return TRUE, if cancelledAhead is set to TRUE and another status property is set to TRUE',
-      function(){
-        var cr = cancelDeliveryService.getDefaultCancelReport();
-        var res = cancelDeliveryService.validateCancelReport(cr);
-        expect(res).not.toBeTruthy();
-        cr.cancelledAhead = true;
-        cr.noCCE = true;
-        res = cancelDeliveryService.validateCancelReport(cr);
-        expect(res).toBeTruthy();
-      });
+
+    it('Should return TRUE if status equals DELIVERY_STATUS.CANCELED_CCE', function(){
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeFalsy();
+      facRnd.status = deliveryStatus.CANCELED_CCE;
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeTruthy();
+    });
+
+    it('Should return TRUE if status equals DELIVERY_STATUS.CANCELED_OTHER', function(){
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeFalsy();
+      facRnd.status = deliveryStatus.CANCELED_OTHER;
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeTruthy();
+    });
+
+    it('Should return TRUE if status equals DELIVERY_STATUS.FAILED_OTHER', function(){
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeFalsy();
+      facRnd.status = deliveryStatus.FAILED_OTHER;
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeTruthy();
+    });
+
+    it('Should return TRUE if status equals DELIVERY_STATUS.FAILED_STAFF', function(){
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeFalsy();
+      facRnd.status = deliveryStatus.FAILED_STAFF;
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeTruthy();
+    });
+
+    it('Should return TRUE if status equals DELIVERY_STATUS.CANCELED_STAFF', function(){
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeFalsy();
+      facRnd.status = deliveryStatus.CANCELED_STAFF;
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeTruthy();
+    });
+
+    it('Should return FALSE if status equals DELIVERY_STATUS.UPCOMING_FIRST', function(){
+      facRnd.status = deliveryStatus.CANCELED_CCE;
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeTruthy();
+      facRnd.status = deliveryStatus.UPCOMING_FIRST;
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeFalsy();
+    });
+
+    it('Should return FALSE if status equals DELIVERY_STATUS.UPCOMING_SECOND', function(){
+      facRnd.status = deliveryStatus.CANCELED_CCE;
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeTruthy();
+      facRnd.status = deliveryStatus.UPCOMING_SECOND;
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeFalsy();
+    });
+
+    it('Should return FALSE if status equals DELIVERY_STATUS.SUCCESS_FIRST', function(){
+      facRnd.status = deliveryStatus.CANCELED_CCE;
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeTruthy();
+      facRnd.status = deliveryStatus.SUCCESS_FIRST;
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeFalsy();
+    });
+
+    it('Should return FALSE if status equals DELIVERY_STATUS.SUCCESS_SECOND', function(){
+      facRnd.status = deliveryStatus.CANCELED_CCE;
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeTruthy();
+      facRnd.status = deliveryStatus.SUCCESS_SECOND;
+      expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeFalsy();
+    });
 
   });
 

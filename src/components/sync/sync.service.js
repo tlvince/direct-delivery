@@ -103,14 +103,12 @@ angular.module('sync')
        * @desc used for fault tolerant replication to remote db.
        * @param {String} local - local db
        * @param {String} remoteUrl - remote db
-       * @param {Object} options (optional)
+       * @param {Object} options
        * @returns {*}
        */
       _this.replicateToRemote = function(local, remoteUrl, options){
         var db = pouchdbService.create(local);
-        var opts = options || {};
-        opts.url = remoteUrl;
-        return db.persist(opts);
+        return db.replicate.to(remoteUrl, options);
       };
 
     });

@@ -5,6 +5,7 @@ angular.module('delivery')
 
     var vm = this;
     var parent = $scope.facDevCtrl;
+    vm.dailyDelivery = parent.dailyDelivery;
     vm.facRnd = parent.facRnd;
 
     function init(){
@@ -34,6 +35,17 @@ angular.module('delivery')
 
     vm.togglePreview = function(){
       vm.previewDelivery = !vm.previewDelivery;
+    };
+
+    vm.submit = function(){
+      var doc = deliveryService.updateFacilityRound(vm.dailyDelivery, vm.facRnd);
+      deliveryService.save(doc)
+        .then(deliveryService.saved)
+        .catch(deliveryService.failed);
+    };
+
+    vm.shouldHideSignOff = function(){
+      return deliveryService.shouldHideSignOff(vm.facRnd);
     };
 
     vm.preview = function(dItem){

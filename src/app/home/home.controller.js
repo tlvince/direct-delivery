@@ -4,13 +4,12 @@ angular.module('home')
   .controller('HomeCtrl', function(dailySchedule, coreService, AuthService, SYNC_STATUS, $rootScope, $scope, HOME_TABS, $state) {
     var vm = this;
     var unbind = {};
-    vm.dailyDelivery = [];
+    vm.dailyDelivery = {};
     vm.tabs = HOME_TABS;
     vm.syncInProgress = coreService.getSyncInProgress();
 
-    function processEvent(){
+    function processEvent(event, data){
       vm.syncInProgress = coreService.getSyncInProgress();
-      $state.go($state.current, $state.params, { reload: true });
     }
 
     function addSyncListeners(){

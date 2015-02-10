@@ -4,7 +4,15 @@
 'use strict';
 
 angular.module('schedules')
-  .service('scheduleService', function(AuthService, dbService, pouchUtil, utility) {
+  .service('scheduleService', function(AuthService, dbService, pouchUtil, utility, $q) {
+    function rejectIfEmpty(docs) {
+      if (docs.length === 0) {
+        return $q.reject({
+          code: 404,
+          msg: 'No document found'
+        });
+      }
+    }
 
     this.all = function(driverID, deliveryDate) {
       driverID = driverID || AuthService.currentUser.name;
@@ -20,6 +28,7 @@ angular.module('schedules')
     this.getDaySchedule = function(driverID, date) {
       return this.all(driverID, date)
         .then(pouchUtil.pluckDocs)
+        .then(rejectIfEmpty)
         .then(utility.first);
     };
   });

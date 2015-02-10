@@ -12,6 +12,7 @@ angular.module('schedules')
           msg: 'No document found'
         });
       }
+      return docs;
     }
 
     this.all = function(driverID, deliveryDate) {

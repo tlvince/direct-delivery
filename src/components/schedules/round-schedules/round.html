@@ -2,9 +2,68 @@
    <h3><i class="fa-truck fa"></i> Vaccine Direct Delivery Round <span ng-bind="schedulesCtrl.currentSchedule.round"></span> Schedule </h3>
 </div>
 <p><br/></p>
-  <div ng-if="schedulesRoundCtrl.currentSchedule.deliveries.length > 0">
-    <div
-        ng-repeat="day in schedulesRoundCtrl.currentSchedule.deliveries"
-        ng-include="'components/schedules/round-schedules/daily.html'"></div>
+  <div ng-if="schedulesRoundCtrl.rounds.length > 0">
+    <div >
+      <table class="table">
+        <thead>
+          <th>Round Code</th>
+          <th>Lag</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>CompletedOn</th>
+          <th>Status</th>
+          <th></th>
+        </thead>
+        <tbody ng-repeat="round in schedulesRoundCtrl.rounds track by $index">
+          <tr>
+            <td ng-bind="round.roundCode"></td>
+            <td ng-bind="round.lag"></td>
+            <td ng-bind="schedulesRoundCtrl.formatDate(round.startDate)"></td>
+            <td ng-bind="schedulesRoundCtrl.formatDate(round.endDate)"></td>
+            <td ng-bind="schedulesRoundCtrl.formatDate(round.completedOn)"></td>
+            <td ng-bind="round.status" ng-class="{'bg-success': round.status =='active'}"></td>
+            <td class="text-info fa fa-2x">
+              <i class="fa fa-arrow-circle-down" ng-click="schedulesRoundCtrl.toggleDisplay(round._id)"></i>
+            </td>
+          </tr>
+          <tr ng-if="schedulesRoundCtrl.roundToDisplay == round._id" class="bg-default" class="'animate'">
+            <td colspan="7">
+              <div ng-repeat="day in schedulesRoundCtrl.displayRound track by $index " ng-if="schedulesRoundCtrl.displayRound.length > 0">
+                <table class="table table-striped" ng-animate="'animate'">
+                  <thead>
+                    <tr>
+                      <th>Facility Name</th>
+                      <th>Drop</th>
+                      <th>Status</th>
+                      <th>Window</th>
+                      <th>Zone</th>
+                      <th>LGA</th>
+                      <th>Ward</th>
+                      <th>Contact</th>
+                      <th>Number</th>
+                    </tr>
+                  </thead>
+                  <tr ng-repeat="facilityRound in day.facilityRounds track by $index">
+                    <td ng-bind="facilityRound.facility.name"></td>
+                    <td ng-bind="facilityRound.drop"></td>
+                    <td ng-bind="facilityRound.status"></td>
+                    <td ng-bind="facilityRound.window"></td>
+                    <td ng-bind="facilityRound.facility.zone"></td>
+                    <td ng-bind="facilityRound.facility.lga"></td>
+                    <td ng-bind="facilityRound.facility.ward"></td>
+                    <td ng-bind="facilityRound.facility.contact"></td>
+                    <td ng-bind="facilityRound.facility.phoneNo"></td>
+                  </tr>
+                </table>
+              </div>
+              <div ng-if="schedulesRoundCtrl.displayRound.length ==0" class="alert alert-danger">
+                <i class="fa fa-danger"></i>
+                There are schedules for this round! please inform your coordinator
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div ng-if="schedulesRoundCtrl.currentSchedule.deliveries.length < 0" class="alert alert-info">No Scheduled deliveries</div>
+  <div ng-if="schedulesRoundCtrl.rounds.length == 0" class="alert alert-info">No Scheduled deliveries</div>

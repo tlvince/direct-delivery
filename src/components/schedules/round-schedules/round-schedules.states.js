@@ -8,6 +8,15 @@ angular.module('schedules.round')
       url: '',
       templateUrl: 'components/schedules/round-schedules/round.html',
       controller: 'SchedulesRoundCtrl',
-      controllerAs: 'schedulesRoundCtrl'
+      controllerAs: 'schedulesRoundCtrl',
+      resolve: {
+        rounds : function(log, scheduleRoundService){
+          return scheduleRoundService.get()
+            .catch(function(err){
+              log.error(err);
+              return [];
+            })
+        }
+      }
     })
   });

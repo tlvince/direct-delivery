@@ -11,6 +11,8 @@
     <th class="col-sm-1">On-hand Qty</th>
     <th class="col-sm-1">Delivered Qty</th>
     <th class="col-sm-1">Returned Qty</th>
+    <th class="col-sm-1">Received Stock between delivery?</th>
+    <th class="col-sm-1">Qty Received between delivery</th>
   </tr>
   <tr ng-repeat="item in facDevCtrl.facRnd.packedProduct track by $index">
     <td><span ng-bind="item.productID"></span></td>
@@ -24,6 +26,16 @@
     </td>
     <td class="highlight-returned-qty">
       <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].returnedQty"></span>
+      <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].baseUOM"></span>
+    </td>
+    <td>
+      <span
+        ng-show="diCtrl.receivedStockBtwDelivery($index) === true">Yes</span>
+      <span
+        ng-show="diCtrl.receivedStockBtwDelivery($index) !== true">No</span>
+    </td>
+    <td class="highlight-returned-qty">
+      <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].btwDeliveryRecievedQty"></span>
       <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].baseUOM"></span>
     </td>
   </tr>

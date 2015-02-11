@@ -2,6 +2,7 @@
 
 var fs = require('fs');
 var gulp = require('gulp');
+var bump = require('gulp-bump');
 var ngConfig = require('ng-config');
 var favicons = require('favicons');
 
@@ -154,6 +155,12 @@ gulp.task('config', function() {
   };
   var ngconf = ngConfig(options);
   return fs.writeFileSync('src/app/config.js', ngconf);
+});
+
+gulp.task('bump', function(){
+  gulp.src(['./bower.json', './package.json'])
+    .pipe(bump())
+    .pipe(gulp.dest('./'));
 });
 
 gulp.task('build', ['config', 'html', 'images', 'fonts', 'favicons']);

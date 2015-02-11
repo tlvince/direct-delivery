@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('delivery')
-  .service('deliveryService', function (dbService, log, $state) {
+  .service('deliveryService', function (dbService, log, $state, DELIVERY_STATUS) {
 
     var _this = this;
 
@@ -29,6 +29,14 @@ angular.module('delivery')
         });
     };
 
+    _this.roundOffBy = function(qty, presentation){
+      var remainder = qty % presentation;
+      if(remainder === 0){
+        return qty;
+      }
+      return ((qty - remainder) + presentation);
+    };
+
     _this.calcQty = function (packedProduct) {
       var res = {};
       var deliveredQty = (packedProduct.expectedQty - packedProduct.onHandQty);
@@ -38,6 +46,8 @@ angular.module('delivery')
       if (deliveredQty <= 0) {
         res.deliveredQty = 0;
         res.returnedQty = returnedQty;
+      }else{
+        res.deliveredQty =  _this.roundOffBy(deliveredQty, packedProduct.presentation);
       }
       return res;
     };
@@ -88,6 +98,20 @@ angular.module('delivery')
 
     _this.failed = function(err){
       log.error('dailyDeliveryFailed', err);
+    };
+
+    _this.setSuccessStatus = function(facRnd){
+      if(facRnd.status === DELIVERY_STATUS.UPCOMING_SECOND) {
+        facRnd.status = DELIVERY_STATUS.SUCCESS_SECOND;
+      }else{
+        facRnd.status = DELIVERY_STATUS.SUCCESS_FIRST;
+      }
+      return facRnd;
+    };
+
+    _this.shouldHideSignOff = function(facilityRnd){
+      return ((facilityRnd.status === DELIVERY_STATUS.SUCCESS_FIRST) ||
+        (facilityRnd.status === DELIVERY_STATUS.SUCCESS_SECOND));
     };
 
   });

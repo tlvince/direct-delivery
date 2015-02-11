@@ -1,7 +1,7 @@
 'use strict';
 
-(function() {
-  function AuthService($rootScope, $window, $log, $q, $localStorage, $sessionStorage, pouchDB, config, utility) {
+angular.module('auth')
+  .service('AuthService', function AuthService($rootScope, $window, $log, $q, $localStorage, $sessionStorage, pouchDB, config, utility) {
     // seed asmCrypto PRNG for better security when creating random password salts
     $window.asmCrypto.random.seed($window.crypto.getRandomValues(new Uint8Array(128)));
 
@@ -93,7 +93,12 @@
           var salt = $window.asmCrypto.bytes_to_hex($window.crypto.getRandomValues(new Uint8Array(16)));
           var iterations = 10;
           var derived = hash(password, salt, iterations);
-          var user = $window._.pick(response, ['_id', '_rev', 'name', 'roles']);
+          var user = {
+            _id: response._id,
+            _rev: response._rev,
+            name: response.name,
+            roles: response.roles
+          };
 
           $localStorage.auth[storageKey(username)] = {
             day: day(),
@@ -124,7 +129,4 @@
           this.setCurrentUser(null);
         }.bind(this));
     };
-  }
-
-  angular.module('auth').service('AuthService', AuthService);
-}());
+  });

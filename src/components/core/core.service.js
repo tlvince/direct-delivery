@@ -7,16 +7,23 @@
 angular.module('core')
   .service('coreService', function ($rootScope, syncService, config, pouchdbService, CORE_SYNC_DOWN,
                                     SYNC_DAILY_DELIVERY, SYNC_DESIGN_DOC, $state, log, SYNC_STATUS,
-                                    utility) {
+                                    utility, scheduleService) {
 
     var _this = this;
     var isReplicationFromInProgress = false;
-    var isSyncingUp = false;
-    var replication;
+    var replicationTo;
 
     function turnOffReplicateFromInProgress() {
       isReplicationFromInProgress = false;
-      $rootScope.$emit(SYNC_STATUS.COMPLETE, {msg: isReplicationFromInProgress});
+      var dailySchedule;
+      scheduleService.getDaySchedule()
+        .then(function(res) {
+          dailySchedule = res;
+        })
+        .finally(function() {
+          var data = {msg: isReplicationFromInProgress, dailySchedule: dailySchedule};
+          $rootScope.$emit(SYNC_STATUS.COMPLETE, data);
+        });
     }
 
     function turnOnReplicateFromInProgress() {
@@ -140,58 +147,33 @@ angular.module('core')
       });
     };
 
-    var getDefaultOptions = function () {
-      var remoteUrl = config.db;
+    _this.replicateToRemote = function () {
+      var docTypes = ['dailyDelivery'];
       var options = {
-        url: remoteUrl, // remote Couch URL
-        maxTimeout: 60000, // max retry timeout, defaulted to 300000
-        startingTimeout: 1000, // retry timeout, defaulted to 1000
-        backoff: 1.1, // exponential backoff factor, defaulted to 1.1
-        manual: true, // when true, start replication with start()
-        changes: { // options for changes()
-          opts: {
-            live: true
-          }
-        },
-        // options for replicating to remote source
-        to: {
-          // replicate.to() options
-          opts: {
-            live: true
-          },
-          url: remoteUrl,
-          onErr: function (err) {
-            log.error('remoteReplicationErr', err);
-          },
-          listeners: [{
-            method: 'once',
-            event: 'uptodate',
-            listener: function () {
-              log.success('remoteReplicationUpToDate');
-            }
-          }]
+        live: true,
+        retry: true,
+        filter: 'docs/by_doc_types',
+        query_params: {
+          docTypes: JSON.stringify(docTypes)
         }
       };
-      return options;
-    };
 
-    _this.replicateToRemote = function () {
-      var options = getDefaultOptions();
-      var docTypes = ['dailyDelivery'];
-      options.to.opts.filter = 'docs/by_doc_types';
-      options.to.opts.query_params = {
-        docTypes: JSON.stringify(docTypes)
-      };
-
-      if (!replication) {
-        replication = syncService.replicateToRemote(config.localDB, config.db, options);
-        replication.on('disconnect', function (err) {
-          log.error('remoteReplicationDisconnected', err);
-        });
+      if (!replicationTo) {
+        replicationTo = syncService.replicateToRemote(config.localDB, config.db, options);
+        replicationTo
+          .on('error', function (err) {
+            log.error('remoteReplicationDisconnected', err);
+          });
+        replicationTo
+          .on('denied', function (err) {
+            log.error('remoteReplicationDisconnected', err);
+          });
+        replicationTo
+          .on('paused', function () {
+            log.success('remoteReplicationUpToDate');
+          });
       }
-      replication.start();
-
-      return replication;
+      return replicationTo;
     };
 
   });

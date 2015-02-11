@@ -31,8 +31,14 @@
 <br/>
 <a ui-sref="facilityDelivery.signOff({ ddId : facDevCtrl.ddId, facilityId : facDevCtrl.facility.id })"
    class="btn btn-success btn-lg btn-block"
-   ng-show="diCtrl.previewDelivery">
+   ng-show="!diCtrl.shouldHideSignOff()">
   <span>Continue</span>
   <i class="fa fa-arrow-circle-right"></i>
 </a>
+<button class="btn btn-success btn-lg btn-block"
+        ng-click="diCtrl.submit()"
+   ng-show="diCtrl.shouldHideSignOff()">
+  <i class="fa fa-floppy-o"></i>
+  <span>Save</span>
+</button>
 

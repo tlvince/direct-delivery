@@ -10,3 +10,6 @@ npm-debug.log
 .bashrc
 .bashrc~
 README.html
+cordova/www
+cordova/platforms
+cordova/plugins

@@ -163,4 +163,19 @@ gulp.task('bump', function(){
     .pipe(gulp.dest('./'));
 });
 
+gulp.task('cordova', function(done) {
+  var dist = './dist';
+  var cordova = './cordova';
+  var www = cordova + '/www';
+
+  $.del(www, function(err) {
+    if (err) return done(err);
+
+    gulp.src([dist + '/**'], {base: dist})
+      .pipe(gulp.dest(www));
+
+    return done();
+  });
+});
+
 gulp.task('build', ['config', 'html', 'images', 'fonts', 'favicons']);

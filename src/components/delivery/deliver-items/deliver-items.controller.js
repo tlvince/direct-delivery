@@ -64,7 +64,7 @@ angular.module('delivery')
 
     vm.resetReceivedBtwDeliveryQty = function(i){
       if(!vm.receivedStockBtwDelivery(i)){
-        vm.facRnd.packedProduct[i].btwDeliveryRecievedQty = '';
+        vm.facRnd.packedProduct[i].btwDeliveryReceivedQty = '';
       }
     };
 

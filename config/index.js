@@ -10,7 +10,18 @@ var defaults = {
   config: {
     name: pkg.name,
     version: pkg.version,
-    author: pkg.author
+    author: pkg.author,
+    localDB: 'deliveries',
+    dateFormat: 'yyyy-MM-dd',
+    designDocs: [
+      '_design/delivery-rounds',
+      '_design/daily-deliveries',
+      '_design/product-storages'
+    ],
+    coreDocTypes: [
+      'product',
+      'productStorage'
+    ]
   }
 };
 

@@ -58,4 +58,14 @@ angular.module('delivery')
       }
     };
 
+    vm.receivedStockBtwDelivery = function(i){
+      return vm.facRnd.packedProduct[i].receivedInterimStock === true;
+    };
+
+    vm.resetReceivedBtwDeliveryQty = function(i){
+      if(!vm.receivedStockBtwDelivery(i)){
+        vm.facRnd.packedProduct[i].btwDeliveryRecievedQty = '';
+      }
+    };
+
   });

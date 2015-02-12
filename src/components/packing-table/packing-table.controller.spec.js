@@ -17,4 +17,8 @@ describe('PackingTableCtrl', function() {
   it('should expose whether the table is within a tab', function() {
     expect(PackingTableCtrl.tabbed).toBe(true);
   });
+
+  it('should expose storage types as legends', function() {
+    expect(PackingTableCtrl.legends).toEqual({});
+  });
 });

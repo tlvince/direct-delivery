@@ -13,4 +13,5 @@ angular.module('packingTableCtrlMock', [])
         tabbed: true
       }
     }
-  });
+  })
+  .constant('productStorages', {});

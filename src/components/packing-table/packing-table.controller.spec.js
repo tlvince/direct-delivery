@@ -29,4 +29,8 @@ describe('PackingTableCtrl', function() {
   it('should expose the daily schedule packing list', function() {
     expect(PackingTableCtrl.packingList).toEqual([]);
   });
+
+  it('should pass through storage attributes', function() {
+    expect(PackingTableCtrl.storageAttributes).toBeDefined();
+  });
 });

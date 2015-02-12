@@ -4,17 +4,7 @@
 'use strict';
 
 angular.module('schedules')
-  .service('scheduleService', function(AuthService, dbService, pouchUtil, utility, $q) {
-    
-    function rejectIfEmpty(docs) {
-      if (docs.length === 0) {
-        return $q.reject({
-          code: 404,
-          msg: 'No document found'
-        });
-      }
-      return docs;
-    }
+  .service('scheduleService', function(AuthService, dbService, pouchUtil, utility) {
 
     this.get = function(view, key) {
 
@@ -35,13 +25,14 @@ angular.module('schedules')
       var key = driverID +'-'+deliveryDate;
       return this.get('daily-deliveries/by-driver-date', key)
         .then(pouchUtil.pluckDocs)
-        .then(rejectIfEmpty)
+        .then(pouchUtil.rejectIfEmpty)
         .then(utility.first);
     };
-    
+
     this.getByRound = function(roundId){
       return this.get('daily-deliveries/by-round', roundId)
         .then(pouchUtil.pluckDocs)
+        .then(pouchUtil.rejectIfEmpty);
     };
-    
+
   });

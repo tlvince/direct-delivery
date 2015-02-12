@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('utility.pouchdb')
-  .service('pouchUtil', function() {
+  .service('pouchUtil', function($q) {
     function pluck(response, property) {
       function get(row) {
         return row[property];
@@ -27,4 +27,15 @@ angular.module('utility.pouchdb')
     this.pluckDocs = function(response) {
       return pluck(response, 'doc');
     };
+
+    this.rejectIfEmpty = function(docs) {
+      if (docs.length === 0) {
+        return $q.reject({
+          code: 404,
+          msg: 'No document found'
+        });
+      }
+      return docs;
+    };
+
   });

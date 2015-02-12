@@ -3,7 +3,7 @@
  */
 
 angular.module('schedules.round')
-  .service('scheduleRoundService',  function(dbService, pouchUtil, utility){
+  .service('scheduleRoundService',  function(dbService, pouchUtil){
     var _this = this;
 
     _this.get = function(){
@@ -11,6 +11,7 @@ angular.module('schedules.round')
         include_docs: true
       };
        return dbService.getView('delivery-rounds/all', params)
-        .then(pouchUtil.pluckDocs);
+        .then(pouchUtil.pluckDocs)
+         .then(pouchUtil.rejectIfEmpty);
     }
   });

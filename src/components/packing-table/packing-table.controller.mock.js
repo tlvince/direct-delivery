@@ -10,7 +10,8 @@ angular.module('packingTableCtrlMock', [])
   .constant('$state', {
     current: {
       data: {
-        tabbed: true
+        tabbed: true,
+        nextState: 'home'
       }
     }
   })

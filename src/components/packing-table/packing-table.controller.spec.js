@@ -21,4 +21,8 @@ describe('PackingTableCtrl', function() {
   it('should expose storage types as legends', function() {
     expect(PackingTableCtrl.legends).toEqual({});
   });
+
+  it('should support caller-defined success state', function() {
+    expect(PackingTableCtrl.nextState).toBe('home');
+  });
 });

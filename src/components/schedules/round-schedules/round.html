@@ -48,7 +48,13 @@
                     <td ng-bind="facilityRound.drop"></td>
                     <td ng-bind="facilityRound.status"></td>
                     <td ng-bind="facilityRound.window"></td>
-                    <td ng-bind="facilityRound.facility.zone"></td>
+                    <td
+                        ng-bind="facilityRound.facility.zone"
+                        ng-class="{'bg-success': facilityRound.facility.zone =='Bichi',
+                        'bg-primary': facilityRound.facility.zone =='Nassarawa',
+                        'bg-warning': facilityRound.facility.zone =='Rano',
+                        'bg-danger': facilityRound.facility.zone =='Wudil'
+                        }"></td>
                     <td ng-bind="facilityRound.facility.lga"></td>
                     <td ng-bind="facilityRound.facility.ward"></td>
                     <td ng-bind="facilityRound.facility.contact"></td>
@@ -58,7 +64,7 @@
               </div>
               <div ng-if="schedulesRoundCtrl.displayRound.length ==0" class="alert alert-danger">
                 <i class="fa fa-danger"></i>
-                There are schedules for this round! please inform your coordinator
+                There are no schedules for this round! please inform your coordinator
               </div>
             </td>
           </tr>

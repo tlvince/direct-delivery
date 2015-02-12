@@ -2,11 +2,14 @@
 
 [![Build Status][travis-image]][travis-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
+[![Code Climate][codeclimate-image]][codeclimate-url]
 
 [travis-url]: https://travis-ci.org/eHealthAfrica/direct-delivery
 [travis-image]: https://img.shields.io/travis/eHealthAfrica/direct-delivery/develop.svg
 [coveralls-url]: https://coveralls.io/r/eHealthAfrica/direct-delivery
 [coveralls-image]: https://img.shields.io/coveralls/eHealthAfrica/direct-delivery/develop.svg
+[codeclimate-url]: https://codeclimate.com/github/eHealthAfrica/direct-delivery
+[codeclimate-image]: https://img.shields.io/codeclimate/github/eHealthAfrica/direct-delivery.svg
 
 > User-centred direct delivery management system
 

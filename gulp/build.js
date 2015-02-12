@@ -2,6 +2,9 @@
 
 var fs = require('fs');
 var gulp = require('gulp');
+var gutil = require('gulp-util');
+var through = require('through2');
+var semver = require('semver');
 var bump = require('gulp-bump');
 var ngConfig = require('ng-config');
 var favicons = require('favicons');
@@ -160,10 +163,30 @@ gulp.task('config', function() {
   return fs.writeFileSync('src/app/config.js', ngconf);
 });
 
-gulp.task('bump', function(){
-  gulp.src(['./bower.json', './package.json'])
-    .pipe(bump())
-    .pipe(gulp.dest('./'));
+gulp.task('bump', function(done) {
+  var newVer = semver.inc(config.config.version, 'patch');
+
+  async.series([
+    function(cb) {
+      gulp.src(['./bower.json', './package.json'])
+        .pipe($.bump({version: newVer}))
+        .pipe(gulp.dest('./'))
+        .on('end', cb)
+        .on('error', cb);
+    },
+    function(cb) {
+      gulp.src(['./cordova/config.xml'])
+        .pipe(through.obj(function(file, enc, cb) {
+          var contents = file.contents.toString().replace(/version="[\d\.]*"/, 'version="' + newVer + '"');
+          file.contents = new Buffer(contents);
+          gutil.log('Bumped ' + gutil.colors.magenta('./cordova/config.xml:version') + ' to: ' + gutil.colors.cyan(newVer));
+          cb(null, file);
+        }))
+        .pipe(gulp.dest('./cordova'))
+        .on('end', cb)
+        .on('error', cb);
+    }
+  ], done);
 });
 
 /**

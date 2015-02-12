@@ -13,4 +13,8 @@ describe('PackingTableCtrl', function() {
   it('should expose the daily schedule date', function() {
     expect(PackingTableCtrl.date).toBe('2014');
   });
+
+  it('should expose whether the table is within a tab', function() {
+    expect(PackingTableCtrl.tabbed).toBe(true);
+  });
 });

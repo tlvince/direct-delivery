@@ -5,6 +5,8 @@ var gulp = require('gulp');
 var bump = require('gulp-bump');
 var ngConfig = require('ng-config');
 var favicons = require('favicons');
+var async = require('async');
+var cordova = require('cordova');
 
 var config = require('../config');
 
@@ -164,17 +166,27 @@ gulp.task('bump', function(){
 });
 
 gulp.task('cordova', function(done) {
-  var dist = './dist';
-  var cordova = './cordova';
-  var www = cordova + '/www';
+  process.chdir('./cordova');
 
-  $.del(www, function(err) {
-    if (err) return done(err);
-
-    gulp.src([dist + '/**'], {base: dist})
-      .pipe(gulp.dest(www));
-
-    return done();
+  async.series([
+    function(cb) {
+      $.del(['./www', './platforms', './plugins'], cb);
+    },
+    function(cb) {
+      gulp.src(['../dist/**'], {base: '../dist'})
+        .pipe(gulp.dest('./www'))
+        .on('end', cb)
+        .on('error', cb);
+    },
+    function(cb) {
+      cordova.platform('add', 'android', cb);
+    },
+    function(cb) {
+      cordova.build({options: ['--release']}, cb);
+    }
+  ], function(err) {
+    process.chdir('..');
+    done(err);
   });
 });
 

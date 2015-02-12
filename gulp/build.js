@@ -7,6 +7,7 @@ var ngConfig = require('ng-config');
 var favicons = require('favicons');
 var async = require('async');
 var cordova = require('cordova');
+var argv = require('optimist').argv;
 
 var config = require('../config');
 
@@ -165,6 +166,10 @@ gulp.task('bump', function(){
     .pipe(gulp.dest('./'));
 });
 
+/**
+ * Accepted parameters:
+ *   --release : build release apk (default is debug apk)
+ */
 gulp.task('cordova', function(done) {
   process.chdir('./cordova');
 
@@ -182,7 +187,11 @@ gulp.task('cordova', function(done) {
       cordova.platform('add', 'android', cb);
     },
     function(cb) {
-      cordova.build({options: ['--release']}, cb);
+      var options = [];
+      if (argv.release === true)
+        options.push('--release');
+
+      cordova.build({options: options}, cb);
     }
   ], function(err) {
     process.chdir('..');

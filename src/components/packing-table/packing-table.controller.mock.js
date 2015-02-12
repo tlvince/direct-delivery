@@ -2,7 +2,8 @@
 
 angular.module('packingTableCtrlMock', [])
   .constant('dailySchedule', {
-    date: '2014'
+    date: '2014',
+    packingList: []
   })
   .constant('productStorages', {})
   .constant('log', {})

@@ -25,4 +25,8 @@ describe('PackingTableCtrl', function() {
   it('should support caller-defined success state', function() {
     expect(PackingTableCtrl.nextState).toBe('home');
   });
+
+  it('should expose the daily schedule packing list', function() {
+    expect(PackingTableCtrl.packingList).toEqual([]);
+  });
 });

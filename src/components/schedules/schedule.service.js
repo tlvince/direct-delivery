@@ -4,32 +4,35 @@
 'use strict';
 
 angular.module('schedules')
-  .service('scheduleService', function(AuthService, dbService, pouchUtil, utility, $q) {
-    function rejectIfEmpty(docs) {
-      if (docs.length === 0) {
-        return $q.reject({
-          code: 404,
-          msg: 'No document found'
-        });
+  .service('scheduleService', function(AuthService, dbService, pouchUtil, utility) {
+
+    this.get = function(view, key) {
+
+      var params = {};
+      //TODO: this should use Auth.currentUser.name see #item:1172
+      if(angular.isString(key) || angular.isArray(key)) {
+        params = pouchUtil.key(key);
       }
-      return docs;
-    }
-
-    this.all = function(driverID, deliveryDate) {
-      driverID = driverID || AuthService.currentUser.name;
-      deliveryDate = deliveryDate || new Date();
-
-      var params = pouchUtil.key(driverID + '-' + utility.formatDate(deliveryDate));
       /*eslint-disable camelcase */
       params.include_docs = true;
       /*eslint-enable camelcase */
-      return dbService.getView('daily-deliveries/by-driver-date', params);
+      return dbService.getView(view, params);
     };
 
     this.getDaySchedule = function(driverID, date) {
-      return this.all(driverID, date)
+      var driverID = driverID || AuthService.currentUser.name;
+      var deliveryDate = date || new Date();
+      var key = driverID +'-'+deliveryDate;
+      return this.get('daily-deliveries/by-driver-date', key)
         .then(pouchUtil.pluckDocs)
-        .then(rejectIfEmpty)
+        .then(pouchUtil.rejectIfEmpty)
         .then(utility.first);
     };
+
+    this.getByRound = function(roundId){
+      return this.get('daily-deliveries/by-round', roundId)
+        .then(pouchUtil.pluckDocs)
+        .then(pouchUtil.rejectIfEmpty);
+    };
+
   });

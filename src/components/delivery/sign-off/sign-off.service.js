@@ -2,19 +2,9 @@
 
 angular.module('delivery')
   .service('signOffService', function (deliveryService) {
-
-    var _this = this;
-
-    _this.isValidSignature  = function(signature){
+    this.isValidSignature = function(dataURL) {
       //FIXME: find better signature verification technique e.g base64 the image data uri
-      return ((signature.$isEmpty === false) && (signature.dataUrl.length > 0));
-    };
-
-    _this.getDefaultSignature = function(){
-      return {
-        dataUrl: '',
-        signedOn: ''
-      };
+      return dataURL.length > 0;
     };
 
     /**
@@ -25,10 +15,12 @@ angular.module('delivery')
      * @param {Data-URI} signature - image string of the signature in data uri format.
      * @returns {$promise}
      */
-    _this.signOff = function(dd, facRnd, signature){
+    this.signOff = function(dd, facRnd, signature){
       facRnd = deliveryService.setSuccessStatus(facRnd);
-      facRnd.signature = signature;
-      facRnd.signature.signedAt = new Date().toJSON();
+      facRnd.signature = {
+        dataUrl: signature,
+        signedAt: new Date().toJSON()
+      };
       dd = deliveryService.updateFacilityRound(dd, facRnd);
       return deliveryService.save(dd);
     };

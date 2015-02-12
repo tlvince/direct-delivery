@@ -1,7 +1,8 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h2>
-      <h2><span ng-bind="facDevCtrl.facility.name"></span> - Delivery Sign off</h2>
+      <span ng-bind="facDevCtrl.facility.name"></span>
+      <span>- Delivery Sign off</span>
     </h2>
   </div>
   <div class="panel-body">
@@ -11,18 +12,42 @@
       <span>Back</span>
     </a>
 
-    <h3>Sign inside the box below, click Ok to complete, then submit.</h3>
+    <h3>Sign inside the box below, click OK to complete, then submit.</h3>
 
-    <sign-pad signature="signOffCtrl.signature"></sign-pad>
-    <br/>
-    <br/>
-    <button type="button" class="btn btn-success btn-lg btn-block"
-            ng-click="signOffCtrl.submit()">
+    <div class="delivery-signature">
+      <canvas
+        width="558"
+        height="218"
+        ng-signature-pad="signOffCtrl.signature"
+        ng-signature-pad-min-width="1.5"
+        ng-signature-pad-max-width="3.5"
+      ></canvas>
+      <div>
+        <button
+          type="button"
+          class="btn btn-lg"
+          ng-class="signOffCtrl.accepted && 'btn-default' || 'btn-primary'"
+          ng-click="signOffCtrl.accept()"
+        >
+          <i
+            class="fa"
+            ng-class="signOffCtrl.accepted && 'fa-refresh' || 'fa-thumbs-up'"
+          ></i>
+          <span
+            ng-bind="signOffCtrl.accepted && 'Clear' || 'OK'"
+          ></span>
+        </button>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-success btn-lg btn-block"
+      ng-click="signOffCtrl.submit()"
+      ng-disabled="!signOffCtrl.accepted"
+    >
       <span>Submit</span>
       <i class="fa fa-arrow-circle-right"></i>
     </button>
   </div>
 </div>
-
-
-

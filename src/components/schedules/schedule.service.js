@@ -10,7 +10,7 @@ angular.module('schedules')
 
       var params = {};
       //TODO: this should use Auth.currentUser.name see #item:1172
-      if(angular.isString(key) || angular.isArray(key)) {
+      if (angular.isString(key) || angular.isArray(key)) {
         params = pouchUtil.key(key);
       }
       /*eslint-disable camelcase */
@@ -20,9 +20,9 @@ angular.module('schedules')
     };
 
     this.getDaySchedule = function(driverID, date) {
-      var driverID = driverID || AuthService.currentUser.name;
+      driverID = driverID || AuthService.currentUser.name;
       var deliveryDate = date || new Date();
-      var key = driverID +'-'+deliveryDate;
+      var key = driverID + '-' + utility.formatDate(deliveryDate);
       return this.get('daily-deliveries/by-driver-date', key)
         .then(pouchUtil.pluckDocs)
         .then(pouchUtil.rejectIfEmpty)

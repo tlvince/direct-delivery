@@ -32,19 +32,22 @@ angular.module('deliveryMock', [])
             "productID": "BCG",
             "expectedQty": 70,
             "storageID": "product-storage/frozen",
-            "presentation": 20
+            "presentation": 20,
+            "receivedInterimStock": false
           },
           {
             "productID": "Men-A",
             "expectedQty": 150,
             "storageID": "product-storage/dry",
-            "presentation": 20
+            "presentation": 20,
+            "receivedInterimStock": false
           },
           {
             "productID": "OPV",
             "expectedQty": 34,
             "storageID": "product-storage/frozen",
-            "presentation": 20
+            "presentation": 20,
+            "receivedInterimStock": false
           }
         ],
         "facilityKPI": {
@@ -86,19 +89,22 @@ angular.module('deliveryMock', [])
             "productID": "BCG",
             "expectedQty": 70,
             "storageID": "product-storage/frozen",
-            "presentation": 20
+            "presentation": 20,
+            "receivedInterimStock": false
           },
           {
             "productID": "Men-A",
             "expectedQty": 150,
             "storageID": "product-storage/dry",
-            "presentation": 20
+            "presentation": 20,
+            "receivedInterimStock": false
           },
           {
             "productID": "OPV",
             "expectedQty": 34,
             "storageID": "product-storage/frozen",
-            "presentation": 20
+            "presentation": 20,
+            "receivedInterimStock": false
           }
         ],
         "facilityKPI": {
@@ -140,19 +146,22 @@ angular.module('deliveryMock', [])
             "productID": "BCG",
             "expectedQty": 70,
             "storageID": "product-storage/frozen",
-            "presentation": 20
+            "presentation": 20,
+            "receivedInterimStock": false
           },
           {
             "productID": "Men-A",
             "expectedQty": 150,
             "storageID": "product-storage/dry",
-            "presentation": 20
+            "presentation": 20,
+            "receivedInterimStock": false
           },
           {
             "productID": "OPV",
             "expectedQty": 34,
             "storageID": "product-storage/frozen",
-            "presentation": 20
+            "presentation": 20,
+            "receivedInterimStock": false
           }
         ],
         "facilityKPI": {
@@ -180,19 +189,22 @@ angular.module('deliveryMock', [])
         "productID": "BCG",
         "expectedQty": 210,
         "storageID": "product-storage/frozen",
-        "presentation": 20
+        "presentation": 20,
+        "receivedInterimStock": false
       },
       {
         "productID": "Men-A",
         "expectedQty": 450,
         "storageID": "product-storage/dry",
-        "presentation": 20
+        "presentation": 20,
+        "receivedInterimStock": false
       },
       {
         "productID": "OPV",
         "expectedQty": 102,
         "storageID": "product-storage/frozen",
-        "presentation": 20
+        "presentation": 20,
+        "receivedInterimStock": false
       }
     ]
   });

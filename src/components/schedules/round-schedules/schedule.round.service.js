@@ -12,6 +12,15 @@ angular.module('schedules.round')
       };
        return dbService.getView('delivery-rounds/all', params)
         .then(pouchUtil.pluckDocs)
-         .then(pouchUtil.rejectIfEmpty);
+        .then(pouchUtil.rejectIfEmpty);
+    }
+
+    _this.getSortedByDate = function(){
+     return _this.get()
+        .then(function(res){
+          return res.sort(function(a,b){
+            return -(new Date(a.startDate)- new Date(b.startDate));
+          });
+        })
     }
   });

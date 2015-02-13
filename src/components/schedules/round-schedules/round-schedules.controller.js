@@ -7,9 +7,10 @@ angular.module('schedules.round')
     var _this = this;
 
     _this.rounds = rounds;
+
     _this.formatDate = function(date){
       return utility.formatDate(date, "dd, MMM yyyy");
-    }
+    };
 
     _this.displayRound = null;
     _this.roundToDisplay = null;
@@ -18,7 +19,7 @@ angular.module('schedules.round')
         .then(function(res){
           _this.displayRound = res;
         });
-    }
+    };
     _this.toggleDisplay = function(roundId){
       if(roundId === _this.roundToDisplay){
         _this.roundToDisplay = null;

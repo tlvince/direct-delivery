@@ -11,7 +11,7 @@ angular.module('schedules.round')
       controllerAs: 'schedulesRoundCtrl',
       resolve: {
         rounds : function(log, scheduleRoundService){
-          return scheduleRoundService.get()
+          return scheduleRoundService.getSortedByDate()
             .catch(function(err){
               log.error(err);
               return [];

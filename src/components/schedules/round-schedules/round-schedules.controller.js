@@ -6,12 +6,11 @@ angular.module('schedules.round')
   .controller('SchedulesRoundCtrl', function(scheduleService, scheduleRoundService, rounds, utility){
     var _this = this;
 
-    _this.rounds = rounds.sort(function(a,b){
-      return (a.startDate < b.startDate);
-    });
+    _this.rounds = rounds;
+
     _this.formatDate = function(date){
       return utility.formatDate(date, "dd, MMM yyyy");
-    }
+    };
 
     _this.displayRound = null;
     _this.roundToDisplay = null;
@@ -20,7 +19,7 @@ angular.module('schedules.round')
         .then(function(res){
           _this.displayRound = res;
         });
-    }
+    };
     _this.toggleDisplay = function(roundId){
       if(roundId === _this.roundToDisplay){
         _this.roundToDisplay = null;

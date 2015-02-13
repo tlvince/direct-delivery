@@ -4,6 +4,7 @@ angular.module('home')
   .controller('HomeCtrl', function(dailySchedule, coreService, AuthService, SYNC_STATUS, $rootScope, $scope, HOME_TABS, $state) {
     var vm = this;
     var unbind = {};
+    vm.today = new Date();
     vm.dailyDelivery = {};
     vm.tabs = HOME_TABS;
     vm.syncInProgress = coreService.getSyncInProgress();

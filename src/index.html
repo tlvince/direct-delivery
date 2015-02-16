@@ -11,7 +11,6 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="../bower_components/angular-toastr/dist/angular-toastr.css" />
     <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="../bower_components/ehealth-bootstrap/default/bootstrap-ehealth.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -38,12 +37,16 @@
     <script src="../bower_components/signature_pad/signature_pad.js"></script>
     <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="../bower_components/angular-ui-router-tabs/src/ui-router-tabs.js"></script>
-    <script src="../bower_components/ng-signature-pad/dist/ng-signature-pad.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,src}) scripts/app.js -->
     <!-- inject:js -->
+    <script src="app/home/schedule/home-schedule.module.js"></script>
+    <script src="app/home/schedule/home-schedule.states.js"></script>
+    <script src="app/home/schedule/home-schedule.controller.js"></script>
+    <script src="app/home/packing/home-packing.module.js"></script>
+    <script src="app/home/packing/home-packing.states.js"></script>
     <script src="components/schedules/round-schedules/round-schedules.module.js"></script>
     <script src="components/schedules/round-schedules/schedule.round.service.js"></script>
     <script src="components/schedules/round-schedules/round-schedules.states.js"></script>
@@ -68,18 +71,21 @@
     <script src="app/packing/all/all.states.js"></script>
     <script src="app/packing/all/all.service.js"></script>
     <script src="app/packing/all/all.controller.js"></script>
-    <script src="app/home/schedule/home-schedule.module.js"></script>
-    <script src="app/home/schedule/home-schedule.states.js"></script>
-    <script src="app/home/schedule/home-schedule.controller.js"></script>
-    <script src="app/home/packing/home-packing.module.js"></script>
-    <script src="app/home/packing/home-packing.states.js"></script>
+    <script src="app/home/home.module.js"></script>
+    <script src="app/home/tabs.constant.js"></script>
+    <script src="app/home/home.states.js"></script>
+    <script src="app/home/home.controller.js"></script>
     <script src="components/utility/utility.module.js"></script>
     <script src="components/utility/utility.service.js"></script>
     <script src="components/utility/pouchdb-utility.module.js"></script>
     <script src="components/utility/pouchdb-utility.service.js"></script>
+    <script src="components/user/user.module.js"></script>
+    <script src="components/user/user.constant.js"></script>
     <script src="components/sync/sync.module.js"></script>
     <script src="components/sync/sync.service.js"></script>
     <script src="components/sync/sync.constant.js"></script>
+    <script src="components/signature/signature.module.js"></script>
+    <script src="components/signature/signature.directive.js"></script>
     <script src="components/schedules/schedules.module.js"></script>
     <script src="components/schedules/schedules.states.js"></script>
     <script src="components/schedules/schedule.service.js"></script>
@@ -104,6 +110,7 @@
     <script src="components/db/db.module.js"></script>
     <script src="components/db/db.service.js"></script>
     <script src="components/db/db.pouchdb.service.js"></script>
+    <script src="components/db/db.persist.config.js"></script>
     <script src="components/core/core.module.js"></script>
     <script src="components/core/core.service.js"></script>
     <script src="components/auth/auth.module.js"></script>
@@ -115,10 +122,6 @@
     <script src="app/login/login.states.js"></script>
     <script src="app/login/login.service.js"></script>
     <script src="app/login/login.controller.js"></script>
-    <script src="app/home/home.module.js"></script>
-    <script src="app/home/tabs.constant.js"></script>
-    <script src="app/home/home.states.js"></script>
-    <script src="app/home/home.controller.js"></script>
     <script src="app/index.module.js"></script>
     <script src="app/index.states.js"></script>
     <script src="app/index.controller.js"></script>

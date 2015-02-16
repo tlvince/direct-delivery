@@ -15,13 +15,21 @@
     <h3>Sign inside the box below, click OK to complete, then submit.</h3>
 
     <div class="delivery-signature">
-      <canvas
-        width="558"
-        height="218"
-        ng-signature-pad="signOffCtrl.signature"
-        ng-signature-pad-min-width="1.5"
-        ng-signature-pad-max-width="3.5"
-      ></canvas>
+      <div class="signature">
+        <canvas
+          width="558"
+          height="218"
+          ng-signature-pad="signOffCtrl.signature"
+          ng-signature-pad-min-width="1.5"
+          ng-signature-pad-max-width="3.5"
+          ng-if="!signOffCtrl.accepted"
+        ></canvas>
+        <img
+          ng-if="signOffCtrl.accepted"
+          ng-src="{{signOffCtrl.signature.toDataURL()}}"
+          alt="Delivery signature"
+        />
+      </div>
       <div>
         <button
           type="button"

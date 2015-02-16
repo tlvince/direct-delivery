@@ -1,6 +1,9 @@
 .delivery-signature {
-  canvas {
-    border: 1px solid #000;
+  .signature {
+    min-height: 225px;
+    canvas, img {
+      border: 1px solid #000;
+    }
   }
   margin-bottom: 20px;
 }

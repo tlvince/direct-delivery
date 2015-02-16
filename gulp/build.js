@@ -96,7 +96,9 @@ gulp.task('html', ['wiredep', 'injector:css', 'injector:js', 'partials'], functi
     .pipe($.rev())
     .pipe(jsFilter)
     .pipe($.ngAnnotate())
-    .pipe($.uglify({preserveComments: $.uglifySaveLicense}))
+    // TODO: restore JS minification after
+    // https://github.com/Swiip/generator-gulp-angular/issues/342
+    // .pipe($.uglify({preserveComments: $.uglifySaveLicense}))
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
     .pipe($.replace('bower_components/bootstrap-sass-official/assets/fonts/bootstrap', 'fonts'))

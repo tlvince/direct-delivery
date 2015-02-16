@@ -39,6 +39,16 @@ angular.module('delivery')
 
     _this.calcQty = function (packedProduct) {
       var res = {};
+      if(!angular.isNumber(packedProduct.expectedQty)){
+        packedProduct.expectedQty = 0;
+      }
+      if(!angular.isNumber(packedProduct.onHandQty)){
+        packedProduct.onHandQty = 0;
+      }
+      if(!angular.isNumber(packedProduct.presentation)){
+        packedProduct.presentation = 1;
+      }
+
       var deliveredQty = (packedProduct.expectedQty - packedProduct.onHandQty);
       var returnedQty = (packedProduct.onHandQty - packedProduct.expectedQty);
       res.deliveredQty = deliveredQty;

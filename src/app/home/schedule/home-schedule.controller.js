@@ -11,7 +11,7 @@ angular.module('home.schedule')
     }
 
     vm.showScheduleTable = function(){
-      return (vm.day && vm.day.facilityRounds && vm.day.facilityRounds.length > 0);
+      return (vm.day && angular.isArray(vm.day.facilityRounds) && vm.day.facilityRounds.length > 0);
     };
 
     $scope.$on('$destroy', removeListener);

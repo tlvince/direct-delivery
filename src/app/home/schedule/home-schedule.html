@@ -1,11 +1,11 @@
-<div ng-if="!homeScheduleCtrl.day">
+<div ng-if="!homeScheduleCtrl.showScheduleTable()">
   <div class="alert alert-info">
     <i class="fa fa-info-circle"></i>
     <span>There are no scheduled deliveries today.</span>
   </div>
 </div>
 
-<div ng-if="homeScheduleCtrl.day">
+<div ng-if="homeScheduleCtrl.showScheduleTable()">
   <table class="table table-striped table-bordered table-tabbed">
     <thead>
       <tr>

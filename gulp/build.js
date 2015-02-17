@@ -2,9 +2,15 @@
 
 var fs = require('fs');
 var gulp = require('gulp');
+var gutil = require('gulp-util');
+var through = require('through2');
+var semver = require('semver');
 var bump = require('gulp-bump');
 var ngConfig = require('ng-config');
 var favicons = require('favicons');
+var async = require('async');
+var cordova = require('cordova');
+var argv = require('optimist').argv;
 
 var config = require('../config');
 
@@ -159,10 +165,63 @@ gulp.task('config', function() {
   return fs.writeFileSync('src/app/config.js', ngconf);
 });
 
-gulp.task('bump', function(){
-  gulp.src(['./bower.json', './package.json'])
-    .pipe(bump())
-    .pipe(gulp.dest('./'));
+gulp.task('bump', function(done) {
+  var newVer = semver.inc(config.config.version, 'patch');
+
+  async.series([
+    function(cb) {
+      gulp.src(['./bower.json', './package.json'])
+        .pipe($.bump({version: newVer}))
+        .pipe(gulp.dest('./'))
+        .on('end', cb)
+        .on('error', cb);
+    },
+    function(cb) {
+      gulp.src(['./cordova/config.xml'])
+        .pipe(through.obj(function(file, enc, cb) {
+          var contents = file.contents.toString().replace(/version="[\d\.]*"/, 'version="' + newVer + '"');
+          file.contents = new Buffer(contents);
+          gutil.log('Bumped ' + gutil.colors.magenta('./cordova/config.xml:version') + ' to: ' + gutil.colors.cyan(newVer));
+          cb(null, file);
+        }))
+        .pipe(gulp.dest('./cordova'))
+        .on('end', cb)
+        .on('error', cb);
+    }
+  ], done);
+});
+
+/**
+ * Accepted parameters:
+ *   --release : build release apk (default is debug apk)
+ */
+gulp.task('cordova', function(done) {
+  process.chdir('./cordova');
+
+  async.series([
+    function(cb) {
+      $.del(['./www', './platforms', './plugins'], cb);
+    },
+    function(cb) {
+      gulp.src(['../dist/**'], {base: '../dist'})
+        .pipe(gulp.dest('./www'))
+        .on('end', cb)
+        .on('error', cb);
+    },
+    function(cb) {
+      cordova.platform('add', 'android', cb);
+    },
+    function(cb) {
+      var options = [];
+      if (argv.release === true)
+        options.push('--release');
+
+      cordova.build({options: options}, cb);
+    }
+  ], function(err) {
+    process.chdir('..');
+    done(err);
+  });
 });
 
 gulp.task('build', ['config', 'html', 'images', 'fonts', 'favicons']);

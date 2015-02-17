@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('home')
-  .controller('HomeCtrl', function(dailySchedule, coreService, AuthService, SYNC_STATUS, $rootScope, $scope, HOME_TABS, $state) {
+  .controller('HomeCtrl', function(dailySchedule, coreService, AuthService, SYNC_STATUS, $rootScope, $scope, HOME_TABS) {
     var vm = this;
     var unbind = {};
     vm.today = new Date();
@@ -20,7 +20,9 @@ angular.module('home')
 
     function init(){
       vm.dailyDelivery = dailySchedule;
-      addSyncListeners();
+      if(Object.keys(unbind).length === 0){
+        addSyncListeners();
+      }
     }
 
     init();

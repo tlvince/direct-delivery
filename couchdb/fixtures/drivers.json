@@ -1,12 +1,12 @@
 {
   "docs": [
     {
-      "_id": "abdullahi.ahmed@example.com",
+      "_id": "a@a.com",
       "doc_type": "driver",
       "version": "1.0.0",
       "forename": "Adbullahi",
       "surname": "Ahmed",
-      "email": "adbullahi.ahmed@example.com",
+      "email": "a@a.com",
       "phone": "08176675140"
     }
   ]

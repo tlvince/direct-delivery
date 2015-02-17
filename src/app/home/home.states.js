@@ -11,7 +11,7 @@ angular.module('home')
       resolve: {
         dailySchedule: function(log, scheduleService) {
           function errorHandler(error) {
-            log.error('dailyScheduleRetrival', error);
+            log.info('dailyScheduleRetrival', error);
             return {};
           }
           return scheduleService.getDaySchedule()

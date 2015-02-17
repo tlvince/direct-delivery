@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('navbar')
-  .controller('NavbarCtrl', function($state, config, navbarService, AuthService) {
+  .controller('NavbarCtrl', function(navbarService, AuthService) {
     this.auth = AuthService;
-    this.name = config.name;
     this.items = navbarService.get();
   });

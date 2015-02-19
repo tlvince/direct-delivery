@@ -20,12 +20,17 @@
 2. `git clone https://github.com/eHealthAfrica/direct-delivery.git`
 3. `cd direct-delivery && npm install; bower install`
 4. `gulp fixtures views`
-5. `couchdb & gulp serve`
-6. `open http://localhost:3000`
+5. `couchdb`
+6. `gulp serve`
+7. `open http://localhost:3000`
 
 [Node.js]: http://nodejs.org
 [Git]: http://git-scm.com
 [CouchDB]: https://couchdb.apache.org
+
+## Documentation
+
+See [docs][] for further documentation.
 
 ## Author
 

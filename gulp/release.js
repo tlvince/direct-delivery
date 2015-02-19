@@ -7,7 +7,7 @@ var gulp = require('gulp');
 var manifests = [
   'package.json',
   'bower.json',
-  'config.xml'
+  'cordova/config.xml'
 ];
 
 function getVersion(cb) {

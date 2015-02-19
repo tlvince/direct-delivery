@@ -159,5 +159,3 @@ gulp.task('config', function() {
 });
 
 gulp.task('build', ['config', 'html', 'images', 'fonts', 'favicons']);
-
-gulp.task('bump', $.cordovaBump);

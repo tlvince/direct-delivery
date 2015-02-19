@@ -6,12 +6,12 @@ Create a new release via:
 
 1. Increment the build version:
 
-    gulp release [--major|--minor|--patch]
+        gulp release [--major|--minor|--patch]
 
 2. Build the Android app:
 
-    gulp build
+        gulp build
 
 3. Build the Cordova app:
 
-    gulp cordova
+        gulp cordova

@@ -11,20 +11,21 @@ var manifests = [
 ];
 
 function getVersion(cb) {
-  fs.readFile('./package.json', 'utf-8', function(err, file) {
+  function done(err, file) {
     if (err) {
       throw err;
     }
-    file = JSON.parse(file).version;
-    cb(file);
-  });
+    var version = JSON.parse(file).version;
+    cb(version);
+  }
+  fs.readFile('package.json', 'utf-8', done);
 }
 
 function tag(version, cb) {
-  version = version || '';
-  $.git.tag('v' + version, 'Version ' + version, function(err) {
+  function done(err) {
     cb(err);
-  });
+  }
+  $.git.tag('v' + version, 'Version ' + version, done);
 }
 
 function commit(version, cb) {

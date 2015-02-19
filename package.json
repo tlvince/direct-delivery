@@ -22,7 +22,7 @@
     "gulp-angular-filesort": "^1.0.4",
     "gulp-angular-templatecache": "~1.4.2",
     "gulp-autoprefixer": "~2.0.0",
-    "gulp-cordova-bump": "^1.2.1",
+    "gulp-cordova-bump": "file:../../../../../../var/folders/_n/vc1rw4250cbb96q5pfkflndw0000gn/T/npm-65387-9ab87e54/git-cache-5f7cfddb0b6e/6a261c9a96c6f1c78dd4531337f1c499fe59dbb6",
     "gulp-csso": "~0.2.9",
     "gulp-filter": "~1.0.2",
     "gulp-flatten": "~0.0.4",

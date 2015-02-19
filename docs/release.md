@@ -1,12 +1,12 @@
-# Build
+# Release
 
 Direct Delivery is an Angular app, packaged as an Android app via Cordova.
 
-Create a new build via:
+Create a new release via:
 
 1. Increment the build version:
 
-    gulp bump [--major|--minor|--patch]
+    gulp release [--major|--minor|--patch]
 
 2. Build the Android app:
 

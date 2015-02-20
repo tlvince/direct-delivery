@@ -7,7 +7,6 @@
   <author email="support@ehealthafrica.org" href="http://ehealthafrica.org">
     eHealth Africa
   </author>
-  <icon src="res/icon.png"/>
   <content src="index.html"/>
   <access origin="http://localhost:5984/*"/>
   <access origin="https://dev-db.ehealth.org.ng/*"/>

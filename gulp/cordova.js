@@ -6,6 +6,7 @@ var argv = require('optimist').argv;
 var gulp = require('gulp');
 var async = require('async');
 var cordova = require('cordova');
+var cordovaIcon = require('cordova-icon');
 
 /**
  * Accepted parameters:
@@ -27,7 +28,15 @@ gulp.task('cordova', function(done) {
       fs.symlink('../dist', 'www', cb);
     },
     function(cb) {
+      fs.symlink('../src/assets/images/app-direct-delivery-2048.png', 'icon.png', cb);
+    },
+    function(cb) {
       cordova.platform('add', 'android', cb);
+    },
+    function(cb) {
+      cordovaIcon.generate()
+        .then(cb)
+        .catch(cb);
     },
     function(cb) {
       var options = [];

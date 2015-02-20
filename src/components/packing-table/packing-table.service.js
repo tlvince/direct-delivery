@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('packingTable')
-  .service('packingTableService', function($state, log, user, dbService) {
+  .service('packingTableService', function($state, log, dbService) {
     this.get = function(dailyDeliveryID) {
       return dbService.get(dailyDeliveryID);
     };

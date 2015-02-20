@@ -13,10 +13,6 @@ describe('NavbarCtrl', function() {
     navbarItemsMock = _navbarItemsMock_;
   }));
 
-  it('should expose the application name', function() {
-    expect(NavbarCtrl.name).toBe('test');
-  });
-
   it('should expose a list of navbar items', function() {
     expect(NavbarCtrl.items).toEqual(navbarItemsMock);
   });

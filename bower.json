@@ -16,7 +16,8 @@
     "signature_pad": "~1.3.4",
     "angular-bootstrap": "~0.12.0",
     "angular-ui-router-tabs": "~1.2.0",
-    "ng-signature-pad": "https://github.com/tlvince/ng-signature-pad.git#dafee158bc37a664c6d70feb8994201d230dccc6"
+    "ng-signature-pad": "https://github.com/tlvince/ng-signature-pad.git#dafee158bc37a664c6d70feb8994201d230dccc6",
+    "ehealth-bootstrap": "https://github.com/eHealthAfrica/ehealth-bootstrap.git#0.0.5"
   },
   "devDependencies": {
     "angular-mocks": "~1.3.4",

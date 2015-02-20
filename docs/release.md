@@ -10,7 +10,7 @@ Create a new release via:
 
 2. Build the Android app:
 
-        gulp build
+        NODE_ENV=[stage|production] gulp build
 
 3. Build the Cordova app:
 

@@ -1,9 +1,5 @@
-<?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ehealthafrica.direct_delivery"
-        version="1.0.1"
-        xmlns="http://www.w3.org/ns/widgets"
-        xmlns:cdv="http://cordova.apache.org/ns/1.0"
-  >
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.ehealthafrica.direct_delivery" version="1.0.1">
   <name>Direct Delivery</name>
   <description>
     User-centred direct delivery management.
@@ -11,7 +7,7 @@
   <author email="support@ehealthafrica.org" href="http://ehealthafrica.org">
     eHealth Africa
   </author>
-  <icon src="res/icon.png" />
+  <icon src="res/icon.png"/>
   <content src="index.html"/>
   <access origin="*"/>
 </widget>

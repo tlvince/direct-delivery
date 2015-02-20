@@ -1,6 +1,3 @@
-plugins:
-  - angular
-  - jasmine
 rules:
   quotes:
     - 2

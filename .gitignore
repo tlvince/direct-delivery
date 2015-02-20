@@ -13,3 +13,4 @@ README.html
 cordova/www
 cordova/platforms
 cordova/plugins
+docs/*.html

@@ -1,2 +1,5 @@
 globals:
   angular: false
+plugins:
+  - angular
+  - jasmine

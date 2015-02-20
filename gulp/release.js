@@ -22,10 +22,7 @@ function getVersion(cb) {
 }
 
 function tag(version, cb) {
-  function done(err) {
-    cb(err);
-  }
-  $.git.tag('v' + version, 'Version ' + version, done);
+  $.git.tag('v' + version, 'Version ' + version, cb);
 }
 
 function commit(version, cb) {

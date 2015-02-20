@@ -3,7 +3,6 @@
 var fs = require('fs');
 var gulp = require('gulp');
 var ngConfig = require('ng-config');
-var favicons = require('favicons');
 
 var config = require('../config');
 
@@ -137,15 +136,6 @@ gulp.task('fonts', function () {
     .pipe(gulp.dest('dist/fonts/'));
 });
 
-gulp.task('favicons', function () {
-  return favicons({
-    source: 'src/assets/images/icon.png',
-    dest: 'dist',
-    background: '#FFF',
-    url: ''
-  });
-});
-
 gulp.task('clean', function(done) {
   $.del(['dist/', '.tmp/'], done);
 });
@@ -158,4 +148,4 @@ gulp.task('config', function() {
   return fs.writeFileSync('src/app/config.js', ngconf);
 });
 
-gulp.task('build', ['config', 'html', 'images', 'fonts', 'favicons']);
+gulp.task('build', ['config', 'html', 'images', 'fonts']);

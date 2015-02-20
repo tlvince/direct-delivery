@@ -1,7 +1,9 @@
 'use strict';
 angular.module('packingAllServiceMock', [])
-  .constant('user', {
-    email: ''
+  .constant('AuthService', {
+    currentUser: {
+      name: ''
+    }
   })
   .service('dbService', function($q) {
     var mockPackingList = {

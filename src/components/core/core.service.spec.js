@@ -13,7 +13,7 @@ describe('coreService', function(){
     '_design/product-storages'
   ];
 
-  beforeEach(module('core', 'log', 'sync', 'utility', 'schedules', 'user', 'auth'));
+  beforeEach(module('core', 'log', 'sync', 'utility', 'schedules', 'auth'));
 
   beforeEach(inject(function(_coreService_, _syncService_, _utility_){
     coreService = _coreService_;

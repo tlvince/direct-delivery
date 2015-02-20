@@ -22,6 +22,7 @@ the [Keep a CHANGELOG][keep-a-changelog] format.
 
 - Unused (mock) authentication service
 - Unused pouch-persist artefacts and other dead code
+- Favicon generation (we're targeting Cordova)
 
 ## [1.0.1] - 2015-02-17
 

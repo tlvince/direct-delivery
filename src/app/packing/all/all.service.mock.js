@@ -5,7 +5,6 @@ angular.module('packingAllServiceMock', [])
       name: ''
     }
   })
-  .service('')
   .service('dbService', function($q) {
     var mockPackingList = {
       rows: [

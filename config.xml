@@ -1,1 +1,15 @@
-cordova/config.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.ehealthafrica.direct_delivery" version="1.0.1">
+  <name>Direct Delivery</name>
+  <description>
+    User-centred direct delivery management.
+  </description>
+  <author email="support@ehealthafrica.org" href="http://ehealthafrica.org">
+    eHealth Africa
+  </author>
+  <icon src="res/icon.png"/>
+  <content src="index.html"/>
+  <access origin="http://localhost:5984/*"/>
+  <access origin="https://dev-db.ehealth.org.ng/*"/>
+  <access origin="https://db.ehealth.org.ng/*"/>
+</widget>

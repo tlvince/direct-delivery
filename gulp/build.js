@@ -140,12 +140,15 @@ gulp.task('clean', function(done) {
   $.del(['dist/', '.tmp/'], done);
 });
 
-gulp.task('config', function() {
+gulp.task('config', function(done) {
   var options = {
     constants: config
   };
   var ngconf = ngConfig(options);
-  return fs.writeFileSync('src/app/config.js', ngconf);
+  function finish(err) {
+    done(err);
+  }
+  fs.writeFile('src/app/config.js', ngconf, finish);
 });
 
 gulp.task('build', ['config', 'html', 'images', 'fonts']);

@@ -8,6 +8,7 @@ the [Keep a CHANGELOG][keep-a-changelog] format.
 ### Added
 
 - eHealth Bootstrap theme
+- New application icon
 
 ### Changed
 

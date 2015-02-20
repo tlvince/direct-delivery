@@ -24,6 +24,10 @@ the [Keep a CHANGELOG][keep-a-changelog] format.
 - Unused pouch-persist artefacts and other dead code
 - Favicon generation (we're targeting Cordova)
 
+### Security
+
+- Restrict Cordova access to required DB endpoints
+
 ## [1.0.1] - 2015-02-17
 
 ### Added

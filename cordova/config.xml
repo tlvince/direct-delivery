@@ -9,5 +9,7 @@
   </author>
   <icon src="res/icon.png"/>
   <content src="index.html"/>
-  <access origin="*"/>
+  <access origin="http://localhost:5984/*"/>
+  <access origin="https://dev-db.ehealth.org.ng/*"/>
+  <access origin="https://db.ehealth.org.ng/*"/>
 </widget>

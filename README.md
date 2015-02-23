@@ -31,7 +31,7 @@
 
 ## Documentation
 
-See [docs][] for further documentation.
+See [docs](docs) for further documentation.
 
 ## Author
 

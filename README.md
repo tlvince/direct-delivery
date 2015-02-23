@@ -15,7 +15,7 @@
 
 ## Usage
 
-0. Install [Node.js][], [Git][] and [CouchDB][]
+0. Install [Node.js][], [Git][], [CouchDB][] and [ImageMagick][]
 1. `npm install -g gulp bower`
 2. `git clone https://github.com/eHealthAfrica/direct-delivery.git`
 3. `cd direct-delivery && npm install; bower install`
@@ -27,6 +27,7 @@
 [Node.js]: http://nodejs.org
 [Git]: http://git-scm.com
 [CouchDB]: https://couchdb.apache.org
+[ImageMagick]: http://imagemagick.org
 
 ## Documentation
 

@@ -13,7 +13,7 @@
 
 > User-centred direct delivery management system
 
-## Usage
+## Quick start
 
 0. Install [Node.js][], [Git][], [CouchDB][] and [ImageMagick][]
 1. `npm install -g gulp bower`

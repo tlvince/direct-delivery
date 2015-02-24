@@ -89,7 +89,7 @@ gulp.task('cordova-build', function(done) {
   async.series(steps, finish);
 });
 
-gulp.task('cordova-move', [], function(done) {
+gulp.task('cordova-move', ['cordova-build'], function(done) {
   function formatAPKPaths(pkg, cb) {
     var apkPath = {
       from: '../cordova/platforms/android/ant-build/CordovaApp',
@@ -97,10 +97,10 @@ gulp.task('cordova-move', [], function(done) {
     };
     if (argv.release || common.build.release) {
       apkPath.from += '-release.apk';
-      apkPath.to += '-v' + pkg.version + '-release.apk';
+      apkPath.to += '-v' + pkg.version + '.apk';
     } else {
       apkPath.from += '-debug.apk';
-      apkPath.to += '-' + common.now() + '-snapshot.apk';
+      apkPath.to += '-' + common.now() + '.apk';
     }
     cb(null, apkPath);
   }

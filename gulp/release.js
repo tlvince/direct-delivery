@@ -7,7 +7,7 @@ var gulp = require('gulp');
 var manifests = [
   'package.json',
   'bower.json',
-  'cordova/config.xml'
+  'config.xml'
 ];
 
 function getVersion(cb) {
@@ -22,10 +22,7 @@ function getVersion(cb) {
 }
 
 function tag(version, cb) {
-  function done(err) {
-    cb(err);
-  }
-  $.git.tag('v' + version, 'Version ' + version, done);
+  $.git.tag('v' + version, 'Version ' + version, cb);
 }
 
 function commit(version, cb) {

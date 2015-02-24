@@ -1,9 +1,10 @@
 'use strict';
+/*eslint-env node */
 
 var gulp = require('gulp');
 
 require('require-dir')('./gulp');
 
-gulp.task('default', ['clean'], function () {
-    gulp.start('build');
+gulp.task('default', ['clean'], function() {
+  gulp.start('build');
 });

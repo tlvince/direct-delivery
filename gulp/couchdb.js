@@ -10,15 +10,12 @@ var argv = require('optimist').argv;
 var config = require('../config');
 var fixtures = require('../couchdb/fixtures');
 
-// prepare db url and add auth to it if specified as arguments
-// arguments: -u <user name> -p <password>
-//
-var dbUrl = url.parse(config.config.db + '/_bulk_docs');
-if (argv.u && argv.p) {
-  dbUrl.auth = argv.u + ':' + argv.p;
-}
-dbUrl = url.format(dbUrl);
-
+/**
+ * Respects the following command-line arguments:
+ *
+ * `-u`: database username
+ * `-p`: database password
+ */
 function push(docs) {
   var body = JSON.stringify({
     docs: docs,
@@ -33,6 +30,13 @@ function push(docs) {
       'Content-Type': 'application/json'
     }
   };
+
+  // prepare db url and add auth to it if specified as arguments
+  var dbUrl = url.parse(config.get().config.db + '/_bulk_docs');
+  if (argv.u && argv.p) {
+    dbUrl.auth = argv.u + ':' + argv.p;
+  }
+  dbUrl = url.format(dbUrl);
 
   return got.post(dbUrl, options, function(err, data) {
     if (err) {

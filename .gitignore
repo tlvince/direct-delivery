@@ -14,4 +14,5 @@ cordova
 docs/*.html
 .android
 !.android/release-files.tar.enc
+!.android/README.md
 build

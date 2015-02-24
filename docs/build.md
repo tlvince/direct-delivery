@@ -1,4 +1,4 @@
-# Release
+# Build
 
 Direct Delivery is an Angular app, packaged as an Android app via Cordova.
 
@@ -6,7 +6,23 @@ We currently have two build types: *debug* and *release*. Debug builds are
 unsigned and suitable for testing. Release builds are signed and ready for
 distribution.
 
-## Debug
+Our continuous integration server (TravisCI) automates our Android builds on
+the following conditions:
+
+* Pushes to `develop` produce *debug* builds
+* New tags produce *release* builds
+
+All other triggers (pull requests, other branches) are ignored.
+
+Resulting APKs are deployed to Amazon S3 and can be browsed at:
+<https://shrub.appspot.com/direct-delivery/>
+
+## Manual
+
+APKs can be built manually via the following. Resulting files can be found in
+`build`.
+
+### Debug
 
 Create a debug build via:
 
@@ -22,7 +38,7 @@ Create a debug build via:
 
         gulp cordova
 
-## Release
+### Release
 
 Create a release build via:
 

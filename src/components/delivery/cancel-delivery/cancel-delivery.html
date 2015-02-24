@@ -88,8 +88,13 @@
         </div>
         <textarea ng-model="cancelDevCtrl.facRnd.cancelReport.note"
                   class="form-control" rows="3"
-                  placeholder="add reason for unavailable health facility and others.">
+                  placeholder="add reason for failed or canceled others.">
         </textarea>
+        <span class="help-block alert alert-danger"
+              ng-if="skipForm.$submitted && cancelDevCtrl.isOthersAndInvalid()">
+          Please, enter comment for <span ng-bind="cancelDevCtrl.facRnd.status"></span>
+        </span>
+
       </div>
 
       <button type="submit" class="btn btn-primary btn-lg btn-block">

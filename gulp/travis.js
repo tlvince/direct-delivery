@@ -19,7 +19,7 @@ function isTravis(cb) {
 
 function isPullRequest(cb) {
   var err;
-  if (process.env.TRAVIS_PULL_REQUEST) {
+  if (process.env.TRAVIS_PULL_REQUEST !== 'false') {
     var msg = [
       'This job was triggered by a pull request',
       'Builds are disabled in pull requests for security reasons'

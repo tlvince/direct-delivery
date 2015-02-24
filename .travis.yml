@@ -31,6 +31,7 @@ deploy:
     bucket: direct-delivery
     local-dir: build
     upload-dir: snapshots
+    skip_cleanup: true
     acl: public_read
     region: eu-west-1
     on:
@@ -44,6 +45,7 @@ deploy:
     bucket: direct-delivery
     local-dir: build
     upload-dir: releases
+    skip_cleanup: true
     acl: public_read
     region: eu-west-1
     on:

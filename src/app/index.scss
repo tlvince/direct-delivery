@@ -33,6 +33,13 @@
   border: 0;
 }
 
+// We're targeting mobile devices where keyboard navigation is rare. Therefore,
+// improve UI consistency by removing unsightly outlines (often bright orange on
+// Android) at a potential accessibility cost
+:focus {
+  outline: none !important;
+}
+
 // injector
 @import '../components/navbar/navbar.scss';
 @import '../components/packing-table/legend.scss';

@@ -32,7 +32,6 @@ deploy:
     local-dir: build
     upload-dir: snapshots
     skip_cleanup: true
-    acl: public_read
     region: eu-west-1
     on:
       repo: eHealthAfrica/direct-delivery
@@ -46,7 +45,6 @@ deploy:
     local-dir: build
     upload-dir: releases
     skip_cleanup: true
-    acl: public_read
     region: eu-west-1
     on:
       repo: eHealthAfrica/direct-delivery

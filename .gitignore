@@ -12,3 +12,6 @@ npm-debug.log
 README.html
 cordova
 docs/*.html
+.android
+!.android/release-files.tar.enc
+build

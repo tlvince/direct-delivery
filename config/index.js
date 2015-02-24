@@ -1,10 +1,10 @@
 'use strict';
 /*eslint-env node */
 
-var pkg = require('../package.json');
 var extend = require('extend');
 
-var env = process.env.NODE_ENV || 'development';
+var pkg = require('../package.json');
+var common = require('../gulp/common');
 
 var defaults = {
   config: {
@@ -25,8 +25,9 @@ var defaults = {
   }
 };
 
-var config = {
-  config: require('./' + env + '.json')
+exports.get = function() {
+  var config = {
+    config: require('./' + common.build.env + '.json')
+  };
+  return extend(true, {}, defaults, config);
 };
-
-module.exports = extend(true, {}, defaults, config);

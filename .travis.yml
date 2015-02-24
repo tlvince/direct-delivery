@@ -1,5 +1,8 @@
 sudo: false
-language: node_js
+language: android
+android:
+  components:
+    - android-19
 node_js:
   - '0.10'
 cache:
@@ -11,3 +14,35 @@ after_script:
 notifications:
   flowdock:
     secure: rVJ5bSorZpx6hz446jMJfu3WnsIZvSTHic1y86EZpI7ORfHtXZLdinI6g7sRIJQC1guvTbWybbVEdHCHQ1wo2AjnbCokfO0PXpOZssuwgyc5ENuO3OWBX5ofse00Ay+RVqyNQCwArUqmz3jPZXGnjTpf6k3jNHq+C2JH7dWbrzM=
+before_deploy:
+  - openssl aes-256-cbc -K $encrypted_58e65602cde7_key -iv $encrypted_58e65602cde7_iv -in .android/release-files.tar.enc -out .android/release-files.tar -d
+  - tar xvf .android/release-files.tar -C .android
+  - npm run build
+deploy:
+  # snapshots
+  - provider: s3
+    access_key_id: AKIAJXDO23Q7E5IUPWIA
+    secret_access_key:
+      secure: ztvqjSNbeDqy67BwrWCxE9MhSMtyUhH+vYgyR+s92LzuyDxe7jl8Zzn6a61lMGIRLTOGaLA8zUjfp7WRmJTHwaAhX1zea0Xd75DwHzdVz8I4+COcFV7tXX+rHp8EtuiSBy54OwuXmgvDcjsaqR+ydi2Dz3RjCNAYA1sbDz9r5PM=
+    bucket: direct-delivery
+    local-dir: build
+    upload-dir: snapshots
+    acl: public_read
+    region: eu-west-1
+    on:
+      repo: eHealthAfrica/direct-delivery
+      branch: develop
+  # releases
+  - provider: s3
+    access_key_id: AKIAJXDO23Q7E5IUPWIA
+    secret_access_key:
+      secure: ztvqjSNbeDqy67BwrWCxE9MhSMtyUhH+vYgyR+s92LzuyDxe7jl8Zzn6a61lMGIRLTOGaLA8zUjfp7WRmJTHwaAhX1zea0Xd75DwHzdVz8I4+COcFV7tXX+rHp8EtuiSBy54OwuXmgvDcjsaqR+ydi2Dz3RjCNAYA1sbDz9r5PM=
+    bucket: direct-delivery
+    local-dir: build
+    upload-dir: releases
+    acl: public_read
+    region: eu-west-1
+    on:
+      repo: eHealthAfrica/direct-delivery
+      tags: true
+      all_branches: true

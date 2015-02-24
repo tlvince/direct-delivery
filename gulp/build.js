@@ -142,13 +142,10 @@ gulp.task('clean', function(done) {
 
 gulp.task('config', function(done) {
   var options = {
-    constants: config
+    constants: config.get()
   };
   var ngconf = ngConfig(options);
-  function finish(err) {
-    done(err);
-  }
-  fs.writeFile('src/app/config.js', ngconf, finish);
+  fs.writeFile('src/app/config.js', ngconf, done);
 });
 
 gulp.task('build', ['config', 'html', 'images', 'fonts']);

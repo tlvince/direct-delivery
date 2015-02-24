@@ -4,22 +4,13 @@ var $ = require('gulp-load-plugins')();
 var fs = require('fs');
 var gulp = require('gulp');
 
+var common = require('./common');
+
 var manifests = [
   'package.json',
   'bower.json',
   'config.xml'
 ];
-
-function getVersion(cb) {
-  function done(err, file) {
-    if (err) {
-      throw err;
-    }
-    var version = JSON.parse(file).version;
-    cb(version);
-  }
-  fs.readFile('package.json', 'utf-8', done);
-}
 
 function tag(version, cb) {
   $.git.tag('v' + version, 'Version ' + version, cb);
@@ -42,8 +33,11 @@ gulp.task('release', ['bump'], function(done) {
   function thenTag(version) {
     tag(version, done);
   }
-  function thenCommit(version) {
-    commit(version, thenTag);
+  function thenCommit(err, pkg) {
+    if (err) {
+      done(err);
+    }
+    commit(pkg.version, thenTag);
   }
-  getVersion(thenCommit);
+  common.packageJSON(thenCommit);
 });

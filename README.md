@@ -35,4 +35,4 @@ See [docs](docs) for further documentation.
 
 ## Author
 
-© 2014 [eHealth Systems Africa](http://ehealthafrica.org)
+© 2015 [eHealth Systems Africa](http://ehealthafrica.org)

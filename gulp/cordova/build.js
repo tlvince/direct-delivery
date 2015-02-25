@@ -52,20 +52,34 @@ function generateIcons(cb) {
     .catch(cb);
 }
 
-function symlinkBuildProperties(cb) {
-  fs.symlink('../../../.android/ant.properties', 'platforms/android/ant.properties', cb);
-}
+function symlinkReleaseFiles(done) {
+  var base = '../../../.android';
 
-function symlinkKeystore(cb) {
-  fs.symlink('../../../.android/ehealth.keystore', 'platforms/android/ehealth.keystore', cb);
+  function symlinkBuildProperties(cb) {
+    fs.symlink(base + '/ant.properties', 'platforms/android/ant.properties', cb);
+  }
+
+  function symlinkKeystore(cb) {
+    fs.symlink(base + '/ehealth.keystore', 'platforms/android/ehealth.keystore', cb);
+  }
+
+  var steps = [
+    symlinkBuildProperties,
+    symlinkKeystore
+  ];
+
+  gutil.log('Symlinking release files');
+  async.parallel(steps, done);
 }
 
 function cordovaReleaseBuild(cb) {
   var options = ['--release'];
+  gutil.log('Running Cordova release build');
   cordova.build({options: options}, cb);
 }
 
 function cordovaDebugBuild(cb) {
+  gutil.log('Running Cordova debug build');
   cordova.build(cb);
 }
 
@@ -113,8 +127,7 @@ function cordovaBuild(done) {
     generateIcons
   ];
   var release = [
-    symlinkBuildProperties,
-    symlinkKeystore,
+    symlinkReleaseFiles,
     cordovaReleaseBuild
   ];
   if (argv.release || common.build.release) {

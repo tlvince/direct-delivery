@@ -16,6 +16,17 @@ var ROOT = process.cwd();
 // paths henceforth are relative to this directory.
 var CORDOVA_ROOT = 'cordova';
 
+function chdir(path, cb) {
+  var err;
+  try {
+    process.chdir(path);
+    gutil.log('Working directory changed to', process.cwd());
+  } catch (e) {
+    err = e;
+  }
+  cb(err);
+}
+
 function clean(done) {
   function rmrf(cb) {
     del(CORDOVA_ROOT, cb);
@@ -23,20 +34,13 @@ function clean(done) {
   function mkdir(cb) {
     fs.mkdir(CORDOVA_ROOT, cb);
   }
-  function chdir(cb) {
-    var err;
-    try {
-      process.chdir(CORDOVA_ROOT);
-      gutil.log('Working directory changed to', process.cwd());
-    } catch (e) {
-      err = e;
-    }
-    cb(err);
+  function chdirCordova(cb) {
+    chdir(CORDOVA_ROOT, cb);
   }
   var steps = [
     rmrf,
     mkdir,
-    chdir
+    chdirCordova
   ];
   async.series(steps, done);
 }
@@ -56,11 +60,13 @@ function symlinkReleaseFiles(done) {
   var base = '../../../.android';
 
   function symlinkBuildProperties(cb) {
-    fs.symlink(base + '/ant.properties', 'platforms/android/ant.properties', cb);
+    fs.symlink(
+      base + '/ant.properties', 'platforms/android/ant.properties', cb);
   }
 
   function symlinkKeystore(cb) {
-    fs.symlink(base + '/ehealth.keystore', 'platforms/android/ehealth.keystore', cb);
+    fs.symlink(
+      base + '/ehealth.keystore', 'platforms/android/ehealth.keystore', cb);
   }
 
   var steps = [
@@ -117,8 +123,10 @@ function symlinkCordovaResources(done) {
  */
 function cordovaBuild(done) {
   function finish(err) {
-    process.chdir(ROOT);
-    done(err);
+    if (err) {
+      done(err);
+    }
+    chdir(ROOT, done);
   }
   var steps = [
     clean,

@@ -14,6 +14,15 @@ Install [Node.js][], [Git][], [CouchDB][] and [ImageMagick][].
 [ImageMagick]: http://imagemagick.org
 [Homebrew]: http://brew.sh
 
+## npm
+
+We currently target Node v0.10, but our dependencies require a newer version
+(v2.x) of `npm` than the bundled version (v1.x).
+
+The upstream-recommended way to update `npm` is:
+
+    npm install -g npm@latest
+
 ## Android
 
 To be able to manually produce Android builds, you need to set up the Android

@@ -33,17 +33,11 @@
       <div>
         <button
           type="button"
-          class="btn btn-lg"
-          ng-class="signOffCtrl.accepted && 'btn-default' || 'btn-primary'"
-          ng-click="signOffCtrl.accept()"
+          class="btn btn-lg btn-default"
+          ng-click="signOffCtrl.signature.clear()"
         >
-          <i
-            class="fa"
-            ng-class="signOffCtrl.accepted && 'fa-refresh' || 'fa-thumbs-up'"
-          ></i>
-          <span
-            ng-bind="signOffCtrl.accepted && 'Clear' || 'OK'"
-          ></span>
+          <i class="fa fa-refresh"></i>
+          <span>Clear</span>
         </button>
       </div>
     </div>
@@ -52,9 +46,8 @@
       type="button"
       class="btn btn-success btn-lg btn-block"
       ng-click="signOffCtrl.submit()"
-      ng-disabled="!signOffCtrl.accepted"
     >
-      <span>Submit</span>
+      <span>Confirm & Submit</span>
       <i class="fa fa-arrow-circle-right"></i>
     </button>
   </div>

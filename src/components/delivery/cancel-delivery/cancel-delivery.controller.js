@@ -3,7 +3,6 @@
 angular.module('delivery')
   .controller('CancelDeliveryCtrl', function CancelDeliveryCtrl($state, $scope, deliveryService, cancelDeliveryService,
                                                                 log, dailyDelivery, DELIVERY_STATUS) {
-
     var vm = this; //view model
     vm.status = DELIVERY_STATUS;
 
@@ -36,9 +35,15 @@ angular.module('delivery')
 
     initCancelReport();
 
+    vm.isOthersAndInvalid = function(){
+      return cancelDeliveryService.isOthers(vm.facRnd) && !cancelDeliveryService.isValidOthers(vm.facRnd);
+    };
+
     vm.cancel = function () {
-      var isValid = cancelDeliveryService.validateCancelReport(vm.facRnd);
-      if (isValid === true) {
+      if(vm.isOthersAndInvalid()){
+        return log.error('enterOtherReasons');
+      }
+      if (cancelDeliveryService.validateCancelReport(vm.facRnd)) {
         cancelDeliveryService.cancelDelivery(vm.dailyDelivery, vm.facRnd)
           .then(onSuccess)
           .catch(onError);

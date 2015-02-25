@@ -13,14 +13,24 @@ angular.module('delivery')
       return defaultCR;
     };
 
-    _this.validateCancelReport = function (dd) {
-      return (dd.status &&
-        ((dd.status === DELIVERY_STATUS.CANCELED_CCE) ||
-        (dd.status === DELIVERY_STATUS.FAILED_CCE) ||
-        (dd.status === DELIVERY_STATUS.CANCELED_OTHER) ||
-        (dd.status === DELIVERY_STATUS.FAILED_OTHER) ||
-        (dd.status === DELIVERY_STATUS.CANCELED_STAFF) ||
-        (dd.status === DELIVERY_STATUS.FAILED_STAFF)));
+    _this.isOthers = function(facRnd){
+      return (facRnd.status === DELIVERY_STATUS.CANCELED_OTHER ||
+        facRnd.status === DELIVERY_STATUS.FAILED_OTHER);
+    };
+
+    _this.isValidOthers = function(facRnd){
+      return _this.isOthers(facRnd) && facRnd.cancelReport.note !== '';
+    };
+
+    _this.validateCancelReport = function (facRnd) {
+      if(_this.isOthers(facRnd)){
+        return _this.isValidOthers(facRnd);
+      }
+      return (facRnd.status &&
+        ((facRnd.status === DELIVERY_STATUS.CANCELED_CCE) ||
+        (facRnd.status === DELIVERY_STATUS.FAILED_CCE) ||
+        (facRnd.status === DELIVERY_STATUS.CANCELED_STAFF) ||
+        (facRnd.status === DELIVERY_STATUS.FAILED_STAFF)));
     };
 
     _this.cancelDelivery  = function(dd, facRnd){

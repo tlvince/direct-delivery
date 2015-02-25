@@ -26,7 +26,7 @@ The upstream-recommended way to update `npm` is:
 ## Android
 
 To be able to manually produce Android builds, you need to set up the Android
-SDK.
+SDK. We are targeting Android 4.4.2 (API 19).
 
 ### 1. Install the [Java JDK][jdk]
 

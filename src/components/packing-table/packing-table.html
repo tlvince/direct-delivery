@@ -27,13 +27,13 @@
         <div class="form-inline">
           <button
             type="button"
-            class="btn btn-default"
+            class="btn btn-default btn-lg"
             ng-click="item.packedQty = item.expectedQty; item._partial = false"
             ng-disabled="item._partial === false"
           >Max</button>
           <button
             type="button"
-            class="btn btn-default"
+            class="btn btn-default btn-lg"
             ng-click="item._partial = true"
             ng-disabled="item._partial"
           >Partial</button>
@@ -44,7 +44,7 @@
           </span>
           <input
             type="number"
-            class="form-control input-sm"
+            class="form-control input-lg"
             min="0"
             step="1"
             ng-model="item.packedQty"

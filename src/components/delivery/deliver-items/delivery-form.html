@@ -27,7 +27,7 @@
     <td class="highlight-onhand-qty">
       <div class="input-group">
         <input type="number"
-               class="form-control input-lg remove-pad"
+               class="form-control input-lg remove-pad right-align"
                min="0"
                step="1"
                ng-change="diCtrl.calcDeliverQty(facDevCtrl.facRnd.packedProduct[$index])"
@@ -50,7 +50,7 @@
     <td class="highlight-delivered-qty">
       <div class="input-group">
         <input type="number"
-               class="form-control input-lg remove-pad"
+               class="form-control input-lg remove-pad right-align"
                min="0"
                step="1"
                ng-change="diCtrl.validateOnChange(facDevCtrl.facRnd.packedProduct[$index])"
@@ -73,7 +73,7 @@
     <td class="highlight-returned-qty">
       <div class="input-group">
         <input type="number"
-               class="form-control input-lg remove-pad"
+               class="form-control input-lg remove-pad right-align"
                min="0"
                step="1"
                value="0"
@@ -90,7 +90,7 @@
                 ng-show="diCtrl.validationErr[item.productID].returnedQty === true">
             <em>
               <i class="fa fa-exclamation-circle"></i>
-              Please, enter returned quantity.
+              Please, enter retrieved quantity.
             </em>
           </span>
     </td>
@@ -105,7 +105,7 @@
         </div>
 
         <input type="number"
-               class="form-control input-lg remove-pad"
+               class="form-control input-lg remove-pad right-align"
                min="0"
                step="1"
                ng-model="facDevCtrl.facRnd.packedProduct[$index].btwDeliveryReceivedQty"

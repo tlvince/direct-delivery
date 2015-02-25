@@ -33,7 +33,7 @@
                ng-change="diCtrl.calcDeliverQty(facDevCtrl.facRnd.packedProduct[$index])"
                ng-model="facDevCtrl.facRnd.packedProduct[$index].onHandQty"
                ng-disabled="diCtrl.previewDelivery"
-               ng-model-options="{updateOn: 'blur'}"/>
+               ng-model-options="{ debounce: 0 }"/>
 
         <div class="input-group-addon">
           <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].baseUOM"></span>
@@ -56,7 +56,7 @@
                ng-change="diCtrl.validateOnChange(facDevCtrl.facRnd.packedProduct[$index])"
                ng-model="facDevCtrl.facRnd.packedProduct[$index].deliveredQty"
                ng-disabled="diCtrl.previewDelivery"
-               ng-model-options="{updateOn: 'blur'}"/>
+               ng-model-options="{ debounce: 0 }"/>
 
         <div class="input-group-addon">
           <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].baseUOM"></span>
@@ -80,7 +80,7 @@
                ng-change="diCtrl.validateOnChange(facDevCtrl.facRnd.packedProduct[$index])"
                ng-model="facDevCtrl.facRnd.packedProduct[$index].returnedQty"
                ng-disabled="diCtrl.previewDelivery"
-               ng-model-options="{updateOn: 'blur'}"/>
+               ng-model-options="{ debounce: 0 }"/>
 
         <div class="input-group-addon">
           <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].baseUOM"></span>
@@ -110,7 +110,7 @@
                step="1"
                ng-model="facDevCtrl.facRnd.packedProduct[$index].btwDeliveryReceivedQty"
                ng-disabled="diCtrl.receivedStockBtwDelivery($index) !== true"
-               ng-model-options="{updateOn: 'blur'}">
+               ng-model-options="{ debounce: 0 }">
 
         <div class="input-group-addon">
           <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].baseUOM"></span>

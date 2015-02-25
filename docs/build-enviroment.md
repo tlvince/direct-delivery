@@ -46,8 +46,8 @@ won't need half of it (just forget about the `eclipse` folder), put the `sdk`
 folder somewhere you'll find it again. You can theoretically do `brew install
 android-sdk`, but this led to weird problems later on.
 
-You'll get [detailed instructions on running the thing][installing] while the
-zip file is downloading, they vary from platform to platform.
+You'll get [detailed instructions on running the thing][android-installing]
+while the zip file is downloading, they vary from platform to platform.
 
 [android-sdk]: https://developer.android.com/sdk/index.html
 [android-installing]: https://developer.android.com/sdk/installing/index.html

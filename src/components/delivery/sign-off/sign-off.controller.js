@@ -10,7 +10,9 @@ angular.module('delivery')
     vm.submit = function() {
       var dataURL = vm.signature.toDataURL();
       var valid = signOffService.isValidSignature(dataURL);
-
+      if (vm.signature.isEmpty()) {
+        return log.error('invalidSignature');
+      }
       if (!valid) {
         return log.error('invalidSignature');
       }

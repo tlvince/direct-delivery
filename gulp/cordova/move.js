@@ -4,6 +4,7 @@ var fs = require('fs');
 var del = require('del');
 var argv = require('optimist').argv;
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 var async = require('async');
 
 var common = require('../../gulp/common');
@@ -20,6 +21,7 @@ function formatAPKPaths(pkg, cb) {
     apkPath.from += '-debug.apk';
     apkPath.to += '-' + common.now() + '.apk';
   }
+  gutil.log('Symlinking APK to', gutil.colors.green(apkPath.to));
   cb(null, apkPath);
 }
 

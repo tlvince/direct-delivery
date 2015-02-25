@@ -82,4 +82,6 @@ we're targeting Android 4.4.2. Therefore, deselect everything in the `Android
 5.0 folder`, and select everything in the `Android 4.4.2 (API 19)` folder.
 
 Click `Install n packages` to continue. Accept the license agreement and make
-some tea. Then you can finally continue the [build](build) steps.
+some tea. Then you can finally continue the [build][] steps.
+
+[build]: build.md

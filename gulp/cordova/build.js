@@ -1,0 +1,130 @@
+'use strict';
+
+var fs = require('fs');
+var del = require('del');
+var argv = require('optimist').argv;
+var gulp = require('gulp');
+var gutil = require('gulp-util');
+var async = require('async');
+var cordova = require('cordova-lib').cordova;
+var cordovaIcon = require('cordova-icon');
+
+var common = require('../../gulp/common');
+
+var ROOT = process.cwd();
+// Cordova requires the current working directory to be its project path. All
+// paths henceforth are relative to this directory.
+var CORDOVA_ROOT = 'cordova';
+
+function clean(done) {
+  function rmrf(cb) {
+    del(CORDOVA_ROOT, cb);
+  }
+  function mkdir(cb) {
+    fs.mkdir(CORDOVA_ROOT, cb);
+  }
+  function chdir(cb) {
+    var err;
+    try {
+      process.chdir(CORDOVA_ROOT);
+      gutil.log('Working directory changed to', process.cwd());
+    } catch (e) {
+      err = e;
+    }
+    cb(err);
+  }
+  var steps = [
+    rmrf,
+    mkdir,
+    chdir
+  ];
+  async.series(steps, done);
+}
+
+function cordovaAdd(cb) {
+  gutil.log('Adding Android platform');
+  cordova.platform('add', 'android', cb);
+}
+
+function generateIcons(cb) {
+  cordovaIcon.generate()
+    .then(cb)
+    .catch(cb);
+}
+
+function symlinkBuildProperties(cb) {
+  fs.symlink('../../../.android/ant.properties', 'platforms/android/ant.properties', cb);
+}
+
+function symlinkKeystore(cb) {
+  fs.symlink('../../../.android/ehealth.keystore', 'platforms/android/ehealth.keystore', cb);
+}
+
+function cordovaReleaseBuild(cb) {
+  var options = ['--release'];
+  cordova.build({options: options}, cb);
+}
+
+function cordovaDebugBuild(cb) {
+  cordova.build(cb);
+}
+
+function logBuildType(buildType) {
+  gutil.log('Performing', gutil.colors.cyan(buildType), 'build');
+}
+
+function symlinkCordovaResources(done) {
+  function symlinkConfig(cb) {
+    fs.symlink('../config.xml', 'config.xml', cb);
+  }
+
+  function symlinkWWW(cb) {
+    fs.symlink('../dist', 'www', cb);
+  }
+
+  function symlinkIcon(cb) {
+    fs.symlink(
+      '../src/assets/images/app-direct-delivery-2048.png', 'icon.png', cb);
+  }
+
+  var steps = [
+    symlinkConfig,
+    symlinkWWW,
+    symlinkIcon
+  ];
+
+  gutil.log('Symlinking Cordova resources');
+  async.parallel(steps, done);
+}
+
+/**
+ * Accepted parameters:
+ *   --release : build release apk (default is debug apk)
+ */
+function cordovaBuild(done) {
+  function finish(err) {
+    process.chdir(ROOT);
+    done(err);
+  }
+  var steps = [
+    clean,
+    symlinkCordovaResources,
+    cordovaAdd,
+    generateIcons
+  ];
+  var release = [
+    symlinkBuildProperties,
+    symlinkKeystore,
+    cordovaReleaseBuild
+  ];
+  if (argv.release || common.build.release) {
+    logBuildType('release');
+    steps = steps.concat(release);
+  } else {
+    logBuildType('debug');
+    steps.push(cordovaDebugBuild);
+  }
+  async.series(steps, finish);
+}
+
+gulp.task('cordova-build', cordovaBuild);

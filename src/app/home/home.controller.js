@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('home')
-  .controller('HomeCtrl', function(dailySchedule, coreService, AuthService, SYNC_STATUS, $rootScope, $scope, HOME_TABS) {
+  .controller('HomeCtrl', function (dailySchedule, coreService, AuthService, SYNC_STATUS, $rootScope, $scope, HOME_TABS, $window) {
     var vm = this;
     var unbind = {};
     vm.today = new Date();
@@ -9,32 +9,60 @@ angular.module('home')
     vm.tabs = HOME_TABS;
     vm.syncInProgress = coreService.getSyncInProgress();
 
-    function processEvent(event, data){
+    function processEvent(event, data) {
       vm.syncInProgress = coreService.getSyncInProgress();
     }
 
-    function addSyncListeners(){
+    function addSyncListeners() {
       unbind[SYNC_STATUS.IN_PROGRESS] = $rootScope.$on(SYNC_STATUS.IN_PROGRESS, processEvent);
       unbind[SYNC_STATUS.COMPLETE] = $rootScope.$on(SYNC_STATUS.COMPLETE, processEvent);
     }
 
-    function init(){
+    function init() {
       vm.dailyDelivery = dailySchedule;
-      if(Object.keys(unbind).length === 0){
+      if (Object.keys(unbind).length === 0) {
         addSyncListeners();
+        //add device online status listerners
+        $window.addEventListener('offline', function (evt) {
+          console.log("YOU ARE OFFLINE");
+          console.log(evt.type);
+          vm.syncErr = {
+            state: evt.type === 'offline',
+            msg: "ERROR: sync failed, could not connect to internet"
+          };
+
+          $scope.$digest();
+        });
+
+        $window.addEventListener('online', function (evt) {
+          console.log("YOU ARE ONLINE");
+          console.log(evt.type);
+          vm.syncErr = {
+            state: evt.type === 'online',
+            msg: ""
+          };
+
+          $scope.$digest();
+        });
       }
     }
 
     init();
 
-    function removeSyncListeners(){
+    vm.isOnline = function () {
+      return $window.navigator.onLine;
+    };
+
+    function removeSyncListeners() {
       for (var k in SYNC_STATUS) {
         var event = SYNC_STATUS[k];
         unbind[event]();
       }
+      $window.addEventListener('offline', null);
+      $window.addEventListener('online', null);
     }
 
-    vm.startSync = function(){
+    vm.startSync = function () {
       coreService.startSyncAfterLogin(AuthService.currentUser.name);
       addSyncListeners();
     };

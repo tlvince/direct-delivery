@@ -14,7 +14,7 @@ exports.packageJSON = function(cb) {
 };
 
 exports.build = {
-  env: 'development'
+  env: process.env.NODE_ENV || 'development'
 };
 
 // http://stackoverflow.com/a/19449076

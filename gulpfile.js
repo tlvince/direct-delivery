@@ -3,7 +3,7 @@
 
 var gulp = require('gulp');
 
-require('require-dir')('./gulp');
+require('require-dir')('./gulp', {recurse: true});
 
 gulp.task('default', ['clean'], function() {
   // TODO: deprecated method. Replace with preferred task serialisation

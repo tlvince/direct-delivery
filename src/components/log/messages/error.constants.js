@@ -45,7 +45,7 @@ angular.module('log')
     'invalidSignature': {
       title: 'Invalid signature',
       message: 'Signature not signed',
-      remedy: 'Please, sign and click ok'
+      remedy: 'Please, sign before submitting'
     },
     'facilityRoundNotSet': {
       title: 'Cancel delivery',

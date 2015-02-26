@@ -23,4 +23,12 @@
       </ul>
     </div>
   </div>
+
+  <div ng-if="navbarCtrl.auth.isLoggedIn" class="navbar-right nav-user-pad">
+    <span class="white-text">
+      <i class="fa fa-user"></i>
+      <span ng-bind="navbarCtrl.auth.currentUser.name"></span>
+    </span>
+  </div>
+
 </nav>

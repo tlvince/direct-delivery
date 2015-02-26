@@ -10,7 +10,7 @@ npm-debug.log
 .bashrc
 .bashrc~
 README.html
-cordova
+/cordova
 docs/*.html
 .android
 !.android/release-files.tar.enc

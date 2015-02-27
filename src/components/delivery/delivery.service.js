@@ -39,25 +39,29 @@ angular.module('delivery')
 
     _this.calcQty = function (packedProduct) {
       var res = {};
-      if(!angular.isNumber(packedProduct.expectedQty)){
-        packedProduct.expectedQty = 0;
+      var expectedQty = packedProduct.expectedQty;
+      var onHandQty = packedProduct.onHandQty;
+      var presentation = packedProduct.presentation;
+
+      if(!angular.isNumber(expectedQty)){
+        expectedQty = 0;
       }
-      if(!angular.isNumber(packedProduct.onHandQty)){
-        packedProduct.onHandQty = 0;
+      if(!angular.isNumber(onHandQty)){
+        onHandQty = 0;
       }
-      if(!angular.isNumber(packedProduct.presentation)){
-        packedProduct.presentation = 1;
+      if(!angular.isNumber(presentation)){
+        presentation = 1;
       }
 
-      var deliveredQty = (packedProduct.expectedQty - packedProduct.onHandQty);
-      var returnedQty = (packedProduct.onHandQty - packedProduct.expectedQty);
+      var deliveredQty = (expectedQty - onHandQty);
+      var returnedQty = (onHandQty - expectedQty);
       res.deliveredQty = deliveredQty;
       res.returnedQty = 0;
       if (deliveredQty <= 0) {
         res.deliveredQty = 0;
         res.returnedQty = returnedQty;
       }else{
-        res.deliveredQty =  _this.roundOffBy(deliveredQty, packedProduct.presentation);
+        res.deliveredQty =  _this.roundOffBy(deliveredQty, presentation);
       }
       return res;
     };

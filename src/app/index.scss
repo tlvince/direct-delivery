@@ -33,6 +33,13 @@
   border: 0;
 }
 
+//This ensures that the extra blank margin created on mobile is taken out
+// hence input field will lap perfectly with add-ons.
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+   margin: 0;
+}
+
 // We're targeting mobile devices where keyboard navigation is rare. Therefore,
 // improve UI consistency by removing unsightly outlines (often bright orange on
 // Android) at a potential accessibility cost

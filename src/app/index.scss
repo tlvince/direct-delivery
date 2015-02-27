@@ -40,6 +40,14 @@
   outline: none !important;
 }
 
+.remove-pad {
+  padding: 0em
+}
+
+.right-align {
+  text-align: right
+}
+
 // injector
 @import '../components/navbar/navbar.scss';
 @import '../components/packing-table/legend.scss';

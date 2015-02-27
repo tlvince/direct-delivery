@@ -1,14 +1,14 @@
-<div class="col-md-12">
+<div class="col-xs-12">
   <div class="page-header">
     <h1>Welcome to Direct Delivery</h1>
   </div>
   <h2 ng-bind="homeCtrl.today | date: 'fullDate'"></h2>
   <div class="alert alert-warning" ng-if="homeCtrl.syncErr.state === true && homeCtrl.isOnline() === false">
-      <i class="fa fa-warning"></i>
-      <span ng-bind="homeCtrl.syncErr.msg"></span>
+    <i class="fa fa-warning"></i>
+    <span ng-bind="homeCtrl.syncErr.msg"></span>
   </div>
-  <div class="col-md-12 alert alert-info" ng-if="homeCtrl.isOnline() === true">
-    <div class="col-md-6 pull-left">
+  <div class="col-xs-12 alert alert-info">
+    <div class="col-xs-6 pull-left">
       <i
         class="fa"
         ng-class="homeCtrl.syncInProgress ? 'fa-spinner fa-spin' : 'fa-info-circle'"
@@ -18,7 +18,7 @@
       ></span>
     </div>
 
-    <div class="col-md-4 pull-right">
+    <div class="col-xs-6 pull-right">
       <button
         class="btn btn-lg btn-primary pull-right"
         ng-disabled="homeCtrl.syncInProgress === true"
@@ -32,4 +32,4 @@
   </div>
   <tabs data="homeCtrl.tabs"/>
 </div>
-<div class="col-md-12" ui-view></div>
+<div class="col-xs-12" ui-view></div>

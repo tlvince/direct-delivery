@@ -24,8 +24,7 @@ angular.module('home')
         addSyncListeners();
         //add device online status listerners
         $window.addEventListener('offline', function (evt) {
-          console.log("YOU ARE OFFLINE");
-          console.log(evt.type);
+
           vm.syncErr = {
             state: evt.type === 'offline',
             msg: "ERROR: sync failed, could not connect to internet"
@@ -35,8 +34,7 @@ angular.module('home')
         });
 
         $window.addEventListener('online', function (evt) {
-          console.log("YOU ARE ONLINE");
-          console.log(evt.type);
+          
           vm.syncErr = {
             state: evt.type === 'online',
             msg: ""

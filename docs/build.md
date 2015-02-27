@@ -19,8 +19,10 @@ Resulting APKs are deployed to Amazon S3 and can be browsed at:
 
 ## Manual
 
-APKs can be built manually via the following. Resulting files can be found in
-`build`.
+After your [build environment][] has been set up, APKs can be
+built manually via the following. Resulting files can be found in `build`.
+
+[build environment]: build-environment.md
 
 ### Debug
 

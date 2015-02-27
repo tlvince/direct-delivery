@@ -13,7 +13,7 @@
 
 > User-centred direct delivery management system
 
-## Usage
+## Quick start
 
 0. Install [Node.js][], [Git][], [CouchDB][] and [ImageMagick][]
 1. `npm install -g gulp bower`
@@ -35,4 +35,4 @@ See [docs](docs) for further documentation.
 
 ## Author
 
-© 2014 [eHealth Systems Africa](http://ehealthafrica.org)
+© 2015 [eHealth Systems Africa](http://ehealthafrica.org)

@@ -45,7 +45,7 @@ angular.module('log')
     'invalidSignature': {
       title: 'Invalid signature',
       message: 'Signature not signed',
-      remedy: 'Please, sign and click ok'
+      remedy: 'Please, sign before submitting'
     },
     'facilityRoundNotSet': {
       title: 'Cancel delivery',
@@ -81,5 +81,10 @@ angular.module('log')
       title: 'Remote replication',
       message: 'Replication to remote database failed',
       remedy: 'Please double check your network connectivity or contact support'
+    },
+    'enterOtherReasons': {
+      title: 'Invalid Other reason',
+      message: 'Reason required for Failed or Canceled Other',
+      remedy: 'Please enter reason for failed or canceled other'
     }
   });

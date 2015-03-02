@@ -20,7 +20,7 @@ describe('deliveryService', function () {
     spyOn(dbService, 'save').and.callThrough();
     spyOn(log, 'success').and.callThrough();
     spyOn($state, 'go').and.callFake(function(state){});
-    spyOn(log, 'error').and.callFake(function(err){})
+    spyOn(log, 'error').and.callFake(function(err){});
 
   }));
 

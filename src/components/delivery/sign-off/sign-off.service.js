@@ -2,13 +2,8 @@
 
 angular.module('delivery')
   .service('signOffService', function (deliveryService) {
-    this.isValidSignature = function(dataURL) {
-      //FIXME: find better signature verification technique e.g base64 the image data uri
-      return dataURL.length > 0;
-    };
-
     /**
-     * This updates facility round status to 'complete'
+     * This updates facility round status.
      *
      * @param {Object} dd
      * @param {Object} facRnd

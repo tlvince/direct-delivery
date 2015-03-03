@@ -48,11 +48,15 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 }
 
 .remove-pad {
-  padding: 0em
+  padding: 0em;
 }
 
 .right-align {
-  text-align: right
+  text-align: right;
+}
+
+.red-text {
+  color: red;
 }
 
 // injector

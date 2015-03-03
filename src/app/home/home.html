@@ -4,7 +4,7 @@
   </div>
   <h2 ng-bind="homeCtrl.today | date: 'fullDate'"></h2>
   <div class="alert alert-warning" ng-if="homeCtrl.syncErr.state === true && homeCtrl.isOnline() === false">
-    <i class="fa fa-warning"></i>
+    <i class="fa fa-info-circle"></i>
     <span ng-bind="homeCtrl.syncErr.msg"></span>
   </div>
   <div class="col-xs-12 alert alert-info">

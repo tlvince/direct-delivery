@@ -27,7 +27,7 @@ angular.module('home')
 
           vm.syncErr = {
             state: evt.type === 'offline',
-            msg: "ERROR: sync failed, could not connect to internet"
+            msg: "device is offline, syncing will continue once there is internet connection"
           };
 
           $scope.$digest();

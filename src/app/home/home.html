@@ -7,7 +7,7 @@
     <i class="fa fa-warning"></i>
     <span ng-bind="homeCtrl.syncErr.msg"></span>
   </div>
-  <div class="col-xs-12 alert alert-info">
+  <div class="col-xs-12 alert alert-info" ng-if="homeCtrl.isOnline() === true">
     <div class="col-xs-6 pull-left">
       <i
         class="fa"

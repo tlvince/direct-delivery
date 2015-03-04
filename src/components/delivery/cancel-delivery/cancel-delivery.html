@@ -13,6 +13,19 @@
     <br/>
     <h3> Select reason and submit report.</h3>
     <br/>
+    <ul class="list-unstyled">
+      <li>
+        <label class="label label-warning">Cancelled </label>
+        <dd> Facility in-charge calls ahead to alert driver not to come of facility.</dd>
+      </li>
+       <br/>
+      <li>
+        <label class="label label-danger">Failed </label>
+        <dd> Driver arrives at the facility, but can't deliver due to facility issues.</dd>
+      </li>
+    </ul>
+
+    </br>
 
     <form name="skipForm" ng-submit="cancelDevCtrl.cancel()">
 

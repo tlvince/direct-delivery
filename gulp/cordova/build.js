@@ -7,6 +7,7 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var async = require('async');
 var cordova = require('cordova-lib').cordova;
+var crosswalk = require('crosswalk');
 var cordovaIcon = require('cordova-icon');
 
 var common = require('../../gulp/common');
@@ -47,7 +48,7 @@ function clean(done) {
 
 function cordovaAdd(cb) {
   gutil.log('Adding Android platform');
-  cordova.platform('add', 'android', cb);
+  cordova.platform('add', crosswalk.path, cb);
 }
 
 function generateIcons(cb) {

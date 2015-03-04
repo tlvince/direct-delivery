@@ -2,7 +2,7 @@ sudo: false
 language: android
 android:
   components:
-    - android-19
+    - android-21
 node_js:
   - '0.10'
 cache:

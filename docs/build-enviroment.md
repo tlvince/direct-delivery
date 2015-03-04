@@ -26,7 +26,7 @@ The upstream-recommended way to update `npm` is:
 ## Android
 
 To be able to manually produce Android builds, you need to set up the Android
-SDK. We are targeting Android 4.4.2 (API 19).
+SDK.
 
 ### 1. Install the [Java JDK][jdk]
 
@@ -77,9 +77,8 @@ folder.
 [android-packages]: https://developer.android.com/sdk/installing/adding-packages.html
 
 The next bit is slightly confusing: a bunch of stuff is pre-selected, but *not
-preinstalled*. The manager pre-selects the most recent Android versions, but
-we're targeting Android 4.4.2. Therefore, deselect everything in the `Android
-5.0 folder`, and select everything in the `Android 4.4.2 (API 19)` folder.
+preinstalled*. Make sure the latest Android SDK Tools, platform-tools,
+build-tools and SDK platform is installed for `Android 5.0.1 (API 21)`.
 
 Click `Install n packages` to continue. Accept the license agreement and make
 some tea. Then you can finally continue the [build][] steps.

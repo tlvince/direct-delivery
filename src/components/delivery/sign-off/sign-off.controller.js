@@ -5,6 +5,7 @@ angular.module('delivery')
     var vm = this;
     var parent = $scope.facDevCtrl;
     vm.facRnd = parent.facRnd;
+    vm.facRnd.receivedBy = vm.facRnd.receivedBy || vm.facRnd.facility.contact;
     vm.dailyDelivery = dailyDelivery;
     vm.signature = {
       toDataURL: function(){
@@ -19,7 +20,10 @@ angular.module('delivery')
       return vm.signature.isEmpty();
     };
 
-    vm.submit = function() {
+    vm.submit = function(validReceivedBy) {
+      if(!validReceivedBy){
+        return log.error('enterRecipientName');
+      }
       var dataURL = vm.signature.toDataURL();
       if (vm.isValidSignature()) {
         return log.error('invalidSignature');

@@ -43,14 +43,32 @@ describe('SignOffCtrl', function () {
     expect(SignOffCtrl).toBeDefined();
   });
 
+  it('Should set facRnd.receivedBy to facility contact person by default if not set', function(){
+    expect(SignOffCtrl.facRnd.receivedBy).toEqual(SignOffCtrl.facRnd.facility.contact);
+  });
+
+  it('Should not update facRnd.facility.contact if facRnd.receivedBy is updated', function(){
+    expect(SignOffCtrl.facRnd.receivedBy).toEqual(SignOffCtrl.facRnd.facility.contact);
+    SignOffCtrl.facRnd.receivedBy = 'new hf name';
+    expect(SignOffCtrl.facRnd.receivedBy).not.toEqual(SignOffCtrl.facRnd.facility.contact);
+  });
+
+
   describe('submit', function () {
 
-    it('should call log.error if SignOffCtrl.isValidSignature() is True', function () {
-      spyOn(SignOffCtrl, 'isValidSignature').and.returnValue(true);
-      expect(SignOffCtrl.isValidSignature()).toBeTruthy();
+    it('should call log.error if facility.receivedBy is invalid', function () {
+      SignOffCtrl.facRnd.receivedBy = '';
+      var isValid = SignOffCtrl.facRnd.receivedBy !== '';
+      expect(isValid).toBeFalsy();
+      SignOffCtrl.submit(isValid);
+      expect(log.error).toHaveBeenCalledWith('enterRecipientName');
+    });
+
+    it('Should not call log.error if facility.receivedBy is valid', function(){
+      var isValid = SignOffCtrl.facRnd.receivedBy.length > 0;
+      expect(isValid).toBeTruthy();
       SignOffCtrl.submit();
-      expect(log.error).toHaveBeenCalledWith('invalidSignature');
-      expect(signOffService.signOff).not.toHaveBeenCalledWith();
+      expect(log.error).not.toHaveBeenCalledWith('enterRecipientName');
     });
 
     it('Should call signOffService.signOff if SignOffCtrl.isValidSignature() is False', function () {
@@ -58,6 +76,14 @@ describe('SignOffCtrl', function () {
       expect(signOffService.signOff).not.toHaveBeenCalledWith();
       SignOffCtrl.submit();
       expect(signOffService.signOff).toHaveBeenCalled();
+    });
+
+    it('Should not call signOffService.signOff if signature has not been signed.', function(){
+      spyOn(SignOffCtrl, 'isValidSignature').and.returnValue(true);
+      expect(SignOffCtrl.isValidSignature()).toBeTruthy();
+      SignOffCtrl.submit();
+      expect(log.error).toHaveBeenCalledWith('invalidSignature');
+      expect(signOffService.signOff).not.toHaveBeenCalledWith();
     });
 
   });

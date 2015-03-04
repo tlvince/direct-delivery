@@ -20,8 +20,8 @@ angular.module('delivery')
       return vm.signature.isEmpty();
     };
 
-    vm.submit = function(validReceivedBy) {
-      if(!validReceivedBy){
+    vm.submit = function() {
+      if(!(angular.isString(vm.facRnd.receivedBy) && vm.facRnd.receivedBy !== '')){
         return log.error('enterRecipientName');
       }
       var dataURL = vm.signature.toDataURL();

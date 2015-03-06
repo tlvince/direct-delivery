@@ -3,17 +3,18 @@
 /*global module: false, inject: false */
 
 describe('HomeScheduleCtrl', function() {
-  beforeEach(module('home.schedule', 'deliveryMock', 'sync'));
+  beforeEach(module('home.schedule', 'deliveryMock', 'sync', 'delivery'));
 
   var HomeScheduleCtrl, $rootScope, dailySchedule, SYNC_STATUS;
 
-  beforeEach(inject(function($controller, _SYNC_STATUS_, _$rootScope_, _dailyDeliveryMock_) {
+  beforeEach(inject(function($controller, _SYNC_STATUS_, _$rootScope_, _DELIVERY_STATUS_, _dailyDeliveryMock_) {
 
     HomeScheduleCtrl = $controller('HomeScheduleCtrl', {
       dailySchedule: _dailyDeliveryMock_,
       $scope: _$rootScope_.$new(),
       $rootScope: _$rootScope_,
-      SYNC_STATUS: _SYNC_STATUS_
+      SYNC_STATUS: _SYNC_STATUS_,
+      DELIVERY_STATUS: _DELIVERY_STATUS_
     });
 
     dailySchedule = _dailyDeliveryMock_;

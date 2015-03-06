@@ -5,5 +5,5 @@ angular.module('navbar')
     this.auth = AuthService;
     this.items = navbarService.get();
     this.isOpen = false;
-    this.isCollapsed = false;
+    this.isCollapsed = true;
   });

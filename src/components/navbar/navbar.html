@@ -8,9 +8,15 @@
         >
         <span>Direct Delivery</span>
       </a>
+      <button type="button" class="navbar-toggle  visible-xs" ng-click="navbarCtrl.isCollapsed = !navbarCtrl.isCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
     </div>
 
-    <div ng-if="navbarCtrl.auth.isLoggedIn" class="collapse navbar-collapse">
+    <div ng-if="navbarCtrl.auth.isLoggedIn" class="collapse navbar-collapse" collapse="navbarCtrl.isCollapsed">
       <ul class="nav navbar-nav">
         <li ng-repeat="item in navbarCtrl.items track by item.name" ui-sref-active="active">
           <a ui-sref="{{item.name}}" ng-bind="::item.label"></a>

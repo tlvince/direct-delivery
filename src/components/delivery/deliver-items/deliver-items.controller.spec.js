@@ -6,7 +6,7 @@ describe('DeliverItemsCtrl', function () {
 
   beforeEach(module('delivery', 'deliveryMock', 'log'));
 
-  var DeliverItemsCtrl, deliveryService;
+  var DeliverItemsCtrl, deliveryService, dailyDelivery;
 
   beforeEach(inject(function ($controller, _$state_, _dailyDeliveryMock_, _deliveryService_, _log_, FACILITY_ID) {
 
@@ -31,6 +31,7 @@ describe('DeliverItemsCtrl', function () {
 
     spyOn(deliveryService, 'shouldHideSignOff').and.callThrough();
     spyOn(deliveryService, 'updateFacilityRound').and.callThrough();
+    spyOn(deliveryService, 'validateDeliverItems').and.callThrough();
     spyOn(deliveryService, 'save').and.callThrough();
     spyOn(DeliverItemsCtrl, 'receivedStockBtwDelivery').and.callThrough();
 
@@ -56,6 +57,15 @@ describe('DeliverItemsCtrl', function () {
       expect(before).not.toBe(after)
     });
 
+  });
+
+  describe('preview', function() {
+    it('should call deliveryService.validateDeliverItems()', function() {
+      expect(deliveryService.validateDeliverItems).not.toHaveBeenCalled();
+      expect(DeliverItemsCtrl.facRnd.packedProduct).toBeDefined();
+      deliveryService.validateDeliverItems(DeliverItemsCtrl.facRnd.packedProduct);
+      expect(deliveryService.validateDeliverItems).toHaveBeenCalledWith(DeliverItemsCtrl.facRnd.packedProduct);
+    });
   });
 
   describe('shouldHideSignOff()', function () {

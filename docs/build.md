@@ -17,6 +17,10 @@ All other triggers (pull requests, other branches) are ignored.
 Resulting APKs are deployed to Amazon S3 and can be browsed at:
 <https://shrub.appspot.com/direct-delivery/>
 
+#Pre Build Steps
+
+Remember to add all required cordova plugins to /cordova-plugins.json
+
 ## Manual
 
 After your [build environment][] has been set up, APKs can be

@@ -7,6 +7,9 @@
   <author email="support@ehealthafrica.org" href="http://ehealthafrica.org">
     eHealth Africa
   </author>
+  <feature name="NetworkStatus">
+    <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+  </feature>
   <content src="index.html"/>
   <access origin="http://localhost:5984/*"/>
   <access origin="https://dev.couchdb.ebola.eocng.org/*"/>

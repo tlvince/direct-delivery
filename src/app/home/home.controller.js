@@ -34,15 +34,15 @@ angular.module('home')
     function updateOnlineState () {
       vm.isOnline = $window.navigator.onLine ? 'online' : 'offline';
       $scope.$digest();
-    };
+    }
 
     function removeSyncListeners() {
       for (var k in SYNC_STATUS) {
         var event = SYNC_STATUS[k];
         unbind[event]();
       }
-      $window.addEventListener('offline', null);
-      $window.addEventListener('online', null);
+      $window.removeEventListener('offline', null);
+      $window.removeEventListener('online', null);
     }
 
     vm.startSync = function () {

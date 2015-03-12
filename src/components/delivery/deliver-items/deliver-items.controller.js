@@ -68,4 +68,17 @@ angular.module('delivery')
       }
     };
 
+    function saveCurrentStateOfDailyDelivery(){
+      var doc = deliveryService.updateFacilityRound(vm.dailyDelivery, vm.facRnd);
+      deliveryService.save(doc)
+        .then(function() {
+          log.info('dailyDeliverySaved');
+        })
+        .catch(function(err) {
+          log.warn('dailyDeliveryUpdateNotSaved', err);
+        });
+    }
+
+    $scope.$on('$destroy', saveCurrentStateOfDailyDelivery);
+
   });

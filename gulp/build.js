@@ -3,6 +3,7 @@
 var fs = require('fs');
 var gulp = require('gulp');
 var ngConfig = require('ng-config');
+var injectStr = require('gulp-inject-string');
 
 var config = require('../config');
 
@@ -85,6 +86,7 @@ gulp.task('html', ['wiredep', 'injector:css', 'injector:js', 'partials'], functi
   var assets;
 
   return gulp.src('src/*.html')
+    .pipe(injectStr.before('</head>', '\n<script type="text/javascript" src="cordova.js"></script>\n'))
     .pipe($.inject(gulp.src('.tmp/inject/templateCacheHtml.js', {read: false}), {
       starttag: '<!-- inject:partials -->',
       ignorePath: '.tmp',

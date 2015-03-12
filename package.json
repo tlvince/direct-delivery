@@ -29,6 +29,7 @@
     "gulp-git": "^1.0.0",
     "gulp-imagemin": "~2.0.0",
     "gulp-inject": "~1.0.2",
+    "gulp-inject-string": "0.0.2",
     "gulp-karma": "~0.0.4",
     "gulp-load-plugins": "~0.7.1",
     "gulp-minify-html": "~0.1.7",
@@ -51,11 +52,11 @@
     "merge-stream": "^0.1.6",
     "ng-config": "^1.0.0",
     "optimist": "^0.6.1",
+    "phantomjs": "^1.9.15",
     "protractor": "~1.4.0",
     "require-dir": "~0.1.0",
     "uglify-save-license": "~0.4.1",
-    "wiredep": "~2.2.0",
-    "phantomjs": "^1.9.15"
+    "wiredep": "~2.2.0"
   },
   "engines": {
     "node": ">=0.10.0"

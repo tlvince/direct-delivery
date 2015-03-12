@@ -3,11 +3,11 @@
     <h1>Welcome to Direct Delivery</h1>
   </div>
   <h2 ng-bind="homeCtrl.today | date: 'fullDate'"></h2>
-  <div class="alert alert-warning" ng-if="homeCtrl.syncErr.state === true && homeCtrl.isOnline() === false">
+  <div class="alert alert-warning" ng-if="homeCtrl.isOnline === 'offline'">
     <i class="fa fa-info-circle"></i>
-    <span ng-bind="homeCtrl.syncErr.msg"></span>
+    <span>Sync failed because device is not connected to internet</span>
   </div>
-  <div class="col-xs-12 alert alert-info" ng-if="homeCtrl.isOnline() === true">
+  <div class="col-xs-12 alert alert-info" ng-if="homeCtrl.isOnline === 'online'">
     <div class="col-xs-6 pull-left">
       <i
         class="fa"

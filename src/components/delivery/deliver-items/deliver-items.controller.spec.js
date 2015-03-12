@@ -6,20 +6,18 @@ describe('DeliverItemsCtrl', function () {
 
   beforeEach(module('delivery', 'deliveryMock', 'log'));
 
-  var DeliverItemsCtrl, deliveryService;
+  var DeliverItemsCtrl, deliveryService, scope;
 
-  beforeEach(inject(function ($controller, _$state_, _dailyDeliveryMock_, _deliveryService_, _log_, FACILITY_ID) {
+  beforeEach(inject(function ($controller, _$state_, _dailyDeliveryMock_, _deliveryService_, _log_, FACILITY_ID, _$rootScope_) {
 
     _$state_.params = {facilityId: FACILITY_ID};
-
-    var scope = {
-      facDevCtrl: $controller('FacilityDeliveryCtrl', {
-        state: _$state_,
-        deliveryService: _deliveryService_,
-        dailyDelivery: _dailyDeliveryMock_,
-        log: _log_
-      })
-    };
+    scope = _$rootScope_.$new();
+    scope.facDevCtrl = $controller('FacilityDeliveryCtrl', {
+      state: _$state_,
+      deliveryService: _deliveryService_,
+      dailyDelivery: _dailyDeliveryMock_,
+      log: _log_
+    });
 
     DeliverItemsCtrl = $controller('DeliverItemsCtrl', {
       state: _$state_,
@@ -121,7 +119,7 @@ describe('DeliverItemsCtrl', function () {
     });
 
     it('Should not empty packedProduct.btwDeliveryRecievedQty ' +
-    'if packedProduct.receivedInterimStock is TRUE', function(){
+    'if packedProduct.receivedInterimStock is TRUE', function () {
       var index = 0;
       var receivedInterimStock = DeliverItemsCtrl.facRnd.packedProduct[index].receivedInterimStock;
       DeliverItemsCtrl.facRnd.packedProduct[index].btwDeliveryReceivedQty = 20;

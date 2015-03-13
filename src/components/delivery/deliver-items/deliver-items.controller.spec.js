@@ -29,6 +29,7 @@ describe('DeliverItemsCtrl', function () {
 
     spyOn(deliveryService, 'shouldHideSignOff').and.callThrough();
     spyOn(deliveryService, 'updateFacilityRound').and.callThrough();
+    spyOn(deliveryService, 'validateDeliverItems').and.callThrough();
     spyOn(deliveryService, 'save').and.callThrough();
     spyOn(DeliverItemsCtrl, 'receivedStockBtwDelivery').and.callThrough();
 
@@ -54,6 +55,15 @@ describe('DeliverItemsCtrl', function () {
       expect(before).not.toBe(after)
     });
 
+  });
+
+  describe('preview', function() {
+    it('should call deliveryService.validateDeliverItems()', function() {
+      expect(deliveryService.validateDeliverItems).not.toHaveBeenCalled();
+      expect(DeliverItemsCtrl.facRnd.packedProduct).toBeDefined();
+      deliveryService.validateDeliverItems(DeliverItemsCtrl.facRnd.packedProduct);
+      expect(deliveryService.validateDeliverItems).toHaveBeenCalledWith(DeliverItemsCtrl.facRnd.packedProduct);
+    });
   });
 
   describe('shouldHideSignOff()', function () {
@@ -119,7 +129,7 @@ describe('DeliverItemsCtrl', function () {
     });
 
     it('Should not empty packedProduct.btwDeliveryRecievedQty ' +
-    'if packedProduct.receivedInterimStock is TRUE', function () {
+    'if packedProduct.receivedInterimStock is TRUE', function(){
       var index = 0;
       var receivedInterimStock = DeliverItemsCtrl.facRnd.packedProduct[index].receivedInterimStock;
       DeliverItemsCtrl.facRnd.packedProduct[index].btwDeliveryReceivedQty = 20;

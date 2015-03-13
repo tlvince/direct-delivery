@@ -17,6 +17,7 @@ the [Keep a CHANGELOG][keep-a-changelog] format.
 ### Fixed
 
 - Asset linking in Cordova builds
+- Electronic signature on some devices (via Crosswalk)
 
 ### Removed
 

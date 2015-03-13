@@ -6,20 +6,18 @@ describe('DeliverItemsCtrl', function () {
 
   beforeEach(module('delivery', 'deliveryMock', 'log'));
 
-  var DeliverItemsCtrl, deliveryService, dailyDelivery;
+  var DeliverItemsCtrl, deliveryService, scope;
 
-  beforeEach(inject(function ($controller, _$state_, _dailyDeliveryMock_, _deliveryService_, _log_, FACILITY_ID) {
+  beforeEach(inject(function ($controller, _$state_, _dailyDeliveryMock_, _deliveryService_, _log_, FACILITY_ID, _$rootScope_) {
 
     _$state_.params = {facilityId: FACILITY_ID};
-
-    var scope = {
-      facDevCtrl: $controller('FacilityDeliveryCtrl', {
-        state: _$state_,
-        deliveryService: _deliveryService_,
-        dailyDelivery: _dailyDeliveryMock_,
-        log: _log_
-      })
-    };
+    scope = _$rootScope_.$new();
+    scope.facDevCtrl = $controller('FacilityDeliveryCtrl', {
+      state: _$state_,
+      deliveryService: _deliveryService_,
+      dailyDelivery: _dailyDeliveryMock_,
+      log: _log_
+    });
 
     DeliverItemsCtrl = $controller('DeliverItemsCtrl', {
       state: _$state_,

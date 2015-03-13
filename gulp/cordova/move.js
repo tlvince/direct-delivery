@@ -11,7 +11,7 @@ var common = require('../../gulp/common');
 
 function formatAPKPaths(pkg, cb) {
   var apkPath = {
-    from: '../cordova/platforms/android/out/DirectDelivery',
+    from: '../cordova/platforms/android/bin/DirectDelivery',
     to: 'build/' + pkg.name
   };
   if (argv.release || common.build.release) {

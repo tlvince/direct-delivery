@@ -24,6 +24,18 @@
   font-weight: bold;
 }
 
+.highlight-received-yes {
+  background-color: #5CB85C;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.highlight-interim-stock {
+  background-color: #9900FF;
+  font-weight: bold;
+  color: #ffffff;
+}
+
 .text-danger {
   background-color: #E06666;
   color: #FFFFFF;
@@ -48,11 +60,23 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 }
 
 .remove-pad {
-  padding: 0em
+  padding: 0em;
 }
 
 .right-align {
-  text-align: right
+  text-align: right;
+}
+
+.red-text {
+  color: red;
+}
+
+//a cross-browser solution: see:http://stackoverflow.com/questions/306924/checkbox-size-in-html-css
+.input-checkbox-lg {
+  // All browsers except webkit
+  transform: scale(1.5);
+  // Webkit browsers
+  -webkit-transform: scale(1.5);
 }
 
 // injector

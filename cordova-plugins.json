@@ -1,0 +1,5 @@
+{
+ "plugins": [
+   "org.apache.cordova.network-information"
+ ]
+}

@@ -9,6 +9,7 @@ var async = require('async');
 var cordova = require('cordova-lib').cordova;
 var crosswalk = require('crosswalk');
 var cordovaIcon = require('cordova-icon');
+var plugins = require('../../cordova-plugins.json').plugins;
 
 var common = require('../../gulp/common');
 
@@ -118,6 +119,11 @@ function symlinkCordovaResources(done) {
   async.parallel(steps, done);
 }
 
+function installPlugins(cb) {
+  gutil.log('Installing cordova plugins: ', gutil.colors.cyan(JSON.stringify(plugins)));
+  cordova.plugins('add', plugins, cb);
+}
+
 /**
  * Accepted parameters:
  *   --release : build release apk (default is debug apk)
@@ -132,6 +138,7 @@ function cordovaBuild(done) {
   var steps = [
     clean,
     symlinkCordovaResources,
+    installPlugins,
     cordovaAdd,
     generateIcons
   ];

@@ -86,5 +86,10 @@ angular.module('log')
       title: 'Invalid Other reason',
       message: 'Reason required for Failed or Canceled Other',
       remedy: 'Please enter reason for failed or canceled other'
+    },
+    'enterRecipientName': {
+      title: "Enter Received by",
+      message: 'Received by not entered',
+      remedy: 'Please, enter recipient name.'
     }
   });

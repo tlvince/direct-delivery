@@ -94,11 +94,12 @@
             </em>
           </span>
     </td>
-    <td>
+    <td class="highlight-interim-stock">
       <div class="input-group">
         <div class="input-group-addon">
           <label>
             <input type="checkbox"
+                   class="input-checkbox-lg"
                    ng-change="diCtrl.resetReceivedBtwDeliveryQty($index)"
                    ng-model="facDevCtrl.facRnd.packedProduct[$index].receivedInterimStock"> Received stock?
           </label>

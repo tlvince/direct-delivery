@@ -6,49 +6,64 @@
     </h2>
   </div>
   <div class="panel-body">
-    <a ui-sref="facilityDelivery.deliverItems({ ddId : facDevCtrl.ddId, facilityId : facDevCtrl.facility.id, preview: true })"
-       class="btn btn-default btn-lg btn-block">
+    <a
+      ui-sref="facilityDelivery.deliverItems({ ddId : facDevCtrl.ddId, facilityId : facDevCtrl.facility.id, preview: true })"
+      class="btn btn-default btn-lg btn-block">
       <i class="fa fa-arrow-circle-left"></i>
       <span>Back</span>
     </a>
 
     <h3>Sign inside the box below, then submit.</h3>
 
-    <div class="delivery-signature">
-      <div class="signature">
-        <canvas
-          width="558"
-          height="218"
-          ng-signature-pad="signOffCtrl.signature"
-          ng-signature-pad-min-width="1.5"
-          ng-signature-pad-max-width="3.5"
-          ng-if="!signOffCtrl.accepted"
-        ></canvas>
-        <img
-          ng-if="signOffCtrl.accepted"
-          ng-src="{{signOffCtrl.signature.toDataURL()}}"
-          alt="Delivery signature"
-        />
+    <form name="signOffForm" novalidate ng-submit="signOffCtrl.submit()">
+      <div class="input-group">
+        <label>Received by</label>
+        <input type="text" class="form-control input-lg-6"
+               ng-required="true"
+               name="recievedBy"
+               ng-model="signOffCtrl.facRnd.receivedBy">
+      <span class="help-block alert alert-danger"
+            ng-if="signOffForm.$submitted && !signOffForm.recievedBy.$valid">
+        Please, enter recipient name.
+        </span>
       </div>
-      <div>
-        <button
-          type="button"
-          class="btn btn-lg btn-default"
-          ng-click="signOffCtrl.signature.clear()"
-        >
-          <i class="fa fa-refresh"></i>
-          <span>Clear</span>
-        </button>
-      </div>
-    </div>
+      <br/>
 
-    <button
-      type="button"
-      class="btn btn-success btn-lg btn-block"
-      ng-click="signOffCtrl.submit()"
-    >
-      <span>Confirm & Submit</span>
-      <i class="fa fa-arrow-circle-right"></i>
-    </button>
+      <div class="delivery-signature">
+        <div class="signature">
+          <canvas
+            width="558"
+            height="218"
+            ng-signature-pad="signOffCtrl.signature"
+            ng-signature-pad-min-width="1.5"
+            ng-signature-pad-max-width="3.5"
+            ng-if="!signOffCtrl.accepted"
+            ></canvas>
+          <img
+            ng-if="signOffCtrl.accepted"
+            ng-src="{{signOffCtrl.signature.toDataURL()}}"
+            alt="Delivery signature"
+            />
+        </div>
+        <div>
+          <button
+            type="button"
+            class="btn btn-lg btn-default"
+            ng-click="signOffCtrl.signature.clear()"
+            >
+            <i class="fa fa-refresh"></i>
+            <span>Clear</span>
+          </button>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-success btn-lg btn-block"
+        >
+        <span>Confirm & Submit</span>
+        <i class="fa fa-arrow-circle-right"></i>
+      </button>
+    </form>
   </div>
 </div>

@@ -28,13 +28,13 @@
       <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].returnedQty"></span>
       <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].baseUOM"></span>
     </td>
-    <td>
+    <td ng-class="{'highlight-received-yes': diCtrl.receivedStockBtwDelivery($index) === true }">
       <span
         ng-show="diCtrl.receivedStockBtwDelivery($index) === true">Yes</span>
       <span
         ng-show="diCtrl.receivedStockBtwDelivery($index) !== true">No</span>
     </td>
-    <td class="highlight-returned-qty">
+    <td class="highlight-interim-stock">
       <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].btwDeliveryReceivedQty"></span>
       <span ng-bind="facDevCtrl.facRnd.packedProduct[$index].baseUOM"></span>
     </td>

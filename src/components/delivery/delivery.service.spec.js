@@ -67,7 +67,6 @@ describe('deliveryService', function () {
 
     it('should update a given dailyDelivery\'s facility round', function(){
       var facRound = angular.copy(deliveryMock.facilityRounds[0]);
-      expect(facRound.status).toBe(DELIVERY_STATUS.UPCOMING_FIRST);
       facRound.status = DELIVERY_STATUS.SUCCESS_FIRST;
       expect(deliveryMock.facilityRounds[0].status).not.toBe(DELIVERY_STATUS.SUCCESS_FIRST);
       deliveryService.updateFacilityRound(deliveryMock, facRound);

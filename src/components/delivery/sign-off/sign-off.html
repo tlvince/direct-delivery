@@ -18,7 +18,7 @@
     <form name="signOffForm" novalidate ng-submit="signOffCtrl.submit()">
       <div class="input-group">
         <label>Received by</label>
-        <input type="text" class="form-control input-lg-6"
+        <input type="text" class="form-control input-lg"
                ng-required="true"
                name="recievedBy"
                ng-model="signOffCtrl.facRnd.receivedBy">
@@ -26,6 +26,13 @@
             ng-if="signOffForm.$submitted && !signOffForm.recievedBy.$valid">
         Please, enter recipient name.
         </span>
+      </div>
+      <br/>
+      <div class="input-group">
+        <label>Phone No (optional):</label>
+        <input type="text" class="form-control input-lg"
+               name="phoneNo"
+               ng-model="signOffCtrl.facRnd.recipientPhoneNo">
       </div>
       <br/>
 

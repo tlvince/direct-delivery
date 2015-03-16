@@ -52,4 +52,8 @@ angular.module('delivery')
       }
     };
 
+    vm.isSelected = function(option){
+      return (vm.facRnd && vm.facRnd.status === option);
+    };
+
   });

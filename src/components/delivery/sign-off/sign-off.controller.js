@@ -6,6 +6,7 @@ angular.module('delivery')
     var parent = $scope.facDevCtrl;
     vm.facRnd = parent.facRnd;
     vm.facRnd.receivedBy = vm.facRnd.receivedBy || vm.facRnd.facility.contact;
+    vm.facRnd.recipientPhoneNo = vm.facRnd.recipientPhoneNo || vm.facRnd.facility.phoneNo;
     vm.dailyDelivery = dailyDelivery;
     vm.signature = {
       toDataURL: function(){

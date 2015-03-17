@@ -29,10 +29,14 @@
 
     <form name="skipForm" ng-submit="cancelDevCtrl.cancel()">
       <div class="form-group">
-        <div class="radio form-control input-lg"
-          ng-class="{'alert-info': cancelDevCtrl.facRnd.status === cancelDevCtrl.status.CANCELED_CCE}">
+        <div class="radio form-control input-lg label-warning"
+             ng-class="{
+              'white-text': !cancelDevCtrl.isSelected(cancelDevCtrl.status.CANCELED_CCE),
+              'alert-info': cancelDevCtrl.isSelected(cancelDevCtrl.status.CANCELED_CCE)
+              }">
           <label class="block-text">
             <input type="radio"
+                   class="input-checkbox-lg"
                    name="reason"
                    ng-value="cancelDevCtrl.status.CANCELED_CCE"
                    ng-model="cancelDevCtrl.facRnd.status"> Canceled CCE
@@ -41,10 +45,14 @@
       </div>
 
       <div class="form-group">
-        <div class="radio form-control input-lg"
-             ng-class="{'alert-info': cancelDevCtrl.facRnd.status === cancelDevCtrl.status.FAILED_CCE}">
+        <div class="radio form-control input-lg label-danger"
+             ng-class="{
+              'white-text': !cancelDevCtrl.isSelected(cancelDevCtrl.status.FAILED_CCE),
+              'alert-info': cancelDevCtrl.isSelected(cancelDevCtrl.status.FAILED_CCE)
+             }">
           <label class="block-text">
             <input type="radio"
+                   class="input-checkbox-lg"
                    name="reason"
                    ng-value="cancelDevCtrl.status.FAILED_CCE"
                    ng-model="cancelDevCtrl.facRnd.status"> Failed CCE
@@ -53,10 +61,14 @@
       </div>
 
       <div class="form-group">
-        <div class="radio form-control input-lg"
-             ng-class="{'alert-info': cancelDevCtrl.facRnd.status === cancelDevCtrl.status.CANCELED_STAFF}">
+        <div class="radio form-control input-lg label-warning"
+             ng-class="{
+                'white-text': !cancelDevCtrl.isSelected(cancelDevCtrl.status.CANCELED_STAFF),
+                'alert-info': cancelDevCtrl.isSelected(cancelDevCtrl.status.CANCELED_STAFF)
+              }">
           <label class="block-text">
             <input type="radio"
+                   class="input-checkbox-lg"
                    name="reason"
                    ng-value="cancelDevCtrl.status.CANCELED_STAFF"
                    ng-model="cancelDevCtrl.facRnd.status"> Canceled Staff not available
@@ -65,10 +77,14 @@
       </div>
 
       <div class="form-group">
-        <div class="radio form-control input-lg"
-             ng-class="{'alert-info': cancelDevCtrl.facRnd.status === cancelDevCtrl.status.FAILED_STAFF}">
+        <div class="radio form-control input-lg label-danger"
+             ng-class="{
+              'white-text': !cancelDevCtrl.isSelected(cancelDevCtrl.status.FAILED_STAFF),
+              'alert-info': cancelDevCtrl.isSelected(cancelDevCtrl.status.FAILED_STAFF)
+              }">
           <label class="block-text">
             <input type="radio"
+                   class="input-checkbox-lg"
                    name="reason"
                    ng-value="cancelDevCtrl.status.FAILED_STAFF"
                    ng-model="cancelDevCtrl.facRnd.status"> Failed Staff not available
@@ -77,10 +93,14 @@
       </div>
 
       <div class="form-group">
-        <div class="radio form-control input-lg"
-             ng-class="{'alert-info': cancelDevCtrl.facRnd.status === cancelDevCtrl.status.CANCELED_OTHER}">
+        <div class="radio form-control input-lg label-warning"
+             ng-class="{
+              'white-text': !cancelDevCtrl.isSelected(cancelDevCtrl.status.CANCELED_OTHER),
+              'alert-info': cancelDevCtrl.isSelected(cancelDevCtrl.status.CANCELED_OTHER)
+              }">
           <label class="block-text">
             <input type="radio"
+                   class="input-checkbox-lg"
                    name="reason"
                    ng-value="cancelDevCtrl.status.CANCELED_OTHER"
                    ng-model="cancelDevCtrl.facRnd.status"> Canceled Other
@@ -89,10 +109,14 @@
       </div>
 
       <div class="form-group">
-        <div class="radio form-control input-lg"
-             ng-class="{'alert-info': cancelDevCtrl.facRnd.status === cancelDevCtrl.status.FAILED_OTHER}">
+        <div class="radio form-control input-lg label-danger"
+             ng-class="{
+                'white-text': !cancelDevCtrl.isSelected(cancelDevCtrl.status.FAILED_OTHER),
+                'alert-info': cancelDevCtrl.isSelected(cancelDevCtrl.status.FAILED_OTHER)
+               }">
           <label class="block-text">
             <input type="radio"
+                   class="input-checkbox-lg"
                    name="reason"
                    ng-value="cancelDevCtrl.status.FAILED_OTHER"
                    ng-model="cancelDevCtrl.facRnd.status"> Failed Other

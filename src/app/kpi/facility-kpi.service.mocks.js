@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('facilityKPIMocks', [])
+angular
+  .module('facilityKPIMocks', [])
   .constant('facilityKPIMock', {
     "outreachSessions": 0,
     "notes": "",

@@ -1,10 +1,11 @@
 'use strict';
 
 describe('facilityKPIService', function () {
-  beforeEach(module('delivery', 'facilityKPIMocks'));
+  beforeEach(module('kpi', 'delivery', 'facilityKPIMocks'));
 
   var facilityKPIService;
   var facilityKPI;
+
   beforeEach(inject(function (_facilityKPIService_, _facilityKPIMock_) {
     facilityKPIService = _facilityKPIService_;
     facilityKPI = _facilityKPIMock_;

@@ -3,21 +3,14 @@
 /*global module: false, inject: false */
 
 describe('FacilityKPICtrl', function() {
-  beforeEach(module('delivery', 'deliveryMock', 'log'));
+  beforeEach(module('kpi', 'delivery', 'deliveryMock', 'log'));
 
   var FacilityKPICtrl;
 
   beforeEach(inject(function($controller, _$state_, _deliveryService_, _facilityKPIService_, _dailyDeliveryMock_, _log_, FACILITY_ID) {
     _$state_.params = { facilityId: FACILITY_ID };
 
-    var scope = {
-      facDevCtrl: $controller('FacilityDeliveryCtrl', {
-        $state: _$state_,
-        deliveryService: _deliveryService_,
-        dailyDelivery: _dailyDeliveryMock_,
-        log: _log_
-      })
-    };
+
 
     FacilityKPICtrl = $controller('FacilityKPICtrl', {
       $state: _$state_,
@@ -43,3 +36,4 @@ describe('FacilityKPICtrl', function() {
 
 
 });
+

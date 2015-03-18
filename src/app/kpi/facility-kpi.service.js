@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('delivery')
+angular.module('kpi')
   .service('facilityKPIService', function () {
 
     var _this = this;

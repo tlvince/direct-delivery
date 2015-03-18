@@ -18,7 +18,8 @@ angular.module('directDelivery', [
     'delivery',
     'loadingScreen',
     'db',
-    'sync'
+    'sync',
+    'kpi'
   ])
   .run(function($rootScope, $state, AuthService, coreService) {
 

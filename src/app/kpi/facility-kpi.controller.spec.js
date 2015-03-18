@@ -3,20 +3,14 @@
 /*global module: false, inject: false */
 
 describe('FacilityKPICtrl', function() {
-  beforeEach(module('kpi', 'delivery', 'deliveryMock', 'log'));
+  beforeEach(module('kpi'));
 
   var FacilityKPICtrl;
 
-  beforeEach(inject(function($controller, _$state_, _deliveryService_, _facilityKPIService_, _dailyDeliveryMock_, _log_, FACILITY_ID) {
-    _$state_.params = { facilityId: FACILITY_ID };
-
-
+  beforeEach(inject(function($controller, _facilityKPIService_) {
 
     FacilityKPICtrl = $controller('FacilityKPICtrl', {
-      $state: _$state_,
-      deliveryService: _deliveryService_,
-      facilityKPIService: _facilityKPIService_,
-      $scope: scope
+      facilityKPIService: _facilityKPIService_
     });
 
   }));

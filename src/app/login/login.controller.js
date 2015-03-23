@@ -17,7 +17,10 @@ angular.module('login')
       loginService.login(username, password)
         .then(loggedIn)
         .catch(function(err) {
-          log.error(err);
+          if(err.status === 401){
+            return log.error('unauthorizedUser');
+          }
+          log.error('authInvalid');
         });
     };
 

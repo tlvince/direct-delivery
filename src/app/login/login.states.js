@@ -12,8 +12,12 @@ angular.module('login')
     .state('logout', {
       url: '/logout',
       resolve: {
-        logout: function(loginService) {
-          loginService.logout();
+        logout: function(loginService, log) {
+          function handleLogoutError(msg){
+            return log.warn('failedServerLogout', msg);
+          }
+          return loginService.logout()
+            .catch(handleLogoutError);
         }
       }
     });

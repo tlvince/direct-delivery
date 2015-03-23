@@ -91,5 +91,10 @@ angular.module('log')
       title: "Enter Received by",
       message: 'Received by not entered',
       remedy: 'Please, enter recipient name.'
+    },
+    unauthorizedUser: {
+      title: "Unauthorised User",
+      message: 'You are denied accesses.',
+      remedy: 'Please, if entered correct login details, if problem persist contact support.'
     }
   });

@@ -83,7 +83,7 @@ angular.module('core')
       }
       if(err.status === 401) {
         //broadcast event and show user instruction using information tab.
-        retryStartSyncAfterLogin(driverEmail)
+        _this.retryStartSyncAfterLogin(driverEmail)
           .finally(function() {
             var MAX_RETRY_COMPLETED = true;
             $rootScope.$emit(SYNC_STATUS.MAX_RETRY_COMPLETED, { msg: MAX_RETRY_COMPLETED });

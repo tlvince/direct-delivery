@@ -4,13 +4,13 @@ angular.module('login')
   .controller('LoginCtrl', function($state, log, AuthService, loginService, coreService, hasCompleteDesignDocs) {
 
     function loggedIn(){
-      log.success('authSuccess');
+      //log.success('authSuccess');
       if(hasCompleteDesignDocs !== true){
         $state.go('loadingScreen');
       }else{
         $state.go('home');
       }
-      coreService.startSyncAfterLogin(AuthService.currentUser.name);
+      return coreService.startSyncAfterLogin(AuthService.currentUser.name);
     }
 
     this.login = function(username, password) {
@@ -20,7 +20,7 @@ angular.module('login')
           if(err.status === 401){
             return log.error('unauthorizedUser');
           }
-          log.error('authInvalid');
+          return log.error('authInvalid');
         });
     };
 

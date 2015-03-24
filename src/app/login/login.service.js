@@ -9,14 +9,15 @@ angular.module('login')
 
     this.logout = function() {
       function login() {
-        $state.go('login');
+        return $state.go('login');
       }
 
       function handleError(err) {
-        log.error('logoutError', err);
+        log.warn('failedServerLogout', msg);
+        return $state.go('login');
       }
 
-      AuthService.logout()
+      return AuthService.logout()
         .then(login)
         .catch(handleError);
     };

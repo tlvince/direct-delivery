@@ -124,6 +124,7 @@ angular.module('core')
     };
 
     _this.hasCompleteDesignDocs = function () {
+
       function validateDesignDoc(res) {
         return res.rows.every(function (row) {
           return !row.error && !row.deleted;

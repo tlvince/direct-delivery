@@ -48,9 +48,9 @@ angular.module('log')
       remedy: 'Please, sign before submitting'
     },
     'facilityRoundNotSet': {
-      title: 'Cancel delivery',
-      message: 'Invalid facility round',
-      remedy: 'Please, select valid facility round'
+      title: 'Invalid Facility ID',
+      message: 'Facility ID is not set or invalid',
+      remedy: 'Please, contact support to update to valid facility ID'
     },
     'dailyDeliveryFailed': {
       title: 'Daily delivery',

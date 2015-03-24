@@ -9,11 +9,17 @@ angular.module('delivery')
       return dbService.save(ddDoc);
     };
 
+    _this.equalString = function(itemOne, itemTwo){
+      var itemStr= itemOne + '';
+      var itemTwoStr = itemTwo + '';
+      return itemStr === itemTwoStr;
+    };
+
     _this.updateFacilityRound = function (dailyDelivery, facRnd) {
       var fr;
       for (var i in dailyDelivery.facilityRounds) {
         fr = dailyDelivery.facilityRounds[i];
-        if (fr.facility.id === facRnd.facility.id) {
+        if (_this.equalString(fr.facility.id, facRnd.facility.id)) {
           dailyDelivery.facilityRounds[i] = facRnd;
           return dailyDelivery;
         }
@@ -25,7 +31,7 @@ angular.module('delivery')
     _this.filterByFacility = function (dd, facilityId) {
       return dd.facilityRounds
         .filter(function (facRnd) {
-          return facRnd.facility.id === facilityId;
+          return (facRnd.facility && _this.equalString(facilityId, facRnd.facility.id));
         });
     };
 

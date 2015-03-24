@@ -4,8 +4,7 @@ angular.module('login')
   .controller('LoginCtrl', function($state, log, AuthService, loginService, coreService, hasCompleteDesignDocs) {
 
     function loggedIn(){
-      //log.success('authSuccess');
-      if(hasCompleteDesignDocs !== true){
+      if(hasCompleteDesignDocs !== true && AuthService.isLoggedIn === false){
         $state.go('loadingScreen');
       }else{
         $state.go('home');

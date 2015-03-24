@@ -55,7 +55,7 @@ angular.module('core')
       return isReplicationFromInProgress;
     };
 
-    function retryStartSyncAfterLogin(driverEmail, retry){
+    _this.retryStartSyncAfterLogin = function(driverEmail, retry){
       var currentRetry = retry || 0;
       var MAXIMUM_RETRY = 5;
       currentRetry = currentRetry + 1;
@@ -67,9 +67,9 @@ angular.module('core')
           if(currentRetry > MAXIMUM_RETRY){
             return err;
           }
-          return retryStartSyncAfterLogin(driverEmail, currentRetry);
+          return _this.retryStartSyncAfterLogin(driverEmail, currentRetry);
         });
-    }
+    };
 
     function onFailSync(err, replicateDown, driverEmail) {
       //unauthorised due to network issues or wrong login details.

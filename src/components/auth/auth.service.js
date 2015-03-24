@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('auth')
-  .service('AuthService', function AuthService($rootScope, $window, $log, $q, $localStorage, $sessionStorage, pouchDB, config, utility) {
+  .service('AuthService', function AuthService($rootScope, $window, $log, $q, $localStorage, $sessionStorage, pouchDB, config, utility, $state) {
     // seed asmCrypto PRNG for better security when creating random password salts
     $window.asmCrypto.random.seed($window.crypto.getRandomValues(new Uint8Array(128)));
 
@@ -109,10 +109,7 @@ angular.module('auth')
           if (err.status === 401) {
             return handleUnauthourisedAccess(username, err);
           }
-          return _this.offlineLogin(username, password)
-            .catch(function(){
-              return err;
-            });
+          return _this.offlineLogin(username, password);
         });
     };
 
@@ -150,16 +147,15 @@ angular.module('auth')
           return user;
         }.bind(this))
         .catch(function(err) {
-          throw err.name === 'unauthorized' ? 'authInvalid' : 'networkError';
+          if(err.name === 'unauthorized'){
+            return $q.reject('authInvalid');
+          }
+          return $q.reject('networkError');
         });
     };
 
     this.logout = function() {
-      var db = pouchDB(config.db);
-      return db.logout()
-        .finally(function() {
-          //clear current user
-          _this.setCurrentUser(null);
-        }.bind(this));
+      _this.setCurrentUser(null);
     };
+
   });

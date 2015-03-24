@@ -7,7 +7,7 @@ angular.module('login')
       if(hasCompleteDesignDocs !== true && AuthService.isLoggedIn === false){
         $state.go('loadingScreen');
       }else{
-        $state.go('home');
+        $state.go('home.schedule');
       }
       return coreService.startSyncAfterLogin(AuthService.currentUser.name);
     }

@@ -7,5 +7,6 @@ angular.module('core', [
   'config',
   'db',
   'utility',
-  'log'
+  'log',
+  'auth'
 ]);

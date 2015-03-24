@@ -51,7 +51,7 @@ angular.module('home')
     }
 
     vm.startSync = function () {
-      coreService.retryStartSyncAfterLogin(AuthService.currentUser.name);
+      coreService.startSyncAfterLogin(AuthService.currentUser.name);
       addSyncListeners();
     };
 

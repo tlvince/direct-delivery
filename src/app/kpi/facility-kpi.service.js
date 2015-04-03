@@ -35,4 +35,12 @@ angular.module('kpi')
       return angular.isNumber(outreachSessions);
     };
 
+    _this.getDefault = function () {
+      return {
+        "outreachSessions": 0,
+        "notes": "",
+        "antigensKPI": []
+      };
+    };
+
   });

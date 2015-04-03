@@ -16,4 +16,16 @@ angular.module('utility')
     this.first = function(list) {
       return list[0];
     };
+
+    /**
+     * This takes a date object, extract only "yyyy-MM-dd" part
+     * and return it as date object.
+     *
+     * Needed to set HTML 5 date input field in AngularJS.
+     * see https://docs.angularjs.org/api/ng/input/input%5Bdate%5D
+     */
+    this.extractDate = function(date){
+      return new Date(this.formatDate(date));
+    };
+
   });

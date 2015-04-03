@@ -1,11 +1,33 @@
 'use strict';
 
 angular.module('kpi')
-  .controller('FacilityKPICtrl', function (facilityKPIService) {
+  .controller('FacilityKPICtrl', function (facilityKPIService, utility, scheduleService, AuthService) {
 
     var vm = this;
 
     var facilityKPI = {};
+    vm.selectedDate = utility.extractDate(new Date());
+    vm.facilityList = [];
+    vm.loadFacilities();
+
+    vm.facilityKPI = {
+      "outreachSessions": 0,
+      "notes": "",
+      "antigensKPI": [
+        {
+          "productID": "BCG",
+          "noImmuized": 0
+        },
+        {
+          "productID": "Men-A",
+          "noImmuized": 0
+        },
+        {
+          "productID": "OPV",
+          "noImmuized": 0
+        }
+      ]
+    };
 
     function clearValidationError(){
       vm.kpiError = {
@@ -13,6 +35,23 @@ angular.module('kpi')
         antigensNoImmunized: {}
       };
     }
+
+    vm.loadFacilities = function() {
+      var driverId = AuthService.currentUser.name;
+
+      function extractFacilityRoundInfo(dailyDelivery) {
+        if (!angular.isArray(dailyDelivery.facilityRounds)) {
+          return [];
+        }
+        vm.facilityList = dailyDelivery.facilityRounds
+          .map(function (facRnd) {
+            return { id: facRnd.facility.id, name: facRnd.facility.name };
+          });
+      }
+
+      scheduleService.getDaySchedule(driverId, vm.selectedDate)
+        .then(extractFacilityRoundInfo);
+    };
 
     vm.togglePreview = function(){
       vm.previewKPI = !vm.previewKPI;

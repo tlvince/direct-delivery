@@ -7,7 +7,7 @@
 angular.module('core')
   .service('coreService', function ($rootScope, syncService, config, pouchdbService, CORE_SYNC_DOWN,
                                     SYNC_DAILY_DELIVERY, SYNC_DESIGN_DOC, $state, log, SYNC_STATUS,
-                                    utility, scheduleService) {
+                                    utility, scheduleService, AuthService) {
 
     var _this = this;
     var isReplicationFromInProgress = false;
@@ -36,24 +36,62 @@ angular.module('core')
     }
 
     function replicateCoreDocTypes(driverEmail, date) {
-      syncService.replicateByDocTypes(config.localDB, config.db, config.coreDocTypes)
+      var replicateDown = syncService.replicateByDocTypes(config.localDB, config.db, config.coreDocTypes)
         .on('complete', function (res) {
           $rootScope.$emit(CORE_SYNC_DOWN.COMPLETE, {msg: res});
           replicateDailyDelivery(driverEmail, date);
         })
         .on('error', function (err) {
           $rootScope.$emit(CORE_SYNC_DOWN.ERROR, {msg: err});
-          replicateDailyDelivery(driverEmail, date);
+          onFailSync(err, replicateDown, driverEmail);
         })
         .on('denied', function (err) {
           $rootScope.$emit(CORE_SYNC_DOWN.DENIED, {msg: err});
-          replicateDailyDelivery(driverEmail, date);
+          onFailSync(err, replicateDown, driverEmail);
         });
     }
 
     _this.getSyncInProgress = function () {
       return isReplicationFromInProgress;
     };
+
+    _this.retryStartSyncAfterLogin = function(driverEmail, retry){
+      var currentRetry = retry || 0;
+      var MAXIMUM_RETRY = 5;
+      currentRetry = currentRetry + 1;
+      return AuthService.login(driverEmail, AuthService.getTempPassword())
+        .then(function(){
+          return _this.startSyncAfterLogin(driverEmail);
+        })
+        .catch(function(err){
+          if(currentRetry > MAXIMUM_RETRY){
+            return err;
+          }
+          return _this.retryStartSyncAfterLogin(driverEmail, currentRetry);
+        });
+    };
+
+    function onFailSync(err, replicateDown, driverEmail) {
+      //unauthorised due to network issues or wrong login details.
+      turnOffReplicateFromInProgress();
+      if(replicateDown){
+        replicateDown.cancel();
+      }
+      if(replicationTo){
+        replicationTo.cancel();
+        replicationTo = false; //clear sync up
+      }
+      if(err.status === 401) {
+        //broadcast event and show user instruction using information tab.
+        _this.retryStartSyncAfterLogin(driverEmail)
+          .finally(function() {
+            var MAX_RETRY_COMPLETED = true;
+            $rootScope.$emit(SYNC_STATUS.MAX_RETRY_COMPLETED, { msg: MAX_RETRY_COMPLETED });
+          });
+      }else{
+        $rootScope.$emit(SYNC_STATUS.ERROR, { msg: err });
+      }
+    }
 
     /**
      * @desc This replicates documents from, remote db to local db.
@@ -70,22 +108,23 @@ angular.module('core')
 
       turnOnReplicateFromInProgress();
 
-      syncService.replicateByIds(config.localDB, config.db, config.designDocs)
+      var replicateDown = syncService.replicateByIds(config.localDB, config.db, config.designDocs)
         .on('complete', function (res) {
           $rootScope.$emit(SYNC_DESIGN_DOC.COMPLETE, {msg: res});
           replicateCoreDocTypes(driverEmail, date);
         })
         .on('error', function (err) {
+          onFailSync(err, replicateDown, driverEmail);
           $rootScope.$emit(SYNC_DESIGN_DOC.ERROR, {msg: err});
-          replicateCoreDocTypes(driverEmail, date);
         })
         .on('denied', function (err) {
+          onFailSync(err, replicateDown, driverEmail);
           $rootScope.$emit(SYNC_DESIGN_DOC.DENIED, {msg: err});
-          replicateCoreDocTypes(driverEmail, date);
         });
     };
 
     _this.hasCompleteDesignDocs = function () {
+
       function validateDesignDoc(res) {
         return res.rows.every(function (row) {
           return !row.error && !row.deleted;
@@ -162,11 +201,13 @@ angular.module('core')
         replicationTo = syncService.replicateToRemote(config.localDB, config.db, options);
         replicationTo
           .on('error', function (err) {
+            onFailSync(err, replicationTo, AuthService.currentUser.name);
             log.error('remoteReplicationDisconnected', err);
           });
         replicationTo
           .on('denied', function (err) {
             log.error('remoteReplicationDisconnected', err);
+            onFailSync(err, replicationTo, AuthService.currentUser.name);
           });
         replicationTo
           .on('paused', function () {

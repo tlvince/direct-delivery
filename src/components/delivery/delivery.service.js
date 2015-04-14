@@ -9,6 +9,20 @@ angular.module('delivery')
       return dbService.save(ddDoc);
     };
 
+    /**
+     * This tests String equality after casting both items to strings.
+     *
+     * WARNING: equalString("null", null) and equalString("undefined", undefined)
+     * will return True, which might not be what you are expecting.
+     *
+     * NOTE: this was required because sometimes when i pass facility id
+     * via $stateParams they are casted to string and some facility id when pulled
+     * from Google Sheet are not string hence mismatch when '===' is used for equality test.
+     *
+     * @param itemOne
+     * @param itemTwo
+     * @returns {boolean}
+     */
     _this.equalString = function(itemOne, itemTwo){
       var itemStr= itemOne + '';
       var itemTwoStr = itemTwo + '';

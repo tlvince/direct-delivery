@@ -1,32 +1,34 @@
 'use strict';
 
 angular.module('kpi')
-  .controller('FacilityKPICtrl', function (facilityKPIService, utility, scheduleService, AuthService) {
+  .controller('FacilityKPICtrl', function (facilityKPIService, utility, scheduleService,
+                                           AuthService) {
 
     var vm = this;
+    var driverId = AuthService.currentUser.name;
 
-    var facilityKPI = {};
-    vm.selectedDate = utility.extractDate(new Date());
-    vm.facilityList = [];
-    vm.loadFacilities();
+    function setFacilityList(list) {
+      vm.facilityList = list;
+    }
 
-    vm.facilityKPI = {
-      "outreachSessions": 0,
-      "notes": "",
-      "antigensKPI": [
-        {
-          "productID": "BCG",
-          "noImmuized": 0
-        },
-        {
-          "productID": "Men-A",
-          "noImmuized": 0
-        },
-        {
-          "productID": "OPV",
-          "noImmuized": 0
-        }
-      ]
+    vm.loadFacilities = function(){
+      facilityKPIService.loadFacilities(driverId, vm.selectedDate)
+        .then(function(facilityList){
+          setFacilityList(facilityList);
+        })
+        .catch(function() {
+          setFacilityList([]);
+        });
+    };
+
+    vm.loadFacilityKPI = function() {
+      vm.selectedLoadKPI = true;
+      vm.facilityKPI = facilityKPIService.getFacilityKPIFrom(vm.selectedFacilityId, vm.facilityList);
+      vm.selectedFacility = facilityKPIService.getFromById(vm.selectedFacilityId, vm.facilityList);
+    };
+
+    vm.isValidKPI = function(){
+      return facilityKPIService.isValidKPI(vm.facilityKPI);
     };
 
     function clearValidationError(){
@@ -36,33 +38,29 @@ angular.module('kpi')
       };
     }
 
-    vm.loadFacilities = function() {
-      var driverId = AuthService.currentUser.name;
+    function initialize() {
+      vm.selectedLoadKPI = false;
+      vm.previewKPI = false;
+      vm.facilityKPI = null;
+      vm.selectedFacilityId = null;
+      vm.selectedDate = utility.extractDate(new Date());
+      vm.loadFacilities();
+      setFacilityList([]);
+      clearValidationError();
+    }
 
-      function extractFacilityRoundInfo(dailyDelivery) {
-        if (!angular.isArray(dailyDelivery.facilityRounds)) {
-          return [];
-        }
-        vm.facilityList = dailyDelivery.facilityRounds
-          .map(function (facRnd) {
-            return { id: facRnd.facility.id, name: facRnd.facility.name };
-          });
-      }
-
-      scheduleService.getDaySchedule(driverId, vm.selectedDate)
-        .then(extractFacilityRoundInfo);
-    };
+    initialize();
 
     vm.togglePreview = function(){
       vm.previewKPI = !vm.previewKPI;
     };
 
     vm.isValidOutreach = function(){
-      vm.kpiError.outreach =  !facilityKPIService.isValidOutreach(facilityKPI.outreachSessions);
+      vm.kpiError.outreach =  !facilityKPIService.isValidOutreach(vm.facilityKPI.outreachSessions);
     };
 
     vm.preview = function(){
-      var res = facilityKPIService.isValidFacilityKPI(facilityKPI);
+      var res = facilityKPIService.isValidFacilityKPI(vm.facilityKPI);
       if(res === true){
         clearValidationError();
         vm.togglePreview();
@@ -71,8 +69,8 @@ angular.module('kpi')
       }
     };
 
-    vm.validateNoImmunized = function(i){
-      var antigen = facilityKPI.antigensKPI[i];
+    vm.validateNoImmunized = function(index){
+      var antigen = vm.facilityKPI.antigensKPI[index];
       vm.kpiError.antigensNoImmunized[antigen.productID] = !angular.isNumber(antigen.noImmunized);
     };
 

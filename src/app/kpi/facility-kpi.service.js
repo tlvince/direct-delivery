@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('kpi')
-  .service('facilityKPIService', function () {
+  .service('facilityKPIService', function (scheduleService, utility, deliveryService) {
 
     var _this = this;
 
@@ -31,16 +31,52 @@ angular.module('kpi')
       return invalid;
     };
 
-    _this.isValidOutreach = function(outreachSessions){
+    _this.isValidOutreach = function (outreachSessions) {
       return angular.isNumber(outreachSessions);
     };
 
-    _this.getDefault = function () {
-      return {
-        "outreachSessions": 0,
-        "notes": "",
-        "antigensKPI": []
-      };
+
+    _this.loadFacilities = function (driverId, date) {
+      function extractFacilityRoundInfo(dailyDelivery) {
+        if (!angular.isArray(dailyDelivery.facilityRounds)) {
+          return [];
+        }
+        return dailyDelivery.facilityRounds
+          .map(function (facRnd) {
+            return {
+              id: facRnd.facility.id,
+              name: facRnd.facility.name,
+              dailyDeliveryId: dailyDelivery._id,
+              facilityRound: facRnd
+            };
+          });
+      }
+
+      return scheduleService.getDaySchedule(driverId, date)
+        .then(extractFacilityRoundInfo);
+    };
+
+    _this.getFacilityKPIFrom = function(facilityId, facilityKPIList) {
+      var selected = _this.getFromById(facilityId, facilityKPIList);
+      if(selected && selected.facilityRound && selected.facilityRound.facilityKPI){
+        return selected.facilityRound.facilityKPI;
+      }
+    };
+
+    _this.getFromById = function(facilityId, facilityKPIList) {
+      function filterByFacilityId(doc){
+        return deliveryService.equalString(doc.id, facilityId);
+      }
+      return utility.first(facilityKPIList.filter(filterByFacilityId));
+    };
+
+    /**
+     * This validates a Facility KPI object
+     * @param kpi
+     * @returns {*|boolean}
+     */
+    _this.isValidKPI = function(kpi) {
+      return (angular.isObject(kpi) && angular.isArray(kpi.antigensKPI) && kpi.antigensKPI.length > 0);
     };
 
   });

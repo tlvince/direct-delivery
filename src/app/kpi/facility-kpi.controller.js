@@ -83,7 +83,7 @@ angular.module('kpi')
             var dd = deliveryService.updateFacilityRound(dailyDelivery, facilityRound);
             dailyDelivery.save(dd)
               .then(function() {
-
+                //TODO: process alert and navigate to home.schedule.
               })
               .catch(function() {
                 log.error('Facility Round Not Found');

@@ -2,7 +2,7 @@
 
 angular.module('kpi')
   .controller('FacilityKPICtrl', function (facilityKPIService, utility, scheduleService,
-                                           AuthService) {
+                                           AuthService, deliveryService, log) {
 
     var vm = this;
     var driverId = AuthService.currentUser.name;
@@ -69,9 +69,32 @@ angular.module('kpi')
       }
     };
 
-    vm.validateNoImmunized = function(index){
+    vm.isInvalid = function(index){
       var antigen = vm.facilityKPI.antigensKPI[index];
-      vm.kpiError.antigensNoImmunized[antigen.productID] = !angular.isNumber(antigen.noImmunized);
+      vm.kpiError.antigensNoImmunized[index] = !angular.isNumber(antigen.noImmunized);
+    };
+
+    vm.save = function() {
+      deliveryService.get(vm.selectedFacility.dailyDeliveryId)
+        .then(function(dailyDelivery) {
+          var facilityRound = utility.first(deliveryService.filterByFacility(dailyDelivery, vm.selectedFacility.id));
+          if(angular.isObject(facilityRound)){
+            facilityRound. facilityKPI = vm.facilityKPI;
+            var dd = deliveryService.updateFacilityRound(dailyDelivery, facilityRound);
+            dailyDelivery.save(dd)
+              .then(function() {
+
+              })
+              .catch(function() {
+                log.error('Facility Round Not Found');
+              });
+          }else{
+            log.error('Facility Round Not Found');
+          }
+        })
+        .catch(function(err) {
+          log.error(err);
+        });
     };
 
   });

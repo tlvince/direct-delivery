@@ -9,6 +9,10 @@ angular.module('delivery')
       return dbService.save(ddDoc);
     };
 
+    _this.get = function(id) {
+      return dbService.get(id);
+    };
+
     /**
      * This tests String equality after casting both items to strings.
      *

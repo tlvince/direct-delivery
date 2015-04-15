@@ -21,7 +21,7 @@ angular.module('kpi')
       for (var i in kpi.antigensKPI) {
         antigen = kpi.antigensKPI[i];
         if (!angular.isNumber(antigen.noImmunized)) {
-          invalid.antigensNoImmunized[antigen.productID] = true;
+          invalid.antigensNoImmunized[i] = true;
         }
       }
       var validNoImmunized = Object.keys(invalid.antigensNoImmunized).length === 0;

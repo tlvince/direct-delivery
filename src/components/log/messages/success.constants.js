@@ -25,5 +25,9 @@ angular.module('log')
     'remoteReplicationUpToDate': {
       title: 'Replication up to date',
       message: 'Replication to remote database completed successfully'
+    },
+    'kpiSaved': {
+      title: 'Facility KPI saved',
+      message: 'Facility KPI was saved successfully!'
     }
   });

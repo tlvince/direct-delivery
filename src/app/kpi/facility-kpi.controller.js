@@ -5,7 +5,6 @@ angular.module('kpi')
                                            AuthService, deliveryService, log, $state) {
 
     var vm = this;
-    vm.previewKPI = false;
     var driverId = AuthService.currentUser.name;
 
     function setFacilityList(list) {
@@ -41,6 +40,7 @@ angular.module('kpi')
 
     function initialize() {
       vm.selectedLoadKPI = false;
+      vm.previewKPI = false;
       vm.facilityKPI = null;
       vm.selectedFacilityId = null;
       vm.selectedDate = utility.extractDate(new Date());

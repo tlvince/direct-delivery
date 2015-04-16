@@ -2,7 +2,7 @@
 
 angular.module('kpi')
   .controller('FacilityKPICtrl', function (facilityKPIService, utility, scheduleService,
-                                           AuthService, deliveryService, log) {
+                                           AuthService, deliveryService, log, $state) {
 
     var vm = this;
     var driverId = AuthService.currentUser.name;
@@ -81,19 +81,20 @@ angular.module('kpi')
           if(angular.isObject(facilityRound)){
             facilityRound. facilityKPI = vm.facilityKPI;
             var dd = deliveryService.updateFacilityRound(dailyDelivery, facilityRound);
-            dailyDelivery.save(dd)
+            deliveryService.save(dd)
               .then(function() {
-                //TODO: process alert and navigate to home.schedule.
+                log.success('kpiSaved');
+                $state.go('home.schedule');
               })
-              .catch(function() {
-                log.error('Facility Round Not Found');
+              .catch(function(err) {
+                log.error('saveKPIFail', err);
               });
           }else{
-            log.error('Facility Round Not Found');
+            log.error('facilityRoundNotFound');
           }
         })
         .catch(function(err) {
-          log.error(err);
+          log.error('facilityRoundNotFound', err);
         });
     };
 

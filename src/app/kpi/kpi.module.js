@@ -4,5 +4,7 @@ angular
   .module('kpi', [
     'core',
     'delivery',
-    'schedules'
+    'schedules',
+    'utility',
+    'auth'
   ]);

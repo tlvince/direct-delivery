@@ -58,7 +58,7 @@ describe('facilityKPIService', function () {
       var index = 0;
       temp.antigensKPI[index].noImmuized = '123'; //non number
       var validationErr = facilityKPIService.isValidFacilityKPI(temp);
-      expect(validationErr.antigensNoImmunized[temp.antigensKPI[index].productID]).toBeTruthy();
+      expect(validationErr.antigensNoImmunized[index]).toBeTruthy();
     });
 
   });

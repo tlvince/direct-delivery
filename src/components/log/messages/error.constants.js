@@ -96,5 +96,10 @@ angular.module('log')
       title: "Unauthorised User",
       message: 'You are denied accesses.',
       remedy: 'Please, if entered correct login details, if problem persist contact support.'
+    },
+    scheduleRoundResolveErr: {
+      title: 'Schedule Rounds error',
+      message: 'Could not fetch schedule history',
+      remedy: 'Please double check your network connectivity or contact support'
     }
   });

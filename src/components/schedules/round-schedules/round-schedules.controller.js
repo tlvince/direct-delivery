@@ -9,7 +9,10 @@ angular.module('schedules.round')
     _this.rounds = rounds;
 
     _this.formatDate = function(date){
-      return utility.formatDate(date, "dd, MMM yyyy");
+      if((new Date(date)).toString() !== 'Invalid Date'){
+        return utility.formatDate(date, "dd, MMM yyyy");
+      }
+      return 'N/A';
     };
 
     _this.displayRound = null;

@@ -47,7 +47,18 @@
                   <tr ng-repeat="facilityRound in day.facilityRounds track by $index">
                     <td ng-bind="facilityRound.facility.name"></td>
                     <td ng-bind="facilityRound.drop"></td>
-                    <td ng-bind="facilityRound.status"></td>
+                    <td ng-bind="facilityRound.status"
+                        ng-class="{
+            'alert-warning': (schedulesRoundCtrl.STATUS.CANCELED_CCE === facilityRound.status ||
+              schedulesRoundCtrl.STATUS.CANCELED_OTHER === facilityRound.status ||
+              schedulesRoundCtrl.STATUS.CANCELED_STAFF === facilityRound.status),
+            'alert-danger': (schedulesRoundCtrl.STATUS.FAILED_OTHER === facilityRound.status ||
+              schedulesRoundCtrl.STATUS.FAILED_CCE === facilityRound.status ||
+              schedulesRoundCtrl.STATUS.FAILED_STAFF === facilityRound.status),
+            'alert-success': (homeScheduleCtrl.STATUS.SUCCESS_FIRST === facilityRound.status ||
+              schedulesRoundCtrl.STATUS.SUCCESS_SECOND === facilityRound.status)
+            }">
+                    </td>
                     <td ng-bind="facilityRound.window"></td>
                     <td
                         ng-bind="facilityRound.facility.zone"

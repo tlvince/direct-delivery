@@ -3,9 +3,10 @@
  */
 
 angular.module('schedules.round')
-  .controller('SchedulesRoundCtrl', function(scheduleService, scheduleRoundService, rounds, utility){
+  .controller('SchedulesRoundCtrl', function(scheduleService, scheduleRoundService, rounds, utility, DELIVERY_STATUS){
     var _this = this;
 
+    _this.STATUS = DELIVERY_STATUS;
     _this.rounds = rounds;
 
     _this.formatDate = function(date){

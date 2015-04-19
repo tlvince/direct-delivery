@@ -49,15 +49,10 @@
                     <td ng-bind="facilityRound.drop"></td>
                     <td ng-bind="facilityRound.status"
                         ng-class="{
-            'alert-warning': (schedulesRoundCtrl.STATUS.CANCELED_CCE === facilityRound.status ||
-              schedulesRoundCtrl.STATUS.CANCELED_OTHER === facilityRound.status ||
-              schedulesRoundCtrl.STATUS.CANCELED_STAFF === facilityRound.status),
-            'alert-danger': (schedulesRoundCtrl.STATUS.FAILED_OTHER === facilityRound.status ||
-              schedulesRoundCtrl.STATUS.FAILED_CCE === facilityRound.status ||
-              schedulesRoundCtrl.STATUS.FAILED_STAFF === facilityRound.status),
-            'alert-success': (homeScheduleCtrl.STATUS.SUCCESS_FIRST === facilityRound.status ||
-              schedulesRoundCtrl.STATUS.SUCCESS_SECOND === facilityRound.status)
-            }">
+                          'alert-warning': schedulesRoundCtrl.getColorCode(facilityRound.status, 'alert-warning'),
+                          'alert-danger': schedulesRoundCtrl.getColorCode(facilityRound.status, 'alert-danger'),
+                          'alert-success': schedulesRoundCtrl.getColorCode(facilityRound.status, 'alert-success')
+                        }">
                     </td>
                     <td ng-bind="facilityRound.window"></td>
                     <td

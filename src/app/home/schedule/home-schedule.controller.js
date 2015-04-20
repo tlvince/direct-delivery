@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('home.schedule')
-  .controller('HomeScheduleCtrl', function (dailySchedule, $scope, $rootScope, SYNC_STATUS, DELIVERY_STATUS) {
+  .controller('HomeScheduleCtrl', function (dailySchedule, deliveryService, $scope, $rootScope,
+                                            SYNC_STATUS, DELIVERY_STATUS) {
     var vm = this;
     vm.day = dailySchedule;
     vm.STATUS = DELIVERY_STATUS;
@@ -11,6 +12,10 @@ angular.module('home.schedule')
     function processEvent(event, data) {
       vm.day = data.dailySchedule;
     }
+
+    vm.getColorCode = function(status, ccsClass) {
+      return deliveryService.getStatusColor(status, ccsClass);
+    };
 
     vm.showScheduleTable = function () {
       return (vm.day && angular.isArray(vm.day.facilityRounds) && vm.day.facilityRounds.length > 0);

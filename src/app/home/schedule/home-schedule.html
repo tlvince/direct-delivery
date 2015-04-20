@@ -28,16 +28,12 @@
         </a>
       </td>
       <td ng-bind="facilityRound.drop"></td>
+      {{homeScheduleCtrl.getColorCode(facilityRound.status, 'alert-warning')}}
       <td ng-bind="facilityRound.status"
           ng-class="{
-            'alert-warning': (homeScheduleCtrl.STATUS.CANCELED_CCE === facilityRound.status ||
-              homeScheduleCtrl.STATUS.CANCELED_OTHER === facilityRound.status ||
-              homeScheduleCtrl.STATUS.CANCELED_STAFF === facilityRound.status),
-            'alert-danger': (homeScheduleCtrl.STATUS.FAILED_OTHER === facilityRound.status ||
-              homeScheduleCtrl.STATUS.FAILED_CCE === facilityRound.status ||
-              homeScheduleCtrl.STATUS.FAILED_STAFF === facilityRound.status),
-            'alert-success': (homeScheduleCtrl.STATUS.SUCCESS_FIRST === facilityRound.status ||
-              homeScheduleCtrl.STATUS.SUCCESS_SECOND === facilityRound.status)
+            'alert-warning': homeScheduleCtrl.getColorCode(facilityRound.status, 'alert-warning'),
+            'alert-danger': homeScheduleCtrl.getColorCode(facilityRound.status, 'alert-danger'),
+            'alert-success': homeScheduleCtrl.getColorCode(facilityRound.status, 'alert-success')
             }">
       </td>
       <td ng-bind="facilityRound.window"></td>

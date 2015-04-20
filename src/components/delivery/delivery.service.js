@@ -134,4 +134,25 @@ angular.module('delivery')
         (facilityRnd.status === DELIVERY_STATUS.SUCCESS_SECOND));
     };
 
+    _this.getStatusColor = function(status, ccsClass){
+      if(angular.isString(status)){
+        status = status.toLowerCase();
+      }
+      if((status === DELIVERY_STATUS.CANCELED_CCE.toLowerCase()) ||
+        (status === DELIVERY_STATUS.CANCELED_OTHER.toLowerCase()) ||
+        (status === DELIVERY_STATUS.CANCELED_STAFF.toLowerCase())) {
+          return ccsClass === 'alert-warning';
+      }else if((status === DELIVERY_STATUS.FAILED_CCE.toLowerCase()) ||
+        (status === DELIVERY_STATUS.FAILED_OTHER.toLowerCase()) ||
+        (status === DELIVERY_STATUS.FAILED_STAFF.toLowerCase())) {
+          return ccsClass === 'alert-danger';
+      }else if((status === DELIVERY_STATUS.SUCCESS_FIRST.toLowerCase()) ||
+        (status === DELIVERY_STATUS.SUCCESS_SECOND.toLowerCase())){
+
+          return ccsClass === 'alert-success';
+      }else{
+        return false;
+      }
+    };
+
   });

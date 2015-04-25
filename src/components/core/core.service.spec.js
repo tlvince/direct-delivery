@@ -10,7 +10,8 @@ describe('coreService', function(){
   var designDocs = [
     '_design/delivery-rounds',
     '_design/daily-deliveries',
-    '_design/product-storages'
+    '_design/product-storages',
+    '_design/docs'
   ];
 
   beforeEach(module('core', 'log', 'sync', 'utility', 'schedules', 'auth'));

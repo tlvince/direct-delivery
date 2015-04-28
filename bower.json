@@ -1,7 +1,7 @@
 {
   "name": "direct-delivery",
   "description": "User-centred direct delivery management",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "dependencies": {
     "angular-ui-router": "~0.2.13",
     "bootstrap-sass-official": "~3.3.1",

@@ -12,6 +12,7 @@ angular.module('core')
     var _this = this;
     var isReplicationFromInProgress = false;
     var replicationTo;
+    var inRetry = false;
 
     function turnOffReplicateFromInProgress() {
       isReplicationFromInProgress = false;
@@ -55,16 +56,29 @@ angular.module('core')
       return isReplicationFromInProgress;
     };
 
+    _this.turnOffRetry = function() {
+      inRetry = false;
+    };
+
     _this.retryStartSyncAfterLogin = function(driverEmail, retry){
+      if(inRetry){
+        return $q.reject('Retry after login still in progress');
+      }
+
+      inRetry = true;
+
       var currentRetry = retry || 0;
       var MAXIMUM_RETRY = 5;
       currentRetry = currentRetry + 1;
+
       return AuthService.login(driverEmail, AuthService.getTempPassword())
         .then(function(){
+          _this.turnOffRetry();
           return _this.startSyncAfterLogin(driverEmail);
         })
         .catch(function(err){
           if(currentRetry > MAXIMUM_RETRY){
+            _this.turnOffRetry();
             return err;
           }
           return _this.retryStartSyncAfterLogin(driverEmail, currentRetry);
@@ -190,7 +204,6 @@ angular.module('core')
       var docTypes = ['dailyDelivery'];
       var options = {
         live: true,
-        retry: true,
         filter: 'docs/by_doc_types',
         query_params: {
           docTypes: JSON.stringify(docTypes)

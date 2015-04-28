@@ -61,6 +61,7 @@ angular.module('core')
     };
 
     _this.retryStartSyncAfterLogin = function(driverEmail, retry){
+      $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, {msg: isReplicationFromInProgress});
       if(inRetry){
         return $q.reject('Retry after login still in progress');
       }

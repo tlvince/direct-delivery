@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('delivery')
-  .controller('DeliverItemsCtrl', function DeliverItemsCtrl($state, deliveryService, $scope) {
+  .controller('DeliverItemsCtrl', function DeliverItemsCtrl($state, deliveryService, $scope, log) {
 
     var vm = this;
     var parent = $scope.facDevCtrl;

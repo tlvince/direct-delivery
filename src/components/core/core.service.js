@@ -7,7 +7,7 @@
 angular.module('core')
   .service('coreService', function ($rootScope, syncService, config, pouchdbService, CORE_SYNC_DOWN,
                                     SYNC_DAILY_DELIVERY, SYNC_DESIGN_DOC, $state, log, SYNC_STATUS,
-                                    utility, scheduleService, AuthService) {
+                                    utility, scheduleService, AuthService, $q) {
 
     var _this = this;
     var isReplicationFromInProgress = false;
@@ -61,8 +61,8 @@ angular.module('core')
     };
 
     _this.retryStartSyncAfterLogin = function(driverEmail, retry){
-      $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, {msg: isReplicationFromInProgress});
       if(inRetry){
+        $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, {msg: isReplicationFromInProgress});
         return $q.reject('Retry after login still in progress');
       }
 

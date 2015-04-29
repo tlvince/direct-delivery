@@ -3,13 +3,13 @@
  */
 
 angular.module('home.returned')
-  .controller('ReturnedCtrl', function(dailySchedule, dbService, $state){
+  .controller('ReturnedCtrl', function(dailySchedule, dbService, $state, scheduleService, AuthService){
     var vm = this;
     var totalDelivered = {};
     var totalRetrieved = {};
     var packedProductJson = {};
 
-
+    vm.productLength = 0;
 
     function calcFaciltyBalance(products){
 
@@ -21,23 +21,34 @@ angular.module('home.returned')
         });
       });
     }
-    if(dailySchedule.packingList){
-      dailySchedule.packingList.forEach(function(product){
-        packedProductJson[product.productID] = {
-          totalRetrieved : 0,
-          totalDelivered: 0,
-          packedQty: product.packedQty,
-          balance: 0,
-          id: product.productID
-        };
-      });
-      calcFaciltyBalance(packedProductJson);
+    function reset(schedule){
+      if(schedule.packingList){
+        schedule.packingList.forEach(function(product){
+          packedProductJson[product.productID] = {
+            totalRetrieved : 0,
+            totalDelivered: 0,
+            packedQty: product.packedQty,
+            balance: 0,
+            id: product.productID
+          };
+        });
+        calcFaciltyBalance(packedProductJson);
+        console.log(packedProductJson);
+        vm.productLength = Object.keys(packedProductJson).length;
+        vm.packedProducts = packedProductJson;
+      }
     }
+    reset(dailySchedule);
 
-
-    vm.productLength = Object.keys(packedProductJson).length;
-    vm.packedProducts = packedProductJson;
-
+    vm.setDate = function(date){
+      packedProductJson = {};
+      scheduleService.getDaySchedule(AuthService.currentUser.name,date)
+        .then(function(response){
+          console.log(response);
+          reset(response);
+        });
+      vm.productLength = Object.keys(packedProductJson).length;
+    };
     vm.save = function(){
 
       dailySchedule.balance = vm.packedProducts;

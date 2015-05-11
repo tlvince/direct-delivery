@@ -13,7 +13,7 @@ angular.module('schedules.round')
        return dbService.getView('delivery-rounds/all', params)
         .then(pouchUtil.pluckDocs)
         .then(pouchUtil.rejectIfEmpty);
-    }
+    };
 
     _this.getSortedByDate = function(){
      return _this.get()

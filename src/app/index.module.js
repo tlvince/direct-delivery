@@ -22,6 +22,10 @@ angular.module('directDelivery', [
   ])
   .run(function($rootScope, $state, AuthService, coreService) {
 
+    function purgeStaleDocs() {
+      coreService.purgeStaleDocuments();
+    }
+
     function startSyncIfUserIsLoggedIn() {
       if (AuthService.isLoggedIn === true
           && AuthService.currentUser
@@ -31,6 +35,7 @@ angular.module('directDelivery', [
     }
 
     startSyncIfUserIsLoggedIn();
+    purgeStaleDocs();
 
     $rootScope.$on('$stateChangeStart', function(event, toState) {
       if (!AuthService.isLoggedIn && toState.name !== 'login') {

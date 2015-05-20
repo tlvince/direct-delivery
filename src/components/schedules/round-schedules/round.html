@@ -42,6 +42,7 @@
                       <th>Ward</th>
                       <th>Contact</th>
                       <th>Number</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tr ng-repeat="facilityRound in day.facilityRounds track by $index">
@@ -66,6 +67,17 @@
                     <td ng-bind="facilityRound.facility.ward"></td>
                     <td ng-bind="facilityRound.facility.contact"></td>
                     <td ng-bind="facilityRound.facility.phoneNo"></td>
+                    <td>
+                      <a class="btn btn-primary btn-lg btn-block"
+                         ui-sref="facilityDelivery.deliverItems({
+                          facilityName : facilityRound.facility.name,
+                          facilityId : facilityRound.facility.id ,
+                            preview: true,
+                            history: true
+                          })">
+                        <span>View</span>
+                      </a>
+                    </td>
                   </tr>
                 </table>
               </div>

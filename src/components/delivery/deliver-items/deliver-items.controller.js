@@ -77,7 +77,7 @@ angular.module('delivery')
     };
 
     function saveCurrentStateOfDailyDelivery(){
-      if(vm.history === false){
+      if(vm.history === true){
         return; //skip if it is history view
       }
       var doc = deliveryService.updateFacilityRound(vm.dailyDelivery, vm.facRnd);

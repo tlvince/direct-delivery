@@ -22,7 +22,7 @@ angular.module('delivery')
         }
       })
       .state('facilityDelivery.deliverItems', {
-        url: '/deliver-items/:ddId/:facilityId/:preview/:history',
+        url: '/deliver-items/:ddId/:facilityId/:preview',
         templateUrl: 'components/delivery/deliver-items/deliver-items.html',
         parent: 'facilityDelivery',
         controllerAs: 'diCtrl',

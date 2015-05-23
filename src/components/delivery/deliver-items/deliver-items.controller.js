@@ -7,14 +7,10 @@ angular.module('delivery')
     var parent = $scope.facDevCtrl;
     vm.dailyDelivery = parent.dailyDelivery;
     vm.facRnd = parent.facRnd;
-      vm.history = false;
 
     function init(){
       if($state.params.preview === 'true'){
         vm.previewDelivery = true;
-      }
-      if($state.params.history === 'true'){
-        vm.history = true;
       }
       clearValidationError();
       vm.facRnd.packedProduct = deliveryService.initReturnedQty(vm.facRnd.packedProduct);
@@ -77,9 +73,6 @@ angular.module('delivery')
     };
 
     function saveCurrentStateOfDailyDelivery(){
-      if(vm.history === true){
-        return; //skip if it is history view
-      }
       var doc = deliveryService.updateFacilityRound(vm.dailyDelivery, vm.facRnd);
       deliveryService.save(doc)
         .then(function() {

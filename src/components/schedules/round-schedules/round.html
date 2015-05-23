@@ -21,12 +21,12 @@
             <td ng-bind="schedulesRoundCtrl.formatDate(round.startDate)"></td>
             <td ng-bind="schedulesRoundCtrl.formatDate(round.endDate)"></td>
             <td ng-bind="schedulesRoundCtrl.formatDate(round.completedOn)"></td>
-            <td ng-bind="round.status" ng-class="{'bg-success': round.status =='active'}"></td>
+            <td ng-bind="round.status" ng-class="{'bg-success': round.status === 'active'}"></td>
             <td class="text-info fa fa-2x">
               <i class="fa fa-arrow-circle-down" ng-click="schedulesRoundCtrl.toggleDisplay(round._id)"></i>
             </td>
           </tr>
-          <tr ng-if="schedulesRoundCtrl.roundToDisplay == round._id" class="bg-default" class="'animate'">
+          <tr ng-if="schedulesRoundCtrl.roundToDisplay === round._id" class="bg-default" class="'animate'">
             <td colspan="7">
               <div ng-repeat="day in schedulesRoundCtrl.displayRound track by $index " ng-if="schedulesRoundCtrl.displayRound.length > 0">
                 <h4 ng-bind="day.date | date: 'fullDate'"></h4>
@@ -69,11 +69,10 @@
                     <td ng-bind="facilityRound.facility.phoneNo"></td>
                     <td>
                       <a class="btn btn-primary btn-lg btn-block"
-                         ui-sref="facilityDelivery.deliverItems({
-                          facilityName : facilityRound.facility.name,
-                          facilityId : facilityRound.facility.id ,
-                            preview: true,
-                            history: true
+                         ui-sref="schedules.viewDeliveryRound({
+                            ddId: day._id,
+                            facilityId: facilityRound.facility.id,
+                            roundId: round._id
                           })">
                         <span>View</span>
                       </a>

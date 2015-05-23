@@ -43,7 +43,7 @@ angular.module('schedules.round')
           _this.roundToDisplay = roundId;
           _this.showDisplayRound(roundId);
         }
-      }
+      };
 
       openRoundTab();
     });

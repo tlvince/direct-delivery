@@ -3,7 +3,7 @@
 /*global module: false, inject: false */
 
 describe('FacilityKPICtrl', function() {
-  beforeEach(module('kpi'));
+  beforeEach(module('kpi', 'facilityKPIMocks'));
 
   var FacilityKPICtrl;
   var facilityKPIService;
@@ -11,8 +11,7 @@ describe('FacilityKPICtrl', function() {
   var utility;
   var driverId = 'test@user.com';
 
-  beforeEach(inject(function($controller, _facilityKPIService_, _AuthService_, _scheduleService_,
-                             _utility_, _deliveryService_, _log_, _$state_) {
+  beforeEach(inject(function($controller, _facilityKPIService_, _AuthService_, _utility_, _log_, _$state_, _facilityKPIMock_) {
 
     facilityKPIService = _facilityKPIService_;
     AuthService = _AuthService_;
@@ -23,16 +22,13 @@ describe('FacilityKPICtrl', function() {
       facilityKPIService: facilityKPIService,
       AuthService: AuthService,
       utility: utility,
-      scheduleService: _scheduleService_,
-      deliveryService: _deliveryService_,
       log: _log_,
       $state: _$state_
     });
 
     spyOn(facilityKPIService, 'isValidKPI').and.callThrough();
-    spyOn(facilityKPIService, 'getFacilityKPIFrom').and.callThrough();
-    spyOn(facilityKPIService, 'getFromById').and.callThrough();
-    spyOn(facilityKPIService, 'loadFacilities').and.callThrough();
+    spyOn(facilityKPIService, 'getKPIFromBy').and.returnValue(_facilityKPIMock_);
+    spyOn(facilityKPIService, 'getBy').and.callThrough();
     spyOn(facilityKPIService, 'isValidFacilityKPI').and.callThrough();
 
   }));
@@ -58,33 +54,30 @@ describe('FacilityKPICtrl', function() {
     });
   });
 
-  describe('loadFacilityKPI()', function(){
+  describe('getFacilityKPI()', function(){
     it('Should set FacilityKPICtrl.selectedLoadKPI to TRUE', function() {
       expect(FacilityKPICtrl.selectedLoadKPI).not.toBeTruthy();
-      FacilityKPICtrl.loadFacilityKPI();
+      FacilityKPICtrl.getFacilityKPI();
       expect(FacilityKPICtrl.selectedLoadKPI).toBeTruthy();
     });
 
-    it('Should call facilityKPIService.getFacilityKPIFrom()', function(){
-      expect(facilityKPIService.getFacilityKPIFrom).not.toHaveBeenCalled();
-      FacilityKPICtrl.loadFacilityKPI();
-      expect(facilityKPIService.getFacilityKPIFrom).toHaveBeenCalled();
+    it('Should call facilityKPIService.getKPIFromBy()', function(){
+      expect(facilityKPIService.getKPIFromBy).not.toHaveBeenCalled();
+      FacilityKPICtrl.getFacilityKPI();
+      expect(facilityKPIService.getKPIFromBy).toHaveBeenCalled();
     });
 
-    it('Should call facilityKPIService.getFromById()', function(){
-      expect(facilityKPIService.getFromById).not.toHaveBeenCalled();
-      FacilityKPICtrl.loadFacilityKPI();
-      expect(facilityKPIService.getFromById).toHaveBeenCalled();
-    });
   });
 
-  describe('loadFacilities()', function() {
-    it('Should call facilityKPIService.loadFacilities() with expected parameters', function() {
+  describe('getByDriverAndDate()', function() {
+    it('Should call facilityKPIService.getBy() with expected parameters', function() {
       var expectedDriverId = driverId;
       var expectedDate = utility.extractDate(new Date());
-      expect(facilityKPIService.loadFacilities).not.toHaveBeenCalled();
-      FacilityKPICtrl.loadFacilities();
-      expect(facilityKPIService.loadFacilities).toHaveBeenCalledWith(expectedDriverId, expectedDate);
+      expect(facilityKPIService.getBy).not.toHaveBeenCalled();
+
+      FacilityKPICtrl.getByDriverAndDate();
+
+      expect(facilityKPIService.getBy).toHaveBeenCalledWith(expectedDriverId, expectedDate);
     });
   });
 

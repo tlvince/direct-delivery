@@ -1,30 +1,32 @@
 'use strict';
 
 angular.module('kpi')
-  .controller('FacilityKPICtrl', function (facilityKPIService, utility, scheduleService,
-                                           AuthService, deliveryService, log, $state) {
+  .controller('FacilityKPICtrl', function (facilityKPIService, utility, AuthService, log, $state) {
 
     var vm = this;
     var driverId = AuthService.currentUser.name;
+    vm.kpiList = [];
 
-    function setFacilityList(list) {
-      vm.facilityList = list;
+    function setKPIList(kpiDocs) {
+      vm.kpiList = kpiDocs;
     }
 
-    vm.loadFacilities = function(){
-      facilityKPIService.loadFacilities(driverId, vm.selectedDate)
-        .then(function(facilityList){
-          setFacilityList(facilityList);
-        })
+    vm.getByDriverAndDate = function(){
+      vm.facilityKPI = null;
+      vm.selectedFacilityId = '';
+      vm.selectedLoadKPI = false;
+      vm.selectedFacility = null;
+      facilityKPIService.getBy(driverId, vm.selectedDate)
+        .then(setKPIList)
         .catch(function() {
-          setFacilityList([]);
+            setKPIList([]);
         });
     };
 
-    vm.loadFacilityKPI = function() {
+    vm.getFacilityKPI = function() {
       vm.selectedLoadKPI = true;
-      vm.facilityKPI = facilityKPIService.getFacilityKPIFrom(vm.selectedFacilityId, vm.facilityList);
-      vm.selectedFacility = facilityKPIService.getFromById(vm.selectedFacilityId, vm.facilityList);
+      vm.facilityKPI = facilityKPIService.getKPIFromBy(vm.kpiList, vm.selectedFacilityId);
+      vm.selectedFacility = vm.facilityKPI.facility;
     };
 
     vm.isValidKPI = function(){
@@ -44,8 +46,8 @@ angular.module('kpi')
       vm.facilityKPI = null;
       vm.selectedFacilityId = null;
       vm.selectedDate = utility.extractDate(new Date());
-      vm.loadFacilities();
-      setFacilityList([]);
+      vm.getByDriverAndDate();
+      setKPIList([]);
       clearValidationError();
     }
 
@@ -75,27 +77,15 @@ angular.module('kpi')
     };
 
     vm.save = function() {
-      deliveryService.get(vm.selectedFacility.dailyDeliveryId)
-        .then(function(dailyDelivery) {
-          var facilityRound = utility.first(deliveryService.filterByFacility(dailyDelivery, vm.selectedFacility.id));
-          if(angular.isObject(facilityRound)){
-            facilityRound. facilityKPI = vm.facilityKPI;
-            var dd = deliveryService.updateFacilityRound(dailyDelivery, facilityRound);
-            deliveryService.save(dd)
-              .then(function() {
-                log.success('kpiSaved');
-                $state.go('home.schedule');
-              })
-              .catch(function(err) {
-                log.error('saveKPIFail', err);
-              });
-          }else{
-            log.error('facilityRoundNotFound');
-          }
-        })
-        .catch(function(err) {
-          log.error('facilityRoundNotFound', err);
-        });
+      var kpiDoc = angular.copy(vm.facilityKPI);
+      facilityKPIService.save(kpiDoc)
+          .then(function() {
+            log.success('kpiSaved');
+            $state.go('home.schedule');
+          })
+          .catch(function(err) {
+            log.error('saveKPIFail', err);
+          });
     };
 
   });

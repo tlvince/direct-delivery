@@ -30,7 +30,7 @@ angular.module('sync')
 
       _this.dailyByDriver = function (local, dbUrl, driverName, date) {
         date = utility.formatDate(date);
-        var filter = 'daily-deliveries/by_driver_and_date';
+        var filter = 'replication/by-driver-and-date';
         var params =  {
           date: date,
           driverId: driverName

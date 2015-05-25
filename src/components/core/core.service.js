@@ -102,7 +102,7 @@ angular.module('core')
     _this.replicateFromBy = function (driverEmail, date) {
 
       if (_this.getSyncInProgress() === true) {
-        $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, {msg: isReplicationFromInProgress});
+        $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, { msg: isReplicationFromInProgress });
         return;
       }
 
@@ -187,7 +187,7 @@ angular.module('core')
     };
 
     _this.replicateToRemote = function () {
-      var docTypes = ['dailyDelivery'];
+      var docTypes = ['dailyDelivery', 'kpi'];
       var options = {
         live: true,
         retry: true,

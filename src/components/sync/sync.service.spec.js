@@ -64,7 +64,7 @@ describe('syncService', function () {
       var today = new Date();
       var driverId = 'test@example.com';
       var expectedDate = utility.formatDate(today);
-      var expectedFilterName = 'daily-deliveries/by_driver_and_date';
+      var expectedFilterName = 'replication/by-driver-and-date';
       var expectedParam = {
         date: expectedDate,
         driverId: driverId

@@ -15,7 +15,7 @@
       <div class="col-sm-6">
         <label>KPI Date</label>
         <input type="date"
-               ng-change="facKPICtrl.loadFacilities()"
+               ng-change="facKPICtrl.getByDriverAndDate()"
                class="form-control input-lg"
                ng-value="facKPICtrl.selectedDate"
                ng-model="facKPICtrl.selectedDate"/>
@@ -24,11 +24,11 @@
       <div class="col-sm-6">
         <label>Facility</label>
         <select class="form-control input-lg"
-                ng-change="facKPICtrl.loadFacilityKPI()"
+                ng-change="facKPICtrl.getFacilityKPI()"
                 ng-model="facKPICtrl.selectedFacilityId">
           <option value="" ng-selected="true">Select facility</option>
-          <option ng-repeat="facility in facKPICtrl.facilityList"
-                  ng-value="facility.id"> {{ facility.name }}
+          <option ng-repeat="kpi in facKPICtrl.kpiList"
+                  ng-value="kpi.facility.id"> {{ kpi.facility.name }}
           </option>
         </select>
       </div>

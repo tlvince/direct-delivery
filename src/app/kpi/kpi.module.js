@@ -6,5 +6,7 @@ angular
     'delivery',
     'schedules',
     'utility',
-    'auth'
+    'auth',
+    'db',
+    'utility.pouchdb'
   ]);

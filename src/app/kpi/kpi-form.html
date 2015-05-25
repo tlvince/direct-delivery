@@ -38,7 +38,7 @@
       <h1 ng-bind="facKPICtrl.selectedFacility.name"></h1>
     </div>
 
-    <div class="row" ng-show="!facKPICtrl.isValidKPI() && facKPICtrl.selectedFacilityId !== null">
+    <div class="row" ng-show="!facKPICtrl.isValidKPI() && facKPICtrl.selectedFacility !== null">
       <div class="col-sm-12">
         <div class="alert alert-info" role="alert">
           There is no facility KPI available for selected facility!

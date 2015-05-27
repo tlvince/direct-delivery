@@ -1,13 +1,13 @@
 'use strict';
 
 describe('deliveryService', function () {
-  beforeEach(module('delivery', 'deliveryMock', 'db', 'log'));
+  beforeEach(module('delivery', 'deliveryMock', 'db', 'log', 'utility'));
 
-  var deliveryService, deliveryMock, dbService, DELIVERY_STATUS, log, $state;
+  var deliveryService, deliveryMock, dbService, DELIVERY_STATUS, log, $state, utility;
   var qty = 25, presentation = 20;
 
   beforeEach(inject(function (_deliveryService_, dailyDeliveryMock, _dbService_,
-                              _DELIVERY_STATUS_, _log_, _$state_) {
+                              _DELIVERY_STATUS_, _log_, _$state_, _utility_) {
 
     deliveryService = _deliveryService_;
     deliveryMock = dailyDeliveryMock;
@@ -15,6 +15,7 @@ describe('deliveryService', function () {
     DELIVERY_STATUS = _DELIVERY_STATUS_;
     log = _log_;
     $state = _$state_;
+    utility = _utility_;
 
     spyOn(deliveryService, 'roundOffBy').and.callThrough();
     spyOn(dbService, 'save').and.callThrough();
@@ -30,6 +31,25 @@ describe('deliveryService', function () {
 
   it('should expose roundOffBy()', function(){
     expect(angular.isFunction(deliveryService.roundOffBy)).toBeTruthy();
+  });
+
+  describe('initArrivalTime', function() {
+    it('set arrivedAt property to arrivalTime if not set already', function(){
+      var facRnd = angular.copy(deliveryMock.facilityRounds[2]);//pick first round
+      var arrivalTime = new Date().toJSON();
+      expect(utility.isValidDate(facRnd.arrivedAt)).toBeFalsy();
+      var facRnd = deliveryService.initArrivalTime(facRnd, arrivalTime);
+      expect(facRnd.arrivedAt).toBe(arrivalTime);
+    });
+
+    it('Should not reset facRnd.arrivedAt if already set correctly', function() {
+      var facRnd = angular.copy(deliveryMock.facilityRounds[2]);//pick first round
+      var arrivalTime = new Date().toJSON();
+      facRnd.arrivedAt = new Date('2015-05-29');
+      expect(utility.isValidDate(facRnd.arrivedAt)).toBeTruthy();
+      var facRnd = deliveryService.initArrivalTime(facRnd, arrivalTime);
+      expect(facRnd.arrivedAt).not.toBe(arrivalTime);
+    });
   });
 
 

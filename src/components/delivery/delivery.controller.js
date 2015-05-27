@@ -22,6 +22,7 @@ angular.module('delivery')
       }else{
         vm.facRnd = dailyFacRndForGivenId[0];
         vm.facility = vm.facRnd.facility;
+        vm.arrivedAt = new Date().toJSON();
         vm.facilityKPI = vm.facRnd.facilityKPI;
       }
     }

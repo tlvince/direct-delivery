@@ -15,7 +15,7 @@ angular.module('schedules.round')
     };
 
     _this.formatDate = function(date){
-      if((new Date(date)).toString() !== 'Invalid Date'){
+      if(utility.isValidDate(date)){
         return utility.formatDate(date, "dd, MMM yyyy");
       }
       return 'N/A';

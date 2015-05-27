@@ -52,6 +52,7 @@ angular.module('delivery')
       var res = deliveryService.validateDeliverItems(dItem);
       if(res === true){
         clearValidationError();
+        vm.facRnd = deliveryService.initArrivalTime(parent.facRnd, parent.arrivedAt);
         var doc = deliveryService.updateFacilityRound(vm.dailyDelivery, vm.facRnd);
         deliveryService.save(doc)
           .finally(function(){

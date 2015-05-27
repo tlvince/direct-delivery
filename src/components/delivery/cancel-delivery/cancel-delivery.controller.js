@@ -5,10 +5,12 @@ angular.module('delivery')
                                                                 log, dailyDelivery, DELIVERY_STATUS) {
     var vm = this; //view model
     vm.status = DELIVERY_STATUS;
+    var arrivalTime;
 
     function initCancelReport() {
       vm.dailyDelivery = dailyDelivery;
       var parent = $scope.facDevCtrl;
+      arrivalTime = parent.arrivedAt;
       vm.facRnd = parent.facRnd;
       if(!angular.isObject(vm.facRnd)){
         goBack();
@@ -43,7 +45,8 @@ angular.module('delivery')
       if(vm.isOthersAndInvalid()){
         return log.error('enterOtherReasons');
       }
-      if (cancelDeliveryService.validateCancelReport(vm.facRnd)) {
+      if (cancelDeliveryService.validateCancelReport(vm.facRnd)){
+        vm.facRnd = deliveryService.initArrivalTime(vm.facRnd, arrivalTime);
         cancelDeliveryService.cancelDelivery(vm.dailyDelivery, vm.facRnd)
           .then(onSuccess)
           .catch(onError);

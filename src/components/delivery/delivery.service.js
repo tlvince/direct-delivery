@@ -1,9 +1,16 @@
 'use strict';
 
 angular.module('delivery')
-  .service('deliveryService', function (dbService, log, $state, DELIVERY_STATUS) {
+  .service('deliveryService', function (dbService, log, $state, DELIVERY_STATUS, utility) {
 
     var _this = this;
+
+    _this.initArrivalTime = function(doc, arrivalTime) {
+      if(!utility.isValidDate(doc.arrivedAt)) {
+        doc.arrivedAt = new Date(arrivalTime).toJSON();
+      }
+      return doc;
+    };
 
     _this.save = function (ddDoc) {
       return dbService.save(ddDoc);

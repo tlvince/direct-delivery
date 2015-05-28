@@ -97,6 +97,16 @@ angular.module('log')
       message: 'You are denied accesses.',
       remedy: 'Please, if entered correct login details, if problem persist contact support.'
     },
+    'facilityRoundNotFound': {
+      title: "Facility Round Not Found",
+      message: "Facility Round does not exist for given KPI",
+      remedy: "Please, try again and contact support if it fails again."
+    },
+    saveKPIFail: {
+      title: "Save Facility KPI Failed",
+      message: "Facility KPI could not be saved",
+      remedy: "Please, try again and contact support if it fails again."
+    },
     scheduleRoundResolveErr: {
       title: 'Schedule Rounds error',
       message: 'Could not fetch schedule history',

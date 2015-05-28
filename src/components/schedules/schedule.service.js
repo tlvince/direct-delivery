@@ -9,7 +9,6 @@ angular.module('schedules')
     this.get = function(view, key) {
 
       var params = {};
-      //TODO: this should use Auth.currentUser.name see #item:1172
       if (angular.isString(key) || angular.isArray(key)) {
         params = pouchUtil.key(key);
       }

@@ -55,15 +55,15 @@
             "antigensKPI": [
               {
                 "productID": "BCG",
-                "noImmuized": 0
+                "noImmunized": 0
               },
               {
                 "productID": "Men-A",
-                "noImmuized": 0
+                "noImmunized": 0
               },
               {
                 "productID": "OPV",
-                "noImmuized": 0
+                "noImmunized": 0
               }
             ]
           }

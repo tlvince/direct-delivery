@@ -11,6 +11,8 @@ describe('coreService', function(){
     '_design/delivery-rounds',
     '_design/daily-deliveries',
     '_design/product-storages',
+    '_design/docs'
+    '_design/product-storages',
     '_design/replication',
     '_design/kpi'
   ];

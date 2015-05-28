@@ -19,6 +19,8 @@ var defaults = {
       '_design/product-storages',
       '_design/replication',
       '_design/kpi'
+      '_design/product-storages',
+      '_design/docs'
     ],
     coreDocTypes: [
       'product',

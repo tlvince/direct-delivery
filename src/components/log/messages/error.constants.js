@@ -106,5 +106,10 @@ angular.module('log')
       title: "Save Facility KPI Failed",
       message: "Facility KPI could not be saved",
       remedy: "Please, try again and contact support if it fails again."
+    },
+    scheduleRoundResolveErr: {
+      title: 'Schedule Rounds error',
+      message: 'Could not fetch schedule history',
+      remedy: 'Please double check your network connectivity or contact support'
     }
   });

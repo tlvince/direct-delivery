@@ -1,9 +1,16 @@
 'use strict';
 
 angular.module('delivery')
-  .service('deliveryService', function (dbService, log, $state, DELIVERY_STATUS) {
+  .service('deliveryService', function (dbService, log, $state, DELIVERY_STATUS, utility) {
 
     var _this = this;
+
+    _this.initArrivalTime = function(doc, arrivalTime) {
+      if(!utility.isValidDate(doc.arrivedAt)) {
+        doc.arrivedAt = new Date(arrivalTime).toJSON();
+      }
+      return doc;
+    };
 
     _this.save = function (ddDoc) {
       return dbService.save(ddDoc);
@@ -150,6 +157,27 @@ angular.module('delivery')
     _this.shouldHideSignOff = function(facilityRnd){
       return ((facilityRnd.status === DELIVERY_STATUS.SUCCESS_FIRST) ||
         (facilityRnd.status === DELIVERY_STATUS.SUCCESS_SECOND));
+    };
+
+    _this.getStatusColor = function(status, ccsClass){
+      if(angular.isString(status)){
+        status = status.toLowerCase();
+      }
+      if((status === DELIVERY_STATUS.CANCELED_CCE.toLowerCase()) ||
+        (status === DELIVERY_STATUS.CANCELED_OTHER.toLowerCase()) ||
+        (status === DELIVERY_STATUS.CANCELED_STAFF.toLowerCase())) {
+          return ccsClass === 'alert-warning';
+      }else if((status === DELIVERY_STATUS.FAILED_CCE.toLowerCase()) ||
+        (status === DELIVERY_STATUS.FAILED_OTHER.toLowerCase()) ||
+        (status === DELIVERY_STATUS.FAILED_STAFF.toLowerCase())) {
+          return ccsClass === 'alert-danger';
+      }else if((status === DELIVERY_STATUS.SUCCESS_FIRST.toLowerCase()) ||
+        (status === DELIVERY_STATUS.SUCCESS_SECOND.toLowerCase())){
+
+          return ccsClass === 'alert-success';
+      }else{
+        return false;
+      }
     };
 
   });

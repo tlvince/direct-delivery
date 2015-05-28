@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('delivery')
-  .controller('DeliverItemsCtrl', function DeliverItemsCtrl($state, deliveryService, $scope) {
+  .controller('DeliverItemsCtrl', function DeliverItemsCtrl($state, deliveryService, $scope, log) {
 
     var vm = this;
     var parent = $scope.facDevCtrl;
@@ -52,6 +52,7 @@ angular.module('delivery')
       var res = deliveryService.validateDeliverItems(dItem);
       if(res === true){
         clearValidationError();
+        vm.facRnd = deliveryService.initArrivalTime(parent.facRnd, parent.arrivedAt);
         var doc = deliveryService.updateFacilityRound(vm.dailyDelivery, vm.facRnd);
         deliveryService.save(doc)
           .finally(function(){

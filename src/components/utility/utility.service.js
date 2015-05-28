@@ -28,4 +28,15 @@ angular.module('utility')
       return new Date(this.formatDate(date));
     };
 
+
+      /**
+       * We use this because angular.isDate() returns True if given a date
+       * that is invalid. e.g angular.isDate(undefined);
+       * @param date
+       * @returns {boolean}
+       */
+    this.isValidDate = function(date){
+      return (date && date !== null && (new Date(date)).toString() !== 'Invalid Date');
+    };
+
   });

@@ -13,7 +13,7 @@ angular.module('schedules.round')
         rounds : function(log, scheduleRoundService){
           return scheduleRoundService.getSortedByDate()
             .catch(function(err){
-              log.error(err);
+              log.error('scheduleRoundResolveErr', err);
               return [];
             })
         }

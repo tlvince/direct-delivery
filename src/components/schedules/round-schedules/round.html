@@ -29,6 +29,7 @@
           <tr ng-if="schedulesRoundCtrl.roundToDisplay == round._id" class="bg-default" class="'animate'">
             <td colspan="7">
               <div ng-repeat="day in schedulesRoundCtrl.displayRound track by $index " ng-if="schedulesRoundCtrl.displayRound.length > 0">
+                <h4 ng-bind="day.date | date: 'fullDate'"></h4>
                 <table class="table table-striped" ng-animate="'animate'">
                   <thead>
                     <tr>
@@ -46,7 +47,13 @@
                   <tr ng-repeat="facilityRound in day.facilityRounds track by $index">
                     <td ng-bind="facilityRound.facility.name"></td>
                     <td ng-bind="facilityRound.drop"></td>
-                    <td ng-bind="facilityRound.status"></td>
+                    <td ng-bind="facilityRound.status"
+                        ng-class="{
+                          'alert-warning': schedulesRoundCtrl.getColorCode(facilityRound.status, 'alert-warning'),
+                          'alert-danger': schedulesRoundCtrl.getColorCode(facilityRound.status, 'alert-danger'),
+                          'alert-success': schedulesRoundCtrl.getColorCode(facilityRound.status, 'alert-success')
+                        }">
+                    </td>
                     <td ng-bind="facilityRound.window"></td>
                     <td
                         ng-bind="facilityRound.facility.zone"

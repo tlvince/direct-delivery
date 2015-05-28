@@ -3,13 +3,22 @@
  */
 
 angular.module('schedules.round')
-  .controller('SchedulesRoundCtrl', function(scheduleService, scheduleRoundService, rounds, utility){
+  .controller('SchedulesRoundCtrl', function(scheduleService, scheduleRoundService, rounds,
+                                             utility, DELIVERY_STATUS, deliveryService){
     var _this = this;
 
+    _this.STATUS = DELIVERY_STATUS;
     _this.rounds = rounds;
 
+    _this.getColorCode = function(status, ccsClass) {
+      return deliveryService.getStatusColor(status, ccsClass);
+    };
+
     _this.formatDate = function(date){
-      return utility.formatDate(date, "dd, MMM yyyy");
+      if(utility.isValidDate(date)){
+        return utility.formatDate(date, "dd, MMM yyyy");
+      }
+      return 'N/A';
     };
 
     _this.displayRound = null;

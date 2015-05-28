@@ -1,0 +1,43 @@
+<a ui-sref="schedules.round({ roundId: drhCtrl.roundId })"
+   class="btn btn-default btn-lg btn-block">
+  <i class="fa fa-arrow-circle-left"></i>
+  <span>Back</span>
+</a>
+<br/>
+<table class="table table-striped table-condensed table-bordered">
+  <tr>
+    <th class="col-sm-1">Product</th>
+    <th class="col-sm-1">On-hand Qty</th>
+    <th class="col-sm-1">Delivered Qty</th>
+    <th class="col-sm-1">Retrieved Qty</th>
+    <th class="col-sm-1">Received Stock between delivery?</th>
+    <th class="col-sm-1">Qty Received between delivery</th>
+  </tr>
+  <tr ng-repeat="item in drhCtrl.facRnd.packedProduct track by $index">
+    <td><span ng-bind="item.productID"></span></td>
+    <td class="highlight-onhand-qty">
+      <span ng-bind="drhCtrl.facRnd.packedProduct[$index].onHandQty"></span>
+      <span ng-bind="drhCtrl.facRnd.packedProduct[$index].baseUOM"></span>
+    </td>
+    <td class="highlight-delivered-qty">
+      <span ng-bind="drhCtrl.facRnd.packedProduct[$index].deliveredQty"></span>
+      <span ng-bind="drhCtrl.facRnd.packedProduct[$index].baseUOM"></span>
+    </td>
+    <td class="highlight-returned-qty">
+      <span ng-bind="drhCtrl.facRnd.packedProduct[$index].returnedQty"></span>
+      <span ng-bind="drhCtrl.facRnd.packedProduct[$index].baseUOM"></span>
+    </td>
+    <td ng-class="{'highlight-received-yes': drhCtrl.receivedStockBtwDelivery($index) === true }">
+      <span
+          ng-show="drhCtrl.receivedStockBtwDelivery($index) === true">Yes</span>
+      <span
+          ng-show="drhCtrl.receivedStockBtwDelivery($index) !== true">No</span>
+    </td>
+    <td class="highlight-interim-stock">
+      <span ng-bind="drhCtrl.facRnd.packedProduct[$index].btwDeliveryReceivedQty"></span>
+      <span ng-bind="drhCtrl.facRnd.packedProduct[$index].baseUOM"></span>
+    </td>
+  </tr>
+</table>
+<br/>
+

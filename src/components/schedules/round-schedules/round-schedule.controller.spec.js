@@ -1,6 +1,3 @@
-/**
- * Created by jofomah on 4/19/15.
- */
 'use strict';
 /*eslint-env jasmine */
 /*global module: false, inject: false */

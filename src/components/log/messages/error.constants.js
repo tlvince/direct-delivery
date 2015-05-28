@@ -111,5 +111,11 @@ angular.module('log')
       title: 'Schedule Rounds error',
       message: 'Could not fetch schedule history',
       remedy: 'Please double check your network connectivity or contact support'
+    },
+    'dailyScheduleWithGivenIdDoesNotExists': {
+      title: 'Missing daily delivery',
+      message: 'Daily delivery record does not exist',
+      remedy: 'Contact support for assistance'
     }
+
   });

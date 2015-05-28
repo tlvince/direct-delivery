@@ -17,6 +17,9 @@ var defaults = {
       '_design/delivery-rounds',
       '_design/daily-deliveries',
       '_design/product-storages',
+      '_design/replication',
+      '_design/kpi',
+      '_design/product-storages',
       '_design/docs'
     ],
     coreDocTypes: [

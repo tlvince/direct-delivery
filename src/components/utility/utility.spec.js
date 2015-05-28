@@ -17,4 +17,36 @@ describe('utility', function(){
     expect(res).toBe(expected);
   });
 
+  describe('isValidDate', function(){
+    it('Should return TRUE if valid date string is given', function() {
+      var dateString = new Date().toJSON();
+      var result = utility.isValidDate(dateString);
+      expect(result).toBeTruthy();
+    });
+
+    it('Should return FALSE if date is null', function() {
+      var date = null;
+      var result = utility.isValidDate(date);
+      expect(result).toBeFalsy();
+    });
+
+    it('Should return False if date is undefined', function() {
+      var date;//undefined
+      var result = utility.isValidDate(date);
+      expect(result).toBeFalsy();
+    });
+
+    it('Should return FALSE if date is not date object', function() {
+      var date = { name: 'jide' };
+      var result = utility.isValidDate(date);
+      expect(result).toBeFalsy();
+    });
+
+    it('Should return TRUE if date is valid date object', function() {
+      var date = new Date();
+      var result = utility.isValidDate(date);
+      expect(result).toBeTruthy();
+    });
+  });
+
 });

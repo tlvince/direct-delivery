@@ -7,9 +7,12 @@ describe('coreService', function(){
   var coreService, syncService, utility;
   var toDB = 'deliveries';
   var fromDB = 'http://localhost:5984/deliveries';
-  var designDocs = [
+  var designDocs =  [
     '_design/delivery-rounds',
     '_design/daily-deliveries',
+    '_design/product-storages',
+    '_design/replication',
+    '_design/kpi',
     '_design/product-storages',
     '_design/docs'
   ];

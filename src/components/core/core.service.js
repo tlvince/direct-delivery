@@ -7,7 +7,7 @@
 angular.module('core')
   .service('coreService', function ($rootScope, syncService, config, pouchdbService, CORE_SYNC_DOWN,
                                     SYNC_DAILY_DELIVERY, SYNC_DESIGN_DOC, $state, log, SYNC_STATUS,
-                                    utility, scheduleService, AuthService, $q) {
+                                    utility, scheduleService, AuthService, $q, dbService) {
 
     var _this = this;
     var isReplicationFromInProgress = false;
@@ -205,7 +205,7 @@ angular.module('core')
       var docTypes = ['dailyDelivery'];
       var options = {
         live: true,
-        filter: 'docs/by_doc_types',
+        filter: 'docs/by-doc-type-not-deleted',
         query_params: {
           docTypes: JSON.stringify(docTypes)
         }
@@ -229,6 +229,18 @@ angular.module('core')
           });
       }
       return replicationTo;
+    };
+
+    _this.purgeStaleDocuments = function() {
+      var THIRTY_DAYS = 30;
+      var ONE_YEAR = THIRTY_DAYS * 12;
+      var today = new Date();
+      var view = 'daily-deliveries/by-delivery-date';
+
+      var startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() -  ONE_YEAR);
+      var endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - THIRTY_DAYS);
+      
+      return dbService.deleteAfter(startDate, endDate, view);
     };
 
   });

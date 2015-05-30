@@ -9,5 +9,10 @@ function(doc) {
       id: doc._id,
       date: doc.endDate
     });
+  } else if(doc.doc_type === 'kpi'){
+    emit(doc.date, {
+      id: doc._id,
+      date: doc.date
+    });
   }
 }

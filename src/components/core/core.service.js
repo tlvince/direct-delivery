@@ -235,7 +235,7 @@ angular.module('core')
       var THIRTY_DAYS = 30;
       var ONE_YEAR = THIRTY_DAYS * 12;
       var today = new Date();
-      var view = 'daily-deliveries/by-delivery-date';
+      var view = 'docs/by-date';
 
       var startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() -  ONE_YEAR);
       var endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - THIRTY_DAYS);

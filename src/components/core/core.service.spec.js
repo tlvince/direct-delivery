@@ -4,7 +4,7 @@
 
 describe('coreService', function(){
 
-  var coreService, syncService, utility;
+  var coreService, syncService, utility, dbService;
   var toDB = 'deliveries';
   var fromDB = 'http://localhost:5984/deliveries';
   var designDocs =  [
@@ -19,11 +19,13 @@ describe('coreService', function(){
 
   beforeEach(module('core', 'log', 'sync', 'utility', 'schedules', 'auth'));
 
-  beforeEach(inject(function(_coreService_, _syncService_, _utility_){
+  beforeEach(inject(function(_coreService_, _syncService_, _utility_, _dbService_){
     coreService = _coreService_;
     syncService = _syncService_;
     utility = _utility_;
+    dbService = _dbService_;
     spyOn(syncService, 'replicateByIds').and.callThrough();
+    spyOn(dbService, 'deleteAfter').and.callThrough();
   }));
 
   it('coreService should be defined', function(){
@@ -70,6 +72,19 @@ describe('coreService', function(){
       expect(coreService.replicateFromBy).not.toHaveBeenCalled();
       coreService.startSyncAfterLogin(driverId);
       expect(coreService.replicateFromBy).toHaveBeenCalledWith(driverId, expectedDate);
+    });
+  });
+
+  describe('purgeStaleDocuments', function(){
+    it('it should call dbService.deleteAfter() with expected parameters', function(){
+      var view = 'docs/by-date';
+      var THIRTY_DAYS = 30;
+      var ONE_YEAR = THIRTY_DAYS * 12;
+      var today = new Date();
+      var startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() -  ONE_YEAR);
+      var endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - THIRTY_DAYS);
+      coreService.purgeStaleDocuments();
+      expect(dbService.deleteAfter).toHaveBeenCalledWith(startDate, endDate, view);
     });
   });
 

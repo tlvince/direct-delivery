@@ -9,5 +9,9 @@ angular.module('home')
     {
       heading: 'Packing',
       route: 'home.packing'
+    },
+    {
+      heading: 'Returned',
+      route: 'home.returned'
     }
   ]);

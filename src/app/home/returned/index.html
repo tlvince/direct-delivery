@@ -1,0 +1,33 @@
+<br/>
+<p class="clearfix">
+  <input type="date" class="input-sm pull-right" ng-change="returnedCtrl.setDate(returnedCtrl.queryDate)" ng-model="returnedCtrl.queryDate">
+</p>
+<div ng-if="returnedCtrl.productLength > 0">
+  <table class="table table-striped table-bordered table-tabbed">
+    <thead>
+      <th>Packed Products</th>
+      <th>Packed Qty</th>
+      <th>Total Delivered</th>
+      <th>Total Retrieved</th>
+      <th>Vaccines to be returned</th>
+      <th>Actual Qty Returned</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="product in returnedCtrl.packedProducts">
+        <td ng-bind="::product.id"></td>
+        <td ng-bind="::product.packedQty"></td>
+        <td ng-bind="::product.totalDelivered"></td>
+        <td ng-bind="::product.totalRetrieved"></td>
+        <td ng-bind="::product.balance"></td>
+        <td><input type="text" class="form-control input-lg" value="{{product.balance}}"/></td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-success form-control" ng-click="returnedCtrl.save()">
+    <i class="fa fa-save"></i>
+    Confirm
+  </button>
+</div>
+<div ng-if="returnedCtrl.productLength == 0" class="alert alert-info">
+  <i class="fa fa-info-circle"></i> no items packed for today.
+</div>

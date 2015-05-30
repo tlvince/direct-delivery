@@ -7,17 +7,4 @@ angular.module('login')
       return AuthService.login(username, password);
     };
 
-    this.logout = function() {
-      function login() {
-        $state.go('login');
-      }
-
-      function handleError(err) {
-        log.error('logoutError', err);
-      }
-
-      AuthService.logout()
-        .then(login)
-        .catch(handleError);
-    };
   });

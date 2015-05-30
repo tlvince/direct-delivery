@@ -15,6 +15,8 @@ angular.module('home')
 
     function addSyncListeners() {
       unbind[SYNC_STATUS.IN_PROGRESS] = $rootScope.$on(SYNC_STATUS.IN_PROGRESS, processEvent);
+      unbind[SYNC_STATUS.ERROR] = $rootScope.$on(SYNC_STATUS.ERROR, processEvent);
+      unbind[SYNC_STATUS.MAX_RETRY_COMPLETED] = $rootScope.$on(SYNC_STATUS.MAX_RETRY_COMPLETED, processEvent);
       unbind[SYNC_STATUS.COMPLETE] = $rootScope.$on(SYNC_STATUS.COMPLETE, processEvent);
     }
 
@@ -33,6 +35,9 @@ angular.module('home')
 
     function updateOnlineState () {
       vm.isOnline = $window.navigator.onLine ? 'online' : 'offline';
+      if(vm.isOnline && AuthService.isLoggedIn) {
+        coreService.retryStartSyncAfterLogin(AuthService.currentUser.name);
+      }
       $scope.$digest();
     }
 

@@ -5,7 +5,7 @@
  * @desc
  */
 angular.module('db')
-  .service('dbService', function($q, pouchdbService, config) {
+  .service('dbService', function($q, pouchdbService, config, utility) {
 
     var _this = this;
     var LOCAL_DB = config.localDB;
@@ -107,6 +107,31 @@ angular.module('db')
 
     _this.clear = function(){
       return local.destroy();
+    };
+
+    _this.deleteAfter = function(startDate, endDate, view) {
+
+      startDate = utility.formatDate(startDate);
+      endDate = utility.formatDate(endDate);
+
+      var options = {
+        startkey: startDate,
+        endkey: endDate,
+        inclusive_end: true,
+        include_docs: true
+      };
+
+      function batchDelete(res) {
+        var batchDocs = res.rows
+          .map(function (row) {
+            row.doc._deleted = true;
+            return row.doc;
+          });
+        return local.bulkDocs(batchDocs);
+      }
+
+      return _this.getView(view, options)
+        .then(batchDelete);
     };
 
   });

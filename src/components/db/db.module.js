@@ -4,4 +4,8 @@
  * @name db
  * @desc database module
  */
-angular.module('db', ['pouchdb', 'config']);
+angular.module('db', [
+  'pouchdb',
+  'config',
+  'utility'
+]);

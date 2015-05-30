@@ -23,5 +23,7 @@ angular.module('sync')
   })
   .constant('SYNC_STATUS', {
     IN_PROGRESS: 'inProgress',
-    COMPLETE: 'complete'
+    COMPLETE: 'complete',
+    MAX_RETRY_COMPLETED: 'MAXIMUM_RETRY_COMPLETED',
+    ERROR: 'SYNC_ERROR'
   });

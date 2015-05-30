@@ -11,17 +11,18 @@ angular.module('delivery')
       vm.facRnd = {};
       if(!angular.isObject(vm.dailyDelivery)){
         log.error('invalidDailyDelivery');
-        $state.go('home');
+        $state.go('home.schedule');
         return;
       }
       vm.ddId = vm.dailyDelivery._id;
       var dailyFacRndForGivenId = deliveryService.filterByFacility(vm.dailyDelivery, facilityId);
       if(dailyFacRndForGivenId.length === 0){
         log.error('facilityRoundNotSet');
-        $state.go('home');
+        $state.go('home.schedule');
       }else{
         vm.facRnd = dailyFacRndForGivenId[0];
         vm.facility = vm.facRnd.facility;
+        vm.arrivedAt = new Date().toJSON();
         vm.facilityKPI = vm.facRnd.facilityKPI;
       }
     }

@@ -5,21 +5,27 @@
 describe('HomeScheduleCtrl', function() {
   beforeEach(module('home.schedule', 'deliveryMock', 'sync', 'delivery'));
 
-  var HomeScheduleCtrl, $rootScope, dailySchedule, SYNC_STATUS;
+  var HomeScheduleCtrl, $rootScope, dailySchedule, SYNC_STATUS, deliveryService,
+    DELIVERY_STATUS;
 
-  beforeEach(inject(function($controller, _SYNC_STATUS_, _$rootScope_, _DELIVERY_STATUS_, _dailyDeliveryMock_) {
+  beforeEach(inject(function($controller, _SYNC_STATUS_, _deliveryService_, _$rootScope_, _DELIVERY_STATUS_, _dailyDeliveryMock_) {
+
+    deliveryService = _deliveryService_;
+    DELIVERY_STATUS = _DELIVERY_STATUS_;
+    dailySchedule = _dailyDeliveryMock_;
+    $rootScope = _$rootScope_;
+    SYNC_STATUS = _SYNC_STATUS_;
 
     HomeScheduleCtrl = $controller('HomeScheduleCtrl', {
       dailySchedule: _dailyDeliveryMock_,
       $scope: _$rootScope_.$new(),
-      $rootScope: _$rootScope_,
-      SYNC_STATUS: _SYNC_STATUS_,
-      DELIVERY_STATUS: _DELIVERY_STATUS_
+      deliveryService: deliveryService,
+      $rootScope: $rootScope,
+      SYNC_STATUS: SYNC_STATUS,
+      DELIVERY_STATUS: DELIVERY_STATUS
     });
 
-    dailySchedule = _dailyDeliveryMock_;
-    $rootScope = _$rootScope_;
-    SYNC_STATUS = _SYNC_STATUS_;
+    spyOn(deliveryService, 'getStatusColor').and.callThrough();
 
   }));
 
@@ -69,6 +75,28 @@ describe('HomeScheduleCtrl', function() {
       expect(angular.isArray(HomeScheduleCtrl.day.facilityRounds)).toBeTruthy();
       expect(HomeScheduleCtrl.day.facilityRounds.length).toBeGreaterThan(0);
       expect(HomeScheduleCtrl.showScheduleTable()).toBeTruthy();
+    });
+
+  });
+
+  describe('getColorCode()', function() {
+
+    it('Should call deliveryService.getStatusColor() with expected parameters', function() {
+      expect(deliveryService.getStatusColor).not.toHaveBeenCalled();
+      var status = DELIVERY_STATUS.UPCOMING_FIRST;
+      var style = 'alert-success';
+      HomeScheduleCtrl.getColorCode(status, style);
+      expect(deliveryService.getStatusColor).toHaveBeenCalledWith(status, style);
+    });
+
+    it('Should call deliveryService.getStatusColor() and return same value', function() {
+      expect(deliveryService.getStatusColor).not.toHaveBeenCalled();
+      var status = DELIVERY_STATUS.UPCOMING_FIRST;
+      var style = 'alert-success';
+      var result = HomeScheduleCtrl.getColorCode(status, style);
+      expect(deliveryService.getStatusColor).toHaveBeenCalledWith(status, style);
+      var expected = deliveryService.getStatusColor(status, style);
+      expect(result).toBe(expected);
     });
 
   });

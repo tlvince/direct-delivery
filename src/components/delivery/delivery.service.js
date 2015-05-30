@@ -1,19 +1,50 @@
 'use strict';
 
 angular.module('delivery')
-  .service('deliveryService', function (dbService, log, $state, DELIVERY_STATUS) {
+  .service('deliveryService', function (dbService, log, $state, DELIVERY_STATUS, utility) {
 
     var _this = this;
 
+    _this.initArrivalTime = function(doc, arrivalTime) {
+      if(!utility.isValidDate(doc.arrivedAt)) {
+        doc.arrivedAt = new Date(arrivalTime).toJSON();
+      }
+      return doc;
+    };
+
     _this.save = function (ddDoc) {
       return dbService.save(ddDoc);
+    };
+
+    _this.get = function(id) {
+      return dbService.get(id);
+    };
+
+    /**
+     * This tests String equality after casting both items to strings.
+     *
+     * WARNING: equalString("null", null) and equalString("undefined", undefined)
+     * will return True, which might not be what you are expecting.
+     *
+     * NOTE: this was required because sometimes when i pass facility id
+     * via $stateParams they are casted to string and some facility id when pulled
+     * from Google Sheet are not string hence mismatch when '===' is used for equality test.
+     *
+     * @param itemOne
+     * @param itemTwo
+     * @returns {boolean}
+     */
+    _this.equalString = function(itemOne, itemTwo){
+      var itemStr= itemOne + '';
+      var itemTwoStr = itemTwo + '';
+      return itemStr === itemTwoStr;
     };
 
     _this.updateFacilityRound = function (dailyDelivery, facRnd) {
       var fr;
       for (var i in dailyDelivery.facilityRounds) {
         fr = dailyDelivery.facilityRounds[i];
-        if (fr.facility.id === facRnd.facility.id) {
+        if (_this.equalString(fr.facility.id, facRnd.facility.id)) {
           dailyDelivery.facilityRounds[i] = facRnd;
           return dailyDelivery;
         }
@@ -25,7 +56,7 @@ angular.module('delivery')
     _this.filterByFacility = function (dd, facilityId) {
       return dd.facilityRounds
         .filter(function (facRnd) {
-          return facRnd.facility.id === facilityId;
+          return (facRnd.facility && _this.equalString(facilityId, facRnd.facility.id));
         });
     };
 
@@ -126,6 +157,27 @@ angular.module('delivery')
     _this.shouldHideSignOff = function(facilityRnd){
       return ((facilityRnd.status === DELIVERY_STATUS.SUCCESS_FIRST) ||
         (facilityRnd.status === DELIVERY_STATUS.SUCCESS_SECOND));
+    };
+
+    _this.getStatusColor = function(status, ccsClass){
+      if(angular.isString(status)){
+        status = status.toLowerCase();
+      }
+      if((status === DELIVERY_STATUS.CANCELED_CCE.toLowerCase()) ||
+        (status === DELIVERY_STATUS.CANCELED_OTHER.toLowerCase()) ||
+        (status === DELIVERY_STATUS.CANCELED_STAFF.toLowerCase())) {
+          return ccsClass === 'alert-warning';
+      }else if((status === DELIVERY_STATUS.FAILED_CCE.toLowerCase()) ||
+        (status === DELIVERY_STATUS.FAILED_OTHER.toLowerCase()) ||
+        (status === DELIVERY_STATUS.FAILED_STAFF.toLowerCase())) {
+          return ccsClass === 'alert-danger';
+      }else if((status === DELIVERY_STATUS.SUCCESS_FIRST.toLowerCase()) ||
+        (status === DELIVERY_STATUS.SUCCESS_SECOND.toLowerCase())){
+
+          return ccsClass === 'alert-success';
+      }else{
+        return false;
+      }
     };
 
   });

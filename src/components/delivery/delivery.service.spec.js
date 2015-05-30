@@ -1,13 +1,13 @@
 'use strict';
 
 describe('deliveryService', function () {
-  beforeEach(module('delivery', 'deliveryMock', 'db', 'log'));
+  beforeEach(module('delivery', 'deliveryMock', 'db', 'log', 'utility'));
 
-  var deliveryService, deliveryMock, dbService, DELIVERY_STATUS, log, $state;
+  var deliveryService, deliveryMock, dbService, DELIVERY_STATUS, log, $state, utility;
   var qty = 25, presentation = 20;
 
   beforeEach(inject(function (_deliveryService_, dailyDeliveryMock, _dbService_,
-                              _DELIVERY_STATUS_, _log_, _$state_) {
+                              _DELIVERY_STATUS_, _log_, _$state_, _utility_) {
 
     deliveryService = _deliveryService_;
     deliveryMock = dailyDeliveryMock;
@@ -15,6 +15,7 @@ describe('deliveryService', function () {
     DELIVERY_STATUS = _DELIVERY_STATUS_;
     log = _log_;
     $state = _$state_;
+    utility = _utility_;
 
     spyOn(deliveryService, 'roundOffBy').and.callThrough();
     spyOn(dbService, 'save').and.callThrough();
@@ -30,6 +31,25 @@ describe('deliveryService', function () {
 
   it('should expose roundOffBy()', function(){
     expect(angular.isFunction(deliveryService.roundOffBy)).toBeTruthy();
+  });
+
+  describe('initArrivalTime', function() {
+    it('set arrivedAt property to arrivalTime if not set already', function(){
+      var facRnd = angular.copy(deliveryMock.facilityRounds[2]);//pick first round
+      var arrivalTime = new Date().toJSON();
+      expect(utility.isValidDate(facRnd.arrivedAt)).toBeFalsy();
+      var facRnd = deliveryService.initArrivalTime(facRnd, arrivalTime);
+      expect(facRnd.arrivedAt).toBe(arrivalTime);
+    });
+
+    it('Should not reset facRnd.arrivedAt if already set correctly', function() {
+      var facRnd = angular.copy(deliveryMock.facilityRounds[2]);//pick first round
+      var arrivalTime = new Date().toJSON();
+      facRnd.arrivedAt = new Date('2015-05-29');
+      expect(utility.isValidDate(facRnd.arrivedAt)).toBeTruthy();
+      var facRnd = deliveryService.initArrivalTime(facRnd, arrivalTime);
+      expect(facRnd.arrivedAt).not.toBe(arrivalTime);
+    });
   });
 
 
@@ -181,6 +201,132 @@ describe('deliveryService', function () {
       facRnd.status = DELIVERY_STATUS.UPCOMING_SECOND;
       deliveryService.setSuccessStatus(facRnd);
       expect(facRnd.status).toBe(DELIVERY_STATUS.SUCCESS_SECOND);
+    });
+
+  });
+
+  describe('getStatusColor()', function() {
+    it('Should return FALSE if status is not a string', function(){
+      var result = deliveryService.getStatusColor({}, 'alert-danger');
+      expect(result).toBeFalsy();
+    });
+
+    it('Should return FALSE if status is invalid', function() {
+      var result = deliveryService.getStatusColor('invalid-status', 'alert-danger');
+      expect(result).toBeFalsy();
+    });
+
+    it('Should return FALSE if status is DELIVERY_STATUS.UPCOMING_FIRST', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.UPCOMING_FIRST, 'alert-danger');
+      expect(result).toBeFalsy();
+    });
+
+    it('Should return False if status is DELIVERY_STATUS.UPCOMING_SECOND', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.UPCOMING_SECOND, 'alert-danger');
+      expect(result).toBeFalsy();
+    });
+
+    it('Should return TRUE if status is DELIVERY_STATUS.SUCCESS_FIRST and cssClass is "alert-success"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.SUCCESS_FIRST, 'alert-success');
+      expect(result).toBeTruthy();
+    });
+
+    it('Should return false if status is DELIVERY_STATUS.SUCCESS_FIRST and cssClass is not "alert-success"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.SUCCESS_FIRST, 'alert-danger');
+      expect(result).toBeFalsy();
+      result = deliveryService.getStatusColor(DELIVERY_STATUS.FAILED_CCE, 'alert-warning');
+      expect(result).toBeFalsy();
+    });
+
+    it('Should return TRUE if status is DELIVERY_STATUS.SUCCESS_SECOND and cssClass is "alert-success"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.SUCCESS_SECOND, 'alert-success');
+      expect(result).toBeTruthy();
+    });
+
+    it('Should return false if status is DELIVERY_STATUS.SUCCESS_SECOND and cssClass is not "alert-success"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.SUCCESS_SECOND, 'alert-danger');
+      expect(result).toBeFalsy();
+      result = deliveryService.getStatusColor(DELIVERY_STATUS.FAILED_CCE, 'alert-warning');
+      expect(result).toBeFalsy();
+    });
+
+    it('Should return TRUE if status is DELIVERY_STATUS.FAILED_CCE and cssClass is "alert-danger"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.FAILED_CCE, 'alert-danger');
+      expect(result).toBeTruthy();
+    });
+
+    it('Should return false if status is DELIVERY_STATUS.FAILED_CCE and cssClass is not "alert-danger"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.FAILED_CCE, 'alert-warning');
+      expect(result).toBeFalsy();
+      result = deliveryService.getStatusColor(DELIVERY_STATUS.FAILED_CCE, 'alert-success');
+      expect(result).toBeFalsy();
+    });
+
+    it('Should return TRUE if status is DELIVERY_STATUS.FAILED_STAFF and cssClass is "alert-danger"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.FAILED_STAFF, 'alert-danger');
+      expect(result).toBeTruthy();
+    });
+
+    it('Should return false if status is DELIVERY_STATUS.FAILED_STAFF and cssClass is not "alert-danger"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.FAILED_STAFF, 'alert-warning');
+      expect(result).toBeFalsy();
+      result = deliveryService.getStatusColor(DELIVERY_STATUS.FAILED_STAFF, 'alert-success');
+      expect(result).toBeFalsy();
+    });
+
+    it('Should return TRUE if status is DELIVERY_STATUS.FAILED_OTHER and cssClass is "alert-danger"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.FAILED_OTHER, 'alert-danger');
+      expect(result).toBeTruthy();
+    });
+
+    it('Should return false if status is DELIVERY_STATUS.FAILED_OTHER and cssClass is not "alert-danger"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.FAILED_OTHER, 'alert-warning');
+      expect(result).toBeFalsy();
+      result = deliveryService.getStatusColor(DELIVERY_STATUS.FAILED_OTHER, 'alert-success');
+      expect(result).toBeFalsy();
+    });
+
+    it('Should return TRUE if status is DELIVERY_STATUS.CANCELED_OTHER and cssClass is "alert-warning"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.CANCELED_OTHER, 'alert-warning');
+      expect(result).toBeTruthy();
+    });
+
+    it('Should return false if status is DELIVERY_STATUS.CANCELED_OTHER and cssClass is not "alert-warning"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.CANCELED_OTHER, 'alert-danger');
+      expect(result).toBeFalsy();
+      result = deliveryService.getStatusColor(DELIVERY_STATUS.CANCELED_OTHER, 'alert-success');
+      expect(result).toBeFalsy();
+    });
+
+    it('Should return TRUE if status is DELIVERY_STATUS.CANCELED_CCE and cssClass is "alert-warning"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.CANCELED_CCE, 'alert-warning');
+      expect(result).toBeTruthy();
+    });
+
+    it('Should return false if status is DELIVERY_STATUS.CANCELED_CCE and cssClass is not "alert-warning"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.CANCELED_CCE, 'alert-danger');
+      expect(result).toBeFalsy();
+      result = deliveryService.getStatusColor(DELIVERY_STATUS.CANCELED_CCE, 'alert-success');
+      expect(result).toBeFalsy();
+    });
+
+    it('Should return TRUE if status is DELIVERY_STATUS.CANCELED_STAFF and cssClass is "alert-warning"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.CANCELED_STAFF, 'alert-warning');
+      expect(result).toBeTruthy();
+    });
+
+    it('Should return false if status is DELIVERY_STATUS.CANCELED_STAFF and cssClass is not "alert-warning"', function() {
+      var result = deliveryService.getStatusColor(DELIVERY_STATUS.CANCELED_STAFF, 'alert-danger');
+      expect(result).toBeFalsy();
+      result = deliveryService.getStatusColor(DELIVERY_STATUS.CANCELED_STAFF, 'alert-success');
+      expect(result).toBeFalsy();
+    });
+
+    it('Should convert to lower case before comparison', function(){
+      var UPPER_CASE_STATUS = DELIVERY_STATUS.CANCELED_STAFF.toUpperCase();
+      expect(UPPER_CASE_STATUS).not.toEqual(DELIVERY_STATUS.CANCELED_STAFF);
+      var result = deliveryService.getStatusColor(UPPER_CASE_STATUS, 'alert-warning');
+      expect(result).toBeTruthy();
     });
 
   });

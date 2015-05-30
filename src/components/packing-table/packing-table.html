@@ -29,13 +29,15 @@
             type="button"
             class="btn btn-default btn-lg"
             ng-click="item.packedQty = item.expectedQty; item._partial = false"
-            ng-disabled="item._partial === false"
+            ng-disabled="item._partial === false || !packingTableCtrl.showingCurrent()"
+            ng-hide="!packingTableCtrl.showingCurrent()"
           >Max</button>
           <button
             type="button"
             class="btn btn-default btn-lg"
             ng-click="item._partial = true"
             ng-disabled="item._partial"
+            ng-hide="!packingTableCtrl.showingCurrent()"
           >Partial</button>
           <span
             ng-bind="item.packedQty"

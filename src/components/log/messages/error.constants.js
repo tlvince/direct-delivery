@@ -48,9 +48,9 @@ angular.module('log')
       remedy: 'Please, sign before submitting'
     },
     'facilityRoundNotSet': {
-      title: 'Cancel delivery',
-      message: 'Invalid facility round',
-      remedy: 'Please, select valid facility round'
+      title: 'Invalid Facility ID',
+      message: 'Facility ID is not set or invalid',
+      remedy: 'Please, contact support to update to valid facility ID'
     },
     'dailyDeliveryFailed': {
       title: 'Daily delivery',
@@ -63,9 +63,9 @@ angular.module('log')
       remedy: 'Try again, if it persists, contact support.'
     },
     'requiredDocsFailed': {
-      title: 'Incomplete Data',
-      message: 'Incomplete required data, app may not function properly',
-      remedy: 'Please, try again or contact support'
+      title: 'Sync Fail',
+      message: 'App will attempt to sync again',
+      remedy: 'Press sync button when you have network access'
     },
     'dailyDeliverySyncDown': {
       title: 'Daily delivery',
@@ -91,5 +91,31 @@ angular.module('log')
       title: "Enter Received by",
       message: 'Received by not entered',
       remedy: 'Please, enter recipient name.'
+    },
+    unauthorizedUser: {
+      title: "Unauthorised User",
+      message: 'You are denied accesses.',
+      remedy: 'Please, if entered correct login details, if problem persist contact support.'
+    },
+    'facilityRoundNotFound': {
+      title: "Facility Round Not Found",
+      message: "Facility Round does not exist for given KPI",
+      remedy: "Please, try again and contact support if it fails again."
+    },
+    saveKPIFail: {
+      title: "Save Facility KPI Failed",
+      message: "Facility KPI could not be saved",
+      remedy: "Please, try again and contact support if it fails again."
+    },
+    scheduleRoundResolveErr: {
+      title: 'Schedule Rounds error',
+      message: 'Could not fetch schedule history',
+      remedy: 'Please double check your network connectivity or contact support'
+    },
+    'dailyScheduleWithGivenIdDoesNotExists': {
+      title: 'Missing daily delivery',
+      message: 'Daily delivery record does not exist',
+      remedy: 'Contact support for assistance'
     }
+
   });

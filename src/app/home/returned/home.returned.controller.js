@@ -53,6 +53,6 @@ angular.module('home.returned')
 
       dailySchedule.balance = vm.packedProducts;
       dbService.save(dailySchedule);
-      $state.go('home')
+      $state.go('home.schedule')
     }
   });

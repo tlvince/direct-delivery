@@ -6,6 +6,8 @@ angular.module('kpi')
     var vm = this;
     var driverId = AuthService.currentUser.name;
     vm.kpiList = [];
+    var shouldShowKPI = false;
+    var shouldSkipKPI = false;
 
     function setKPIList(kpiDocs) {
       vm.kpiList = kpiDocs;
@@ -26,7 +28,13 @@ angular.module('kpi')
     vm.getFacilityKPI = function() {
       vm.selectedLoadKPI = true;
       vm.facilityKPI = facilityKPIService.getKPIFromBy(vm.kpiList, vm.selectedFacilityId);
-      vm.selectedFacility = vm.facilityKPI.facility;
+      if(vm.facilityKPI && vm.facilityKPI.facility){
+        vm.selectedFacility = vm.facilityKPI.facility;
+        return;
+      }
+      vm.selectedFacility = null;
+      shouldSkipKPI = false;
+      shouldShowKPI = false;
     };
 
     vm.isValidKPI = function(){
@@ -86,6 +94,29 @@ angular.module('kpi')
           .catch(function(err) {
             log.error('saveKPIFail', err);
           });
+    };
+
+    vm.shouldAddKPI = function() {
+      return shouldShowKPI;
+    };
+
+    vm.shouldSkipKPI = function() {
+      return shouldSkipKPI;
+    };
+
+    vm.showKPIForm = function() {
+      shouldShowKPI = true;
+      shouldSkipKPI = false;
+    };
+
+    vm.showSkipForm = function() {
+      shouldShowKPI = false;
+      shouldSkipKPI = true;
+    };
+
+    vm.hideOptions = function(){
+      var isFacilityNotSelected = (vm.selectedFacilityId === '' || vm.selectedFacility === null);
+      return isFacilityNotSelected;
     };
 
   });

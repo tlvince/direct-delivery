@@ -1,0 +1,20 @@
+<br/><br/>
+<div>
+  <form name="kpiForm">
+    <div class="form-group">
+      <label>Notes (optional) </label>
+          <textarea class="form-control"
+                    ng-model="facKPICtrl.facilityKPI.notes"
+                    ng-disabled="facKPICtrl.previewKPI"
+                    rows="3">
+          </textarea>
+    </div>
+    <button type="button"
+            class="btn btn-success btn-lg btn-block"
+            ng-show="!facKPICtrl.previewKPI"
+            ng-click="facKPICtrl.preview()">
+      <span>Submit</span>
+      <i class="fa fa-arrow-circle-right"></i>
+    </button>
+  </form>
+</div>

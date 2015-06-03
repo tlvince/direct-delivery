@@ -59,4 +59,29 @@ angular.module('kpi')
       return dbService.save(kpiDoc);
     };
 
+    _this.getByDriverId = function(driverId) {
+      var params = {};
+      var view = 'kpi/by-driver';
+      if (angular.isString(driverId) || angular.isArray(driverId)) {
+        params = pouchUtil.key(driverId);
+      }
+      /*eslint-disable camelcase */
+      params.include_docs = true;
+      /*eslint-enable camelcase */
+      return dbService.getView(view, params);
+    };
+
+    _this.getByDriverSorted = function(driverId) {
+      function sortByDateDesc(docs) {
+        return docs.sort(function(a, b) {
+          return - (new Date(a.date) - new Date(b.date));
+        });
+      }
+
+      return _this.getByDriverId(driverId)
+          .then(pouchUtil.pluckDocs)
+          .then(pouchUtil.rejectIfEmpty)
+          .then(sortByDateDesc);
+    };
+
   });

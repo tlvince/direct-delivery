@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+  <div class="page-header">
+    <h1>Facility KPI</h1>
+  </div>
+  <button class="btn btn-lg btn-block btn-primary">Add KPI</button><br/><br/>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+    <th class="col-sm-1">#</th>
+    <th class="col-sm-3">Facility</th>
+    <th class="col-sm-1">KPI Date</th>
+    <th class="col-sm-1">Status</th>
+    <th class="col-sm-3">Note</th>
+    </thead>
+    <tr ng-repeat="kpi in facKPIListCtrl.kpiList track by $index">
+      <td ng-bind="($index + 1)"></td>
+      <td ng-bind="kpi.facility.name"></td>
+      <td ng-bind="facKPIListCtrl.formatDate(kpi.date)"></td>
+      <td>
+        <i class="fa "
+           ng-class="{
+            'fa-times-circle-o text-danger': !facKPIListCtrl.isComplete(kpi),
+            'fa-check-circle-o text-success': facKPIListCtrl.isComplete(kpi)
+          }">
+        </i>
+      </td>
+      <td ng-bind="kpi.notes"></td>
+    </tr>
+  </table>
+
+</div>

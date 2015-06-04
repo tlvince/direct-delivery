@@ -9,7 +9,14 @@
   </a>
   <br/><br/>
 
-  <table class="table table-bordered table-striped">
+  <div ng-show="!facKPIListCtrl.showTable()">
+    <div class="alert alert-info">
+      <i class="fa fa-info-circle"></i>
+      <span>There are no KPI available on this device, sync and check again.</span>
+    </div>
+  </div>
+
+  <table class="table table-bordered table-striped" ng-show="facKPIListCtrl.showTable()">
     <thead>
     <th class="col-sm-1">#</th>
     <th class="col-sm-3">Facility</th>

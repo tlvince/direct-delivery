@@ -22,8 +22,12 @@ angular
 						controllerAs: 'facKPIListCtrl',
 						resolve: {
 							kpiSorted: function(facilityKPIService, AuthService) {
+								function handleError(){
+									return [];
+								}
 								var driverId = AuthService.currentUser.name;
-								return facilityKPIService.getByDriverSorted(driverId);
+								return facilityKPIService.getByDriverSorted(driverId)
+										.catch(handleError);
 							}
 						}
 					});

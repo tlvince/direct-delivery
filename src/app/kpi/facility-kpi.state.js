@@ -9,7 +9,10 @@ angular
 						url: 'facility-kpi',
 						templateUrl: 'app/kpi/facility-kpi.html',
 						controller: 'FacilityKPICtrl',
-						controllerAs: 'facKPICtrl'
+						controllerAs: 'facKPICtrl',
+						data: {
+							label: 'Facility KPI'
+						}
 					})
 					.state('facilityKPIListView', {
 						parent: 'index',
@@ -17,9 +20,6 @@ angular
 						templateUrl: 'app/kpi/list-view/facility-kpi-list.html',
 						controller: 'FacilityKPIListCtrl',
 						controllerAs: 'facKPIListCtrl',
-						data: {
-							label: 'Facility KPI'
-						},
 						resolve: {
 							kpiSorted: function(facilityKPIService, AuthService) {
 								var driverId = AuthService.currentUser.name;

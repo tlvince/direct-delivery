@@ -2,7 +2,12 @@
   <div class="page-header">
     <h1>Facility KPI</h1>
   </div>
-  <button class="btn btn-lg btn-block btn-primary">Add KPI</button><br/><br/>
+  <a class="btn btn-lg btn-block btn-default"
+     ui-sref="facilityKPI">
+    <i class="fa fa-arrow-circle-left"></i>
+    <span>Back</span>
+  </a>
+  <br/><br/>
 
   <table class="table table-bordered table-striped">
     <thead>
@@ -19,7 +24,7 @@
       <td>
         <i class="fa "
            ng-class="{
-            'fa-times-circle-o text-danger': !facKPIListCtrl.isComplete(kpi),
+            'fa-times-circle-o text-warning': !facKPIListCtrl.isComplete(kpi),
             'fa-check-circle-o text-success': facKPIListCtrl.isComplete(kpi)
           }">
         </i>

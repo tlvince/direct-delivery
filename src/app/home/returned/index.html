@@ -1,6 +1,10 @@
 <br/>
 <p class="clearfix">
-  <input type="date" class="input-sm pull-right" ng-change="returnedCtrl.setDate(returnedCtrl.queryDate)" ng-model="returnedCtrl.queryDate">
+  <input
+      type="date" class="input-sm pull-right"
+      ng-change="returnedCtrl.setDate(returnedCtrl.queryDate)"
+      ng-model="returnedCtrl.queryDate"
+      value="{{returnedCtrl.queryDate | date:'yyyy-MM-dd'}}">
 </p>
 <div ng-if="returnedCtrl.productLength > 0">
   <table class="table table-striped table-bordered table-tabbed">

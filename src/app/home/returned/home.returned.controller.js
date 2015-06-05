@@ -8,8 +8,9 @@ angular.module('home.returned')
     var totalDelivered = {};
     var totalRetrieved = {};
     var packedProductJson = {};
-
+    vm.queryDate = new Date();
     vm.productLength = 0;
+
 
     function calcFaciltyBalance(products){
 
@@ -33,7 +34,6 @@ angular.module('home.returned')
           };
         });
         calcFaciltyBalance(packedProductJson);
-        console.log(packedProductJson);
         vm.productLength = Object.keys(packedProductJson).length;
         vm.packedProducts = packedProductJson;
       }

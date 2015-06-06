@@ -31,7 +31,7 @@ angular.module('home.returned')
           packedProductJson[product.productID] = {
             totalRetrieved : 0,
             totalDelivered: 0,
-            packedQty: product.packedQty,
+            packedQty: (parseInt(product.packedQty)) || 0,
             balance: 0,
             id: product.productID
           };

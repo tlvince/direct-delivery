@@ -6,11 +6,6 @@
   </div>
   <div class="panel-body">
     <div
-        ng-include="'components/delivery/deliver-items/delivered-item-history.html'"
-        ng-show="diCtrl.previewDelivery === true && diCtrl.history === true">
-    </div>
-
-    <div
       ng-include="'components/delivery/deliver-items/delivery-form.html'"
       ng-show="diCtrl.previewDelivery !== true && diCtrl.history !== true">
     </div>

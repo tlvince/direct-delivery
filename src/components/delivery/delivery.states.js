@@ -28,29 +28,12 @@ angular.module('delivery')
         controllerAs: 'diCtrl',
         controller: 'DeliverItemsCtrl'
       })
-      .state('facilityDelivery.facilityKPI', {
-        url: '/collect-kpi/:ddId/:facilityId/:preview',
-        templateUrl: 'components/delivery/facility-kpi/facility-kpi.html',
-        parent: 'facilityDelivery',
-        controllerAs: 'facKPICtrl',
-        controller: 'FacilityKPICtrl'
-      })
       .state('facilityDelivery.signOff', {
         url: '/sign-off/:ddId/:facilityId',
         templateUrl: 'components/delivery/sign-off/sign-off.html',
         parent: 'facilityDelivery',
         controllerAs: 'signOffCtrl',
         controller: 'SignOffCtrl'
-      })
-      .state('facilityDelivery.childFacilityKPI', {
-        url: '/child-facility-kpi',
-        templateUrl: 'components/delivery/partials/child-facility/child-facility-form.html',
-        parent: 'facilityDelivery'
-      })
-      .state('facilityDelivery.previewChildFacilityKPI', {
-        url: '/preview-child-facility-kpi',
-        templateUrl: 'components/delivery/partials/child-facility/preview.html',
-        parent: 'facilityDelivery'
       })
       .state('cancelDelivery', {
         url: '/cancel-delivery/:ddId/:facilityId',

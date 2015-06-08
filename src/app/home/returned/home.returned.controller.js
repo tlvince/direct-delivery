@@ -15,9 +15,13 @@ angular.module('home.returned')
 
       dailySchedule.facilityRounds.forEach(function(round){
         round.packedProduct.forEach(function(product){
+          var bal;
           products[product.productID].totalRetrieved += !isNaN(product.returnedQty) ? product.returnedQty: 0;
           products[product.productID].totalDelivered += !isNaN(product.deliveredQty) ? product.deliveredQty: 0;
-          products[product.productID].balance = (products[product.productID].packedQty +products[product.productID].totalRetrieved) - products[product.productID].totalDelivered;
+
+          bal = (products[product.productID].packedQty +products[product.productID].totalRetrieved) - products[product.productID].totalDelivered;
+
+          products[product.productID].balance = !isNaN(bal) ? bal : 0;
         });
       });
     }
@@ -27,13 +31,12 @@ angular.module('home.returned')
           packedProductJson[product.productID] = {
             totalRetrieved : 0,
             totalDelivered: 0,
-            packedQty: product.packedQty,
+            packedQty: (parseInt(product.packedQty)) || 0,
             balance: 0,
             id: product.productID
           };
         });
         calcFaciltyBalance(packedProductJson);
-        console.log(packedProductJson);
         vm.productLength = Object.keys(packedProductJson).length;
         vm.packedProducts = packedProductJson;
       }

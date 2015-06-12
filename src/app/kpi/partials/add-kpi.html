@@ -3,8 +3,8 @@
   <form name="kpiForm">
     <table class="table table-striped table-condensed table-bordered">
       <tr>
-        <th class="col-sm-6">Antigen</th>
-        <th class="col-sm-6">No. of people immunized</th>
+        <th class="col-sm-6">Vaccines</th>
+        <th class="col-sm-6">Number Vaccinated</th>
       </tr>
       <tr ng-repeat="antigen in facKPICtrl.facilityKPI.antigensKPI track by $index">
         <td><span ng-bind="antigen.productID"></span></td>
@@ -23,7 +23,7 @@
                     ng-show="facKPICtrl.kpiError.antigensNoImmunized[$index] === true && !kpiForm.$index.$pristine">
                 <em>
                   <i class="fa fa-exclamation-circle"></i>
-                  Please, enter number of people immunized.
+                  Please, enter number vaccinated.
                 </em>
               </span>
         </td>

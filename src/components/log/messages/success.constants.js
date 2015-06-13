@@ -29,5 +29,9 @@ angular.module('log')
     'kpiSaved': {
       title: 'Facility KPI saved',
       message: 'Facility KPI was saved successfully!'
+    },
+    returnedStockSaved: {
+      title: 'Returned stock saved',
+      message: 'Returned stock was saved successfully!'
     }
   });

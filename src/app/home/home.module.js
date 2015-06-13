@@ -4,5 +4,6 @@ angular.module('home', [
   'core',
   'ui.router.tabs',
   'schedules',
-  'sync'
+  'sync',
+  'utility'
 ]);

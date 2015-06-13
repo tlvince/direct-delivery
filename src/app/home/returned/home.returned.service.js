@@ -4,7 +4,9 @@
 
 angular.module('home.returned')
   .service('returnedService', function(packingAllService){
+
     this.get = function(){
       return packingAllService.all();
-    }
+    };
+
   });

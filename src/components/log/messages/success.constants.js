@@ -32,6 +32,6 @@ angular.module('log')
     },
     returnedStockSaved: {
       title: 'Returned stock saved',
-      messaged: 'Returned stock was saved successfully!'
+      message: 'Returned stock was saved successfully!'
     }
   });

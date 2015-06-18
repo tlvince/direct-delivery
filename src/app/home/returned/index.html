@@ -16,7 +16,9 @@
       <th>Actual Qty Returned</th>
     </thead>
     <tbody>
-      <tr ng-repeat="product in returnedCtrl.packedProducts">
+      <tr
+          ng-repeat="product in returnedCtrl.packedProducts"
+          ng-class="returnedCtrl.storageAttributes[product.storageID].bsClass">
         <td ng-bind="::product.id"></td>
         <td ng-bind="::product.packedQty"></td>
         <td ng-bind="::product.totalDelivered"></td>

@@ -3,13 +3,13 @@
  */
 
 angular.module('home.returned')
-  .controller('ReturnedCtrl', function(dailySchedule, dbService, $state, scheduleService, AuthService, log, utility){
+  .controller('ReturnedCtrl', function(dailySchedule, dbService, $state, scheduleService, AuthService, log, utility, STORAGE_ATTRIBUTES){
     var vm = this;
     var packedProductJson = {};
 
     vm.productLength = 0;
     vm.queryDate = utility.extractDate(new Date());
-
+    vm.storageAttributes = STORAGE_ATTRIBUTES;
     function calcFaciltyBalance(products){
       dailySchedule.facilityRounds.forEach(function(round){
         round.packedProduct.forEach(function(product){
@@ -18,13 +18,17 @@ angular.module('home.returned')
           products[product.productID].totalDelivered += angular.isNumber(product.deliveredQty) ? product.deliveredQty: 0;
           bal = (products[product.productID].packedQty +products[product.productID].totalRetrieved) - products[product.productID].totalDelivered;
           products[product.productID].balance = angular.isNumber(bal) ? bal : 0;
+          products[product.productID].storageID = product.storageID;
         });
       });
     }
 
     function reset(schedule){
+      var keyOrder = [];
+      vm.packedProducts = [];
       if(schedule.packingList){
         schedule.packingList.forEach(function(product){
+          keyOrder.push(product.productID);
           packedProductJson[product.productID] = {
             totalRetrieved : 0,
             totalDelivered: 0,
@@ -33,9 +37,13 @@ angular.module('home.returned')
             id: product.productID
           };
         });
+
         calcFaciltyBalance(packedProductJson);
-        vm.productLength = Object.keys(packedProductJson).length;
-        vm.packedProducts = packedProductJson;
+        vm.productLength = keyOrder.length;
+        keyOrder.forEach(function(key){
+          vm.packedProducts.push(packedProductJson[key]);
+        });
+
       }
     }
 

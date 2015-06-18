@@ -2,7 +2,7 @@
  * Created by ehealthafrica on 3/19/15.
  */
 
-angular.module('home.returned', ['core'])
+angular.module('home.returned', ['core', 'packingTable'])
   .config(function($stateProvider){
     $stateProvider
       .state('home.returned', {

@@ -46,8 +46,12 @@ angular.module('home.returned')
 
       }
     }
+    if(!angular.isArray(dailySchedule.balance)){
+      reset(dailySchedule);
+    }else{
+      vm.packedProducts = dailySchedule.balance;
+    }
 
-    reset(dailySchedule);
 
     vm.setDate = function(date){
       packedProductJson = {};

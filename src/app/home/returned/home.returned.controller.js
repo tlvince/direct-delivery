@@ -18,6 +18,7 @@ angular.module('home.returned')
           products[product.productID].totalDelivered += angular.isNumber(product.deliveredQty) ? product.deliveredQty: 0;
           bal = (products[product.productID].packedQty +products[product.productID].totalRetrieved) - products[product.productID].totalDelivered;
           products[product.productID].balance = angular.isNumber(bal) ? bal : 0;
+          products[product.productID].calcdBalance = angular.isNumber(bal) ? bal : 0;
           products[product.productID].storageID = product.storageID;
         });
       });
@@ -34,6 +35,7 @@ angular.module('home.returned')
             totalDelivered: 0,
             packedQty: (parseInt(product.packedQty)) || 0,
             balance: 0,
+            calcdBalance: 0,
             id: product.productID
           };
         });

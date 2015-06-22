@@ -16,6 +16,7 @@ describe('facilityKPIService', function () {
 
     spyOn(dbService, 'save').and.callThrough();
     spyOn(dbService, 'getView').and.callThrough();
+    spyOn(facilityKPIService, 'getByDriverId').and.callThrough();
 
   }));
 
@@ -64,7 +65,7 @@ describe('facilityKPIService', function () {
       var isValidKPI = facilityKPIService.isValidFacilityKPI(temp);
       expect(isValidKPI).toBeTruthy();
       var index = 0;
-      temp.antigensKPI[index].noImmuized = '123'; //non number
+      temp.antigensKPI[index].noImmunized = '123'; //non number
       var validationErr = facilityKPIService.isValidFacilityKPI(temp);
       expect(validationErr.antigensNoImmunized[index]).toBeTruthy();
     });
@@ -83,11 +84,11 @@ describe('facilityKPIService', function () {
     it('Should call dbService.getView() with expected parameters', function() {
       expect(dbService.getView).not.toHaveBeenCalled();
       var testDriverId = 'test@example.com';
-      var testDate = '2015-04-12';//extra space after 12 is intentional
+      var testDate = '2015-04-12';
       var view = 'kpi/by-driver-date';
       facilityKPIService.getBy(testDriverId, testDate);
       var key = testDriverId + '-' + testDate;
-      var params = pouchUtil.key(key)
+      var params = pouchUtil.key(key);
       params.include_docs = true;
       expect(dbService.getView).toHaveBeenCalledWith(view, params);
     });
@@ -106,6 +107,30 @@ describe('facilityKPIService', function () {
       var facilityId = 'ID-DOES-NOT-EXIST-IN-LIST';
       var result = facilityKPIService.getKPIFromBy(kpiList, facilityId);
       expect(result).toBeUndefined();
+    });
+  });
+
+  describe('getByDriverId', function() {
+    it('Should call dbService.getView() with expected parameters', function(){
+      var testDriverId = 'test@example.com';
+      var params = pouchUtil.key(testDriverId);
+      params.include_docs = true;
+      var view = 'kpi/by-driver';
+      expect(dbService.getView).not.toHaveBeenCalled();
+      facilityKPIService.getByDriverId(testDriverId);
+      expect(dbService.getView).toHaveBeenCalledWith(view, params);
+    });
+  });
+
+  describe('getByDriverSorted', function(){
+    it('Should call dbService.getView() with expected parameters', function() {
+      var testDriverId = 'test@example.com';
+      var params = pouchUtil.key(testDriverId);
+      params.include_docs = true;
+      var view = 'kpi/by-driver';
+      expect(dbService.getView).not.toHaveBeenCalled();
+      facilityKPIService.getByDriverId(testDriverId);
+      expect(dbService.getView).toHaveBeenCalledWith(view, params);
     });
   });
 

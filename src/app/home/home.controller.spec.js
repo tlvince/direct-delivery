@@ -3,7 +3,7 @@
 /*global module: false, inject: false */
 
 describe('HomeCtrl', function() {
-  beforeEach(module('home', 'deliveryMock', 'sync', 'core', 'auth'));
+  beforeEach(module('home', 'deliveryMock', 'sync', 'core', 'auth', 'utility'));
 
   var HomeCtrl, $rootScope, dailySchedule, SYNC_STATUS, HOME_TABS, coreService,
     AuthService;

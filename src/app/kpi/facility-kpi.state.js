@@ -6,7 +6,7 @@ angular
 			$stateProvider
 					.state('facilityKPI', {
 						parent: 'index',
-						url: 'facility-kpi',
+						url: '/facility-kpi',
 						templateUrl: 'app/kpi/facility-kpi.html',
 						controller: 'FacilityKPICtrl',
 						controllerAs: 'facKPICtrl',
@@ -16,7 +16,7 @@ angular
 					})
 					.state('facilityKPIListView', {
 						parent: 'index',
-						url: 'facility-kpi-list-view',
+						url: '/facility-kpi-list-view',
 						templateUrl: 'app/kpi/list-view/facility-kpi-list.html',
 						controller: 'FacilityKPIListCtrl',
 						controllerAs: 'facKPIListCtrl',

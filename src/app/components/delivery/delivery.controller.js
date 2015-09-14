@@ -14,12 +14,13 @@ angular.module('delivery')
         $state.go('home.schedule');
         return;
       }
-      vm.ddId = vm.dailyDelivery._id;
+
       var dailyFacRndForGivenId = deliveryService.filterByFacility(vm.dailyDelivery, facilityId);
       if(dailyFacRndForGivenId.length === 0){
         log.error('facilityRoundNotSet');
         $state.go('home.schedule');
       }else{
+        vm.ddId = dailyFacRndForGivenId._id;
         vm.facRnd = dailyFacRndForGivenId[0];
         vm.facility = vm.facRnd.facility;
         vm.arrivedAt = new Date().toJSON();

@@ -25,7 +25,7 @@ angular.module('schedules')
       return this.get('daily-deliveries/by-driver-date', key)
         .then(pouchUtil.pluckDocs)
         .then(pouchUtil.rejectIfEmpty)
-        .then(utility.first);
+        .then(formatRounds);
     };
 
     this.getByRound = function(roundId){
@@ -33,5 +33,33 @@ angular.module('schedules')
         .then(pouchUtil.pluckDocs)
         .then(pouchUtil.rejectIfEmpty);
     };
+
+    function formatRounds(list) {
+      var formattedList = [];
+      var i = list.length;
+      while (i--) {
+        if (list[i].hasOwnProperty('facilityRounds')) {
+          formattedList = formattedList.concat(flattenRoundsList(list[i]))
+        } else {
+          formattedList.push(list[i]);
+        }
+      }
+
+      formattedList.sort(function (a, b) {
+        return a.drop - b.drop;
+      });
+      return formattedList;
+    }
+
+    function flattenRoundsList(dailyDelivery) {
+      var flattened = [];
+      var rounds = angular.copy(dailyDelivery.facilityRounds);
+      delete dailyDelivery['facilityRounds'];
+      var i = rounds.length;
+      while (i--) {
+        flattened.push(angular.extend(rounds[i], dailyDelivery));
+      }
+      return flattened;
+    }
 
   });

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('delivery')
-  .service('deliveryService', function (dbService, log, $state, DELIVERY_STATUS, utility) {
+  .service('deliveryService', function (dbService, log, $state, DELIVERY_STATUS, utility, DELIVERY_FIELDS) {
 
     var _this = this;
 
@@ -72,36 +72,24 @@ angular.module('delivery')
 
     function createGroupSource(targetObject) {
       var destination = {};
-      destination = angular.copy(targetObject, destination);
-      delete destination['facility'];
-      delete destination['originRow'];
-      delete destination['drop'];
-      delete destination['status'];
-      delete destination['window'];
-      delete destination['packedProduct'];
-      delete destination['receivedBy'];
-      delete destination['recipientPhoneNo'];
-      delete destination['signature'];
-      delete destination['receivedBy'];
-      delete destination['createdOn'];
+
+      var i = DELIVERY_FIELDS.length;
+      while (i--) {
+        if (targetObject.hasOwnProperty(DELIVERY_FIELDS[i])) {
+          destination[DELIVERY_FIELDS[i]] = targetObject[DELIVERY_FIELDS[i]];
+        }
+      }
       return destination;
     }
 
     function createFacilityRounds(row) {
       var destination = {};
-      destination = angular.copy(row, destination);
-      delete destination['_id'];
-      delete destination['_rev'];
-      delete destination['deliveryRoundID'];
-      delete destination['date'];
-      delete destination['packingList'];
-      delete destination['worksheetId'];
-      delete destination['doc_type'];
-      delete destination['driverID'];
-      delete destination['importedAt'];
-      delete destination['version'];
-      delete destination['spreadsheetId'];
-
+      var i = DELIVERY_FIELDS.length;
+      for (var key in row) {
+        if (row.hasOwnProperty(key) && DELIVERY_FIELDS.indexOf(key) === -1 ) {
+          destination[key] = row[key];
+        }
+      }
       return destination;
     }
 

@@ -20,7 +20,7 @@ angular.module('delivery')
         log.error('facilityRoundNotSet');
         $state.go('home.schedule');
       }else{
-        vm.ddId = dailyFacRndForGivenId._id;
+        vm.ddId = dailyFacRndForGivenId[0]._id;
         vm.facRnd = dailyFacRndForGivenId[0];
         vm.facility = vm.facRnd.facility;
         vm.arrivedAt = new Date().toJSON();

@@ -47,19 +47,26 @@ angular.module('delivery')
 
     function reGroupRoundDoc(dailyDelivery, target) {
       var grouped = createGroupSource(target);
+      grouped.facilityRounds = [];
       var idCount = 0;
       var i = dailyDelivery.length;
 
       while (i--) {
         if (dailyDelivery[i]._id === target._id) {
           idCount ++;
-          if (dailyDelivery[i].facility.id !== target.facility.id) {
-            grouped.facilityRounds.push(createFacilityRounds(target));
-          } else {
-            grouped.facilityRounds.push(createFacilityRounds(dailyDelivery[i]));
-          }
+        }
+
+        if (dailyDelivery[i].facility.id === target.facility.id) {
+          grouped.facilityRounds.push(createFacilityRounds(target));
+        } else {
+          grouped.facilityRounds.push(createFacilityRounds(dailyDelivery[i]));
         }
       }
+
+      grouped.facilityRounds.sort(function (a, b) {
+        return a.drop - b.drop;
+      });
+
       return idCount > 1 ? grouped : target;
     }
 
@@ -77,7 +84,6 @@ angular.module('delivery')
       delete destination['signature'];
       delete destination['receivedBy'];
       delete destination['createdOn'];
-
       return destination;
     }
 

@@ -9,11 +9,11 @@ angular.module('packing.item')
       controller: 'PackingTableCtrl',
       controllerAs: 'packingTableCtrl',
       resolve: {
-        dailySchedule: function($stateParams, packingTableService) {
-          return packingTableService.get($stateParams.id);
-        },
         productStorages: function(packingTableLegendService) {
           return packingTableLegendService.get();
+        },
+        dailyPacking: function ($stateParams, packingTableService) {
+          return packingTableService.get($stateParams.id);
         }
       },
       data: {

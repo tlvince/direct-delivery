@@ -10,7 +10,7 @@ describe('cancelDeliveryService', function() {
     cancelDeliveryService = _cancelDeliveryService_;
     cancelReport = cancelDeliveryService.getDefaultCancelReport();
     deliveryStatus = _DELIVERY_STATUS_;
-    facRnd = _dailyDeliveryMock_.facilityRounds[0];
+    facRnd = _dailyDeliveryMock_[0];
   }));
 
 

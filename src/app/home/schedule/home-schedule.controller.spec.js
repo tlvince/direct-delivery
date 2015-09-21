@@ -49,13 +49,13 @@ describe('HomeScheduleCtrl', function() {
       expect(HomeScheduleCtrl.showScheduleTable()).toBeFalsy();
     });
 
-    it('Should return FALSE if HomeScheduleCtrl.day.facilityRounds not defined', function(){
+    it('Should return FALSE if HomeScheduleCtrl.day not defined', function(){
       expect(HomeScheduleCtrl.showScheduleTable()).toBeTruthy();
       HomeScheduleCtrl.day = {};
       expect(HomeScheduleCtrl.showScheduleTable()).toBeFalsy();
     });
 
-    it('Should return FALSE if HomeScheduleCtrl.day.facilityRounds is Empty Array', function(){
+    it('Should return FALSE if HomeScheduleCtrl.day is Empty Array', function(){
       expect(HomeScheduleCtrl.showScheduleTable()).toBeTruthy();
       HomeScheduleCtrl.day = {
         facilityRounds: []
@@ -63,7 +63,7 @@ describe('HomeScheduleCtrl', function() {
       expect(HomeScheduleCtrl.showScheduleTable()).toBeFalsy();
     });
 
-    it('Should return FALSE if HomeScheduleCtrl.day.facilityRounds is Not an Array', function(){
+    it('Should return FALSE if HomeScheduleCtrl.day is Not an Array', function(){
       expect(HomeScheduleCtrl.showScheduleTable()).toBeTruthy();
       HomeScheduleCtrl.day = {
         facilityRounds: 'String that has length > 0'
@@ -71,9 +71,9 @@ describe('HomeScheduleCtrl', function() {
       expect(HomeScheduleCtrl.showScheduleTable()).toBeFalsy();
     });
 
-    it('Should return TRUE if HomeScheduleCtrl.day.facilityRounds is Non-Empty Array', function(){
-      expect(angular.isArray(HomeScheduleCtrl.day.facilityRounds)).toBeTruthy();
-      expect(HomeScheduleCtrl.day.facilityRounds.length).toBeGreaterThan(0);
+    it('Should return TRUE if HomeScheduleCtrl.day is Non-Empty Array', function(){
+      expect(angular.isArray(HomeScheduleCtrl.day)).toBeTruthy();
+      expect(HomeScheduleCtrl.day.length).toBeGreaterThan(0);
       expect(HomeScheduleCtrl.showScheduleTable()).toBeTruthy();
     });
 

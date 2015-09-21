@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('packingTable')
-  .controller('PackingTableCtrl', function($state, dailySchedule, productStorages, packingTableService, STORAGE_ATTRIBUTES, utility) {
-    this.date = dailySchedule.date;
+  .controller('PackingTableCtrl', function($state, productStorages, packingTableService, STORAGE_ATTRIBUTES, utility, dailyPacking) {
+    this.date = dailyPacking.date;
     this.tabbed = $state.current.data.tabbed;
     this.legends = productStorages;
     this.nextState = $state.current.data.nextState;
-    this.packingList = dailySchedule.packingList;
+    this.packingList = dailyPacking.packingList;
     this.storageAttributes = STORAGE_ATTRIBUTES;
     this.showingCurrent = function() {
       var today = utility.formatDate(new Date(), 'yyyy-MM-dd');
@@ -14,7 +14,7 @@ angular.module('packingTable')
       return currentDate === today;
     };
     this.save = function() {
-      packingTableService.save(dailySchedule)
+      packingTableService.save(dailyPacking)
         .then(packingTableService.saved)
         .catch(packingTableService.saveFailed);
     };

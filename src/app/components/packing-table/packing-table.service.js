@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('packingTable')
-  .service('packingTableService', function($state, log, dbService) {
+  .service('packingTableService', function($state, log, dbService, pouchUtil, AuthService, utility) {
+    var _this = this;
     this.get = function(dailyDeliveryID) {
       return dbService.get(dailyDeliveryID);
     };
@@ -35,5 +36,27 @@ angular.module('packingTable')
 
     this.saveFailed = function(reason) {
       log.error('saveFailed', reason);
+    };
+
+    _this.getPacking = function(view, key) {
+
+      var params = {};
+      if (angular.isString(key) || angular.isArray(key)) {
+        params = pouchUtil.key(key);
+      }
+      /*eslint-disable camelcase */
+      params.include_docs = true;
+      /*eslint-enable camelcase */
+      return dbService.getView(view, params);
+    };
+
+    this.getDayPacking = function(driverID, date) {
+      driverID = driverID || AuthService.currentUser.name;
+      var deliveryDate = date || new Date();
+      var key = driverID + '-' + utility.formatDate(deliveryDate);
+      return _this.getPacking('packing/by-driver-date', key)
+        .then(pouchUtil.pluckDocs)
+        .then(pouchUtil.rejectIfEmpty)
+        .then(utility.first);
     };
   });

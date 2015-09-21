@@ -5,6 +5,10 @@ angular.module('packingTableCtrlMock', [])
     date: '2014',
     packingList: []
   })
+  .constant('dailyPacking', {
+    date: '2014',
+    packingList: []
+  })
   .constant('productStorages', {})
   .constant('log', {})
   .constant('user', {})

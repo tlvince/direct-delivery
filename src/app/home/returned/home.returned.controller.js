@@ -11,7 +11,7 @@ angular.module('home.returned')
     vm.queryDate = utility.extractDate(new Date());
     vm.storageAttributes = STORAGE_ATTRIBUTES;
     function calcFaciltyBalance(products){
-      dailySchedule.facilityRounds.forEach(function(round){
+      dailySchedule.forEach(function(round){
         round.packedProduct.forEach(function(product){
           var bal;
           products[product.productID].totalRetrieved += angular.isNumber(product.returnedQty) ? product.returnedQty: 0;

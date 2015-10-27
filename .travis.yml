@@ -10,7 +10,7 @@ cache:
     - node_modules
     - bower_components
 before_script:
-  - npm install -g npm@latest
+  - npm install -g npm@2
   - npm install
 script: npm test
 after_script:

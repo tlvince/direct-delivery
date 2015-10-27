@@ -60,7 +60,8 @@
     "wiredep": "~2.2.0"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.10.0",
+    "npm": ">=2 <3"
   },
   "description": "User-centred direct delivery management system",
   "main": "gulpfile.js",

@@ -15,7 +15,7 @@
 
 ## Quick start
 
-0. Install [Node.js][], [Git][], [CouchDB][] and [ImageMagick][]
+0. Install [Node.js][] (>=0.10 <4, npm >=2 <3), [Git][], [CouchDB][] and [ImageMagick][]
 1. `npm install -g gulp bower`
 2. `git clone https://github.com/eHealthAfrica/direct-delivery.git`
 3. `cd direct-delivery && npm install; bower install`

@@ -74,4 +74,26 @@ describe('conflictsService', function () {
       expect(actual.name).toBe('gil');
     });
   });
+
+  it('should abort if modifiedOn is missing', function() {
+    var actual;
+
+    function resolveConflicts(doc, resolveFun) {
+      doc = {
+        /*eslint-disable camelcase */
+        doc_type: 'dailyDelivery'
+        /*eslint-enable camelcase */
+      };
+      actual = resolveFun(doc, doc);
+    }
+
+    module(function($provide) {
+      $provide.value('pouchdbService', dbMockFactory(resolveConflicts));
+    });
+
+    inject(function(conflictsService) {
+      conflictsService.maybeListenForConflicts();
+      expect(actual).toBe(null);
+    });
+  });
 });

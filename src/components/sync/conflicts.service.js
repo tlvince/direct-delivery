@@ -3,7 +3,8 @@
 angular.module('sync')
   .service('conflictsService', function(
     config,
-    pouchdbService
+    pouchdbService,
+    CONFLICTS_DOCTYPE_WHITELIST
   ) {
     var listening = false;
 
@@ -11,6 +12,12 @@ angular.module('sync')
       var db = pouchdbService.remote(config.db);
 
       function resolveFun(remoteDoc, localDoc) {
+        // Remote should always win for doc types not in the whitelist, e.g.
+        // those that should not be modified on the phone.
+        if (CONFLICTS_DOCTYPE_WHITELIST.indexOf(remoteDoc.doc_type) === -1) {
+          return remoteDoc;
+        }
+
         if (!(remoteDoc.modifiedOn && localDoc.modifiedOn)) {
           // Cannot resolve the conflict
           return null;
@@ -33,9 +40,10 @@ angular.module('sync')
       }
 
       function changeHandler(change) {
-        if (!(change.doc && change.doc._conflicts)) {
+        if (!(change.doc && change.doc._conflicts && change.doc.doc_type)) {
           return;
         }
+
         db.resolveConflicts(change.doc, resolveFun);
       }
 

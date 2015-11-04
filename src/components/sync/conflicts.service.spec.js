@@ -159,7 +159,7 @@ describe('conflictsService', function () {
       doc_type: 'dailyDelivery',
       /*eslint-enable camelcase */
       modifiedOn: '2099-11-04T19:42:22.823Z'
-    }
+    };
 
     function resolveConflicts(doc, resolveFun) {
       var localDoc = {
@@ -167,7 +167,7 @@ describe('conflictsService', function () {
         doc_type: 'dailyDelivery',
         /*eslint-enable camelcase */
         modifiedOn: '2000-11-04T19:42:22.823Z'
-      }
+      };
       actual = resolveFun(remoteDoc, localDoc);
     }
 
@@ -178,6 +178,35 @@ describe('conflictsService', function () {
     inject(function(conflictsService) {
       conflictsService.maybeListenForConflicts();
       expect(actual).toEqual(remoteDoc);
+    });
+  });
+
+  it('should mark local the winner if newer', function() {
+    var actual;
+    var localDoc = {
+      /*eslint-disable camelcase */
+      doc_type: 'dailyDelivery',
+      /*eslint-enable camelcase */
+      modifiedOn: '2099-11-04T19:42:22.823Z'
+    };
+
+    function resolveConflicts(doc, resolveFun) {
+      var remoteDoc = {
+        /*eslint-disable camelcase */
+        doc_type: 'dailyDelivery',
+        /*eslint-enable camelcase */
+        modifiedOn: '2000-11-04T19:42:22.823Z'
+      };
+      actual = resolveFun(remoteDoc, localDoc);
+    }
+
+    module(function($provide) {
+      $provide.value('pouchdbService', dbMockFactory(resolveConflicts));
+    });
+
+    inject(function(conflictsService) {
+      conflictsService.maybeListenForConflicts();
+      expect(actual).toEqual(localDoc);
     });
   });
 });

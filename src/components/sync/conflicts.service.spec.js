@@ -128,4 +128,27 @@ describe('conflictsService', function () {
       expect(actual).toEqual(localDoc);
     });
   });
+
+  it('should abort on malformed modifiedOn dates', function() {
+    var actual;
+
+    function resolveConflicts(doc, resolveFun) {
+      doc = {
+        /*eslint-disable camelcase */
+        doc_type: 'dailyDelivery',
+        /*eslint-enable camelcase */
+        modifiedOn: 'foo'
+      };
+      actual = resolveFun(doc, doc);
+    }
+
+    module(function($provide) {
+      $provide.value('pouchdbService', dbMockFactory(resolveConflicts));
+    });
+
+    inject(function(conflictsService) {
+      conflictsService.maybeListenForConflicts();
+      expect(actual).toBe(null);
+    });
+  });
 });

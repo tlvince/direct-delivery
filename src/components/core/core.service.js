@@ -5,9 +5,23 @@
  * @desc core service for app setup, daily sync and other core features of the app.
  */
 angular.module('core')
-  .service('coreService', function ($rootScope, syncService, config, pouchdbService, CORE_SYNC_DOWN,
-                                    SYNC_DAILY_DELIVERY, SYNC_DESIGN_DOC, $state, log, SYNC_STATUS,
-                                    utility, scheduleService, AuthService, $q, dbService) {
+  .service('coreService', function(
+    $rootScope,
+    syncService,
+    config,
+    pouchdbService,
+    CORE_SYNC_DOWN,
+    SYNC_DAILY_DELIVERY,
+    SYNC_DESIGN_DOC,
+    $state,
+    log,
+    SYNC_STATUS,
+    utility,
+    scheduleService,
+    AuthService,
+    $q,
+    dbService
+  ) {
 
     var _this = this;
     var isListeningForChanges = false;

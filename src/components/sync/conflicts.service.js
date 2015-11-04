@@ -29,7 +29,7 @@ angular.module('sync')
         var localDate = new Date(localDoc.modifiedOn).getTime();
 
         if (isNaN(remoteDate) || isNaN(localDate)) {
-          // modifiedOn was not a valid data
+          // modifiedOn was not a valid date
           // Cannot resolve the conflict
           return null;
         }

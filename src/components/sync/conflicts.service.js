@@ -2,6 +2,7 @@
 
 angular.module('sync')
   .service('conflictsService', function(
+    log,
     config,
     pouchdbService,
     CONFLICTS_DOCTYPE_WHITELIST
@@ -15,6 +16,7 @@ angular.module('sync')
         // Remote should always win for doc types not in the whitelist, e.g.
         // those that should not be modified on the phone.
         if (CONFLICTS_DOCTYPE_WHITELIST.indexOf(remoteDoc.doc_type) === -1) {
+          log.info('conflictResolved');
           return remoteDoc;
         }
 
@@ -33,9 +35,11 @@ angular.module('sync')
         }
 
         if (remoteDate > localDate) {
+          log.info('conflictResolved');
           return remoteDoc;
         }
 
+        log.info('conflictResolved');
         return localDoc;
       }
 

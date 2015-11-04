@@ -6,5 +6,6 @@
 angular.module('sync', [
   'db',
   'config',
-  'utility'
+  'utility',
+  'log'
 ]);

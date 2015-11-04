@@ -151,4 +151,33 @@ describe('conflictsService', function () {
       expect(actual).toBe(null);
     });
   });
+
+  it('should mark remote the winner if its newer', function() {
+    var actual;
+    var remoteDoc = {
+      /*eslint-disable camelcase */
+      doc_type: 'dailyDelivery',
+      /*eslint-enable camelcase */
+      modifiedOn: '2099-11-04T19:42:22.823Z'
+    }
+
+    function resolveConflicts(doc, resolveFun) {
+      var localDoc = {
+        /*eslint-disable camelcase */
+        doc_type: 'dailyDelivery',
+        /*eslint-enable camelcase */
+        modifiedOn: '2000-11-04T19:42:22.823Z'
+      }
+      actual = resolveFun(remoteDoc, localDoc);
+    }
+
+    module(function($provide) {
+      $provide.value('pouchdbService', dbMockFactory(resolveConflicts));
+    });
+
+    inject(function(conflictsService) {
+      conflictsService.maybeListenForConflicts();
+      expect(actual).toEqual(remoteDoc);
+    });
+  });
 });

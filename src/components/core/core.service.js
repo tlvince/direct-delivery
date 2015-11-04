@@ -20,11 +20,10 @@ angular.module('core')
     scheduleService,
     AuthService,
     $q,
-    dbService
+    dbService,
+    conflictsService
   ) {
-
     var _this = this;
-    var isListeningForChanges = false;
     var isReplicationFromInProgress = false;
     var replicationTo;
     var inRetry = false;
@@ -91,56 +90,6 @@ angular.module('core')
           $rootScope.$emit(CORE_SYNC_DOWN.DENIED, {msg: err});
           onFailSync(err, replicateDown, driverEmail);
         });
-    }
-
-    function listenForConflicts() {
-      var db = pouchdbService.remote(config.db);
-
-      function resolveFun(remoteDoc, localDoc) {
-        if (!(remoteDoc.modifiedOn && localDoc.modifiedOn)) {
-          // Cannot resolve the conflict
-          return null;
-        }
-
-        var remoteDate = new Date(remoteDoc.modifiedOn).getTime();
-        var localDate = new Date(localDoc.modifiedOn).getTime();
-
-        if (isNaN(remoteDate) || isNaN(localDate)) {
-          // modifiedOn was not a valid data
-          // Cannot resolve the conflict
-          return null;
-        }
-
-        if (remoteDate > localDate) {
-          return remoteDoc;
-        }
-
-        return localDoc;
-      }
-
-      function changeHandler(change) {
-        if (!(change.doc && change.doc._conflicts)) {
-          return;
-        }
-        db.resolveConflicts(change.doc, resolveFun);
-      }
-
-      function toggleListening() {
-        isListeningForChanges = false;
-      }
-
-      var options = {
-        live: true,
-        /*eslint-disable camelcase */
-        include_docs: true,
-        /*eslint-enable camelcase */
-        conflicts: true
-      };
-
-      db.changes(options)
-        .on('change', changeHandler)
-        .on('complete', toggleListening)
-        .on('error', toggleListening);
     }
 
     _this.getSyncInProgress = function () {
@@ -285,11 +234,7 @@ angular.module('core')
       };
 
       if (!replicationTo) {
-        if (!isListeningForChanges) {
-          listenForConflicts();
-          isListeningForChanges = true;
-        }
-
+        conflictsService.maybeListenForConflicts();
         replicationTo = syncService.replicateToRemote(config.localDB, config.db, options);
         replicationTo
           .on('error', function (err) {

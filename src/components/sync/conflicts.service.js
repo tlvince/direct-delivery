@@ -5,6 +5,7 @@ angular.module('sync')
     log,
     config,
     pouchdbService,
+    deliveryService,
     CONFLICTS_DOCTYPE_WHITELIST
   ) {
     var listening = false;
@@ -23,6 +24,13 @@ angular.module('sync')
         if (!(remoteDoc.modifiedOn && localDoc.modifiedOn)) {
           // Cannot resolve the conflict
           return null;
+        }
+
+        if (localDoc.doc_type === 'dailyDelivery') {
+          if (deliveryService.isDelivered(localDoc)) {
+            log.info('conflictResolved');
+            return localDoc;
+          }
         }
 
         var remoteDate = new Date(remoteDoc.modifiedOn).getTime();

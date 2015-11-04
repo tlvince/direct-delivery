@@ -1,5 +1,5 @@
 'use strict';
-/* global beforeEach, inject, module, it, expect, describe */
+/* global beforeEach, inject, module, it, expect, describe, spyOn */
 
 describe('conflictsService', function () {
   beforeEach(module('sync'));
@@ -32,11 +32,26 @@ describe('conflictsService', function () {
               on: on
             };
           },
-          resolveConflicts: resolveConflictsFun
+          resolveConflicts: resolveConflictsFun || angular.noop
         };
       }
     };
   }
+
+  it('should not try to listen for changes twice', function() {
+    var mock = dbMockFactory();
+    spyOn(mock, 'create').and.callThrough();
+
+    module(function($provide) {
+      $provide.value('pouchdbService', mock);
+    });
+
+    inject(function(conflictsService) {
+      conflictsService.maybeListenForConflicts();
+      conflictsService.maybeListenForConflicts();
+      expect(mock.create.calls.count()).toEqual(1);
+    });
+  });
 
   it('should return remote doc if not in whitelist', function() {
     var actual;

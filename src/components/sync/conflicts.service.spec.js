@@ -96,4 +96,36 @@ describe('conflictsService', function () {
       expect(actual).toBe(null);
     });
   });
+
+  it('should make local win if its a delivered delivery doc', function() {
+    var actual;
+    var localDoc = {
+      /*eslint-disable camelcase */
+      doc_type: 'dailyDelivery',
+      /*eslint-enable camelcase */
+      facilityRounds: [
+        {
+          status: 'Success: 1st Attempt'
+        }
+      ]
+    };
+
+    function resolveConflicts(doc, resolveFun) {
+      var remoteDoc = {
+        /*eslint-disable camelcase */
+        doc_type: 'deliveryRound'
+        /*eslint-enable camelcase */
+      };
+      actual = resolveFun(remoteDoc, localDoc);
+    }
+
+    module(function($provide) {
+      $provide.value('pouchdbService', dbMockFactory(resolveConflicts));
+    });
+
+    inject(function(conflictsService) {
+      conflictsService.maybeListenForConflicts();
+      expect(actual).toEqual(localDoc);
+    });
+  });
 });

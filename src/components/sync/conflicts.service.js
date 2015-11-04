@@ -21,16 +21,16 @@ angular.module('sync')
           return remoteDoc;
         }
 
-        if (!(remoteDoc.modifiedOn && localDoc.modifiedOn)) {
-          // Cannot resolve the conflict
-          return null;
-        }
-
         if (localDoc.doc_type === 'dailyDelivery') {
           if (deliveryService.isDelivered(localDoc)) {
             log.info('conflictResolved');
             return localDoc;
           }
+        }
+
+        if (!(remoteDoc.modifiedOn && localDoc.modifiedOn)) {
+          // Cannot resolve the conflict
+          return null;
         }
 
         var remoteDate = new Date(remoteDoc.modifiedOn).getTime();

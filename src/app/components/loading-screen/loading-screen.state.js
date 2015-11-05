@@ -6,7 +6,7 @@ angular.module('loadingScreen')
     $stateProvider
       .state('loadingScreen', {
         parent: 'index',
-        templateUrl: 'components/loading-screen/screen.html',
+        templateUrl: 'app/components/loading-screen/screen.html',
         url: '/loading-screen',
         controller: 'LoadingScreenCtrl',
         controllerAs: 'lsCtrl'

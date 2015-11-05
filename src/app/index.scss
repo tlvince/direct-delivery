@@ -1,3 +1,13 @@
+// Override Sass dependency variables
+$icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+$fa-font-path: "../../bower_components/font-awesome/fonts";
+
+$font-size-base: 16px;
+
+// Inject Sass dependencies
+// bower:scss
+// endbower
+
 .content {
   margin-bottom: 20px;
   padding-top: 50px;
@@ -81,8 +91,8 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 }
 
 // injector
-@import '../components/navbar/navbar.scss';
-@import '../components/packing-table/legend.scss';
-@import '../components/delivery/cancel-delivery/cancel-style.scss';
-@import '../components/delivery/sign-off/sign-off.scss';
+@import 'components/navbar/navbar.scss';
+@import 'components/packing-table/legend.scss';
+@import 'components/delivery/cancel-delivery/cancel-style.scss';
+@import 'components/delivery/sign-off/sign-off.scss';
 // endinjector

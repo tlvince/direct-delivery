@@ -4,5 +4,5 @@
 
 angular.module('schedule.round.mock', [])
   .service('dbService', function(){
-    
+
   });

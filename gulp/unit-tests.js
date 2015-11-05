@@ -1,41 +1,52 @@
 'use strict';
 
+var path = require('path');
 var gulp = require('gulp');
+var conf = require('./conf');
 
-var $ = require('gulp-load-plugins')();
+var karma = require('karma');
 
-var wiredep = require('wiredep');
-var merge = require('merge-stream');
+var pathSrcHtml = [
+  path.join(conf.paths.src, '/**/*.html')
+];
 
-function test(action) {
-  var karmaOpts = {
-    action: action || 'run',
-    configFile: 'karma.conf.js'
-  };
+var pathSrcJs = [
+  path.join(conf.paths.src, '/**/!(*.spec).js')
+];
 
-  var bowerDeps = wiredep({
-    directory: 'bower_components',
-    exclude: ['bootstrap-sass-official'],
-    dependencies: true,
-    devDependencies: true
+function runTests (singleRun, done) {
+  var reporters = ['progress'];
+  var preprocessors = {};
+
+  pathSrcHtml.forEach(function(path) {
+    preprocessors[path] = ['ng-html2js'];
   });
 
-  var testFiles = gulp.src(bowerDeps.js);
-  var src = gulp.src('src/{app,components}/**/*.js')
-    .pipe($.angularFilesort());
-
-  return merge(testFiles, src)
-    .pipe($.karma(karmaOpts))
-    .on('error', function(err) {
-      // Make sure failed tests cause gulp to exit non-zero
-      throw err;
+  if (singleRun) {
+    pathSrcJs.forEach(function(path) {
+      preprocessors[path] = ['coverage'];
     });
+    reporters.push('coverage')
+  }
+
+  var localConfig = {
+    configFile: path.join(__dirname, '/../karma.conf.js'),
+    singleRun: singleRun,
+    autoWatch: !singleRun,
+    reporters: reporters,
+    preprocessors: preprocessors
+  };
+
+  var server = new karma.Server(localConfig, function(failCount) {
+    done(failCount ? new Error("Failed " + failCount + " tests.") : null);
+  })
+  server.start();
 }
 
-gulp.task('test', ['config'], function() {
-  return test();
+gulp.task('test', ['scripts'], function(done) {
+  runTests(true, done);
 });
 
-gulp.task('test-watch', ['config'], function() {
-  return test('watch');
+gulp.task('test:auto', ['watch'], function(done) {
+  runTests(false, done);
 });

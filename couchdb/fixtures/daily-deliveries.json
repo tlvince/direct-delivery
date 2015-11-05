@@ -20,7 +20,7 @@
             "phoneNo": "08035272613",
             "hthfaCode": "KNS KKU GDW 101"
           },
-          "status": "pending",
+          "status": "Upcoming: 1st Attempt",
           "window": "",
           "cancelReport": {
           },
@@ -80,7 +80,7 @@
             "phoneNo": "08052808146",
             "hthfaCode": "KNS KNC BMI 103"
           },
-          "status": "pending",
+          "status": "Upcoming: 1st Attempt",
           "cancelReport": {
           },
           "arrivedAt": "",
@@ -139,7 +139,7 @@
             "ward": "Gwammaja",
             "hthfaCode": "KNS DAL GMJ 101"
           },
-          "status": "pending",
+          "status": "Upcoming: 1st Attempt",
           "cancelReport": {
           },
           "arrivedAt": "",

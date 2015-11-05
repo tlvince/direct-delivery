@@ -1,7 +1,7 @@
 'use strict';
 
 var fs = require('fs');
-var del = require('del');
+var rimraf = require('rimraf');
 var argv = require('optimist').argv;
 var gulp = require('gulp');
 var gutil = require('gulp-util');
@@ -26,7 +26,7 @@ function formatAPKPaths(pkg, cb) {
 }
 
 function cleanBuild(cb) {
-  del('build', cb);
+  rimraf('build', cb);
 }
 
 function initBuild(cb) {

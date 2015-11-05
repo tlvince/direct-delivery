@@ -10,12 +10,14 @@ describe('DeliverItemsCtrl', function () {
 
   beforeEach(inject(function ($controller, _$state_, _dailyDeliveryMock_, _deliveryService_, _log_, FACILITY_ID, _$rootScope_) {
 
+    var dailyDeliveryMock = angular.copy(_dailyDeliveryMock_);
+
     _$state_.params = {facilityId: FACILITY_ID};
     scope = _$rootScope_.$new();
     scope.facDevCtrl = $controller('FacilityDeliveryCtrl', {
       state: _$state_,
       deliveryService: _deliveryService_,
-      dailyDelivery: _dailyDeliveryMock_,
+      dailyDelivery: dailyDeliveryMock,
       log: _log_
     });
 
@@ -52,7 +54,7 @@ describe('DeliverItemsCtrl', function () {
       var before = DeliverItemsCtrl.previewDelivery;
       DeliverItemsCtrl.togglePreview();
       var after = DeliverItemsCtrl.previewDelivery;
-      expect(before).not.toBe(after)
+      expect(before).not.toBe(after);
     });
 
   });
@@ -131,9 +133,8 @@ describe('DeliverItemsCtrl', function () {
     it('Should not empty packedProduct.btwDeliveryRecievedQty ' +
     'if packedProduct.receivedInterimStock is TRUE', function(){
       var index = 0;
-      var receivedInterimStock = DeliverItemsCtrl.facRnd.packedProduct[index].receivedInterimStock;
+      DeliverItemsCtrl.facRnd.packedProduct[index].receivedInterimStock = true;
       DeliverItemsCtrl.facRnd.packedProduct[index].btwDeliveryReceivedQty = 20;
-      expect(receivedInterimStock).toBeTruthy();
       DeliverItemsCtrl.resetReceivedBtwDeliveryQty(index);
       expect(DeliverItemsCtrl.facRnd.packedProduct[index].btwDeliveryReceivedQty).not.toBe('');
     });

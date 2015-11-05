@@ -1,7 +1,7 @@
 'use strict';
 
 var fs = require('fs');
-var del = require('del');
+var rimraf = require('rimraf');
 var argv = require('optimist').argv;
 var gulp = require('gulp');
 var gutil = require('gulp-util');
@@ -31,7 +31,7 @@ function chdir(path, cb) {
 
 function clean(done) {
   function rmrf(cb) {
-    del(CORDOVA_ROOT, cb);
+    rimraf(CORDOVA_ROOT, cb);
   }
   function mkdir(cb) {
     fs.mkdir(CORDOVA_ROOT, cb);

@@ -180,4 +180,27 @@ angular.module('delivery')
       }
     };
 
+    _this.isDelivered = function (deliveryRound) {
+      if (!deliveryRound.facilityRounds) {
+        return false;
+      }
+
+      // Treat deliveries with any of these statuses as delivered
+      var deliveredStatuses = [
+        DELIVERY_STATUS.SUCCESS_FIRST,
+        DELIVERY_STATUS.SUCCESS_SECOND,
+        DELIVERY_STATUS.CANCELED_CCE,
+        DELIVERY_STATUS.CANCELED_OTHER,
+        DELIVERY_STATUS.CANCELED_STAFF,
+        DELIVERY_STATUS.FAILED_CCE,
+        DELIVERY_STATUS.FAILED_STAFF,
+        DELIVERY_STATUS.FAILED_OTHER
+      ];
+
+      function isDelivered(facilityRound) {
+        return deliveredStatuses.indexOf(facilityRound.status) !== -1;
+      }
+
+      return deliveryRound.facilityRounds.every(isDelivered);
+    };
   });

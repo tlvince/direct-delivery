@@ -5,10 +5,24 @@
  * @desc core service for app setup, daily sync and other core features of the app.
  */
 angular.module('core')
-  .service('coreService', function ($rootScope, syncService, config, pouchdbService, CORE_SYNC_DOWN,
-                                    SYNC_DAILY_DELIVERY, SYNC_DESIGN_DOC, $state, log, SYNC_STATUS,
-                                    utility, scheduleService, AuthService, $q, dbService) {
-
+  .service('coreService', function(
+    $rootScope,
+    syncService,
+    config,
+    pouchdbService,
+    CORE_SYNC_DOWN,
+    SYNC_DAILY_DELIVERY,
+    SYNC_DESIGN_DOC,
+    $state,
+    log,
+    SYNC_STATUS,
+    utility,
+    scheduleService,
+    AuthService,
+    $q,
+    dbService,
+    conflictsService
+  ) {
     var _this = this;
     var isReplicationFromInProgress = false;
     var replicationTo;
@@ -30,6 +44,32 @@ angular.module('core')
     function turnOnReplicateFromInProgress() {
       isReplicationFromInProgress = true;
       $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, {msg: isReplicationFromInProgress});
+    }
+
+    function onFailSync(err, replicateDown, driverEmail) {
+      //unauthorised due to network issues or wrong login details.
+      turnOffReplicateFromInProgress();
+      if (replicateDown) {
+        replicateDown.cancel();
+      }
+      if (replicationTo) {
+        replicationTo.cancel();
+        replicationTo = false; //clear sync up
+      }
+      if (err.status === 401) {
+        //broadcast event and show user instruction using information tab.
+        _this.retryStartSyncAfterLogin(driverEmail)
+          .finally(function() {
+            var MAX_RETRY_COMPLETED = true;
+            $rootScope.$emit(SYNC_STATUS.MAX_RETRY_COMPLETED, {
+              msg: MAX_RETRY_COMPLETED
+            });
+          });
+      } else {
+        $rootScope.$emit(SYNC_STATUS.ERROR, {
+          msg: err
+        });
+      }
     }
 
     function replicateDailyDelivery(driverEmail, date) {
@@ -61,7 +101,7 @@ angular.module('core')
     };
 
     _this.retryStartSyncAfterLogin = function(driverEmail, retry){
-      if(inRetry){
+      if (inRetry) {
         $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, {msg: isReplicationFromInProgress});
         return $q.reject('Retry after login still in progress');
       }
@@ -78,35 +118,13 @@ angular.module('core')
           return _this.startSyncAfterLogin(driverEmail);
         })
         .catch(function(err){
-          if(currentRetry > MAXIMUM_RETRY){
+          if (currentRetry > MAXIMUM_RETRY) {
             _this.turnOffRetry();
             return err;
           }
           return _this.retryStartSyncAfterLogin(driverEmail, currentRetry);
         });
     };
-
-    function onFailSync(err, replicateDown, driverEmail) {
-      //unauthorised due to network issues or wrong login details.
-      turnOffReplicateFromInProgress();
-      if(replicateDown){
-        replicateDown.cancel();
-      }
-      if(replicationTo){
-        replicationTo.cancel();
-        replicationTo = false; //clear sync up
-      }
-      if(err.status === 401) {
-        //broadcast event and show user instruction using information tab.
-        _this.retryStartSyncAfterLogin(driverEmail)
-          .finally(function() {
-            var MAX_RETRY_COMPLETED = true;
-            $rootScope.$emit(SYNC_STATUS.MAX_RETRY_COMPLETED, { msg: MAX_RETRY_COMPLETED });
-          });
-      }else{
-        $rootScope.$emit(SYNC_STATUS.ERROR, { msg: err });
-      }
-    }
 
     /**
      * @desc This replicates documents from, remote db to local db.
@@ -117,7 +135,9 @@ angular.module('core')
     _this.replicateFromBy = function (driverEmail, date) {
 
       if (_this.getSyncInProgress() === true) {
-        $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, { msg: isReplicationFromInProgress });
+        $rootScope.$emit(SYNC_STATUS.IN_PROGRESS, {
+          msg: isReplicationFromInProgress
+        });
         return;
       }
 
@@ -206,12 +226,15 @@ angular.module('core')
       var options = {
         live: true,
         filter: 'docs/by-doc-type-not-deleted',
+        /*eslint-disable camelcase */
         query_params: {
-          docTypes: JSON.stringify(docTypes)
+        /*eslint-enable camelcase */
+          docTypes: angular.toJson(docTypes)
         }
       };
 
       if (!replicationTo) {
+        conflictsService.maybeListenForConflicts();
         replicationTo = syncService.replicateToRemote(config.localDB, config.db, options);
         replicationTo
           .on('error', function (err) {
@@ -237,9 +260,9 @@ angular.module('core')
       var today = new Date();
       var view = 'docs/by-date';
 
-      var startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() -  ONE_YEAR);
+      var startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - ONE_YEAR);
       var endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - THIRTY_DAYS);
-      
+
       return dbService.deleteAfter(startDate, endDate, view);
     };
 

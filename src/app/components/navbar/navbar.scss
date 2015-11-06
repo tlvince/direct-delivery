@@ -1,11 +1,3 @@
-// TODO: remove when fixed upstream, see:
-// https://github.com/eHealthAfrica/ehealth-bootstrap/pull/4
 .navbar-brand {
-  top: 0;
-  position: static;
-}
-
-.navbar-brand > img {
-  height: 28px;
-  display: inline-block;
+  padding-top: 8px;
 }

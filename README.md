@@ -33,6 +33,20 @@
 
 See [docs](docs) for further documentation.
 
-## Author
+## Authors
 
-© 2015 [eHealth Systems Africa](http://ehealthafrica.org)
+* © 2015 Jideobi Ofomah <jideobi.ofomah@ehealthnigeria.org>
+* © 2015 Tom Vincent <tom.vincent@ehealthnigeria.org> (https://tlvince.com)
+* © 2015 Haykel Ben Jemia <hbj@allmas.tn>
+* © 2015 Femi Oni <oluwafemi.oni@ehealthnigeria.org>
+* © 2015 Musa Musa <musa.musa@ehealthnigeria.org>
+
+… and [contributors][].
+
+[contributors]: https://github.com/eHealthAfrica/direct-delivery/graphs/contributors
+
+## License
+
+Released under the [Apache 2.0 License][license].
+
+[license]: http://www.apache.org/licenses/LICENSE-2.0.html

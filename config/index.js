@@ -10,7 +10,6 @@ var defaults = {
   config: {
     name: pkg.name,
     version: pkg.version,
-    author: pkg.author,
     localDB: 'deliveries',
     dateFormat: 'yyyy-MM-dd',
     designDocs: [

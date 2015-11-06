@@ -1,5 +1,5 @@
 function(doc) {
-  if (doc.doc_type === 'dailyDelivery') {
+  if (doc.doc_type === 'packingList') {
     emit(doc.driverID, {
       id: doc._id,
       date: doc.date,

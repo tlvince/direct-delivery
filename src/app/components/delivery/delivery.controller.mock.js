@@ -21,7 +21,7 @@ angular.module('deliveryMock', [])
         "contact": "Anantu Bayati",
         "phoneNo": "08035272613"
       },
-      "status": "pending",
+      "status": "Upcoming: 1st Attempt",
       "window": "",
       "cancelReport": {},
       "arrivedAt": "",
@@ -109,7 +109,7 @@ angular.module('deliveryMock', [])
         "contact": "Tijjani Rabiu",
         "phoneNo": "08052808146"
       },
-      "status": "pending",
+      "status": "Upcoming: 1st Attempt",
       "cancelReport": {},
       "arrivedAt": "",
       "departedAt": "",
@@ -196,7 +196,7 @@ angular.module('deliveryMock', [])
         "phoneNo": "07035243034",
         "ward": "Gwammaja"
       },
-      "status": "pending",
+      "status": "Upcoming: 1st Attempt",
       "cancelReport": {},
       "arrivedAt": "",
       "departedAt": "",

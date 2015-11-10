@@ -154,7 +154,7 @@ describe('deliveryService', function () {
       var packedProduct = angular.copy(deliveryMock[0].packedProduct[0]);
       packedProduct.onHandQty = 20;
       //expected(70) - onhand(20) = 50 when round off by presentation(20) = 60
-      var expectedDeliveredQty = 50;
+      var expectedDeliveredQty = 60;
       var res = deliveryService.calcQty(packedProduct);
       expect(expectedDeliveredQty).toBe(res.deliveredQty);
     });

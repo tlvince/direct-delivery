@@ -51,6 +51,7 @@ describe('cancelDeliveryService', function() {
     it('Should return TRUE if status equals DELIVERY_STATUS.CANCELED_OTHER', function(){
       expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeFalsy();
       facRnd.status = deliveryStatus.CANCELED_OTHER;
+      facRnd.cancelReport.note = 'other';
       expect(cancelDeliveryService.validateCancelReport(facRnd)).toBeTruthy();
     });
 

@@ -4,7 +4,7 @@ angular.module('home.packing')
   .config(function($stateProvider) {
     $stateProvider.state('home.packing', {
       url: 'daily-packing',
-      templateUrl: 'components/packing-table/packing-table.html',
+      templateUrl: 'app/components/packing-table/packing-table.html',
       controller: 'PackingTableCtrl',
       controllerAs: 'packingTableCtrl',
       resolve: {

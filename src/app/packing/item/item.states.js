@@ -22,6 +22,6 @@ angular.module('packing.item')
     })
     .state('packing.item.table', {
       url: '',
-      templateUrl: 'components/packing-table/packing-table.html'
+      templateUrl: 'app/components/packing-table/packing-table.html'
     });
   });

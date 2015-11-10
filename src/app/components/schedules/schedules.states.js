@@ -11,7 +11,7 @@ angular.module('schedules')
         abstract: true,
         url: '/schedules',
         parent: 'index',
-        templateUrl: 'components/schedules/schedule.html',
+        templateUrl: 'app/components/schedules/schedule.html',
         data: {
           label: 'Schedule'
         }

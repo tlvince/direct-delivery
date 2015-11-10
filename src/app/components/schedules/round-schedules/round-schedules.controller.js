@@ -19,14 +19,14 @@ angular.module('schedules.round')
       _this.getColorCode = function (status, ccsClass) {
         return deliveryService.getStatusColor(status, ccsClass);
       };
-      
+
     _this.formatDate = function(date){
       if(utility.isValidDate(date)){
         return utility.formatDate(date, "dd, MMM yyyy");
       }
       return 'N/A';
     };
-      
+
 
       _this.displayRound = null;
       _this.roundToDisplay = null;

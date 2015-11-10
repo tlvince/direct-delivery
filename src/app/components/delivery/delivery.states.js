@@ -7,7 +7,7 @@ angular.module('delivery')
         url: '/facility-delivery',
         controller: 'FacilityDeliveryCtrl',
         controllerAs: 'facDevCtrl',
-        templateUrl: 'components/delivery/facility-delivery.html',
+        templateUrl: 'app/components/delivery/facility-delivery.html',
         parent: 'index',
         resolve: {
           dailyDelivery: function($stateParams, scheduleService){
@@ -23,21 +23,21 @@ angular.module('delivery')
       })
       .state('facilityDelivery.deliverItems', {
         url: '/deliver-items/:ddId/:facilityId/:preview',
-        templateUrl: 'components/delivery/deliver-items/deliver-items.html',
+        templateUrl: 'app/components/delivery/deliver-items/deliver-items.html',
         parent: 'facilityDelivery',
         controllerAs: 'diCtrl',
         controller: 'DeliverItemsCtrl'
       })
       .state('facilityDelivery.signOff', {
         url: '/sign-off/:ddId/:facilityId',
-        templateUrl: 'components/delivery/sign-off/sign-off.html',
+        templateUrl: 'app/components/delivery/sign-off/sign-off.html',
         parent: 'facilityDelivery',
         controllerAs: 'signOffCtrl',
         controller: 'SignOffCtrl'
       })
       .state('cancelDelivery', {
         url: '/cancel-delivery/:ddId/:facilityId',
-        templateUrl: 'components/delivery/cancel-delivery/cancel-delivery.html',
+        templateUrl: 'app/components/delivery/cancel-delivery/cancel-delivery.html',
         parent: 'facilityDelivery',
         controllerAs: 'cancelDevCtrl',
         controller: 'CancelDeliveryCtrl'

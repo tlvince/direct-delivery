@@ -1,12 +1,29 @@
+/**
+ *  Welcome to your gulpfile!
+ *  The gulp tasks are splitted in several files in the gulp directory
+ *  because putting all here was really too long
+ */
+
 'use strict';
-/*eslint-env node */
 
 var gulp = require('gulp');
+var wrench = require('wrench');
 
-require('require-dir')('./gulp', {recurse: true});
+/**
+ *  This will load all js or coffee files in the gulp directory
+ *  in order to load all gulp tasks
+ */
+wrench.readdirSyncRecursive('./gulp').filter(function(file) {
+  return (/\.(js|coffee)$/i).test(file);
+}).map(function(file) {
+  require('./gulp/' + file);
+});
 
-gulp.task('default', ['clean'], function() {
-  // TODO: deprecated method. Replace with preferred task serialisation
-  // strategy in Gulp 4. See https://github.com/gulpjs/gulp/issues/355
+
+/**
+ *  Default task clean temporaries directories and launch the
+ *  main optimization build task
+ */
+gulp.task('default', ['clean'], function () {
   gulp.start('build');
 });

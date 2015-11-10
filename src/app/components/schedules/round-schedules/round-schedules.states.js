@@ -6,7 +6,7 @@ angular.module('schedules.round')
   .config(function($stateProvider){
     $stateProvider.state('schedules.round', {
       url: '/schedules-round/:roundId',
-      templateUrl: 'components/schedules/round-schedules/round.html',
+      templateUrl: 'app/components/schedules/round-schedules/round.html',
       controller: 'SchedulesRoundCtrl',
       controllerAs: 'schedulesRoundCtrl',
       resolve: {
@@ -22,7 +22,7 @@ angular.module('schedules.round')
       url: '/view-delivery-round/:ddId/:facilityId/:roundId',
       controller: 'DeliveryRoundHistoryCtrl',
       controllerAs: 'drhCtrl',
-      templateUrl: 'components/schedules/round-schedules/delivery-item-history.html',
+      templateUrl: 'app/components/schedules/round-schedules/delivery-item-history.html',
       resolve: {
         facilityRound: function(dbService, $stateParams, log, $q, utility, deliveryService) {
           var id = $stateParams.ddId;

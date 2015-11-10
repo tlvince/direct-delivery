@@ -4,10 +4,10 @@
   "version": "2.0.1",
   "dependencies": {
     "angular-ui-router": "~0.2.13",
-    "bootstrap-sass-official": "~3.3.1",
+    "bootstrap-sass": "~3.3.5",
     "angular": "~1.3.4",
     "angular-toastr": "~0.5.2",
-    "font-awesome": "~4.2.0",
+    "font-awesome": "~4.4.0",
     "ngstorage": "~0.3.0",
     "pouchdb": "~3.4.0",
     "pouchdb-authentication": "~0.3.6",
@@ -30,8 +30,57 @@
     "pouchdb": "~3.4.0"
   },
   "overrides": {
-    "bootstrap-sass-official": {
+    "bootstrap-sass": {
+      "main": [
+        "assets/stylesheets/_bootstrap.scss",
+        "assets/fonts/bootstrap/glyphicons-halflings-regular.eot",
+        "assets/fonts/bootstrap/glyphicons-halflings-regular.svg",
+        "assets/fonts/bootstrap/glyphicons-halflings-regular.ttf",
+        "assets/fonts/bootstrap/glyphicons-halflings-regular.woff",
+        "assets/fonts/bootstrap/glyphicons-halflings-regular.woff2"
+      ],
       "dependencies": []
+    },
+    "font-awesome": {
+      "main": [
+        "scss/font-awesome.scss",
+        "fonts/FontAwesome.otf",
+        "fonts/fontawesome-webfont.eot",
+        "fonts/fontawesome-webfont.svg",
+        "fonts/fontawesome-webfont.ttf",
+        "fonts/fontawesome-webfont.woff",
+        "fonts/fontawesome-webfont.woff2"
+      ]
+    },
+    "ehealth-bootstrap": {
+      "main": [
+        "default/bootstrap.css",
+        "default/bootstrap-ehealth.css",
+        "fonts/Cabin-Bold.eot",
+        "fonts/Cabin-Bold.otf",
+        "fonts/Cabin-Bold.ttf",
+        "fonts/Cabin-BoldItalic.eot",
+        "fonts/Cabin-BoldItalic.otf",
+        "fonts/Cabin-BoldItalic.ttf",
+        "fonts/Cabin-Italic.eot",
+        "fonts/Cabin-Italic.otf",
+        "fonts/Cabin-Italic.ttf",
+        "fonts/Cabin-Medium.eot",
+        "fonts/Cabin-Medium.otf",
+        "fonts/Cabin-Medium.ttf",
+        "fonts/Cabin-MediumItalic.eot",
+        "fonts/Cabin-MediumItalic.otf",
+        "fonts/Cabin-MediumItalic.ttf",
+        "fonts/Cabin-Regular.eot",
+        "fonts/Cabin-Regular.otf",
+        "fonts/Cabin-Regular.ttf",
+        "fonts/Cabin-SemiBold.eot",
+        "fonts/Cabin-SemiBold.otf",
+        "fonts/Cabin-SemiBold.ttf",
+        "fonts/Cabin-SemiBoldItalic.eot",
+        "fonts/Cabin-SemiBoldItalic.otf",
+        "fonts/Cabin-SemiBoldItalic.ttf"
+      ]
     }
   },
   "authors": [

@@ -1,5 +1,6 @@
 {
  "plugins": [
-   "org.apache.cordova.network-information"
+   "org.apache.cordova.network-information",
+   "https://github.com/danwilson/google-analytics-plugin.git"
  ]
 }

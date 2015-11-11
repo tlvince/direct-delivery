@@ -1,5 +1,4 @@
 // Override Sass dependency variables
-$icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 $fa-font-path: "../../bower_components/font-awesome/fonts";
 
 $font-size-base: 16px;
@@ -8,9 +7,12 @@ $font-size-base: 16px;
 // bower:scss
 // endbower
 
-.content {
+.page-content {
   margin-bottom: 20px;
-  padding-top: 50px;
+}
+
+.page-header {
+  margin-top: 0;
 }
 
 .highlight-onhand-qty {

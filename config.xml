@@ -1,17 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.ehealthafrica.direct_delivery" version="2.0.1">
-  <name>Direct Delivery</name>
-  <description>
-    User-centred direct delivery management.
-  </description>
-  <author email="support@ehealthafrica.org" href="http://ehealthafrica.org">
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.ehealthafrica.direct_delivery" version="2.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Direct Delivery</name>
+    <description>User-centred direct delivery management.</description>
+    <author email="support@ehealthafrica.org" href="http://ehealthafrica.org">
     eHealth Africa
   </author>
-  <feature name="NetworkStatus">
-    <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager"/>
-  </feature>
-  <content src="index.html"/>
-  <access origin="http://localhost:5984/*"/>
-  <access origin="https://dev.couchdb.ebola.eocng.org/*"/>
-  <access origin="https://couchdb.ebola.eocng.org/*"/>
+    <feature name="NetworkStatus">
+        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    </feature>
+    <content src="index.html" />
+    <access origin="http://localhost:5984/*" />
+    <access origin="https://dev.couchdb.ebola.eocng.org/*" />
+    <access origin="https://couchdb.ebola.eocng.org/*" />
+    <preference name="xwalkVersion" value="14+" />
+    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
+    <preference name="xwalkMode" value="embedded" />
 </widget>

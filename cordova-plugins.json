@@ -1,6 +1,8 @@
 {
  "plugins": [
-   "org.apache.cordova.network-information",
-   "https://github.com/danwilson/google-analytics-plugin.git"
+   "cordova-plugin-network-information@1.0.1",
+   "cordova-plugin-crosswalk-webview@1.3.1",
+   "cordova-plugin-whitelist@1.0.0",
+   "cordova-plugin-google-analytics@0.7.1"
  ]
 }

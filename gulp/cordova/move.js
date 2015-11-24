@@ -27,7 +27,7 @@ function formatAPKPath(pkg, arch, cb) {
     gutil.colors.blue(apkPath.from),
     'to',
     gutil.colors.green(apkPath.to)
-  ].join('');
+  ].join(' ');
 
   gutil.log(message);
   cb(null, apkPath);

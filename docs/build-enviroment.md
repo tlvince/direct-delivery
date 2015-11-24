@@ -77,8 +77,24 @@ folder.
 [android-packages]: https://developer.android.com/sdk/installing/adding-packages.html
 
 The next bit is slightly confusing: a bunch of stuff is pre-selected, but *not
-preinstalled*. Make sure the latest Android SDK Tools, platform-tools,
-build-tools and SDK platform is installed for `Android 5.0.1 (API 21)`.
+preinstalled*.
+
+Under the `Tools` folder, select the following:
+
+* Android SDK Tools
+* Android SDK Platform-tools
+* Android SDK Build-tools
+
+Under the `Android 5.1.1 (API 22)` folder, select the following:
+
+* SDK Platform
+
+Under the `extras` folder, select the following:
+
+* Android Support Repository
+* Android Support Library
+* Google Play Services
+* Google Repository
 
 Click `Install n packages` to continue. Accept the license agreement and make
 some tea. Then you can finally continue the [build][] steps.

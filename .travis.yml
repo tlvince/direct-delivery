@@ -3,6 +3,9 @@ language: android
 android:
   components:
     - android-22
+    - extra-android-support
+    - extra-google-google_play_services
+    - extra-google-m2repository
 node_js:
   - '0.10'
 cache:

@@ -9,20 +9,43 @@ var async = require('async');
 
 var common = require('../../gulp/common');
 
-function formatAPKPaths(pkg, cb) {
+function formatAPKPath(pkg, arch, cb) {
   var apkPath = {
-    from: '../cordova/platforms/android/bin/DirectDelivery',
-    to: 'build/' + pkg.name
+    from: '../cordova/platforms/android/build/outputs/apk/android-' + arch,
+    to: 'build/' + pkg.name + '-' + arch
   };
   if (argv.release || common.build.release) {
     apkPath.from += '-release.apk';
-    apkPath.to += '-v' + pkg.version + '.apk';
+    apkPath.to += '-release-v' + pkg.version + '.apk';
   } else {
     apkPath.from += '-debug.apk';
-    apkPath.to += '-' + common.now() + '.apk';
+    apkPath.to += '-debug-' + common.now() + '.apk';
   }
-  gutil.log('Symlinking APK to', gutil.colors.green(apkPath.to));
+
+  var message = [
+    'Symlinking',
+    gutil.colors.blue(apkPath.from),
+    'to',
+    gutil.colors.green(apkPath.to)
+  ].join('');
+
+  gutil.log(message);
   cb(null, apkPath);
+}
+
+function formatAPKPaths(pkg, cb) {
+  var architectures = [
+    'x86',
+    'armv7'
+  ];
+
+  function bindArch(arch) {
+    return formatAPKPath.bind(null, pkg, arch);
+  }
+
+  var steps = architectures.map(bindArch);
+
+  async.parallel(steps, cb);
 }
 
 function cleanBuild(cb) {
@@ -33,8 +56,14 @@ function initBuild(cb) {
   fs.mkdir('build', cb);
 }
 
-function symlinkAPK(apkPath, cb) {
-  fs.symlink(apkPath.from, apkPath.to, cb);
+function symlinkAPK(apkPaths, cb) {
+  function bindSymlink(apkPath) {
+    return fs.symlink.bind(null, apkPath.from, apkPath.to);
+  }
+
+  var steps = apkPaths.map(bindSymlink);
+
+  async.parallel(steps, cb);
 }
 
 function cordovaMove(done) {
@@ -49,4 +78,4 @@ function cordovaMove(done) {
   async.waterfall(steps, done);
 }
 
-gulp.task('cordova-move', ['cordova-build'], cordovaMove);
+gulp.task('cordova-move', cordovaMove);

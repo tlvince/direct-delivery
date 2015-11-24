@@ -78,4 +78,4 @@ function cordovaMove(done) {
   async.waterfall(steps, done);
 }
 
-gulp.task('cordova-move', cordovaMove);
+gulp.task('cordova-move', ['cordova-build'], cordovaMove);

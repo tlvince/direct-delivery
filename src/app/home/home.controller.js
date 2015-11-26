@@ -9,7 +9,8 @@ angular.module('home')
     $rootScope,
     $scope,
     HOME_TABS,
-    $window
+    $window,
+    log
   ) {
     var vm = this;
     var unbind = {};
@@ -20,6 +21,13 @@ angular.module('home')
 
     function processEvent(event, data) {
       vm.syncInProgress = coreService.getSyncInProgress();
+      if (event && event.name === SYNC_STATUS.ERROR) {
+        var reason;
+        if (data && data.msg && data.msg.message) {
+          reason = 'The error message was "' + data.msg.message + '"';
+        }
+        log.error('coreDocsRetrievalFailed', data, reason);
+      }
     }
 
     function addSyncListeners() {

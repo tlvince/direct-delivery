@@ -121,5 +121,10 @@ angular.module('log')
 				title: 'Save returned stock failed',
 				message: 'Please try again',
 				remedy: 'If you this continues, please contact support'
-			}
+			},
+      coreDocsRetrievalFailed: {
+        title: 'Core sync failed',
+        message: 'Could not synchronise core documents',
+        remedy: 'Please contact support'
+      }
 		});

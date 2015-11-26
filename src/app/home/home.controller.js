@@ -1,7 +1,16 @@
 'use strict';
 
 angular.module('home')
-  .controller('HomeCtrl', function (dailySchedule, coreService, AuthService, SYNC_STATUS, $rootScope, $scope, HOME_TABS, $window) {
+  .controller('HomeCtrl', function (
+    dailySchedule,
+    coreService,
+    AuthService,
+    SYNC_STATUS,
+    $rootScope,
+    $scope,
+    HOME_TABS,
+    $window
+  ) {
     var vm = this;
     var unbind = {};
     vm.today = new Date();

@@ -1,7 +1,17 @@
 'use strict';
 
 angular.module('home')
-  .controller('HomeCtrl', function (dailySchedule, coreService, AuthService, SYNC_STATUS, $rootScope, $scope, HOME_TABS, $window) {
+  .controller('HomeCtrl', function (
+    dailySchedule,
+    coreService,
+    AuthService,
+    SYNC_STATUS,
+    $rootScope,
+    $scope,
+    HOME_TABS,
+    $window,
+    log
+  ) {
     var vm = this;
     var unbind = {};
     vm.today = new Date();
@@ -11,6 +21,13 @@ angular.module('home')
 
     function processEvent(event, data) {
       vm.syncInProgress = coreService.getSyncInProgress();
+      if (event && event.name === SYNC_STATUS.ERROR) {
+        var reason;
+        if (data && data.msg && data.msg.message) {
+          reason = 'The error message was "' + data.msg.message + '"';
+        }
+        log.error('coreDocsRetrievalFailed', data, reason);
+      }
     }
 
     function addSyncListeners() {

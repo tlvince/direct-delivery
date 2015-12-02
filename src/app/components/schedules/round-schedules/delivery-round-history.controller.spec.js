@@ -11,7 +11,7 @@ describe('DeliveryRoundHistoryCtrl', function() {
 
   beforeEach(inject(function($controller, _dailyDeliveryMock_, _$state_) {
 
-    facilityRound = angular.copy(_dailyDeliveryMock_.facilityRounds[0]);
+    facilityRound = angular.copy(_dailyDeliveryMock_[0]);
     $state = _$state_;
     $state.params.roundId = _dailyDeliveryMock_.deliveryRoundID;
 

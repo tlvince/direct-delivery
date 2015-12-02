@@ -222,7 +222,7 @@ angular.module('core')
     };
 
     _this.replicateToRemote = function () {
-      var docTypes = ['dailyDelivery', 'kpi'];
+      var docTypes = ['dailyDelivery', 'kpi', 'packingList'];
       var options = {
         live: true,
         filter: 'docs/by-doc-type-not-deleted',

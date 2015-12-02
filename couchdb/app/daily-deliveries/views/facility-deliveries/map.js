@@ -4,8 +4,13 @@
 
 function(doc){
   if(doc.doc_type === "dailyDelivery"){
-    doc.facilityRounds.forEach(function(row){
-      emit([row.facility.id, doc._id]);
-    })
+    if (doc.hasOwnProperty('facilityRounds')) {
+      doc.facilityRounds.forEach(function(row){
+        emit([row.facility.id, doc._id]);
+      })
+    } else {
+      emit([doc.facility.id, doc._id]);
+    }
+
   }
 }

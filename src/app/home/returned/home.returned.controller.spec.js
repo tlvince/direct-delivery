@@ -33,7 +33,7 @@ describe('PackingAllCtrl', function() {
 	});
 
 	it('Should set ReturnedCtrl.productLength to packingList.length', function(){
-		expect(ReturnedCtrl.productLength).toBeDefined(dailySchedule.packingList.length);
+		expect(ReturnedCtrl.productLength).toBeDefined(dailySchedule[0].packingList.length);
 	});
 
 });

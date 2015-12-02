@@ -35,7 +35,7 @@ describe('deliveryService', function () {
 
   describe('initArrivalTime', function() {
     it('set arrivedAt property to arrivalTime if not set already', function(){
-      var facRnd = angular.copy(deliveryMock.facilityRounds[2]);//pick first round
+      var facRnd = angular.copy(deliveryMock[2]);//pick first round
       var arrivalTime = new Date().toJSON();
       expect(utility.isValidDate(facRnd.arrivedAt)).toBeFalsy();
       var facRnd = deliveryService.initArrivalTime(facRnd, arrivalTime);
@@ -43,7 +43,7 @@ describe('deliveryService', function () {
     });
 
     it('Should not reset facRnd.arrivedAt if already set correctly', function() {
-      var facRnd = angular.copy(deliveryMock.facilityRounds[2]);//pick first round
+      var facRnd = angular.copy(deliveryMock[2]);//pick first round
       var arrivalTime = new Date().toJSON();
       facRnd.arrivedAt = new Date('2015-05-29');
       expect(utility.isValidDate(facRnd.arrivedAt)).toBeTruthy();
@@ -86,20 +86,49 @@ describe('deliveryService', function () {
   describe('updateFacilityRound()', function(){
 
     it('should update a given dailyDelivery\'s facility round', function(){
-      var facRound = angular.copy(deliveryMock.facilityRounds[0]);
+      var facRound = angular.copy(deliveryMock[0]);
       facRound.status = DELIVERY_STATUS.SUCCESS_FIRST;
-      expect(deliveryMock.facilityRounds[0].status).not.toBe(DELIVERY_STATUS.SUCCESS_FIRST);
-      deliveryService.updateFacilityRound(deliveryMock, facRound);
-      expect(deliveryMock.facilityRounds[0].status).toBe(DELIVERY_STATUS.SUCCESS_FIRST);
+      expect(deliveryMock[0].status).not.toBe(DELIVERY_STATUS.SUCCESS_FIRST);
+      deliveryMock[0] = deliveryService.updateFacilityRound(deliveryMock, facRound);
+      expect(deliveryMock[0].status).toBe(DELIVERY_STATUS.SUCCESS_FIRST);
     });
 
-    it('should add facRnd to dailyDelivery.facilityRounds list if it does not exist already', function(){
-      var newFacRnd = angular.copy(deliveryMock.facilityRounds[0]);
+    //test was disabled as method behaviour changed
+    xit('should add facRnd to dailyDelivery list if it does not exist already', function(){
+      var newFacRnd = angular.copy(deliveryMock[0]);
       newFacRnd.facility.id = 'New-HF-UUID';
-      var nrOfFacRnds = deliveryMock.facilityRounds.length;
+      var nrOfFacRnds = deliveryMock.length;
       var dailyDelivery = deliveryService.updateFacilityRound(deliveryMock, newFacRnd);
-      var currentNrOfFacRnds = dailyDelivery.facilityRounds.length;
+      var currentNrOfFacRnds = dailyDelivery.length;
       expect(currentNrOfFacRnds).toBeGreaterThan(nrOfFacRnds);
+    });
+
+    it('should regroup list to an object if they have same _id', function () {
+      var mockDelivery = [
+        {
+          _id: 'bc10',
+          facility: {
+            id: '1'
+          }
+        },
+        {
+          _id: 'bc10',
+          facility: {
+            id: '2'
+          }
+        },
+        {
+          _id: 'bc10',
+          facility: {
+            id: '3'
+          }
+        }
+      ];
+      var target = angular.copy(mockDelivery[1]);
+      target.facility.name = 'updated';
+      var dailyDelivery = deliveryService.updateFacilityRound(mockDelivery, target);
+      expect(dailyDelivery.facilityRounds).toBeDefined();
+      expect(dailyDelivery.facilityRounds.length).toEqual(mockDelivery.length);
     });
 
   });
@@ -107,7 +136,7 @@ describe('deliveryService', function () {
   describe('filterByFacility()', function(){
 
     it('should return a list of FacilityRounds for a given facility id and daily delivery', function(){
-      var facilityID = deliveryMock.facilityRounds[0].facility.id;
+      var facilityID = deliveryMock[0].facility.id;
       var result = deliveryService.filterByFacility(deliveryMock, facilityID);
       expect(result.length).toBeGreaterThan(0);
     });
@@ -122,16 +151,16 @@ describe('deliveryService', function () {
   describe('calcQty()', function(){
 
     it('Should returned expected deliveredQty as multiple of presentation.', function(){
-      var packedProduct = angular.copy(deliveryMock.facilityRounds[0].packedProduct[0]);
+      var packedProduct = angular.copy(deliveryMock[0].packedProduct[0]);
       packedProduct.onHandQty = 20;
       //expected(70) - onhand(20) = 50 when round off by presentation(20) = 60
-      var expectedDeliveredQty = 50;
+      var expectedDeliveredQty = 60;
       var res = deliveryService.calcQty(packedProduct);
       expect(expectedDeliveredQty).toBe(res.deliveredQty);
     });
 
     it('should return exact delivered qty if it is a multiple of presentation size.', function(){
-      var packedProduct = angular.copy(deliveryMock.facilityRounds[0].packedProduct[0]);
+      var packedProduct = angular.copy(deliveryMock[0].packedProduct[0]);
       packedProduct.onHandQty = 30;
       var expectedDeliveredQty = 40;
       var res = deliveryService.calcQty(packedProduct);
@@ -142,7 +171,7 @@ describe('deliveryService', function () {
   describe('initReturnedQty()', function(){
 
     it('should initialize returnedQty to zero if it not already a Number', function(){
-      var packedProducts = angular.copy(deliveryMock.facilityRounds[0].packedProduct);
+      var packedProducts = angular.copy(deliveryMock[0].packedProduct);
       packedProducts[0].returnedQty = '12';
       expect(angular.isNumber(packedProducts[0].returnedQty)).toBeFalsy();
       var res = deliveryService.initReturnedQty(packedProducts);
@@ -150,7 +179,7 @@ describe('deliveryService', function () {
     });
 
     it('should Not over-write packedProduct.returnedQty if it is a Number.', function(){
-      var packedProducts = angular.copy(deliveryMock.facilityRounds[0].packedProduct);
+      var packedProducts = angular.copy(deliveryMock[0].packedProduct);
       var expectedValue = 36;
       packedProducts[0].returnedQty = expectedValue;
       expect(angular.isNumber(packedProducts[0].returnedQty)).toBeTruthy();
@@ -188,7 +217,7 @@ describe('deliveryService', function () {
   describe('setSuccessStatus()', function(){
 
     it('Should set status to SUCCESS_FIRST if current status is UPCOMING_FIRST', function(){
-      var facRnd = angular.copy(deliveryMock.facilityRounds[0]);
+      var facRnd = angular.copy(deliveryMock[0]);
       facRnd.status = DELIVERY_STATUS.UPCOMING_FIRST;
       deliveryService.setSuccessStatus(facRnd);
       expect(facRnd.status).toBe(DELIVERY_STATUS.SUCCESS_FIRST);
@@ -197,7 +226,7 @@ describe('deliveryService', function () {
 
     it('Should set status to DELIVERY_STATUS.SUCCESS_SECOND, ' +
     'if current status is DELIVERY_STATUS.UPCOMING_SECOND', function(){
-      var facRnd = angular.copy(deliveryMock.facilityRounds[0]);
+      var facRnd = angular.copy(deliveryMock[0]);
       facRnd.status = DELIVERY_STATUS.UPCOMING_SECOND;
       deliveryService.setSuccessStatus(facRnd);
       expect(facRnd.status).toBe(DELIVERY_STATUS.SUCCESS_SECOND);

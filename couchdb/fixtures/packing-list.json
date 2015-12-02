@@ -1,0 +1,102 @@
+{
+  "docs": [
+    {
+      "_id": "13532ef18167159a92a25093aedf81cf",
+      "packingList": [
+        {
+          "expectedQty": 640,
+          "productID": "BCG",
+          "storageID": "product-storage/frozen"
+        },
+        {
+          "expectedQty": 580,
+          "productID": "MV",
+          "storageID": "product-storage/frozen"
+        },
+        {
+          "expectedQty": 580,
+          "productID": "YF",
+          "storageID": "product-storage/frozen"
+        },
+        {
+          "expectedQty": 1800,
+          "productID": "OPV",
+          "storageID": "product-storage/frozen"
+        },
+        {
+          "expectedQty": 390,
+          "productID": "IPV",
+          "storageID": "product-storage/refrigerator"
+        },
+        {
+          "expectedQty": 2000,
+          "productID": "TT",
+          "storageID": "product-storage/refrigerator"
+        },
+        {
+          "expectedQty": 1160,
+          "productID": "Penta",
+          "storageID": "product-storage/refrigerator"
+        },
+        {
+          "expectedQty": 580,
+          "productID": "HBV",
+          "storageID": "product-storage/refrigerator"
+        },
+        {
+          "expectedQty": 58,
+          "productID": "YF Dil",
+          "storageID": "product-storage/refrigerator"
+        },
+        {
+          "expectedQty": 58,
+          "productID": "MV Dil",
+          "storageID": "product-storage/refrigerator"
+        },
+        {
+          "expectedQty": 32,
+          "productID": "BCG Dil",
+          "storageID": "product-storage/refrigerator"
+        },
+        {
+          "expectedQty": 704,
+          "productID": "0.05ml",
+          "storageID": "product-storage/dry"
+        },
+        {
+          "expectedQty": 5819,
+          "productID": "0.5ml",
+          "storageID": "product-storage/dry"
+        },
+        {
+          "expectedQty": 37,
+          "productID": "RC 2ml",
+          "storageID": "product-storage/dry"
+        },
+        {
+          "expectedQty": 131,
+          "productID": "RC 5ml",
+          "storageID": "product-storage/dry"
+        },
+        {
+          "expectedQty": 77,
+          "productID": "Safety Boxes",
+          "storageID": "product-storage/dry"
+        },
+        {
+          "expectedQty": 90,
+          "productID": "Droppers",
+          "storageID": "product-storage/dry"
+        },
+        {
+          "expectedQty": 640,
+          "productID": "Cards",
+          "storageID": "product-storage/dry"
+        }
+      ],
+      "date": "2015-11-06",
+      "doc_type": "packingList",
+      "driverID": "a@a.com"
+    }
+  ]
+}

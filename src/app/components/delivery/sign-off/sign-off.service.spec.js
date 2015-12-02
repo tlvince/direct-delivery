@@ -34,21 +34,21 @@ describe('signOffService', function () {
 
     it('should call deliveryService.setSuccessStatus', function(){
       expect(deliveryService.setSuccessStatus).not.toHaveBeenCalled();
-      var facilityRound = dailyDelivery.facilityRounds[0];
+      var facilityRound = dailyDelivery[0];
       signOffService.signOff(dailyDelivery, facilityRound, signature);
       expect(deliveryService.setSuccessStatus).toHaveBeenCalled();
     });
 
     it('Should call deliveryService.updateFacilityRound', function(){
       expect(deliveryService.updateFacilityRound).not.toHaveBeenCalled();
-      var facilityRound = dailyDelivery.facilityRounds[0];
+      var facilityRound = dailyDelivery[0];
       signOffService.signOff(dailyDelivery, facilityRound, signature);
       expect(deliveryService.setSuccessStatus).toHaveBeenCalled();
     });
 
     it('Should call deliveryService.save', function() {
       expect(deliveryService.save).not.toHaveBeenCalled();
-      var facilityRound = dailyDelivery.facilityRounds[0];
+      var facilityRound = dailyDelivery[0];
       signOffService.signOff(dailyDelivery, facilityRound, signature);
       expect(deliveryService.save).toHaveBeenCalled();
     });

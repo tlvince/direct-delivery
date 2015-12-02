@@ -21,10 +21,10 @@
         <th>Action</th>
       </tr>
     </thead>
-    <tr ng-repeat="facilityRound in homeScheduleCtrl.day.facilityRounds track by $index">
+    <tr ng-repeat="facilityRound in homeScheduleCtrl.day track by $index">
       <td>
         <a ng-bind="facilityRound.facility.name"
-           ui-sref="facilityDelivery.deliverItems({ facilityName : facilityRound.facility.name, facilityId : facilityRound.facility.id })">
+           ui-sref="facilityDelivery.deliverItems({ ddId : facilityRound.facility.name, facilityId : facilityRound.facility.id })">
         </a>
       </td>
       <td ng-bind="facilityRound.drop"></td>
@@ -43,7 +43,7 @@
       <td ng-bind="facilityRound.facility.phoneNo"></td>
       <td>
         <a class="btn btn-primary btn-lg btn-block"
-           ui-sref="facilityDelivery.deliverItems({ facilityName : facilityRound.facility.name, facilityId : facilityRound.facility.id })">
+           ui-sref="facilityDelivery.deliverItems({ ddId : facilityRound.facility.name, facilityId : facilityRound.facility.id })">
           <span>Deliver</span>
         </a>
       </td>

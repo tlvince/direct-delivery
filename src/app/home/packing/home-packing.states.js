@@ -8,16 +8,16 @@ angular.module('home.packing')
       controller: 'PackingTableCtrl',
       controllerAs: 'packingTableCtrl',
       resolve: {
-        dailySchedule: function(log, scheduleService) {
-          function errorHandler(error) {
-            log.info('dailyScheduleRetrival', error);
-            return {};
-          }
-          return scheduleService.getDaySchedule()
-            .catch(errorHandler);
-        },
         productStorages: function(packingTableLegendService) {
           return packingTableLegendService.get();
+        },
+        dailyPacking: function (log, packingTableService) {
+          function errorHandler(error) {
+            log.info('dailyPackingTableRetrieval', error);
+            return {};
+          }
+          return packingTableService.getDayPacking()
+            .catch(errorHandler);
         }
       },
       data: {

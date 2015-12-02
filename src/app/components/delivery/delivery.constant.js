@@ -10,4 +10,22 @@ angular.module('delivery')
     FAILED_CCE: 'Failed: CCE',
     FAILED_STAFF: 'Failed: Staff availability',
     FAILED_OTHER: 'Failed: other'
-  });
+  })
+  .constant('DELIVERY_FIELDS', [
+    'worksheetId',
+    'version',
+    'spreadsheetId',
+    'packingList',
+    'packedDate',
+    'packed',
+    'modifiedOn',
+    'importedAt',
+    'driverID',
+    'dailyDelivery',
+    'doc_type',
+    'deliveryRoundID',
+    'date',
+    'createdOn',
+    '_rev',
+    '_id'
+  ]);

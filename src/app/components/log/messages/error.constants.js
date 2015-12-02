@@ -126,5 +126,10 @@ angular.module('log')
         title: 'Core sync failed',
         message: 'Could not synchronise core documents',
         remedy: 'Please contact support'
-      }
+      },
+			dailyPackingTableRetrieval: {
+				title: 'Daily Packing List',
+				message: 'Could not retrieve your daily packing list',
+				remedy: 'Please check your internet connection and try again'
+			}
 		});

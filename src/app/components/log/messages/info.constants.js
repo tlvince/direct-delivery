@@ -13,5 +13,10 @@ angular.module('log')
     conflictResolved: {
       title: 'Conflict resolved',
       message: 'A record had been changed both on the server and on your local device since the last sync. This has been automatically resolved.'
+    },
+    dailyPackingTableRetrieval: {
+      title: 'Daily Packing List',
+      message: 'Could not retrieve your daily packing list',
+      remedy: 'Please check your internet connection and try again'
     }
   });

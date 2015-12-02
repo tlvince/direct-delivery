@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('delivery')
-  .service('deliveryService', function (dbService, log, $state, DELIVERY_STATUS, utility) {
+  .service('deliveryService', function (dbService, log, $state, DELIVERY_STATUS, utility, DELIVERY_FIELDS) {
 
     var _this = this;
 
@@ -41,20 +41,61 @@ angular.module('delivery')
     };
 
     _this.updateFacilityRound = function (dailyDelivery, facRnd) {
-      var fr;
-      for (var i in dailyDelivery.facilityRounds) {
-        fr = dailyDelivery.facilityRounds[i];
-        if (_this.equalString(fr.facility.id, facRnd.facility.id)) {
-          dailyDelivery.facilityRounds[i] = facRnd;
-          return dailyDelivery;
-        }
-      }
-      dailyDelivery.facilityRounds.push(facRnd);
-      return dailyDelivery;
+
+      return reGroupRoundDoc(dailyDelivery, facRnd);
     };
 
+    function reGroupRoundDoc(dailyDelivery, target) {
+      var grouped = createGroupSource(target);
+      grouped.facilityRounds = [];
+      var idCount = 0;
+      var i = dailyDelivery.length;
+
+      while (i--) {
+        if (dailyDelivery[i]._id === target._id) {
+          idCount ++;
+        }
+
+        if (dailyDelivery[i].facility.id === target.facility.id) {
+          grouped.facilityRounds.push(createFacilityRounds(target));
+        } else {
+          grouped.facilityRounds.push(createFacilityRounds(dailyDelivery[i]));
+        }
+      }
+
+      grouped.facilityRounds.sort(function (a, b) {
+        return a.drop - b.drop;
+      });
+
+      return idCount > 1 ? grouped : target;
+    }
+
+    function createGroupSource(targetObject) {
+      var destination = {};
+
+      var i = DELIVERY_FIELDS.length;
+      while (i--) {
+        if (targetObject.hasOwnProperty(DELIVERY_FIELDS[i])) {
+          destination[DELIVERY_FIELDS[i]] = targetObject[DELIVERY_FIELDS[i]];
+        }
+      }
+      return destination;
+    }
+
+    function createFacilityRounds(row) {
+      var destination = {};
+      var i = DELIVERY_FIELDS.length;
+      for (var key in row) {
+        if (row.hasOwnProperty(key) && DELIVERY_FIELDS.indexOf(key) === -1 ) {
+          destination[key] = row[key];
+        }
+      }
+      return destination;
+    }
+
+
     _this.filterByFacility = function (dd, facilityId) {
-      return dd.facilityRounds
+      return dd
         .filter(function (facRnd) {
           return (facRnd.facility && _this.equalString(facilityId, facRnd.facility.id));
         });

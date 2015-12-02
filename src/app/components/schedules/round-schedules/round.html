@@ -45,7 +45,7 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tr ng-repeat="facilityRound in day.facilityRounds track by $index">
+                  <tr ng-repeat="facilityRound in day track by $index">
                     <td ng-bind="facilityRound.facility.name"></td>
                     <td ng-bind="facilityRound.drop"></td>
                     <td ng-bind="facilityRound.status"

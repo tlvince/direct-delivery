@@ -12,7 +12,28 @@ angular
 						controllerAs: 'facKPICtrl',
 						data: {
 							label: 'Facility KPI'
-						}
+						},
+            resolve: {
+              kpiTemplate : function (facilityKPIService){
+                function handleError(err){
+                  console.error('kpi template error', err)
+                  return [];
+                }
+                return facilityKPIService.getTemplate()
+                  .then(function(response){
+                    return response[0];
+                  })
+                  .catch(handleError)
+              },
+              dailySchedule: function(log, scheduleService) {
+                function errorHandler(error) {
+                  log.info('dailyScheduleRetrival', error);
+                  return {};
+                }
+                return scheduleService.getDaySchedule()
+                  .catch(errorHandler);
+              }
+            }
 					})
 					.state('facilityKPIListView', {
 						parent: 'index',
@@ -29,6 +50,7 @@ angular
 								return facilityKPIService.getByDriverSorted(driverId)
 										.catch(handleError);
 							}
+
 						}
 					});
 		});

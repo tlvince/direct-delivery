@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('kpi')
-		.controller('FacilityKPICtrl', function (facilityKPIService, utility, AuthService, log, $state) {
+		.controller('FacilityKPICtrl', function (facilityKPIService, utility, AuthService, log, $state, dailySchedule, kpiTemplate) {
 
 			var vm = this;
 			var driverId = AuthService.currentUser.name;
@@ -11,6 +11,7 @@ angular.module('kpi')
 
 			function setKPIList(kpiDocs) {
 				vm.kpiList = kpiDocs;
+        return kpiDocs
 			}
 
 			vm.getByDriverAndDate = function () {
@@ -19,10 +20,11 @@ angular.module('kpi')
 				vm.selectedLoadKPI = false;
 				vm.selectedFacility = null;
 				facilityKPIService.getBy(driverId, vm.selectedDate)
-						.then(setKPIList)
-						.catch(function () {
-							setKPIList([]);
-						});
+          .then(fillInEmptyKPI)
+          .then(setKPIList)
+          .catch(function () {
+            setKPIList([]);
+          });
 			};
 
 			vm.getFacilityKPI = function () {
@@ -60,6 +62,10 @@ angular.module('kpi')
 			}
 
 			initialize();
+      function fillInEmptyKPI (){
+        return facilityKPIService.fillInMissingKPI(vm.kpiList, dailySchedule, kpiTemplate)
+      }
+
 
 			vm.togglePreview = function () {
 				vm.previewKPI = !vm.previewKPI;
@@ -129,5 +135,7 @@ angular.module('kpi')
 			vm.hideOptions = function () {
 				return (vm.selectedFacilityId === '' || vm.selectedFacility === null);
 			};
+
+
 
 		});

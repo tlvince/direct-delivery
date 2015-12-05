@@ -3,17 +3,19 @@
 /*global module: false, inject: false */
 
 describe('FacilityKPICtrl', function() {
-  beforeEach(module('kpi', 'facilityKPIMocks'));
+  beforeEach(module('kpi', 'facilityKPIMocks', 'schedules'));
 
   var FacilityKPICtrl;
   var facilityKPIService;
+  var scheduleService;
   var AuthService;
   var utility;
   var driverId = 'test@user.com';
 
-  beforeEach(inject(function($controller, _facilityKPIService_, _AuthService_, _utility_, _log_, _$state_, _facilityKPIMock_, $q) {
+  beforeEach(inject(function($controller, _facilityKPIService_, _AuthService_, _utility_, _log_, _$state_, _facilityKPIMock_, $q, _scheduleService_) {
 
     facilityKPIService = _facilityKPIService_;
+    scheduleService = _scheduleService_;
     AuthService = _AuthService_;
     utility = _utility_;
     AuthService.setCurrentUser({ name: driverId });
@@ -23,7 +25,9 @@ describe('FacilityKPICtrl', function() {
       AuthService: AuthService,
       utility: utility,
       log: _log_,
-      $state: _$state_
+      $state: _$state_,
+      dailySchedule: [],
+      kpiTemplate: {}
     });
 
     spyOn(facilityKPIService, 'isValidKPI').and.callThrough();
@@ -33,6 +37,9 @@ describe('FacilityKPICtrl', function() {
     spyOn(facilityKPIService, 'save').and.callFake(function(){
       return $q.when({});
     });
+    spyOn(scheduleService, 'getDaySchedule').and.callFake(function(){
+      return $q.when([])
+    })
 
   }));
 

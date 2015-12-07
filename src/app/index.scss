@@ -1,6 +1,21 @@
-.content {
+// Override Bower dependency variables
+$fa-font-path: "../../bower_components/font-awesome/fonts";
+$font-size-base: 16px;
+
+// Inject Bower Sass dependencies
+// bower:scss
+// endbower
+
+// Inject app Sass dependencies
+// injector
+// endinjector
+
+.page-content {
   margin-bottom: 20px;
-  padding-top: 50px;
+}
+
+.page-header {
+  margin-top: 0;
 }
 
 .highlight-onhand-qty {
@@ -79,10 +94,3 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   // Webkit browsers
   -webkit-transform: scale(1.5);
 }
-
-// injector
-@import '../components/navbar/navbar.scss';
-@import '../components/packing-table/legend.scss';
-@import '../components/delivery/cancel-delivery/cancel-style.scss';
-@import '../components/delivery/sign-off/sign-off.scss';
-// endinjector

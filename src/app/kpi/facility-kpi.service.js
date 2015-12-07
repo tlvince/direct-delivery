@@ -4,6 +4,7 @@ angular.module('kpi')
   .service('facilityKPIService', function (dbService, pouchUtil, utility) {
 
     var _this = this;
+    var DOC_TYPE = 'kpi'
 
     _this.getBy = function(driverId, date) {
       var view = 'kpi/by-driver-date';
@@ -84,4 +85,50 @@ angular.module('kpi')
           .then(sortByDateDesc);
     };
 
+    _this.getTemplate = function (){
+      var view = 'kpi/by-driver-date' //TODO: point this back to kpi-template/all
+      var params = {}
+      /*eslint-disable camelcase */
+      params.include_docs = true;
+      /*eslint-enable camelcase */
+
+      return dbService.getView(view, params)
+        .then(pouchUtil.pluckDocs);
+    }
+    function hash (driverId, date, facilityId) {
+      return [driverId, date, facilityId].join('-')
+    }
+    function hashKPI (kpiList) {
+      var kpiHash = {}
+      kpiList.forEach(function (kpi) {
+        if (kpi.facility && kpi.facility.id) {
+          var key = hash(kpi.driverID, kpi.date, kpi.facility.id)
+          kpiHash[key] = kpi
+        }
+      })
+      return kpiHash
+    }
+    _this.fillInMissingKPI = function (kpiList, deliveries, kpiTemplate) {
+
+      var result = angular.copy(kpiList)
+      var kpiHash = hashKPI(result)
+
+      deliveries
+        .forEach(function (row) {
+
+          var recordKey = hash(row.driverID, row.date, row.facility.id)
+          if (!kpiHash[recordKey]) {
+            var temp = angular.copy(kpiTemplate)
+            delete temp._id
+            delete temp._rev
+            temp.doc_type = DOC_TYPE
+            temp.date = row.date
+            temp.deliveryRoundID = row.deliveryRoundID
+            temp.driverID = row.driverID
+            temp.facility = row.facility
+            result.push(temp)
+          }
+        })
+      return result
+    }
   });
